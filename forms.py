@@ -26,10 +26,10 @@ from werkzeug.datastructures import FileStorage
 from wtforms.fields import FileField
 
 class CurriculumForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    description = TextAreaField('Description')
-    link = StringField('Link')
-    publisher = StringField('Publisher')
+    name = StringField('Name', validators=[Optional()])
+    description = TextAreaField('Description', validators=[Optional()])
+    link = StringField('Link', validators=[Optional()])
+    publisher = StringField('Publisher', validators=[Optional()])
     xml_file = FileField('Upload XML Curriculum')
     grade_levels = SelectMultipleField('Grade Levels', choices=[
         ('K', 'Kindergarten'),

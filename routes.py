@@ -151,6 +151,7 @@ def new():
     form = CurriculumForm()
     if form.validate_on_submit():
         if form.xml_file.data:
+            # Process XML file upload first
             try:
                 xml_content = form.xml_file.data.read().decode('utf-8')
                 root = ET.fromstring(xml_content)
