@@ -150,7 +150,7 @@ def new():
             name=form.name.data,
             description=form.description.data,
             link=form.link.data,
-            public=form.public.data,
+            public=False,  # All new curriculums start as private
             creator_id=current_user.id,
             publisher=form.publisher.data
         )
@@ -173,7 +173,7 @@ def edit(id):
         curriculum.name = form.name.data
         curriculum.description = form.description.data
         curriculum.link = form.link.data
-        curriculum.public = form.public.data
+        # public status is managed separately, not through the edit form
         curriculum.publisher = form.publisher.data
         db.session.commit()
         flash('Curriculum updated successfully!')
