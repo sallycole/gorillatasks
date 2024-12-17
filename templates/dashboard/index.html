@@ -61,7 +61,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <form method="POST" action="{{ url_for('dashboard.toggle_task', task_id=task.id) }}" class="d-inline">
+                                <form method="POST" action="{{ url_for('dashboard.toggle_task', id=task.id) }}" class="d-inline">
                                     <button type="submit" class="btn btn-sm btn-outline-primary">
                                         {% if status == 'completed' %}
                                         Mark Incomplete
