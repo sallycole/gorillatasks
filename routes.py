@@ -100,11 +100,15 @@ def start_task(id):
         db.session.add(student_task)
     
     if student_task.status == StudentTask.STATUS_NOT_STARTED:
-        # Set all other tasks to inactive
-        StudentTask.query.filter_by(
+        # Mark all tasks in all curriculums as not started
+        student_tasks_in_progress = StudentTask.query.filter_by(
             student_id=current_user.id,
             status=StudentTask.STATUS_IN_PROGRESS
-        ).update({"status": StudentTask.STATUS_NOT_STARTED})
+        ).all()
+        
+        for st in student_tasks_in_progress:
+            st.status = StudentTask.STATUS_NOT_STARTED
+            st.started_at = None
         
         # Set this task as active
         student_task.status = StudentTask.STATUS_IN_PROGRESS

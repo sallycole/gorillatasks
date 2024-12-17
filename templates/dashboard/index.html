@@ -3,17 +3,27 @@
 {% block content %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Check for task URL in flash messages
+    // Check for task URL in flash messages and open in new window
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
                 if (message.startsWith('task_url:')) {
                     const url = message.replace('task_url:', '');
-                    window.open(url, '_blank');
+                    const newWindow = window.open(url, '_blank');
+                    if (newWindow) {
+                        newWindow.focus();
+                    } else {
+                        alert('Please allow popups for this site to open task resources');
+                    }
                 }
             {% endfor %}
         {% endif %}
     {% endwith %}
+
+    // Initialize Feather icons
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
 });
 </script>
 <div class="container">
@@ -66,8 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td>{{ task.title }}</td>
                             <td>
                                 {% with student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                {% set tasks_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|list %}
-                                {% set any_task_in_progress = tasks_in_progress|length > 0 %}
+                                {% set any_task_in_progress = student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|first %}
                                 
                                 {% if student_task %}
                                         {% if student_task.status == StudentTask.STATUS_IN_PROGRESS %}
