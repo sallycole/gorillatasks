@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for task URL in flash messages
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                if (message.startsWith('task_url:')) {
+                    const url = message.replace('task_url:', '');
+                    window.open(url, '_blank');
+                }
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+});
+</script>
 <div class="container">
     <div class="row mb-4">
         <div class="col-12">
@@ -51,43 +66,28 @@
                             <td>{{ task.title }}</td>
                             <td>
                                 {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                {% if student_task %}
-                                    {% if student_task.can_start %}
-                                        <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                <i data-feather="play"></i> Start
-                                            </button>
-                                        </form>
-                                        <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                                <i data-feather="skip-forward"></i> Skip
-                                            </button>
-                                        </form>
-                                    {% elif student_task.can_finish %}
-                                        <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-success">
-                                                <i data-feather="check"></i> Finish
-                                            </button>
-                                        </form>
-                                        <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                            <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                                <i data-feather="skip-forward"></i> Skip
-                                            </button>
-                                        </form>
-                                    {% else %}
-                                        {% if student_task.status == student_task.STATUS_COMPLETED %}
-                                            <span class="badge bg-success">
-                                                <i data-feather="check-circle"></i> Completed
-                                                {% if student_task.time_spent_minutes %}
-                                                    ({{ student_task.time_spent_minutes }} min)
-                                                {% endif %}
-                                            </span>
-                                        {% elif student_task.status == student_task.STATUS_SKIPPED %}
-                                            <span class="badge bg-secondary">
-                                                <i data-feather="skip-forward"></i> Skipped
-                                            </span>
+                                {% if student_task and student_task.status == StudentTask.STATUS_IN_PROGRESS %}
+                                    <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i data-feather="check"></i> Finish
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                            <i data-feather="skip-forward"></i> Skip
+                                        </button>
+                                    </form>
+                                {% elif student_task and student_task.status == StudentTask.STATUS_COMPLETED %}
+                                    <span class="badge bg-success">
+                                        <i data-feather="check-circle"></i> Completed
+                                        {% if student_task.time_spent_minutes %}
+                                            ({{ student_task.time_spent_minutes }} min)
                                         {% endif %}
-                                    {% endif %}
+                                    </span>
+                                {% elif student_task and student_task.status == StudentTask.STATUS_SKIPPED %}
+                                    <span class="badge bg-secondary">
+                                        <i data-feather="skip-forward"></i> Skipped
+                                    </span>
                                 {% else %}
                                     <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
                                         <button type="submit" class="btn btn-sm btn-outline-primary">

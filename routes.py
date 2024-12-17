@@ -141,8 +141,14 @@ def start_task(id):
     student_task.started_at = datetime.utcnow()
     student_task.finished_at = None
     student_task.skipped_at = None
+    student_task.time_spent_minutes = 0
     db.session.commit()
+    
+    # If task has a URL, include it in the response for JavaScript to open
+    if task.link:
+        flash('task_url:' + task.link)
         
+    flash('Task started!')
     return redirect(url_for('dashboard.index'))
 
 @dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
