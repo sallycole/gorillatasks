@@ -90,16 +90,39 @@ class Task(db.Model):
 class StudentTask(db.Model):
     __tablename__ = 'student_tasks'
     
+    # Status Constants
+    STATUS_NOT_STARTED = 0
+    STATUS_IN_PROGRESS = 1
+    STATUS_COMPLETED = 2
+    STATUS_SKIPPED = 3
+    
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
-    status = db.Column(db.Integer, default=0)
+    status = db.Column(db.Integer, default=STATUS_NOT_STARTED)
     started_at = db.Column(db.DateTime)
     finished_at = db.Column(db.DateTime)
     skipped_at = db.Column(db.DateTime)
     time_spent_minutes = db.Column(db.Integer, default=0, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    @property
+    def can_start(self):
+        # Can only start if no other task is in progress and this task isn't completed or skipped
+        return (self.status == self.STATUS_NOT_STARTED and 
+                not StudentTask.query.filter_by(
+                    student_id=self.student_id,
+                    status=self.STATUS_IN_PROGRESS
+                ).first())
+    
+    @property
+    def can_finish(self):
+        return self.status == self.STATUS_IN_PROGRESS
+        
+    @property
+    def can_skip(self):
+        return self.status in [self.STATUS_NOT_STARTED, self.STATUS_IN_PROGRESS]
 
 class Enrollment(db.Model):
     __tablename__ = 'enrollments'

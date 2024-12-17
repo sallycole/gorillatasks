@@ -111,9 +111,9 @@ def index():
                          task_status=task_status,
                          current_page=current_page)
 
-@dashboard_bp.route('/toggle_task/<int:id>', methods=['POST'])
+@dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
-def toggle_task(id):
+def start_task(id):
     task = Task.query.get_or_404(id)
     student_task = StudentTask.query.filter_by(
         student_id=current_user.id,
@@ -123,15 +123,53 @@ def toggle_task(id):
     if not student_task:
         student_task = StudentTask(
             student_id=current_user.id,
-            task_id=task.id,
-            status=1
+            task_id=task.id
         )
         db.session.add(student_task)
-    else:
-        # Toggle between completed (2) and not started (0)
-        student_task.status = 2 if student_task.status != 2 else 0
+    
+    if student_task.can_start:
+        student_task.status = StudentTask.STATUS_IN_PROGRESS
+        student_task.started_at = datetime.utcnow()
+        student_task.finished_at = None
+        student_task.skipped_at = None
+        db.session.commit()
         
-    db.session.commit()
+    return redirect(url_for('dashboard.index'))
+
+@dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
+@login_required
+def finish_task(id):
+    student_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        task_id=id
+    ).first_or_404()
+    
+    if student_task.can_finish:
+        student_task.status = StudentTask.STATUS_COMPLETED
+        student_task.finished_at = datetime.utcnow()
+        if student_task.started_at:
+            delta = student_task.finished_at - student_task.started_at
+            student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+        db.session.commit()
+        
+    return redirect(url_for('dashboard.index'))
+
+@dashboard_bp.route('/skip_task/<int:id>', methods=['POST'])
+@login_required
+def skip_task(id):
+    student_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        task_id=id
+    ).first_or_404()
+    
+    if student_task.can_skip:
+        student_task.status = StudentTask.STATUS_SKIPPED
+        student_task.skipped_at = datetime.utcnow()
+        student_task.started_at = None
+        student_task.finished_at = None
+        student_task.time_spent_minutes = 0
+        db.session.commit()
+        
     return redirect(url_for('dashboard.index'))
 
 # Curriculum routes
