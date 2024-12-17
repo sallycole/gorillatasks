@@ -141,23 +141,68 @@ def list():
     curriculums = Curriculum.query.all()
     return render_template('curriculum/list.html', curriculums=curriculums)
 
+import xml.etree.ElementTree as ET
+from werkzeug.utils import secure_filename
+import os
+
 @curriculum_bp.route('/new', methods=['GET', 'POST'])
 @login_required
 def new():
     form = CurriculumForm()
     if form.validate_on_submit():
-        curriculum = Curriculum(
-            name=form.name.data,
-            description=form.description.data,
-            link=form.link.data,
-            public=False,  # All new curriculums start as private
-            creator_id=current_user.id,
-            publisher=form.publisher.data
-        )
-        db.session.add(curriculum)
-        db.session.commit()
-        flash('Curriculum created successfully!')
-        return redirect(url_for('curriculum.list'))
+        if form.xml_file.data:
+            try:
+                xml_content = form.xml_file.data.read().decode('utf-8')
+                root = ET.fromstring(xml_content)
+                
+                # Extract curriculum data from XML
+                curriculum = Curriculum(
+                    name=root.find('name').text.strip(),
+                    description=root.find('description').text.strip(),
+                    link=root.find('link').text.strip() if root.find('link') is not None else None,
+                    public=False,  # All new curriculums start as private
+                    creator_id=current_user.id,
+                    publisher=root.find('publisher').text.strip() if root.find('publisher') is not None else None
+                )
+                db.session.add(curriculum)
+                db.session.flush()  # Get curriculum.id without committing
+                
+                # Process tasks
+                tasks_element = root.find('tasks')
+                if tasks_element is not None:
+                    position = 1
+                    for task_elem in tasks_element.findall('task'):
+                        task = Task(
+                            curriculum_id=curriculum.id,
+                            title=task_elem.find('title').text.strip(),
+                            description=task_elem.find('description').text.strip() if task_elem.find('description').text else '',
+                            link=task_elem.find('url').text.strip() if task_elem.find('url') is not None else None,
+                            position=position
+                        )
+                        db.session.add(task)
+                        position += 1
+                
+                db.session.commit()
+                flash('Curriculum and tasks created successfully from XML!')
+                return redirect(url_for('curriculum.list'))
+            except Exception as e:
+                db.session.rollback()
+                flash(f'Error processing XML file: {str(e)}', 'error')
+                return render_template('curriculum/edit.html', form=form)
+        else:
+            # Handle manual curriculum creation
+            curriculum = Curriculum(
+                name=form.name.data,
+                description=form.description.data,
+                link=form.link.data,
+                public=False,  # All new curriculums start as private
+                creator_id=current_user.id,
+                publisher=form.publisher.data
+            )
+            db.session.add(curriculum)
+            db.session.commit()
+            flash('Curriculum created successfully!')
+            return redirect(url_for('curriculum.list'))
     return render_template('curriculum/edit.html', form=form)
 
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])

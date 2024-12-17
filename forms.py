@@ -22,11 +22,15 @@ class RegisterForm(FlaskForm):
 class ProfileForm(FlaskForm):
     bio = TextAreaField('Bio')
     
+from werkzeug.datastructures import FileStorage
+from wtforms.fields import FileField
+
 class CurriculumForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = TextAreaField('Description')
     link = StringField('Link')
     publisher = StringField('Publisher')
+    xml_file = FileField('Upload XML Curriculum')
     grade_levels = SelectMultipleField('Grade Levels', choices=[
         ('K', 'Kindergarten'),
         ('1', '1st Grade'),

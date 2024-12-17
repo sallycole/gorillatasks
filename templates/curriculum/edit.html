@@ -10,8 +10,13 @@
                 </h3>
             </div>
             <div class="card-body">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ form.xml_file.label(class="form-label") }}
+                        {{ form.xml_file(class="form-control") }}
+                        <div class="form-text">Upload an XML file to create a curriculum with tasks, or fill out the form below to create manually.</div>
+                    </div>
                     <div class="mb-3">
                         {{ form.name.label(class="form-label") }}
                         {{ form.name(class="form-control") }}
