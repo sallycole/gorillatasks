@@ -41,8 +41,7 @@ class CurriculumForm(FlaskForm):
         ('10', '10th Grade'),
         ('11', '11th Grade'),
         ('12', '12th Grade'),
-        ('College', 'College'),
-        ('All', 'All Grades')
+        ('College', 'College')
     ])
 
 class TaskForm(FlaskForm):
