@@ -57,64 +57,42 @@ def logout():
 @dashboard_bp.route('/')
 @login_required
 def index():
-    page = request.args.get('page', 1, type=int)
-    curriculum_id = request.args.get('curriculum_id', type=int)
-    
     # Get user's enrollments
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
     
-    # Initialize statistics dictionaries
+    # Initialize statistics dictionary
     tasks_stats = {}
-    task_status = {}
-    current_page = {}
     
     for enrollment in enrollments:
-        # Get tasks for this enrollment with pagination
-        tasks_query = Task.query.filter_by(curriculum_id=enrollment.curriculum_id)
-        total_tasks = tasks_query.count()
-        
-        if curriculum_id == enrollment.id:
-            current_page[enrollment.id] = page
-            tasks = tasks_query.offset((page - 1) * 10).limit(10).all()
-        else:
-            current_page[enrollment.id] = 1
-            tasks = tasks_query.limit(10).all()
-        
-        # Calculate statistics
+        total_tasks = Task.query.filter_by(curriculum_id=enrollment.curriculum_id).count()
         completed_tasks = StudentTask.query.filter_by(
             student_id=current_user.id,
-            status=2  # Completed status
+            status=StudentTask.STATUS_COMPLETED
         ).join(Task).filter(Task.curriculum_id == enrollment.curriculum_id).count()
         
         tasks_stats[enrollment.id] = {
             'total': total_tasks,
             'completed': completed_tasks
         }
-        
-        # Get status for displayed tasks
-        for task in tasks:
-            student_task = StudentTask.query.filter_by(
-                student_id=current_user.id,
-                task_id=task.id
-            ).first()
-            
-            if student_task:
-                status = 'completed' if student_task.status == 2 else 'in_progress'
-            else:
-                status = 'not_started'
-            
-            task_status[(enrollment.id, task.id)] = status
     
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
-                         task_status=task_status,
-                         current_page=current_page,
                          StudentTask=StudentTask)
 
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
+    # Check if user has any task in progress
+    in_progress_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        status=StudentTask.STATUS_IN_PROGRESS
+    ).first()
+    
+    if in_progress_task:
+        flash('Please complete or skip your current task before starting a new one.')
+        return redirect(url_for('dashboard.index'))
+    
     task = Task.query.get_or_404(id)
     student_task = StudentTask.query.filter_by(
         student_id=current_user.id,

@@ -110,18 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <nav aria-label="Task navigation" class="mt-3">
-                <ul class="pagination justify-content-center">
-                    {% for page in range(1, (tasks_stats[enrollment.id]['total'] // 10) + 2) %}
-                    <li class="page-item {% if page == current_page[enrollment.id] %}active{% endif %}">
-                        <a class="page-link" href="{{ url_for('dashboard.index', page=page, curriculum_id=enrollment.id) }}">
-                            {{ page }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </nav>
+            
         </div>
     </div>
     {% endfor %}
