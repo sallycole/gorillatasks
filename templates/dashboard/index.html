@@ -66,42 +66,58 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td>{{ task.title }}</td>
                             <td>
                                 {% with student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|list|first %}
-                                {% with any_task_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|list|first %}
-                                {% if student_task and student_task.status == StudentTask.STATUS_IN_PROGRESS %}
-                                    <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-success">
-                                            <i data-feather="check"></i> Finish
-                                        </button>
-                                    </form>
-                                    <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                            <i data-feather="skip-forward"></i> Skip
-                                        </button>
-                                    </form>
-                                {% elif student_task and student_task.status == StudentTask.STATUS_COMPLETED %}
-                                    <span class="badge bg-success">
-                                        <i data-feather="check-circle"></i> Completed
-                                        {% if student_task.time_spent_minutes %}
-                                            ({{ student_task.time_spent_minutes }} min)
-                                        {% endif %}
-                                    </span>
-                                {% elif student_task and student_task.status == StudentTask.STATUS_SKIPPED %}
-                                    <span class="badge bg-secondary">
-                                        <i data-feather="skip-forward"></i> Skipped
-                                    </span>
+                                {% set any_task_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|list|first %}
+                                
+                                {% if student_task %}
+                                    {% if student_task.status == StudentTask.STATUS_IN_PROGRESS %}
+                                        <!-- Active Task -->
+                                        <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i data-feather="check"></i> Finish
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        </form>
+                                    {% elif student_task.status == StudentTask.STATUS_COMPLETED %}
+                                        <span class="badge bg-success">
+                                            <i data-feather="check-circle"></i> Completed
+                                            {% if student_task.time_spent_minutes %}
+                                                ({{ student_task.time_spent_minutes }} min)
+                                            {% endif %}
+                                        </span>
+                                    {% elif student_task.status == StudentTask.STATUS_SKIPPED %}
+                                        <span class="badge bg-secondary">
+                                            <i data-feather="skip-forward"></i> Skipped
+                                        </span>
+                                    {% else %}
+                                        <!-- Default State - Not Started -->
+                                        <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm {% if any_task_in_progress %}btn-outline-secondary disabled{% else %}btn-outline-primary{% endif %}">
+                                                <i data-feather="play"></i> Start
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary {% if any_task_in_progress %}disabled{% endif %}">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        </form>
+                                    {% endif %}
                                 {% else %}
+                                    <!-- Initialize Task State -->
                                     <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-primary" {% if any_task_in_progress %}disabled{% endif %}>
+                                        <button type="submit" class="btn btn-sm {% if any_task_in_progress %}btn-outline-secondary disabled{% else %}btn-outline-primary{% endif %}">
                                             <i data-feather="play"></i> Start
                                         </button>
                                     </form>
                                     <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary" {% if any_task_in_progress %}disabled{% endif %}>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary {% if any_task_in_progress %}disabled{% endif %}">
                                             <i data-feather="skip-forward"></i> Skip
                                         </button>
                                     </form>
                                 {% endif %}
-                                {% endwith %}
                                 {% endwith %}
                             </td>
                         </tr>
