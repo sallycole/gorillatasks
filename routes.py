@@ -11,6 +11,28 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Blueprint registration
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
+from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from app import db
+from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot
+from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
+from datetime import datetime, timedelta
+import pytz
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Blueprint registration
+auth_bp = Blueprint('auth', __name__)
+curriculum_bp = Blueprint('curriculum', __name__)
+dashboard_bp = Blueprint('dashboard', __name__)
+
+def register_routes(app):
+    @app.route('/')
+    def root():
+        return redirect(url_for('dashboard.index'))
+
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
 dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
@@ -88,7 +110,7 @@ def index():
                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
 
-@dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
+@dashboard_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required
 def start_task(id):
     logger.info(f"Received start_task request for task {id} from user {current_user.id}")
@@ -156,7 +178,7 @@ def start_task(id):
             'message': str(e)
         }), 500
 
-@dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
+@dashboard_bp.route('/task/<int:id>/finish', methods=['POST'])
 @login_required
 def finish_task(id):
     try:
@@ -187,7 +209,7 @@ def finish_task(id):
             'message': str(e)
         }), 500
 
-@dashboard_bp.route('/skip_task/<int:id>', methods=['POST'])
+@dashboard_bp.route('/task/<int:id>/skip', methods=['POST'])
 @login_required
 def skip_task(id):
     try:

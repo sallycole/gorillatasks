@@ -40,17 +40,18 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
     
-    # Register blueprints first
-    from routes import auth_bp, curriculum_bp, dashboard_bp
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(curriculum_bp, url_prefix='/curriculum')
-    app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
-    logger.info("Registered blueprints: auth, curriculum, dashboard")
-    
     with app.app_context():
         try:
-            # Import models
+            # Import models first
             import models  # noqa: F401
+            
+            # Register blueprints after models are imported
+            from routes import auth_bp, curriculum_bp, dashboard_bp, register_routes
+            app.register_blueprint(auth_bp, url_prefix='/auth')
+            app.register_blueprint(curriculum_bp, url_prefix='/curriculum')
+            app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
+            register_routes(app)
+            logger.info("Registered blueprints: auth, curriculum, dashboard")
             
             # Create database tables
             db.create_all()
