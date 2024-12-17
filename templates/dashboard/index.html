@@ -76,18 +76,12 @@ function handleTaskAction(action, taskId) {
         </div>
     `;
     
-    const csrfToken = document.querySelector('meta[name="csrf-token"]');
-    if (!csrfToken) {
-        console.error('CSRF token not found');
-        return;
-    }
-    
-    const token = csrfToken.getAttribute('content');
-    const taskEndpoint = `/dashboard/task/${taskId}/${action}`;
-    
+    // Emit socket event
     socket.emit(action + '_task', { task_id: taskId }, (response) => {
         if (!response) {
-            throw new Error('No response from server');
+            console.error('No response from server');
+            showError(actionDiv, taskId, action);
+            return;
         }
         
         if (response.status === 'success') {
@@ -96,49 +90,23 @@ function handleTaskAction(action, taskId) {
         } else {
             console.error('Task action failed:', response.message);
             alert('Failed to perform action: ' + response.message);
+            showError(actionDiv, taskId, action);
         }
     });
-    .then(data => {
-        console.log('Response data:', data);
-        
-        if (data.status === 'success') {
-            // If starting a task and there's a task URL, open it
-            if (action === 'start' && data.task && data.task.link) {
-                window.open(data.task.link, '_blank');
-            }
-            
-            // Update the button group based on the new state
-            const newHtml = action === 'start' ? `
-                <div class="d-inline-flex gap-2">
-                    <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
-                        <i data-feather="check"></i> Finish
-                    </button>
-                    <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
-                        <i data-feather="skip-forward"></i> Skip
-                    </button>
-                </div>
-            ` : `
-                <div class="d-inline-flex gap-2">
-                    <button onclick="handleTaskAction('start', ${taskId})" class="btn btn-sm btn-outline-primary">
-                        <i data-feather="play"></i> Start
-                    </button>
-                    <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
-                        <i data-feather="skip-forward"></i> Skip
-                    </button>
-                </div>
-            `;
-            
-            actionDiv.innerHTML = newHtml;
-            
-            // Re-initialize Feather icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        } else {
-            console.error('Task action failed:', data.message);
-            alert('Failed to perform action: ' + data.message);
-        }
-    })
+}
+
+function showError(actionDiv, taskId, action) {
+    actionDiv.innerHTML = `
+        <div class="d-inline-flex gap-2">
+            <button onclick="handleTaskAction('${action}', ${taskId})" class="btn btn-sm btn-outline-danger">
+                <i data-feather="alert-triangle"></i> Retry
+            </button>
+        </div>
+    `;
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+}
     .catch(error => {
         console.error('Error performing task action:', error);
         
