@@ -11,10 +11,17 @@ function handleTaskAction(action, taskId) {
         return;
     }
     
-    const taskUrl = actionDiv.getAttribute('data-task-url');
+    const taskUrl = actionDiv.dataset.taskUrl;
     console.log('Task URL:', taskUrl);
     
     fetch(`/dashboard/${action}_task/${taskId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin'
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

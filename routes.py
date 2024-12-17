@@ -84,13 +84,13 @@ def index():
                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
 
-@dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
+@dashboard_bp.route('/dashboard/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
-    app.logger.info(f"Starting task {id} for user {current_user.id}")
+    print(f"Starting task {id} for user {current_user.id}")
     try:
         task = Task.query.get_or_404(id)
-        app.logger.info(f"Found task: {task.title}, URL: {task.link}")
+        print(f"Found task: {task.title}, URL: {task.link}")
         
         # Get or create student task
         student_task = StudentTask.query.filter_by(
