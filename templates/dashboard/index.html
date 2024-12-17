@@ -20,7 +20,7 @@ function handleTaskAction(action, taskId) {
         return;
     }
     const token = csrfToken.getAttribute('content');
-    const taskEndpoint = `/${action}_task/${taskId}`;
+    const taskEndpoint = `/dashboard/${action}_task/${taskId}`;
     console.log('Task endpoint:', taskEndpoint);
     console.log(`Making request to ${taskEndpoint}`);
     fetch(taskEndpoint, {
