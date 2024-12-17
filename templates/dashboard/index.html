@@ -42,7 +42,6 @@
                     <thead>
                         <tr>
                             <th>Task</th>
-                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -50,16 +49,6 @@
                         {% for task in enrollment.curriculum.tasks %}
                         <tr>
                             <td>{{ task.title }}</td>
-                            <td>
-                                {% set status = task_status.get((enrollment.id, task.id)) %}
-                                {% if status == 'completed' %}
-                                <span class="badge bg-success">Completed</span>
-                                {% elif status == 'in_progress' %}
-                                <span class="badge bg-warning">In Progress</span>
-                                {% else %}
-                                <span class="badge bg-secondary">Not Started</span>
-                                {% endif %}
-                            </td>
                             <td>
                                 {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
                                 {% if student_task %}

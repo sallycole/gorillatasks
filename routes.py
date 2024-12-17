@@ -114,6 +114,16 @@ def index():
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
+    # Check if any task is already in progress
+    in_progress_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        status=StudentTask.STATUS_IN_PROGRESS
+    ).first()
+    
+    if in_progress_task:
+        flash('Please complete or skip your current task before starting a new one.')
+        return redirect(url_for('dashboard.index'))
+    
     task = Task.query.get_or_404(id)
     student_task = StudentTask.query.filter_by(
         student_id=current_user.id,
@@ -127,12 +137,11 @@ def start_task(id):
         )
         db.session.add(student_task)
     
-    if student_task.can_start:
-        student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = datetime.utcnow()
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        db.session.commit()
+    student_task.status = StudentTask.STATUS_IN_PROGRESS
+    student_task.started_at = datetime.utcnow()
+    student_task.finished_at = None
+    student_task.skipped_at = None
+    db.session.commit()
         
     return redirect(url_for('dashboard.index'))
 
