@@ -3,22 +3,44 @@
 {% block content %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Check for task URL in flash messages and open in new window
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                if (message.startsWith('task_url:')) {
-                    const url = message.replace('task_url:', '');
-                    const newWindow = window.open(url, '_blank');
-                    if (newWindow) {
-                        newWindow.focus();
-                    } else {
-                        alert('Please allow popups for this site to open task resources');
-                    }
-                }
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    function handleStartTask(event, taskId, resourceUrl) {
+        event.preventDefault();
+        
+        // Launch resource URL in new window if available
+        if (resourceUrl) {
+            const newWindow = window.open(resourceUrl, '_blank');
+            if (newWindow) {
+                newWindow.focus();
+            } else {
+                alert('Please allow popups for this site to open task resources');
+            }
+        }
+        
+        // Get the task row element
+        const taskRow = event.target.closest('tr');
+        const actionCell = taskRow.querySelector('.task-actions');
+        
+        // Update button to show Finish instead of Start
+        actionCell.innerHTML = `
+            <form method="POST" action="/finish_task/${taskId}" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-success">
+                    <i data-feather="check"></i> Finish
+                </button>
+            </form>
+        `;
+        
+        // Re-initialize Feather icons for the new button
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    }
+
+    // Attach event listeners to all start buttons
+    document.querySelectorAll('.start-task-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            handleStartTask(e, this.dataset.taskId, this.dataset.resourceUrl);
+        });
+    });
 
     // Initialize Feather icons
     if (typeof feather !== 'undefined') {
@@ -74,63 +96,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         {% for task in enrollment.curriculum.tasks %}
                         <tr>
                             <td>{{ task.title }}</td>
-                            <td>
-                                {% with student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                {% set any_task_in_progress = student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|first %}
-                                
-                                {% if student_task %}
-                                        {% if student_task.status == StudentTask.STATUS_IN_PROGRESS %}
-                                            <!-- Active Task -->
-                                            <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-success">
-                                                    <i data-feather="check"></i> Finish
-                                                </button>
-                                            </form>
-                                            <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                                    <i data-feather="skip-forward"></i> Skip
-                                                </button>
-                                            </form>
-                                        {% elif student_task.status == StudentTask.STATUS_COMPLETED %}
-                                            <span class="badge bg-success">
-                                                <i data-feather="check-circle"></i> Completed
-                                                {% if student_task.time_spent_minutes %}
-                                                    ({{ student_task.time_spent_minutes }} min)
-                                                {% endif %}
-                                            </span>
-                                        {% elif student_task.status == StudentTask.STATUS_SKIPPED %}
-                                            <span class="badge bg-secondary">
-                                                <i data-feather="skip-forward"></i> Skipped
-                                            </span>
-                                        {% else %}
-                                            <!-- Not Started -->
-                                            <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
-                                                <button type="submit" class="btn btn-sm {% if any_task_in_progress %}btn-outline-secondary{% else %}btn-outline-primary{% endif %}"
-                                                        {% if any_task_in_progress %}disabled{% endif %}>
-                                                    <i data-feather="play"></i> Start
-                                                </button>
-                                            </form>
-                                            <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                                <button type="submit" class="btn btn-sm btn-outline-secondary"
-                                                        {% if any_task_in_progress %}disabled{% endif %}>
-                                                    <i data-feather="skip-forward"></i> Skip
-                                                </button>
-                                            </form>
-                                        {% endif %}
+                            <td class="task-actions">
+                                <!-- Simple Start/Finish button toggle -->
+                                {% if task.status == 'in_progress' %}
+                                    <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i data-feather="check"></i> Finish
+                                        </button>
+                                    </form>
                                 {% else %}
-                                    <!-- Initialize Task State -->
-                                    <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm {% if any_task_in_progress %}btn-outline-secondary disabled{% else %}btn-outline-primary{% endif %}">
-                                            <i data-feather="play"></i> Start
-                                        </button>
-                                    </form>
-                                    <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary {% if any_task_in_progress %}disabled{% endif %}">
-                                            <i data-feather="skip-forward"></i> Skip
-                                        </button>
-                                    </form>
+                                    <button type="button" 
+                                            class="btn btn-sm btn-outline-primary start-task-btn"
+                                            data-task-id="{{ task.id }}"
+                                            data-resource-url="{{ task.link if task.link else '' }}">
+                                        <i data-feather="play"></i> Start
+                                    </button>
                                 {% endif %}
-                                {% endwith %}
                             </td>
                         </tr>
                         {% endfor %}
