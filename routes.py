@@ -6,11 +6,14 @@ from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, Wee
 from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
 from datetime import datetime, timedelta
 import pytz
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Blueprint registration
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
-dashboard_bp = Blueprint('dashboard', __name__)  # Remove prefix to match frontend calls
+dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -88,8 +91,12 @@ def index():
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
+    logger = logging.getLogger(__name__)
+    logger.info(f"Starting task {id} for user {current_user.id}")
+    
     try:
         task = Task.query.get_or_404(id)
+        logger.info(f"Found task: {task.title}")
         
         # Get or create student task
         student_task = StudentTask.query.filter_by(
@@ -98,6 +105,7 @@ def start_task(id):
         ).first()
         
         if not student_task:
+            logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
                 student_id=current_user.id,
                 task_id=task.id,
@@ -117,13 +125,14 @@ def start_task(id):
         
         # Start this task
         student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = datetime.utcnow()
+        student_task.started_at = datetime.now(pytz.UTC)
         student_task.finished_at = None
         student_task.skipped_at = None
         student_task.time_spent_minutes = 0
         
         db.session.commit()
         
+        logger.info(f"Task {id} started successfully")
         return jsonify({
             'status': 'success',
             'message': 'Task started successfully',
@@ -132,6 +141,7 @@ def start_task(id):
         })
         
     except Exception as e:
+        logger.error(f"Error starting task {id}: {str(e)}")
         db.session.rollback()
         return jsonify({
             'status': 'error',
