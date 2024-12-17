@@ -3,114 +3,103 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
-const socket = io();
-
-socket.on('connect', () => {
-    console.log('Connected to WebSocket server');
-});
-
-socket.on('disconnect', () => {
-    console.log('Disconnected from WebSocket server');
-});
-
-socket.on('task_updated', (data) => {
-    console.log('Task updated:', data);
-    updateTaskUI(data);
-});
-
-function updateTaskUI(data) {
-    const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
-    if (!actionDiv) {
-        console.error('Could not find action div for task:', data.task_id);
-        return;
-    }
-
-    let newHtml;
-    if (data.status === {{ STATUS_IN_PROGRESS }}) {
-        newHtml = `
-            <div class="d-inline-flex gap-2">
-                <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
-                    <i data-feather="check"></i> Finish
-                </button>
-                <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
-                    <i data-feather="skip-forward"></i> Skip
-                </button>
-            </div>
-        `;
-        if (data.link) {
-            window.open(data.link, '_blank');
-        }
-    } else {
-        newHtml = `
-            <div class="d-inline-flex gap-2">
-                <button onclick="handleTaskAction('start', ${data.task_id})" class="btn btn-sm btn-outline-primary">
-                    <i data-feather="play"></i> Start
-                </button>
-                <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
-                    <i data-feather="skip-forward"></i> Skip
-                </button>
-            </div>
-        `;
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    const socket = io();
     
-    actionDiv.innerHTML = newHtml;
-    if (typeof feather !== 'undefined') {
-        feather.replace();
-    }
-}
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+    });
 
-function handleTaskAction(action, taskId) {
-    const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
-    if (!actionDiv) {
-        console.error('Could not find action div for task:', taskId);
-        return;
-    }
-    
-    // Show loading state
-    actionDiv.innerHTML = `
-        <div class="d-inline-flex gap-2">
-            <button class="btn btn-sm btn-outline-secondary" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
-            </button>
-        </div>
-    `;
-    
-    // Emit socket event
-    socket.emit(action + '_task', { task_id: taskId }, (response) => {
-        if (!response) {
-            console.error('No response from server');
-            showError(actionDiv, taskId, action);
+    socket.on('disconnect', () => {
+        console.log('Disconnected from WebSocket server');
+    });
+
+    socket.on('task_updated', (data) => {
+        console.log('Task updated:', data);
+        updateTaskUI(data);
+    });
+
+    window.handleTaskAction = function(action, taskId) {
+        console.log(`Handling ${action} for task ${taskId}`);
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
+        if (!actionDiv) {
+            console.error('Could not find action div for task:', taskId);
             return;
         }
         
-        if (response.status === 'success') {
-            console.log('Task action successful:', response);
-            // UI will be updated by the task_updated event handler
-        } else {
-            console.error('Task action failed:', response.message);
-            alert('Failed to perform action: ' + response.message);
-            showError(actionDiv, taskId, action);
-        }
-    });
-}
-
-function showError(actionDiv, taskId, action) {
-    actionDiv.innerHTML = `
-        <div class="d-inline-flex gap-2">
-            <button onclick="handleTaskAction('${action}', ${taskId})" class="btn btn-sm btn-outline-danger">
-                <i data-feather="alert-triangle"></i> Retry
-            </button>
-        </div>
-    `;
-    if (typeof feather !== 'undefined') {
-        feather.replace();
-    }
-}
-    .catch(error => {
-        console.error('Error performing task action:', error);
+        // Show loading state
+        actionDiv.innerHTML = `
+            <div class="d-inline-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+        `;
         
-        // Show error state in the button group
+        // Emit socket event
+        console.log('Emitting socket event:', action + '_task');
+        socket.emit(action + '_task', { task_id: taskId }, (response) => {
+            console.log('Received response:', response);
+            if (!response) {
+                console.error('No response from server');
+                showError(actionDiv, taskId, action);
+                return;
+            }
+            
+            if (response.status === 'success') {
+                console.log('Task action successful:', response);
+                // UI will be updated by the task_updated event handler
+            } else {
+                console.error('Task action failed:', response.message);
+                showError(actionDiv, taskId, action);
+            }
+        });
+    };
+
+    function updateTaskUI(data) {
+        console.log('Updating UI for task:', data);
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
+        if (!actionDiv) {
+            console.error('Could not find action div for task:', data.task_id);
+            return;
+        }
+
+        let newHtml;
+        if (data.status === {{ STATUS_IN_PROGRESS }}) {
+            newHtml = `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
+                        <i data-feather="check"></i> Finish
+                    </button>
+                    <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                </div>
+            `;
+            if (data.link) {
+                window.open(data.link, '_blank');
+            }
+        } else {
+            newHtml = `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('start', ${data.task_id})" class="btn btn-sm btn-outline-primary">
+                        <i data-feather="play"></i> Start
+                    </button>
+                    <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                </div>
+            `;
+        }
+        
+        actionDiv.innerHTML = newHtml;
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    }
+
+    function showError(actionDiv, taskId, action) {
         actionDiv.innerHTML = `
             <div class="d-inline-flex gap-2">
                 <button onclick="handleTaskAction('${action}', ${taskId})" class="btn btn-sm btn-outline-danger">
@@ -118,51 +107,12 @@ function showError(actionDiv, taskId, action) {
                 </button>
             </div>
         `;
-        
-        // Show error toast
-        const errorMessage = error.message || 'An error occurred. Please try again.';
-        const toastContainer = document.getElementById('toast-container') || createToastContainer();
-        const toast = createErrorToast(errorMessage);
-        toastContainer.appendChild(toast);
-        new bootstrap.Toast(toast).show();
-        
-        // Initialize feather icons for the new buttons
         if (typeof feather !== 'undefined') {
             feather.replace();
         }
-    });
-}
+    }
 
-function createToastContainer() {
-    const container = document.createElement('div');
-    container.id = 'toast-container';
-    container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
-    document.body.appendChild(container);
-    return container;
-}
-
-function createErrorToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast align-items-center text-bg-danger border-0';
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-    
-    toast.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body">
-                ${message}
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    `;
-    
-    return toast;
-}
-}
-
-// Initialize Feather icons when the page loads
-document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Feather icons
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
