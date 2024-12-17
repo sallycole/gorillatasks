@@ -78,29 +78,29 @@ def index():
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
-                         StudentTask=StudentTask)
+                         StudentTask=StudentTask,
+                         current_user=current_user)
 
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
-    task = Task.query.get_or_404(id)
-    
-    # Get or create student task
-    student_task = StudentTask.query.filter_by(
-        student_id=current_user.id,
-        task_id=task.id
-    ).first()
-    
-    if not student_task:
-        student_task = StudentTask(
+    try:
+        task = Task.query.get_or_404(id)
+        
+        # Get or create student task
+        student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
-            task_id=task.id,
-            status=StudentTask.STATUS_NOT_STARTED
-        )
-        db.session.add(student_task)
-        db.session.flush()  # Get the ID without committing
-    
-    if student_task.can_start:
+            task_id=task.id
+        ).first()
+        
+        if not student_task:
+            student_task = StudentTask(
+                student_id=current_user.id,
+                task_id=task.id,
+                status=StudentTask.STATUS_NOT_STARTED
+            )
+            db.session.add(student_task)
+        
         # Reset any other in-progress tasks
         StudentTask.query.filter_by(
             student_id=current_user.id,
@@ -123,14 +123,16 @@ def start_task(id):
             'status': 'success',
             'message': 'Task started successfully',
             'task_id': task.id,
-            'task_url': task.link,
+            'task_url': task.link if task.link else None,
             'task_status': StudentTask.STATUS_IN_PROGRESS
         })
-    
-    return jsonify({
-        'status': 'error',
-        'message': 'Task cannot be started'
-    }), 400
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error starting task: {str(e)}")
+        return jsonify({
+            'status': 'error',
+            'message': 'Failed to start task'
+        }), 500
 
 @dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
 @login_required

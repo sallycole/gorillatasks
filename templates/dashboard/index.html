@@ -33,17 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Replace Start button with Finish button
                 buttonContainer.innerHTML = `
-                    <form method="POST" action="/dashboard/finish_task/${data.task_id}" class="d-inline">
+                    <form method="POST" action="/dashboard/finish_task/${taskId}" class="d-inline">
                         <button type="submit" class="btn btn-sm btn-success me-2">
                             <i data-feather="check"></i> Finish
                         </button>
                     </form>
-                    <form method="POST" action="/dashboard/skip_task/${data.task_id}" class="d-inline">
+                    <form method="POST" action="/dashboard/skip_task/${taskId}" class="d-inline">
                         <button type="submit" class="btn btn-sm btn-outline-secondary">
                             <i data-feather="skip-forward"></i> Skip
                         </button>
                     </form>
                 `;
+                
+                // Re-initialize Feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
                 
                 // Re-initialize Feather icons
                 if (typeof feather !== 'undefined') {
