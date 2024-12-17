@@ -78,19 +78,18 @@ def index():
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
+                         StudentTask=StudentTask,  # Pass the model to the template
                          STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
                          STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
                          STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
 
-@dashboard_bp.route('/dashboard/start_task/<int:id>', methods=['POST'])
+@dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
-    print(f"Starting task {id} for user {current_user.id}")
     try:
         task = Task.query.get_or_404(id)
-        print(f"Found task: {task.title}, URL: {task.link}")
         
         # Get or create student task
         student_task = StudentTask.query.filter_by(
@@ -99,7 +98,6 @@ def start_task(id):
         ).first()
         
         if not student_task:
-            app.logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
                 student_id=current_user.id,
                 task_id=task.id,
@@ -108,13 +106,12 @@ def start_task(id):
             db.session.add(student_task)
         
         # Reset any other in-progress tasks
-        in_progress = StudentTask.query.filter_by(
+        in_progress_tasks = StudentTask.query.filter_by(
             student_id=current_user.id,
             status=StudentTask.STATUS_IN_PROGRESS
         ).all()
-        app.logger.info(f"Found {len(in_progress)} tasks in progress")
         
-        for t in in_progress:
+        for t in in_progress_tasks:
             t.status = StudentTask.STATUS_NOT_STARTED
             t.started_at = None
         
@@ -126,19 +123,15 @@ def start_task(id):
         student_task.time_spent_minutes = 0
         
         db.session.commit()
-        app.logger.info(f"Successfully started task {id}")
         
-        response_data = {
+        return jsonify({
             'status': 'success',
             'message': 'Task started successfully',
             'task_url': task.link,
             'task_id': task.id
-        }
-        app.logger.info(f"Sending response: {response_data}")
-        return jsonify(response_data)
+        })
         
     except Exception as e:
-        app.logger.error(f"Error starting task: {str(e)}")
         db.session.rollback()
         return jsonify({
             'status': 'error',
