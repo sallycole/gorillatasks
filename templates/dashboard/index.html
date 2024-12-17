@@ -23,6 +23,7 @@ function handleTaskAction(action, taskId) {
     const taskEndpoint = `/dashboard/${action}_task/${taskId}`;
     console.log('Task endpoint:', taskEndpoint);
     console.log(`Making request to ${taskEndpoint}`);
+    console.log('CSRF Token:', token);
     fetch(taskEndpoint, {
         method: 'POST',
         headers: {

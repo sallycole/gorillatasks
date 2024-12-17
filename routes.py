@@ -91,6 +91,9 @@ def index():
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
+    logger.info(f"Received start_task request for task {id} from user {current_user.id}")
+    logger.debug(f"Request method: {request.method}")
+    logger.debug(f"Request headers: {dict(request.headers)}")
     logger = logging.getLogger(__name__)
     logger.info(f"Starting task {id} for user {current_user.id}")
     logger.info(f"Request path: {request.path}")
