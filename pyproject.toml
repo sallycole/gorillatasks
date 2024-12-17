@@ -14,4 +14,6 @@ dependencies = [
     "wtforms>=3.2.1",
     "email-validator",
     "psycopg2-binary",
+    "eventlet>=0.38.2",
+    "flask-socketio>=5.4.1",
 ]

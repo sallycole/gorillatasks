@@ -4,6 +4,7 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
+from flask_socketio import SocketIO
 from sqlalchemy.orm import DeclarativeBase
 from datetime import datetime
 import pytz
@@ -22,6 +23,7 @@ class Base(DeclarativeBase):
 db = SQLAlchemy(model_class=Base)
 login_manager = LoginManager()
 csrf = CSRFProtect()
+socketio = SocketIO()
 
 def create_app():
     app = Flask(__name__)
@@ -39,6 +41,9 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
+    socketio.init_app(app, cors_allowed_origins="*", async_mode='eventlet')
+    # Import WebSocket events
+    import events  # noqa: F401
     
     with app.app_context():
         try:

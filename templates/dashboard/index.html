@@ -1,7 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
+const socket = io();
+
+socket.on('connect', () => {
+    console.log('Connected to WebSocket server');
+});
+
+socket.on('disconnect', () => {
+    console.log('Disconnected from WebSocket server');
+});
+
+socket.on('task_updated', (data) => {
+    console.log('Task updated:', data);
+    updateTaskUI(data);
+});
+
+function updateTaskUI(data) {
+    const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
+    if (!actionDiv) {
+        console.error('Could not find action div for task:', data.task_id);
+        return;
+    }
+
+    let newHtml;
+    if (data.status === {{ STATUS_IN_PROGRESS }}) {
+        newHtml = `
+            <div class="d-inline-flex gap-2">
+                <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
+                    <i data-feather="check"></i> Finish
+                </button>
+                <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                    <i data-feather="skip-forward"></i> Skip
+                </button>
+            </div>
+        `;
+        if (data.link) {
+            window.open(data.link, '_blank');
+        }
+    } else {
+        newHtml = `
+            <div class="d-inline-flex gap-2">
+                <button onclick="handleTaskAction('start', ${data.task_id})" class="btn btn-sm btn-outline-primary">
+                    <i data-feather="play"></i> Start
+                </button>
+                <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                    <i data-feather="skip-forward"></i> Skip
+                </button>
+            </div>
+        `;
+    }
+    
+    actionDiv.innerHTML = newHtml;
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+}
+
 function handleTaskAction(action, taskId) {
     const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
     if (!actionDiv) {
@@ -28,15 +85,10 @@ function handleTaskAction(action, taskId) {
     const token = csrfToken.getAttribute('content');
     const taskEndpoint = `/dashboard/task/${taskId}/${action}`;
     
-    fetch(taskEndpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-CSRFToken': token
-        },
-        credentials: 'same-origin'
-    })
+    socket.emit(action + '_task', { task_id: taskId }, (response) => {
+        if (!response) {
+            throw new Error('No response from server');
+        }
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
