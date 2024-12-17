@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
@@ -98,19 +98,19 @@ def start_task(id):
             status=StudentTask.STATUS_NOT_STARTED
         )
         db.session.add(student_task)
+        db.session.flush()  # Get the ID without committing
     
-    if student_task.status == StudentTask.STATUS_NOT_STARTED:
-        # Mark all tasks in all curriculums as not started
-        student_tasks_in_progress = StudentTask.query.filter_by(
+    if student_task.can_start:
+        # Reset any other in-progress tasks
+        StudentTask.query.filter_by(
             student_id=current_user.id,
             status=StudentTask.STATUS_IN_PROGRESS
-        ).all()
+        ).update({
+            'status': StudentTask.STATUS_NOT_STARTED,
+            'started_at': None
+        })
         
-        for st in student_tasks_in_progress:
-            st.status = StudentTask.STATUS_NOT_STARTED
-            st.started_at = None
-        
-        # Set this task as active
+        # Start this task
         student_task.status = StudentTask.STATUS_IN_PROGRESS
         student_task.started_at = datetime.utcnow()
         student_task.finished_at = None
@@ -121,11 +121,16 @@ def start_task(id):
         
         return jsonify({
             'status': 'success',
-            'task_status': 'in_progress',
-            'task_url': task.link if task.link else None
+            'message': 'Task started successfully',
+            'task_id': task.id,
+            'task_url': task.link,
+            'task_status': StudentTask.STATUS_IN_PROGRESS
         })
     
-    return jsonify({'status': 'error', 'message': 'Task cannot be started'}), 400
+    return jsonify({
+        'status': 'error',
+        'message': 'Task cannot be started'
+    }), 400
 
 @dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
 @login_required

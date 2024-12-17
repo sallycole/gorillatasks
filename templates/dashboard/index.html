@@ -16,10 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            if (response.ok) {
+            const data = await response.json();
+            if (response.ok && data.status === 'success') {
                 // Launch resource URL in new window if available
-                if (resourceUrl) {
-                    const newWindow = window.open(resourceUrl, '_blank');
+                if (data.task_url) {
+                    const newWindow = window.open(data.task_url, '_blank');
                     if (newWindow) {
                         newWindow.focus();
                     } else {
@@ -32,12 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Replace Start button with Finish button
                 buttonContainer.innerHTML = `
-                    <button type="button" class="btn btn-sm btn-success me-2" onclick="location.href='/dashboard/finish_task/${taskId}'">
-                        <i data-feather="check"></i> Finish
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/dashboard/skip_task/${taskId}'">
-                        <i data-feather="skip-forward"></i> Skip
-                    </button>
+                    <form method="POST" action="/dashboard/finish_task/${data.task_id}" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-success me-2">
+                            <i data-feather="check"></i> Finish
+                        </button>
+                    </form>
+                    <form method="POST" action="/dashboard/skip_task/${data.task_id}" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">
+                            <i data-feather="skip-forward"></i> Skip
+                        </button>
+                    </form>
                 `;
                 
                 // Re-initialize Feather icons
