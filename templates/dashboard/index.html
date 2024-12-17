@@ -126,15 +126,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tr>
                             <td>{{ task.title }}</td>
                             <td class="task-actions">
-                                <div class="d-flex flex-column align-items-start gap-2">
+                                <div class="d-flex gap-2">
                                     <!-- Start/Finish button -->
                                     {% if task.status == 'in_progress' %}
-                                        <button type="button" class="btn btn-sm btn-success finish-task-btn w-100" data-task-id="{{ task.id }}">
+                                        <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="{{ task.id }}">
                                             <i data-feather="check"></i> Finish
                                         </button>
                                     {% else %}
                                         <button type="button" 
-                                                class="btn btn-sm btn-outline-primary start-task-btn w-100"
+                                                class="btn btn-sm btn-outline-primary start-task-btn"
                                                 data-task-id="{{ task.id }}"
                                                 data-resource-url="{{ task.link if task.link else '' }}">
                                             <i data-feather="play"></i> Start
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     
                                     <!-- Skip button (always visible) -->
                                     <button type="button" 
-                                            class="btn btn-sm btn-outline-secondary skip-task-btn w-100"
+                                            class="btn btn-sm btn-outline-secondary skip-task-btn"
                                             data-task-id="{{ task.id }}">
                                         <i data-feather="skip-forward"></i> Skip
                                     </button>
