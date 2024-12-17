@@ -25,12 +25,21 @@ def handle_start_task(data):
         return {'status': 'error', 'message': 'Authentication required'}
 
     try:
-        student_task_id = data.get('task_id')
-        student_task = StudentTask.query.get_or_404(student_task_id)
+        task_id = data.get('task_id')
+        # Get or create student task
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=task_id
+        ).first()
         
-        # Verify ownership
-        if student_task.student_id != current_user.id:
-            return {'status': 'error', 'message': 'Unauthorized access'}
+        if not student_task:
+            task = Task.query.get_or_404(task_id)
+            student_task = StudentTask(
+                student_id=current_user.id,
+                task_id=task_id,
+                status=StudentTask.STATUS_NOT_STARTED
+            )
+            db.session.add(student_task)
         
         # Reset any other in-progress tasks
         StudentTask.query.filter_by(
