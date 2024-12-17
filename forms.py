@@ -56,6 +56,5 @@ class TaskForm(FlaskForm):
     position = IntegerField('Position')
 
 class EnrollmentForm(FlaskForm):
-    weekly_goal_count = IntegerField('Weekly Goal', validators=[DataRequired()])
-    study_days_per_week = IntegerField('Study Days Per Week', validators=[Optional()])
-    target_completion_date = DateField('Target Completion Date', validators=[Optional()])
+    study_days_per_week = IntegerField('Study Days Per Week', validators=[DataRequired()])
+    target_completion_date = DateField('Target Completion Date', validators=[DataRequired()])

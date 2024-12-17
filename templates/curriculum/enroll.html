@@ -11,19 +11,14 @@
                 <form method="POST">
                     {{ form.csrf_token }}
                     <div class="mb-3">
-                        {{ form.weekly_goal_count.label(class="form-label") }}
-                        {{ form.weekly_goal_count(class="form-control") }}
-                        <div class="form-text">How many tasks do you want to complete each week?</div>
-                    </div>
-                    <div class="mb-3">
                         {{ form.study_days_per_week.label(class="form-label") }}
                         {{ form.study_days_per_week(class="form-control") }}
-                        <div class="form-text">How many days per week do you plan to study?</div>
+                        <div class="form-text">How many days per week will you dedicate to studying? This helps calculate your daily goals.</div>
                     </div>
                     <div class="mb-3">
                         {{ form.target_completion_date.label(class="form-label") }}
                         {{ form.target_completion_date(class="form-control", type="date") }}
-                        <div class="form-text">When do you aim to complete this curriculum?</div>
+                        <div class="form-text">When would you like to complete this curriculum? This helps determine your weekly goals.</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Enroll</button>
                     <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-secondary">Cancel</a>

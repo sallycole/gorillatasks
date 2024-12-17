@@ -114,6 +114,65 @@ class Enrollment(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
     weekly_snapshots = db.relationship('WeeklySnapshot', backref='enrollment')
+    curriculum = db.relationship('Curriculum', backref='enrollments')
+    student_tasks = db.relationship('StudentTask', secondary='tasks',
+                                  primaryjoin='and_(Enrollment.curriculum_id==Task.curriculum_id, '
+                                            'Enrollment.student_id==StudentTask.student_id)',
+                                  secondaryjoin='Task.id==StudentTask.task_id',
+                                  viewonly=True)
+
+    def calculate_weekly_goal(self):
+        if not self.target_completion_date:
+            return 0
+            
+        total_tasks = len(self.curriculum.tasks)
+        completed_tasks = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            StudentTask.status == 2,  # Completed status
+            Task.curriculum_id == self.curriculum_id
+        ).count()
+        
+        remaining_tasks = total_tasks - completed_tasks
+        current_date = datetime.now(pytz.UTC).date()
+        weeks_remaining = ((self.target_completion_date - current_date).days / 7)
+        weeks_remaining = int(weeks_remaining) + (1 if weeks_remaining > int(weeks_remaining) else 0)
+        
+        if weeks_remaining <= 0:
+            return 0
+            
+        return int((remaining_tasks / weeks_remaining) + 0.5)  # Equivalent to ceil in Ruby
+
+    def calculate_daily_divisor(self):
+        current_day = datetime.now(pytz.UTC).strftime('%A')
+        max_possible_days = {
+            'Saturday': 7,
+            'Sunday': 6,
+            'Monday': 5,
+            'Tuesday': 4,
+            'Wednesday': 3,
+            'Thursday': 2,
+            'Friday': 1
+        }.get(current_day, 7)
+        
+        return min(max_possible_days, self.study_days_per_week)
+
+    def tasks_completed_this_week(self):
+        week_start = datetime.now(pytz.UTC).date() - timedelta(days=datetime.now(pytz.UTC).weekday())
+        return StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            StudentTask.status == 2,  # Completed status
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.updated_at >= week_start
+        ).count()
+
+    def calculate_todays_goal(self):
+        if not self.weekly_goal_count:
+            self.weekly_goal_count = self.calculate_weekly_goal()
+            db.session.commit()
+            
+        daily_goal = int((self.weekly_goal_count / self.calculate_daily_divisor()) + 0.5)  # Equivalent to ceil
+        remaining_weekly_tasks = self.weekly_goal_count - self.tasks_completed_this_week()
+        return max(daily_goal, remaining_weekly_tasks, 0)
 
 class WeeklySnapshot(db.Model):
     __tablename__ = 'weekly_snapshots'

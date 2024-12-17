@@ -270,10 +270,14 @@ def enroll(id):
         enrollment = Enrollment(
             student_id=current_user.id,
             curriculum_id=curriculum.id,
-            weekly_goal_count=form.weekly_goal_count.data,
             study_days_per_week=form.study_days_per_week.data,
             target_completion_date=form.target_completion_date.data
         )
+        db.session.add(enrollment)
+        db.session.flush()  # Get the enrollment ID
+        
+        # Calculate and set the weekly goal
+        enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
         
         # Create StudentTask entries for each task
         for task in curriculum.tasks:
