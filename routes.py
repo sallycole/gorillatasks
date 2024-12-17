@@ -206,6 +206,12 @@ def new():
             return redirect(url_for('curriculum.list'))
     return render_template('curriculum/edit.html', form=form)
 
+@curriculum_bp.route('/<int:id>', methods=['GET'])
+@login_required
+def view(id):
+    curriculum = Curriculum.query.get_or_404(id)
+    return render_template('curriculum/view.html', curriculum=curriculum)
+
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit(id):

@@ -22,16 +22,9 @@
                 {% endif %}
             </div>
             <div class="card-footer">
-                {% if curriculum.creator_id == current_user.id %}
-                <a href="{{ url_for('curriculum.edit', id=curriculum.id) }}" class="btn btn-sm btn-outline-primary">
-                    <i data-feather="edit"></i> Edit
+                <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-sm btn-outline-primary">
+                    <i data-feather="eye"></i> View
                 </a>
-                {% endif %}
-                {% if curriculum.link %}
-                <a href="{{ curriculum.link }}" class="btn btn-sm btn-outline-info" target="_blank">
-                    <i data-feather="external-link"></i> Resource
-                </a>
-                {% endif %}
                 {% if current_user.id != curriculum.creator_id %}
                 <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
                     <i data-feather="user-plus"></i> Enroll
