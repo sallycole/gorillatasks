@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>Study Dashboard</h1>
+        </div>
+    </div>
+
+    {% if enrollments %}
+    {% for enrollment in enrollments %}
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">{{ enrollment.curriculum.name }}</h3>
+            <div>
+                <span class="badge bg-primary">Daily Goal: {{ enrollment.weekly_goal_count // 5 }} tasks</span>
+                <span class="badge bg-info">Weekly Goal: {{ enrollment.weekly_goal_count }} tasks</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Progress Section -->
+            <div class="mb-4">
+                <h5>Progress</h5>
+                <div class="progress mb-2">
+                    {% set completed = tasks_stats[enrollment.id]['completed'] %}
+                    {% set total = tasks_stats[enrollment.id]['total'] %}
+                    {% set percentage = (completed / total * 100) if total > 0 else 0 %}
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ percentage }}%" 
+                         aria-valuenow="{{ percentage }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {{ completed }}/{{ total }} Tasks
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in enrollment.curriculum.tasks %}
+                        <tr>
+                            <td>{{ task.title }}</td>
+                            <td>
+                                {% set status = task_status.get((enrollment.id, task.id)) %}
+                                {% if status == 'completed' %}
+                                <span class="badge bg-success">Completed</span>
+                                {% elif status == 'in_progress' %}
+                                <span class="badge bg-warning">In Progress</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Not Started</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ url_for('dashboard.toggle_task', task_id=task.id) }}" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-primary">
+                                        {% if status == 'completed' %}
+                                        Mark Incomplete
+                                        {% else %}
+                                        Mark Complete
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Task navigation" class="mt-3">
+                <ul class="pagination justify-content-center">
+                    {% for page in range(1, (tasks_stats[enrollment.id]['total'] // 10) + 2) %}
+                    <li class="page-item {% if page == current_page[enrollment.id] %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('dashboard.index', page=page, curriculum_id=enrollment.id) }}">
+                            {{ page }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Welcome to your Study Dashboard!</h4>
+        <p>You haven't enrolled in any curriculums yet. Visit the <a href="{{ url_for('curriculum.list') }}" class="alert-link">Plan</a> section to find and enroll in curriculums.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

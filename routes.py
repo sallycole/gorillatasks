@@ -57,18 +57,59 @@ def logout():
 @dashboard_bp.route('/')
 @login_required
 def index():
+    page = request.args.get('page', 1, type=int)
+    curriculum_id = request.args.get('curriculum_id', type=int)
+    
+    # Get user's enrollments
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
     
-    # Get weekly snapshots for the past 4 weeks
-    four_weeks_ago = datetime.now(pytz.UTC) - timedelta(weeks=4)
-    snapshots = WeeklySnapshot.query.filter(
-        WeeklySnapshot.student_id == current_user.id,
-        WeeklySnapshot.created_at >= four_weeks_ago
-    ).order_by(WeeklySnapshot.week_ending.desc()).all()
+    # Initialize statistics dictionaries
+    tasks_stats = {}
+    task_status = {}
+    current_page = {}
     
-    return render_template('dashboard/student.html', 
+    for enrollment in enrollments:
+        # Get tasks for this enrollment with pagination
+        tasks_query = Task.query.filter_by(curriculum_id=enrollment.curriculum_id)
+        total_tasks = tasks_query.count()
+        
+        if curriculum_id == enrollment.id:
+            current_page[enrollment.id] = page
+            tasks = tasks_query.offset((page - 1) * 10).limit(10).all()
+        else:
+            current_page[enrollment.id] = 1
+            tasks = tasks_query.limit(10).all()
+        
+        # Calculate statistics
+        completed_tasks = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            status=2  # Completed status
+        ).join(Task).filter(Task.curriculum_id == enrollment.curriculum_id).count()
+        
+        tasks_stats[enrollment.id] = {
+            'total': total_tasks,
+            'completed': completed_tasks
+        }
+        
+        # Get status for displayed tasks
+        for task in tasks:
+            student_task = StudentTask.query.filter_by(
+                student_id=current_user.id,
+                task_id=task.id
+            ).first()
+            
+            if student_task:
+                status = 'completed' if student_task.status == 2 else 'in_progress'
+            else:
+                status = 'not_started'
+            
+            task_status[(enrollment.id, task.id)] = status
+    
+    return render_template('dashboard/index.html',
                          enrollments=enrollments,
-                         snapshots=snapshots)
+                         tasks_stats=tasks_stats,
+                         task_status=task_status,
+                         current_page=current_page)
 
 @dashboard_bp.route('/toggle_task/<int:id>', methods=['POST'])
 @login_required
