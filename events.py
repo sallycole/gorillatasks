@@ -25,8 +25,12 @@ def handle_start_task(data):
         return {'status': 'error', 'message': 'Authentication required'}
 
     try:
-        task_id = data.get('task_id')
-        task = Task.query.get_or_404(task_id)
+        student_task_id = data.get('task_id')
+        student_task = StudentTask.query.get_or_404(student_task_id)
+        
+        # Verify ownership
+        if student_task.student_id != current_user.id:
+            return {'status': 'error', 'message': 'Unauthorized access'}
         
         # Reset any other in-progress tasks
         StudentTask.query.filter_by(
@@ -37,19 +41,12 @@ def handle_start_task(data):
             "started_at": None
         })
         
-        # Get or create student task
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first()
-        
-        if not student_task:
-            student_task = StudentTask(
-                student_id=current_user.id,
-                task_id=task_id,
-                status=StudentTask.STATUS_NOT_STARTED
-            )
-            db.session.add(student_task)
+        # Start this task
+        student_task.status = StudentTask.STATUS_IN_PROGRESS
+        student_task.started_at = datetime.now(pytz.UTC)
+        student_task.finished_at = None
+        student_task.skipped_at = None
+        student_task.time_spent_minutes = 0
         
         student_task.status = StudentTask.STATUS_IN_PROGRESS
         student_task.started_at = datetime.now(pytz.UTC)

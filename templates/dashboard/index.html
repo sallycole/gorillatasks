@@ -260,24 +260,32 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td class="text-end">
                                 <div class="task-actions" data-task-id="{{ task.id }}" data-task-url="{{ task.link }}">
                                     {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                    {% if student_task and student_task.status == STATUS_IN_PROGRESS %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
-                                                <i data-feather="check"></i> Finish
-                                            </button>
-                                            <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
-                                                <i data-feather="skip-forward"></i> Skip
-                                            </button>
-                                        </div>
-                                    {% else %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button onclick="handleTaskAction('start', {{ task.id }})" class="btn btn-sm btn-outline-primary">
-                                                <i data-feather="play"></i> Start
-                                            </button>
-                                            <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
-                                                <i data-feather="skip-forward"></i> Skip
-                                            </button>
-                                        </div>
+                                    {% if student_task %}
+                                        {% if student_task.status == STATUS_IN_PROGRESS %}
+                                            <div class="d-inline-flex gap-2">
+                                                <button onclick="handleTaskAction('finish', {{ student_task.id }})" class="btn btn-sm btn-success">
+                                                    <i data-feather="check"></i> Finish
+                                                </button>
+                                                <button onclick="handleTaskAction('skip', {{ student_task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                    <i data-feather="skip-forward"></i> Skip
+                                                </button>
+                                            </div>
+                                        {% elif student_task.status == STATUS_COMPLETED %}
+                                            <div class="d-inline-flex gap-2">
+                                                <button class="btn btn-sm btn-success" disabled>
+                                                    <i data-feather="check-circle"></i> Completed
+                                                </button>
+                                            </div>
+                                        {% else %}
+                                            <div class="d-inline-flex gap-2">
+                                                <button onclick="handleTaskAction('start', {{ student_task.id }})" class="btn btn-sm btn-outline-primary">
+                                                    <i data-feather="play"></i> Start
+                                                </button>
+                                                <button onclick="handleTaskAction('skip', {{ student_task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                    <i data-feather="skip-forward"></i> Skip
+                                                </button>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </td>
