@@ -14,13 +14,19 @@ function handleTaskAction(action, taskId) {
     const taskUrl = actionDiv.dataset.taskUrl;
     console.log('Task URL:', taskUrl);
     
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    fetch(`/${action}_task/${taskId}`, {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
+    const token = csrfToken.getAttribute('content');
+    console.log(`Making request to /dashboard/${action}_task/${taskId}`);
+    fetch(`/dashboard/${action}_task/${taskId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-CSRFToken': csrfToken
+            'X-CSRF-TOKEN': token
         },
         credentials: 'same-origin'
     })
