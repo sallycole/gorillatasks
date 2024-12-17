@@ -57,11 +57,15 @@ def create_app():
             app.register_blueprint(curriculum_bp, url_prefix='/curriculum')
             app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
             
-            # Add logging for registered routes
+            # Add debug logging for registered routes
             logger.info("Available routes:")
             for rule in app.url_map.iter_rules():
-                logger.info(f"{rule.endpoint}: {rule.rule}")
+                logger.debug(f"Route: {rule.rule} -> {rule.endpoint} [{','.join(rule.methods)}]")
             logger.info("Blueprints registered successfully")
+            
+            # Log the complete URL map
+            logger.debug("Complete URL map:")
+            logger.debug(app.url_map)
             
             @app.errorhandler(404)
             def not_found_error(error):

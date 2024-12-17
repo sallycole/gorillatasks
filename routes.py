@@ -93,6 +93,8 @@ def index():
 def start_task(id):
     logger = logging.getLogger(__name__)
     logger.info(f"Starting task {id} for user {current_user.id}")
+    logger.debug(f"Request path: {request.path}")
+    logger.debug(f"Request method: {request.method}")
     
     try:
         task = Task.query.get_or_404(id)
