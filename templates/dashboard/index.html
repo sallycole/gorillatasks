@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         {% for task in enrollment.curriculum.tasks %}
                         <tr>
                             <td>{{ task.title }}</td>
-                            <td>
-                                <div class="btn-group" role="group">
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-2">
                                     {% if task.status == 'in_progress' %}
                                         <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="{{ task.id }}">
                                             <i data-feather="check"></i> Finish
