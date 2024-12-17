@@ -78,7 +78,10 @@ def index():
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
-                         StudentTask=StudentTask,  # Pass the model class
+                         STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
+                         STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
+                         STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
+                         STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
 
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
@@ -134,38 +137,64 @@ def start_task(id):
 @dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
 @login_required
 def finish_task(id):
-    student_task = StudentTask.query.filter_by(
-        student_id=current_user.id,
-        task_id=id
-    ).first_or_404()
-    
-    if student_task.can_finish:
-        student_task.status = StudentTask.STATUS_COMPLETED
-        student_task.finished_at = datetime.utcnow()
-        if student_task.started_at:
-            delta = student_task.finished_at - student_task.started_at
-            student_task.time_spent_minutes = int(delta.total_seconds() / 60)
-        db.session.commit()
+    try:
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=id
+        ).first_or_404()
         
-    return redirect(url_for('dashboard.index'))
+        if student_task.can_finish:
+            student_task.status = StudentTask.STATUS_COMPLETED
+            student_task.finished_at = datetime.utcnow()
+            if student_task.started_at:
+                delta = student_task.finished_at - student_task.started_at
+                student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+            db.session.commit()
+            return jsonify({
+                'status': 'success',
+                'message': 'Task completed successfully'
+            })
+        return jsonify({
+            'status': 'error',
+            'message': 'Task cannot be finished'
+        }), 400
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 @dashboard_bp.route('/skip_task/<int:id>', methods=['POST'])
 @login_required
 def skip_task(id):
-    student_task = StudentTask.query.filter_by(
-        student_id=current_user.id,
-        task_id=id
-    ).first_or_404()
-    
-    if student_task.can_skip:
-        student_task.status = StudentTask.STATUS_SKIPPED
-        student_task.skipped_at = datetime.utcnow()
-        student_task.started_at = None
-        student_task.finished_at = None
-        student_task.time_spent_minutes = 0
-        db.session.commit()
+    try:
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=id
+        ).first_or_404()
         
-    return redirect(url_for('dashboard.index'))
+        if student_task.can_skip:
+            student_task.status = StudentTask.STATUS_SKIPPED
+            student_task.skipped_at = datetime.utcnow()
+            student_task.started_at = None
+            student_task.finished_at = None
+            student_task.time_spent_minutes = 0
+            db.session.commit()
+            return jsonify({
+                'status': 'success',
+                'message': 'Task skipped successfully'
+            })
+        return jsonify({
+            'status': 'error',
+            'message': 'Task cannot be skipped'
+        }), 400
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 # Curriculum routes
 @curriculum_bp.route('/')

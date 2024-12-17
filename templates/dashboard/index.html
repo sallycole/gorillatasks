@@ -3,26 +3,36 @@
 {% block content %}
 <script>
 async function handleTaskAction(action, taskId) {
-    const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
-    const taskUrl = actionDiv.dataset.taskUrl;
-    
     try {
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
+        if (!actionDiv) {
+            console.error('Could not find action div for task:', taskId);
+            return;
+        }
+
         const response = await fetch(`/dashboard/${action}_task/${taskId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
+            },
+            credentials: 'same-origin'
         });
-        
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-        if (response.ok && data.status === 'success') {
+        console.log('Response:', data);  // Debug log
+
+        if (data.status === 'success') {
             // If starting a task and there's a URL, open it
-            if (action === 'start' && taskUrl) {
-                window.open(taskUrl, '_blank');
+            if (action === 'start' && data.task_url) {
+                window.open(data.task_url, '_blank');
             }
-            
-            // Update the button group based on the new state
+
+            // Update buttons based on new state
             if (action === 'start') {
                 actionDiv.innerHTML = `
                     <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
@@ -32,7 +42,7 @@ async function handleTaskAction(action, taskId) {
                         <i data-feather="skip-forward"></i> Skip
                     </button>
                 `;
-            } else if (action === 'finish' || action === 'skip') {
+            } else {
                 actionDiv.innerHTML = `
                     <button onclick="handleTaskAction('start', ${taskId})" class="btn btn-sm btn-outline-primary">
                         <i data-feather="play"></i> Start
@@ -42,7 +52,7 @@ async function handleTaskAction(action, taskId) {
                     </button>
                 `;
             }
-            
+
             // Re-initialize Feather icons
             if (typeof feather !== 'undefined') {
                 feather.replace();
@@ -55,103 +65,11 @@ async function handleTaskAction(action, taskId) {
     }
 }
 
+// Initialize Feather icons when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-        
-        try {
-            // Send POST request to start the task
-            const response = await fetch(`/dashboard/start_task/${taskId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
-            
-            const data = await response.json();
-            if (response.ok && data.status === 'success') {
-                // Launch resource URL in new window if available
-                if (data.task_url) {
-                    const newWindow = window.open(data.task_url, '_blank');
-                    if (newWindow) {
-                        newWindow.focus();
-                    } else {
-                        alert('Please allow popups for this site to open task resources');
-                    }
-                }
-                
-                // Get the button container
-                const buttonContainer = button.closest('.d-inline-flex');
-                
-                // Replace Start button with Finish button
-                buttonContainer.innerHTML = `
-                    <form method="POST" action="/dashboard/finish_task/${taskId}" class="d-inline">
-                        <button type="submit" class="btn btn-sm btn-success me-2">
-                            <i data-feather="check"></i> Finish
-                        </button>
-                    </form>
-                    <form method="POST" action="/dashboard/skip_task/${taskId}" class="d-inline">
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">
-                            <i data-feather="skip-forward"></i> Skip
-                        </button>
-                    </form>
-                `;
-                
-                // Re-initialize Feather icons
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-                
-                // Re-initialize Feather icons
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-            } else {
-                console.error('Failed to start task');
-            }
-        } catch (error) {
-            console.error('Error starting task:', error);
-        }
-    }
-
-    function initializeButtonListeners() {
-        // Start button listeners
-        document.querySelectorAll('.start-task-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                handleStartTask(this);
-            });
-        });
-
-        // Skip button listeners
-        document.querySelectorAll('.skip-task-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (confirm('Are you sure you want to skip this task?')) {
-                    const taskId = this.dataset.taskId;
-                    const btnGroup = this.closest('.btn-group');
-                    
-                    btnGroup.innerHTML = `
-                        <button type="button" class="btn btn-sm btn-outline-primary start-task-btn" data-task-id="${taskId}">
-                            <i data-feather="play"></i> Start
-                        </button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary skip-task-btn" data-task-id="${taskId}">
-                            <i data-feather="skip-forward"></i> Skip
-                        </button>
-                    `;
-                    
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                    initializeButtonListeners();
-                }
-            });
-        });
-    }
-
-    // Initialize Feather icons and button listeners
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
-    initializeButtonListeners();
 });
 </script>
 <div class="container">
