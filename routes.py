@@ -109,7 +109,8 @@ def index():
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
                          task_status=task_status,
-                         current_page=current_page)
+                         current_page=current_page,
+                         StudentTask=StudentTask)
 
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
