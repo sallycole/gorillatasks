@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ curriculum.name }}</h5>
                 <p class="card-text">{{ curriculum.description }}</p>
-                <div>
+                <div class="mb-2">
                     {% if curriculum.public %}
                     <span class="badge bg-success">Public</span>
                     {% else %}
@@ -27,14 +27,18 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-sm btn-outline-primary">
-                    <i data-feather="eye"></i> View
-                </a>
-                {% if current_user.id != curriculum.creator_id and curriculum.id not in user_enrollments %}
-                <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
-                    <i data-feather="user-plus"></i> Enroll
-                </a>
-                {% endif %}
+                <div class="btn-group">
+                    <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-sm btn-outline-primary">
+                        <i data-feather="eye"></i> View
+                    </a>
+                    {% if curriculum.id in user_enrollments %}
+                        <span class="badge bg-info ms-2">Enrolled</span>
+                    {% elif current_user.id != curriculum.creator_id %}
+                        <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
+                            <i data-feather="user-plus"></i> Enroll
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

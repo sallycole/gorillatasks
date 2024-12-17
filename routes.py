@@ -243,6 +243,17 @@ def edit(id):
 @login_required
 def enroll(id):
     curriculum = Curriculum.query.get_or_404(id)
+    
+    # Check if already enrolled
+    existing_enrollment = Enrollment.query.filter_by(
+        student_id=current_user.id,
+        curriculum_id=curriculum.id
+    ).first()
+    
+    if existing_enrollment:
+        flash('You are already enrolled in this curriculum.')
+        return redirect(url_for('curriculum.view', id=curriculum.id))
+    
     form = EnrollmentForm()
     
     if form.validate_on_submit():
