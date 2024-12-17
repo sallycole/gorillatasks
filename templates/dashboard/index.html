@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tr>
                             <td>{{ task.title }}</td>
                             <td>
-                                {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                {% set any_task_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|first %}
+                                {% with student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|list|first %}
+                                {% with any_task_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|list|first %}
                                 {% if student_task and student_task.status == StudentTask.STATUS_IN_PROGRESS %}
                                     <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
                                         <button type="submit" class="btn btn-sm btn-success">
@@ -91,16 +91,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </span>
                                 {% else %}
                                     <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-primary" {% if any_task_in_progress %}disabled title="Complete or skip the active task first"{% endif %}>
+                                        <button type="submit" class="btn btn-sm btn-outline-primary" {% if any_task_in_progress %}disabled{% endif %}>
                                             <i data-feather="play"></i> Start
                                         </button>
                                     </form>
                                     <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-outline-secondary" {% if any_task_in_progress and not student_task.status == StudentTask.STATUS_IN_PROGRESS %}disabled{% endif %}>
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" {% if any_task_in_progress %}disabled{% endif %}>
                                             <i data-feather="skip-forward"></i> Skip
                                         </button>
                                     </form>
                                 {% endif %}
+                                {% endwith %}
+                                {% endwith %}
                             </td>
                         </tr>
                         {% endfor %}
