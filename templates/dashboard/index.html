@@ -263,10 +263,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                     {% if student_task %}
                                         {% if student_task.status == STATUS_IN_PROGRESS %}
                                             <div class="d-inline-flex gap-2">
-                                                <button onclick="handleTaskAction('finish', {{ student_task.id }})" class="btn btn-sm btn-success">
+                                                <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
                                                     <i data-feather="check"></i> Finish
                                                 </button>
-                                                <button onclick="handleTaskAction('skip', {{ student_task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
                                                     <i data-feather="skip-forward"></i> Skip
                                                 </button>
                                             </div>
@@ -278,10 +278,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                             </div>
                                         {% else %}
                                             <div class="d-inline-flex gap-2">
-                                                <button onclick="handleTaskAction('start', {{ student_task.id }})" class="btn btn-sm btn-outline-primary">
+                                                <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
                                                     <i data-feather="play"></i> Start
                                                 </button>
-                                                <button onclick="handleTaskAction('skip', {{ student_task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
                                                     <i data-feather="skip-forward"></i> Skip
                                                 </button>
                                             </div>
