@@ -14,11 +14,13 @@ function handleTaskAction(action, taskId) {
     const taskUrl = actionDiv.dataset.taskUrl;
     console.log('Task URL:', taskUrl);
     
-    fetch(`/dashboard/${action}_task/${taskId}`, {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    fetch(`/${action}_task/${taskId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'X-CSRFToken': csrfToken
         },
         credentials: 'same-origin'
     })
@@ -74,7 +76,19 @@ function handleTaskAction(action, taskId) {
     })
     .catch(error => {
         console.error('Error performing task action:', error);
-        alert('An error occurred while performing the action. Please try again.');
+        if (error.response) {
+            // The server responded with a status code outside the 2xx range
+            console.error('Server error:', error.response.data);
+            alert(error.response.data.message || 'Server error occurred. Please try again.');
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error('No response received:', error.request);
+            alert('No response from server. Please check your connection and try again.');
+        } else {
+            // Something happened in setting up the request
+            console.error('Request setup error:', error.message);
+            alert('Error: ' + error.message);
+        }
     });
 }
 

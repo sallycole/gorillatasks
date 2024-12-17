@@ -10,7 +10,7 @@ import pytz
 # Blueprint registration
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
-dashboard_bp = Blueprint('dashboard', __name__)
+dashboard_bp = Blueprint('dashboard', __name__)  # Remove prefix to match frontend calls
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
