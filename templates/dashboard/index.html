@@ -144,7 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td>{{ task.title }}</td>
                             <td class="text-end">
                                 <div class="d-inline-flex gap-2">
-                                    {% if task.status == 'in_progress' %}
+                                    {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
+                                    {% if student_task and student_task.status == 1 %}
                                         <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="{{ task.id }}">
                                             <i data-feather="check"></i> Finish
                                         </button>

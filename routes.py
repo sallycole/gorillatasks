@@ -119,11 +119,13 @@ def start_task(id):
         
         db.session.commit()
         
-        # Launch URL in new window if available
-        if task.link:
-            flash('task_url:' + task.link)
+        return jsonify({
+            'status': 'success',
+            'task_status': 'in_progress',
+            'task_url': task.link if task.link else None
+        })
     
-    return redirect(url_for('dashboard.index'))
+    return jsonify({'status': 'error', 'message': 'Task cannot be started'}), 400
 
 @dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
 @login_required
