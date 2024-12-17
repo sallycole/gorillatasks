@@ -31,7 +31,7 @@
                     <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-sm btn-outline-primary">
                         <i data-feather="eye"></i> View
                     </a>
-                    {% if current_user.id != curriculum.creator_id %}
+                    {% if current_user.id != curriculum.creator_id and curriculum.id not in user_enrollments %}
                     <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
                         <i data-feather="user-plus"></i> Enroll
                     </a>

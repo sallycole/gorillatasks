@@ -139,11 +139,18 @@ def toggle_task(id):
 @login_required
 def list():
     curriculums = Curriculum.query.all()
+    # Get user's enrollments
+    user_enrollments = {
+        enrollment.curriculum_id 
+        for enrollment in Enrollment.query.filter_by(student_id=current_user.id).all()
+    }
     print(f"Found {len(curriculums)} curriculums")
+    print(f"User enrollments: {user_enrollments}")
     for curriculum in curriculums:
         print(f"Curriculum: {curriculum.name}, Creator: {curriculum.creator_id}, Current User: {current_user.id}")
     return render_template('curriculum/list.html', 
-                         curriculums=curriculums)
+                         curriculums=curriculums,
+                         user_enrollments=user_enrollments)
 
 import xml.etree.ElementTree as ET
 from werkzeug.utils import secure_filename
