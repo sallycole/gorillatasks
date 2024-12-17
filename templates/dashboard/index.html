@@ -3,38 +3,53 @@
 {% block content %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    function handleStartTask(button) {
+    async function handleStartTask(button) {
         const taskId = button.dataset.taskId;
         const resourceUrl = button.dataset.resourceUrl;
         
-        // Launch resource URL in new window if available
-        if (resourceUrl) {
-            const newWindow = window.open(resourceUrl, '_blank');
-            if (newWindow) {
-                newWindow.focus();
+        try {
+            // Send POST request to start the task
+            const response = await fetch(`/dashboard/start_task/${taskId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            if (response.ok) {
+                // Launch resource URL in new window if available
+                if (resourceUrl) {
+                    const newWindow = window.open(resourceUrl, '_blank');
+                    if (newWindow) {
+                        newWindow.focus();
+                    } else {
+                        alert('Please allow popups for this site to open task resources');
+                    }
+                }
+                
+                // Get the button container
+                const buttonContainer = button.closest('.d-inline-flex');
+                
+                // Replace Start button with Finish button
+                buttonContainer.innerHTML = `
+                    <button type="button" class="btn btn-sm btn-success me-2" onclick="location.href='/dashboard/finish_task/${taskId}'">
+                        <i data-feather="check"></i> Finish
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href='/dashboard/skip_task/${taskId}'">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                `;
+                
+                // Re-initialize Feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             } else {
-                alert('Please allow popups for this site to open task resources');
+                console.error('Failed to start task');
             }
+        } catch (error) {
+            console.error('Error starting task:', error);
         }
-        
-        // Get the button group container
-        const btnGroup = button.closest('.btn-group');
-        
-        // Replace Start button with Finish button
-        btnGroup.innerHTML = `
-            <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="${taskId}">
-                <i data-feather="check"></i> Finish
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary skip-task-btn" data-task-id="${taskId}">
-                <i data-feather="skip-forward"></i> Skip
-            </button>
-        `;
-        
-        // Re-initialize Feather icons and event listeners
-        if (typeof feather !== 'undefined') {
-            feather.replace();
-        }
-        initializeButtonListeners();
     }
 
     function initializeButtonListeners() {
@@ -120,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <thead>
                         <tr>
                             <th style="width: 60%">Task</th>
-                            <th style="width: 40%">Actions</th>
+                            <th style="width: 40%" class="text-end">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
