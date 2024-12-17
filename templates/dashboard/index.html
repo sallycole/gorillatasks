@@ -65,8 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tr>
                             <td>{{ task.title }}</td>
                             <td>
-                                {% with student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|list|first %}
-                                {% set any_task_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|list|first %}
+                                {% with student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
+                                {% set tasks_in_progress = enrollment.student_tasks|selectattr("status", "equalto", StudentTask.STATUS_IN_PROGRESS)|list %}
+                                {% set any_task_in_progress = tasks_in_progress|length > 0 %}
                                 
                                 {% if student_task %}
                                         {% if student_task.status == StudentTask.STATUS_IN_PROGRESS %}
@@ -95,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         {% else %}
                                             <!-- Not Started -->
                                             <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
-                                                <button type="submit" class="btn btn-sm {% if any_task_in_progress %}btn-outline-secondary disabled{% else %}btn-outline-primary{% endif %}"
+                                                <button type="submit" class="btn btn-sm {% if any_task_in_progress %}btn-outline-secondary{% else %}btn-outline-primary{% endif %}"
                                                         {% if any_task_in_progress %}disabled{% endif %}>
                                                     <i data-feather="play"></i> Start
                                                 </button>
