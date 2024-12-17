@@ -31,14 +31,16 @@
                     <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-sm btn-outline-primary">
                         <i data-feather="eye"></i> View
                     </a>
-                    {% if curriculum.id in user_enrollments %}
-                        <span class="badge bg-info d-flex align-items-center px-2">
-                            <i data-feather="check" class="me-1"></i> Enrolled
-                        </span>
-                    {% elif current_user.id != curriculum.creator_id %}
-                        <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
-                            <i data-feather="user-plus"></i> Enroll
-                        </a>
+                    {% if current_user.id != curriculum.creator_id %}
+                        {% if curriculum.id in user_enrollments %}
+                            <span class="badge bg-info d-flex align-items-center px-2">
+                                <i data-feather="check" class="me-1"></i> Enrolled
+                            </span>
+                        {% else %}
+                            <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
+                                <i data-feather="user-plus"></i> Enroll
+                            </a>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
