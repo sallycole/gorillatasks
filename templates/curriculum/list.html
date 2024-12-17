@@ -32,6 +32,11 @@
                     <i data-feather="external-link"></i> Resource
                 </a>
                 {% endif %}
+                {% if current_user.id != curriculum.creator_id %}
+                <a href="{{ url_for('curriculum.enroll', id=curriculum.id) }}" class="btn btn-sm btn-outline-success">
+                    <i data-feather="user-plus"></i> Enroll
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>

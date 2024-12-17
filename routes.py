@@ -1,20 +1,22 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot
-from forms import (LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, 
-                  EnrollmentForm)
-from werkzeug.security import generate_password_hash
+from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
 from datetime import datetime, timedelta
 import pytz
 
-auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+# Blueprint registration
+auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
-dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
+dashboard_bp = Blueprint('dashboard', __name__)
 
-# Auth routes
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard.index'))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -26,6 +28,9 @@ def login():
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard.index'))
+    
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(
@@ -38,10 +43,6 @@ def register():
         db.session.add(user)
         db.session.commit()
         
-        profile = Profile(user_id=user.id)
-        db.session.add(profile)
-        db.session.commit()
-        
         login_user(user)
         return redirect(url_for('dashboard.index'))
     return render_template('auth/register.html', form=form)
@@ -52,13 +53,51 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+# Dashboard routes
+@dashboard_bp.route('/')
+@login_required
+def index():
+    enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
+    
+    # Get weekly snapshots for the past 4 weeks
+    four_weeks_ago = datetime.now(pytz.UTC) - timedelta(weeks=4)
+    snapshots = WeeklySnapshot.query.filter(
+        WeeklySnapshot.student_id == current_user.id,
+        WeeklySnapshot.created_at >= four_weeks_ago
+    ).order_by(WeeklySnapshot.week_ending.desc()).all()
+    
+    return render_template('dashboard/student.html', 
+                         enrollments=enrollments,
+                         snapshots=snapshots)
+
+@dashboard_bp.route('/toggle_task/<int:id>', methods=['POST'])
+@login_required
+def toggle_task(id):
+    task = Task.query.get_or_404(id)
+    student_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        task_id=task.id
+    ).first()
+    
+    if not student_task:
+        student_task = StudentTask(
+            student_id=current_user.id,
+            task_id=task.id,
+            status=1
+        )
+        db.session.add(student_task)
+    else:
+        # Toggle between completed (2) and not started (0)
+        student_task.status = 2 if student_task.status != 2 else 0
+        
+    db.session.commit()
+    return redirect(url_for('dashboard.index'))
+
 # Curriculum routes
 @curriculum_bp.route('/')
 @login_required
 def list():
-    curriculums = Curriculum.query.filter(
-        (Curriculum.public == True) | (Curriculum.creator_id == current_user.id)
-    ).all()
+    curriculums = Curriculum.query.all()
     return render_template('curriculum/list.html', curriculums=curriculums)
 
 @curriculum_bp.route('/new', methods=['GET', 'POST'])
@@ -72,11 +111,11 @@ def new():
             link=form.link.data,
             public=form.public.data,
             creator_id=current_user.id,
-            publisher=form.publisher.data,
-            published_at=datetime.utcnow()
+            publisher=form.publisher.data
         )
         db.session.add(curriculum)
         db.session.commit()
+        flash('Curriculum created successfully!')
         return redirect(url_for('curriculum.list'))
     return render_template('curriculum/edit.html', form=form)
 
@@ -85,9 +124,9 @@ def new():
 def edit(id):
     curriculum = Curriculum.query.get_or_404(id)
     if curriculum.creator_id != current_user.id:
-        flash('Unauthorized')
+        flash('You can only edit your own curriculums')
         return redirect(url_for('curriculum.list'))
-        
+    
     form = CurriculumForm(obj=curriculum)
     if form.validate_on_submit():
         curriculum.name = form.name.data
@@ -96,39 +135,38 @@ def edit(id):
         curriculum.public = form.public.data
         curriculum.publisher = form.publisher.data
         db.session.commit()
+        flash('Curriculum updated successfully!')
         return redirect(url_for('curriculum.list'))
     return render_template('curriculum/edit.html', form=form, curriculum=curriculum)
 
-# Dashboard routes
-@dashboard_bp.route('/')
+@curriculum_bp.route('/<int:id>/enroll', methods=['GET', 'POST'])
 @login_required
-def index():
-    enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
-    snapshots = WeeklySnapshot.query.filter_by(
-        student_id=current_user.id
-    ).order_by(WeeklySnapshot.week_ending.desc()).limit(4).all()
+def enroll(id):
+    curriculum = Curriculum.query.get_or_404(id)
+    form = EnrollmentForm()
     
-    return render_template('dashboard/student.html', 
-                         enrollments=enrollments,
-                         snapshots=snapshots)
-
-@dashboard_bp.route('/task/<int:id>/toggle', methods=['POST'])
-@login_required
-def toggle_task(id):
-    student_task = StudentTask.query.filter_by(
-        student_id=current_user.id,
-        task_id=id
-    ).first_or_404()
-    
-    if student_task.status == 0:  # Not started
-        student_task.status = 1  # In progress
-        student_task.started_at = datetime.utcnow()
-    elif student_task.status == 1:  # In progress
-        student_task.status = 2  # Completed
-        student_task.finished_at = datetime.utcnow()
-        if student_task.started_at:
-            delta = student_task.finished_at - student_task.started_at
-            student_task.time_spent_minutes = int(delta.total_seconds() / 60)
-    
-    db.session.commit()
-    return redirect(url_for('dashboard.index'))
+    if form.validate_on_submit():
+        enrollment = Enrollment(
+            student_id=current_user.id,
+            curriculum_id=curriculum.id,
+            weekly_goal_count=form.weekly_goal_count.data,
+            study_days_per_week=form.study_days_per_week.data,
+            target_completion_date=form.target_completion_date.data
+        )
+        
+        # Create StudentTask entries for each task
+        for task in curriculum.tasks:
+            student_task = StudentTask(
+                student_id=current_user.id,
+                task_id=task.id,
+                status=0  # Not started
+            )
+            db.session.add(student_task)
+            
+        db.session.add(enrollment)
+        db.session.commit()
+        
+        flash('Successfully enrolled in the curriculum!')
+        return redirect(url_for('dashboard.index'))
+        
+    return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
