@@ -113,20 +113,12 @@ def index():
 @dashboard_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required
 def start_task(id):
-    logger.info(f"Received start_task request for task {id} from user {current_user.id}")
-    logger.debug(f"Request method: {request.method}")
-    logger.debug(f"Request headers: {dict(request.headers)}")
     logger = logging.getLogger(__name__)
     logger.info(f"Starting task {id} for user {current_user.id}")
-    logger.info(f"Request path: {request.path}")
-    logger.info(f"Request method: {request.method}")
-    logger.info(f"Request headers: {dict(request.headers)}")
-    logger.info(f"Request form data: {request.form}")
-    logger.info(f"Request JSON: {request.get_json(silent=True)}")
     
     try:
+        # Begin transaction
         task = Task.query.get_or_404(id)
-        logger.info(f"Found task: {task.title}")
         
         # Get or create student task
         student_task = StudentTask.query.filter_by(
@@ -135,23 +127,22 @@ def start_task(id):
         ).first()
         
         if not student_task:
-            logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
                 student_id=current_user.id,
                 task_id=task.id,
                 status=StudentTask.STATUS_NOT_STARTED
             )
             db.session.add(student_task)
+            logger.info(f"Created new student task for task {id}")
         
         # Reset any other in-progress tasks
-        in_progress_tasks = StudentTask.query.filter_by(
+        StudentTask.query.filter_by(
             student_id=current_user.id,
             status=StudentTask.STATUS_IN_PROGRESS
-        ).all()
-        
-        for t in in_progress_tasks:
-            t.status = StudentTask.STATUS_NOT_STARTED
-            t.started_at = None
+        ).update({
+            "status": StudentTask.STATUS_NOT_STARTED,
+            "started_at": None
+        })
         
         # Start this task
         student_task.status = StudentTask.STATUS_IN_PROGRESS
@@ -161,6 +152,26 @@ def start_task(id):
         student_task.time_spent_minutes = 0
         
         db.session.commit()
+        logger.info(f"Successfully started task {id}")
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Task started successfully',
+            'task': {
+                'id': task.id,
+                'title': task.title,
+                'status': student_task.status,
+                'link': task.link
+            }
+        })
+        
+    except Exception as e:
+        logger.error(f"Error starting task {id}: {str(e)}")
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': f"Failed to start task: {str(e)}"
+        }), 500
         
         logger.info(f"Task {id} started successfully")
         return jsonify({

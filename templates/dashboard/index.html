@@ -3,27 +3,31 @@
 {% block content %}
 <script>
 function handleTaskAction(action, taskId) {
-    console.log(`Handling ${action} action for task ${taskId}`);
-    
     const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
     if (!actionDiv) {
         console.error('Could not find action div for task:', taskId);
         return;
     }
     
-    const taskUrl = actionDiv.dataset.taskUrl;
-    console.log('Task URL:', taskUrl);
+    // Show loading state
+    actionDiv.innerHTML = `
+        <div class="d-inline-flex gap-2">
+            <button class="btn btn-sm btn-outline-secondary" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+        </div>
+    `;
     
     const csrfToken = document.querySelector('meta[name="csrf-token"]');
     if (!csrfToken) {
         console.error('CSRF token not found');
         return;
     }
+    
     const token = csrfToken.getAttribute('content');
     const taskEndpoint = `/dashboard/task/${taskId}/${action}`;
-    console.log('Task endpoint:', taskEndpoint);
-    console.log(`Making request to ${taskEndpoint}`);
-    console.log('CSRF Token:', token);
+    
     fetch(taskEndpoint, {
         method: 'POST',
         headers: {
@@ -39,40 +43,43 @@ function handleTaskAction(action, taskId) {
         }
         return response.json();
     })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => Promise.reject(err));
+        }
+        return response.json();
+    })
     .then(data => {
         console.log('Response data:', data);
         
         if (data.status === 'success') {
-            // If starting a task and there's a URL, open it
-            if (action === 'start' && taskUrl) {
-                console.log('Opening task URL:', taskUrl);
-                window.open(taskUrl, '_blank');
+            // If starting a task and there's a task URL, open it
+            if (action === 'start' && data.task && data.task.link) {
+                window.open(data.task.link, '_blank');
             }
             
             // Update the button group based on the new state
-            if (action === 'start') {
-                actionDiv.innerHTML = `
-                    <div class="d-inline-flex gap-2">
-                        <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
-                            <i data-feather="check"></i> Finish
-                        </button>
-                        <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
-                            <i data-feather="skip-forward"></i> Skip
-                        </button>
-                    </div>
-                `;
-            } else {
-                actionDiv.innerHTML = `
-                    <div class="d-inline-flex gap-2">
-                        <button onclick="handleTaskAction('start', ${taskId})" class="btn btn-sm btn-outline-primary">
-                            <i data-feather="play"></i> Start
-                        </button>
-                        <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
-                            <i data-feather="skip-forward"></i> Skip
-                        </button>
-                    </div>
-                `;
-            }
+            const newHtml = action === 'start' ? `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
+                        <i data-feather="check"></i> Finish
+                    </button>
+                    <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                </div>
+            ` : `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('start', ${taskId})" class="btn btn-sm btn-outline-primary">
+                        <i data-feather="play"></i> Start
+                    </button>
+                    <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                </div>
+            `;
+            
+            actionDiv.innerHTML = newHtml;
             
             // Re-initialize Feather icons
             if (typeof feather !== 'undefined') {
@@ -85,20 +92,56 @@ function handleTaskAction(action, taskId) {
     })
     .catch(error => {
         console.error('Error performing task action:', error);
-        if (error.response) {
-            // The server responded with a status code outside the 2xx range
-            console.error('Server error:', error.response.data);
-            alert(error.response.data.message || 'Server error occurred. Please try again.');
-        } else if (error.request) {
-            // The request was made but no response was received
-            console.error('No response received:', error.request);
-            alert('No response from server. Please check your connection and try again.');
-        } else {
-            // Something happened in setting up the request
-            console.error('Request setup error:', error.message);
-            alert('Error: ' + error.message);
+        
+        // Show error state in the button group
+        actionDiv.innerHTML = `
+            <div class="d-inline-flex gap-2">
+                <button onclick="handleTaskAction('${action}', ${taskId})" class="btn btn-sm btn-outline-danger">
+                    <i data-feather="alert-triangle"></i> Retry
+                </button>
+            </div>
+        `;
+        
+        // Show error toast
+        const errorMessage = error.message || 'An error occurred. Please try again.';
+        const toastContainer = document.getElementById('toast-container') || createToastContainer();
+        const toast = createErrorToast(errorMessage);
+        toastContainer.appendChild(toast);
+        new bootstrap.Toast(toast).show();
+        
+        // Initialize feather icons for the new buttons
+        if (typeof feather !== 'undefined') {
+            feather.replace();
         }
     });
+}
+
+function createToastContainer() {
+    const container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+    document.body.appendChild(container);
+    return container;
+}
+
+function createErrorToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast align-items-center text-bg-danger border-0';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                ${message}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    `;
+    
+    return toast;
+}
 }
 
 // Initialize Feather icons when the page loads
