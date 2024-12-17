@@ -155,23 +155,31 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td class="text-end">
                                 <div class="d-inline-flex gap-2">
                                     {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                    {% if student_task and student_task.status == 1 %}
-                                        <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="{{ task.id }}">
-                                            <i data-feather="check"></i> Finish
-                                        </button>
+                                    {% if student_task and student_task.status == StudentTask.STATUS_IN_PROGRESS %}
+                                        <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i data-feather="check"></i> Finish
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary" 
+                                                    onclick="return confirm('Are you sure you want to skip this task?')">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        </form>
                                     {% else %}
-                                        <button type="button" 
-                                                class="btn btn-sm btn-outline-primary start-task-btn"
-                                                data-task-id="{{ task.id }}"
-                                                data-resource-url="{{ task.link if task.link else '' }}">
-                                            <i data-feather="play"></i> Start
-                                        </button>
+                                        <form method="POST" action="{{ url_for('dashboard.start_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                <i data-feather="play"></i> Start
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('dashboard.skip_task', id=task.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary"
+                                                    onclick="return confirm('Are you sure you want to skip this task?')">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        </form>
                                     {% endif %}
-                                    <button type="button" 
-                                            class="btn btn-sm btn-outline-secondary skip-task-btn"
-                                            data-task-id="{{ task.id }}">
-                                        <i data-feather="skip-forward"></i> Skip
-                                    </button>
                                 </div>
                             </td>
                         </tr>

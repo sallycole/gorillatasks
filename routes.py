@@ -78,61 +78,56 @@ def index():
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
-                         StudentTask=StudentTask,
+                         StudentTask=StudentTask,  # Pass the model class
                          current_user=current_user)
 
 @dashboard_bp.route('/start_task/<int:id>', methods=['POST'])
 @login_required
 def start_task(id):
-    try:
-        task = Task.query.get_or_404(id)
-        
-        # Get or create student task
-        student_task = StudentTask.query.filter_by(
+    task = Task.query.get_or_404(id)
+    
+    # Get or create student task
+    student_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        task_id=task.id
+    ).first()
+    
+    if not student_task:
+        student_task = StudentTask(
             student_id=current_user.id,
-            task_id=task.id
-        ).first()
-        
-        if not student_task:
-            student_task = StudentTask(
-                student_id=current_user.id,
-                task_id=task.id,
-                status=StudentTask.STATUS_NOT_STARTED
-            )
-            db.session.add(student_task)
-        
-        # Reset any other in-progress tasks
-        StudentTask.query.filter_by(
-            student_id=current_user.id,
-            status=StudentTask.STATUS_IN_PROGRESS
-        ).update({
-            'status': StudentTask.STATUS_NOT_STARTED,
-            'started_at': None
-        })
-        
-        # Start this task
-        student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = datetime.utcnow()
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        student_task.time_spent_minutes = 0
-        
-        db.session.commit()
-        
-        return jsonify({
-            'status': 'success',
-            'message': 'Task started successfully',
-            'task_id': task.id,
-            'task_url': task.link if task.link else None,
-            'task_status': StudentTask.STATUS_IN_PROGRESS
-        })
-    except Exception as e:
-        db.session.rollback()
-        print(f"Error starting task: {str(e)}")
-        return jsonify({
-            'status': 'error',
-            'message': 'Failed to start task'
-        }), 500
+            task_id=task.id,
+            status=StudentTask.STATUS_NOT_STARTED
+        )
+        db.session.add(student_task)
+    
+    # Reset any other in-progress tasks
+    StudentTask.query.filter_by(
+        student_id=current_user.id,
+        status=StudentTask.STATUS_IN_PROGRESS
+    ).update({
+        'status': StudentTask.STATUS_NOT_STARTED,
+        'started_at': None
+    })
+    
+    # Start this task
+    student_task.status = StudentTask.STATUS_IN_PROGRESS
+    student_task.started_at = datetime.utcnow()
+    student_task.finished_at = None
+    student_task.skipped_at = None
+    student_task.time_spent_minutes = 0
+    
+    db.session.commit()
+    
+    # If task has a URL, redirect to it in a new tab using JavaScript
+    if task.link:
+        return """
+        <script>
+            window.open('{}', '_blank');
+            window.location.href = '{}';
+        </script>
+        """.format(task.link, url_for('dashboard.index'))
+    
+    return redirect(url_for('dashboard.index'))
 
 @dashboard_bp.route('/finish_task/<int:id>', methods=['POST'])
 @login_required
