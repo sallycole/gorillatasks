@@ -20,16 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const taskRow = event.target.closest('tr');
         const actionCell = taskRow.querySelector('.task-actions');
         
-        // Update button to show Finish instead of Start
-        actionCell.innerHTML = `
-            <form method="POST" action="/finish_task/${taskId}" class="d-inline">
-                <button type="submit" class="btn btn-sm btn-success">
-                    <i data-feather="check"></i> Finish
-                </button>
-            </form>
+        // Update buttons to show Finish instead of Start
+        const btnGroup = actionCell.querySelector('.btn-group');
+        btnGroup.innerHTML = `
+            <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="${taskId}">
+                <i data-feather="check"></i> Finish
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary skip-task-btn" data-task-id="${taskId}">
+                <i data-feather="skip-forward"></i> Skip
+            </button>
         `;
         
-        // Re-initialize Feather icons for the new button
+        // Re-initialize Feather icons for the new buttons
         if (typeof feather !== 'undefined') {
             feather.replace();
         }
@@ -39,6 +41,33 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.start-task-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             handleStartTask(e, this.dataset.taskId, this.dataset.resourceUrl);
+        });
+    });
+
+    // Handle skip button clicks
+    document.querySelectorAll('.skip-task-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            if (confirm('Are you sure you want to skip this task?')) {
+                const taskId = this.dataset.taskId;
+                const taskRow = this.closest('tr');
+                const actionCell = taskRow.querySelector('.task-actions');
+                const btnGroup = actionCell.querySelector('.btn-group');
+                
+                // Update buttons to show Start and Skip
+                btnGroup.innerHTML = `
+                    <button type="button" class="btn btn-sm btn-outline-primary start-task-btn" data-task-id="${taskId}">
+                        <i data-feather="play"></i> Start
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary skip-task-btn" data-task-id="${taskId}">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                `;
+                
+                // Re-initialize Feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            }
         });
     });
 
@@ -97,22 +126,29 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tr>
                             <td>{{ task.title }}</td>
                             <td class="task-actions">
-                                <!-- Simple Start/Finish button toggle -->
-                                {% if task.status == 'in_progress' %}
-                                    <form method="POST" action="{{ url_for('dashboard.finish_task', id=task.id) }}" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-success">
-                                            <i data-feather="check"></i> Finish
+                                    <div class="btn-group">
+                                        <!-- Start/Finish button -->
+                                        {% if task.status == 'in_progress' %}
+                                            <button type="button" class="btn btn-sm btn-success finish-task-btn" data-task-id="{{ task.id }}">
+                                                <i data-feather="check"></i> Finish
+                                            </button>
+                                        {% else %}
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-outline-primary start-task-btn"
+                                                    data-task-id="{{ task.id }}"
+                                                    data-resource-url="{{ task.link if task.link else '' }}">
+                                                <i data-feather="play"></i> Start
+                                            </button>
+                                        {% endif %}
+                                        
+                                        <!-- Skip button (always visible) -->
+                                        <button type="button" 
+                                                class="btn btn-sm btn-outline-secondary skip-task-btn"
+                                                data-task-id="{{ task.id }}">
+                                            <i data-feather="skip-forward"></i> Skip
                                         </button>
-                                    </form>
-                                {% else %}
-                                    <button type="button" 
-                                            class="btn btn-sm btn-outline-primary start-task-btn"
-                                            data-task-id="{{ task.id }}"
-                                            data-resource-url="{{ task.link if task.link else '' }}">
-                                        <i data-feather="play"></i> Start
-                                    </button>
-                                {% endif %}
-                            </td>
+                                    </div>
+                                </td>
                         </tr>
                         {% endfor %}
                     </tbody>
