@@ -140,14 +140,20 @@ def toggle_task(id):
 def list():
     curriculums = Curriculum.query.all()
     # Get user's enrollments
-    user_enrollments = {
+    user_enrollments = set(
         enrollment.curriculum_id 
         for enrollment in Enrollment.query.filter_by(student_id=current_user.id).all()
-    }
-    print(f"Found {len(curriculums)} curriculums")
-    print(f"User enrollments: {user_enrollments}")
+    )
+    
+    print(f"DEBUG: Found {len(curriculums)} curriculums")
+    print(f"DEBUG: User enrollments: {user_enrollments}")
+    print(f"DEBUG: Current user id: {current_user.id}")
+    
     for curriculum in curriculums:
-        print(f"Curriculum: {curriculum.name}, Creator: {curriculum.creator_id}, Current User: {current_user.id}")
+        print(f"DEBUG: Curriculum {curriculum.id}: {curriculum.name}")
+        print(f"DEBUG: - Creator: {curriculum.creator_id}")
+        print(f"DEBUG: - Is enrolled: {curriculum.id in user_enrollments}")
+        
     return render_template('curriculum/list.html', 
                          curriculums=curriculums,
                          user_enrollments=user_enrollments)
