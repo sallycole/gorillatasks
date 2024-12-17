@@ -22,11 +22,11 @@
                     </div>
                     <div class="mb-3">
                         {{ form.target_completion_date.label(class="form-label") }}
-                        {{ form.target_completion_date(class="form-control") }}
+                        {{ form.target_completion_date(class="form-control", type="date") }}
                         <div class="form-text">When do you aim to complete this curriculum?</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Enroll</button>
-                    <a href="{{ url_for('curriculum.list') }}" class="btn btn-secondary">Cancel</a>
+                    <a href="{{ url_for('curriculum.view', id=curriculum.id) }}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>
