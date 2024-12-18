@@ -74,15 +74,6 @@ GRADE_LEVELS = [
     ('College', 'College')
 ]
 
-class CurriculumGradeLevel(db.Model):
-    __tablename__ = 'curriculum_grade_levels'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    curriculum_id = db.Column(db.Integer, db.ForeignKey('curriculums.id'), nullable=False)
-    grade_level_id = db.Column(db.Integer, db.ForeignKey('grade_levels.id'), nullable=False)
-    created_at = db.Column(db.DateTime, default=now_in_utc)
-    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
-
 class Task(db.Model):
     __tablename__ = 'tasks'
     
