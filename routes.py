@@ -85,10 +85,12 @@ def index():
     # Get user's enrollments
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
     
-    # Initialize statistics dictionary
+    # Initialize statistics and tasks dictionaries
     tasks_stats = {}
+    filtered_tasks = {}
     
     for enrollment in enrollments:
+        # Get total and completed task counts
         total_tasks = Task.query.filter_by(curriculum_id=enrollment.curriculum_id).count()
         completed_tasks = StudentTask.query.filter_by(
             student_id=current_user.id,
@@ -99,10 +101,25 @@ def index():
             'total': total_tasks,
             'completed': completed_tasks
         }
+        
+        # Get next 10 incomplete tasks
+        incomplete_tasks = Task.query.outerjoin(
+            StudentTask, 
+            (Task.id == StudentTask.task_id) & 
+            (StudentTask.student_id == current_user.id)
+        ).filter(
+            Task.curriculum_id == enrollment.curriculum_id,
+            (StudentTask.status.is_(None)) |  # No student task record
+            (StudentTask.status != StudentTask.STATUS_COMPLETED) &  # Not completed
+            (StudentTask.status != StudentTask.STATUS_SKIPPED)  # Not skipped
+        ).order_by(Task.position).limit(10).all()
+        
+        filtered_tasks[enrollment.id] = incomplete_tasks
     
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
+                         filtered_tasks=filtered_tasks,
                          StudentTask=StudentTask,  # Pass the model to the template
                          STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
                          STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,

@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </tr>
                     </thead>
                     <tbody>
-                        {% for task in enrollment.curriculum.tasks %}
+                        {% for task in filtered_tasks[enrollment.id] %}
                         <tr>
                             <td>
                                 {{ task.title }}
