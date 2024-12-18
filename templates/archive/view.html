@@ -59,7 +59,7 @@
             </thead>
             <tbody>
                 {% for student_task in completed_tasks %}
-                <tr>
+                <tr data-task-id="{{ student_task.task_id }}">
                     <td>
                         {% if student_task.task.link %}
                             <a href="{{ student_task.task.link }}" target="_blank">{{ student_task.task.title }}</a>
@@ -90,20 +90,30 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
-function unarchiveTask(taskId) {
-    fetch(`/archive/task/${taskId}/unarchive`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            window.location.reload();
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    let socket = io({
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionAttempts: 5
     });
-}
+
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+    });
+
+    window.unarchiveTask = function(taskId) {
+        socket.emit('unarchive_task', { task_id: taskId }, (response) => {
+            if (response.status === 'success') {
+                // Remove the task row from the table
+                const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
+                if (taskRow) {
+                    taskRow.remove();
+                }
+            }
+        });
+    }
+});
 </script>
 {% endblock %}

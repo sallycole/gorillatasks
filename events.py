@@ -20,6 +20,38 @@ def handle_connect():
 def handle_disconnect():
     logger.info(f'Client disconnected: {request.sid}')
 
+@socketio.on('unarchive_task')
+def handle_unarchive_task(data):
+    if not current_user.is_authenticated:
+        return {'status': 'error', 'message': 'Authentication required'}
+        
+    try:
+        task_id = data.get('task_id')
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=task_id
+        ).first_or_404()
+        
+        student_task.status = StudentTask.STATUS_NOT_STARTED
+        student_task.started_at = None
+        student_task.finished_at = None
+        student_task.skipped_at = None
+        student_task.time_spent_minutes = 0
+        
+        db.session.commit()
+        
+        socketio.emit('task_updated', {
+            'task_id': task_id,
+            'status': StudentTask.STATUS_NOT_STARTED
+        }, room=request.sid)
+        
+        return {'status': 'success', 'message': 'Task unarchived successfully'}
+        
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f'Error unarchiving task: {str(e)}')
+        return {'status': 'error', 'message': str(e)}
+
 @socketio.on('start_task')
 def handle_start_task(data):
     if not current_user.is_authenticated:
