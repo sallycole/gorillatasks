@@ -5,6 +5,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, Email, Length, EqualTo, Optional
 import pytz
+from models import GRADE_LEVELS
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
