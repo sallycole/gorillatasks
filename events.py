@@ -93,29 +93,53 @@ def handle_finish_task(data):
 
     try:
         task_id = data.get('task_id')
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
+        student_task = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == current_user.id,
+            StudentTask.task_id == task_id
         ).first_or_404()
         
         if student_task.can_finish:
+            current_time = datetime.now(pytz.UTC)
             student_task.status = StudentTask.STATUS_COMPLETED
-            student_task.finished_at = datetime.now(pytz.UTC)
+            student_task.finished_at = current_time
             
             if student_task.started_at:
-                if student_task.started_at.tzinfo is None:
-                    student_task.started_at = pytz.UTC.localize(student_task.started_at)
-                delta = student_task.finished_at - student_task.started_at
+                # Ensure started_at is timezone-aware
+                started_at = student_task.started_at if student_task.started_at.tzinfo else pytz.UTC.localize(student_task.started_at)
+                delta = current_time - started_at
                 student_task.time_spent_minutes = int(delta.total_seconds() / 60)
             
             db.session.commit()
             
+            # Get next 10 incomplete tasks from same curriculum
+            curriculum_id = student_task.task.curriculum_id
+            next_tasks = Task.query.outerjoin(
+                StudentTask,
+                (Task.id == StudentTask.task_id) & 
+                (StudentTask.student_id == current_user.id)
+            ).filter(
+                Task.curriculum_id == curriculum_id,
+                (StudentTask.status.is_(None)) |
+                (StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]))
+            ).order_by(Task.position).limit(10).all()
+            
+            # Format tasks for response
+            tasks_data = [{
+                'id': task.id,
+                'title': task.title,
+                'description': task.description,
+                'link': task.link
+            } for task in next_tasks]
+            
             socketio.emit('task_updated', {
                 'task_id': task_id,
-                'status': StudentTask.STATUS_COMPLETED
+                'status': StudentTask.STATUS_COMPLETED,
+                'next_tasks': tasks_data
             }, room=request.sid)
             
             return {'status': 'success', 'message': 'Task completed successfully'}
+            
+        return {'status': 'error', 'message': 'Task cannot be finished'}
             
         return {'status': 'error', 'message': 'Task cannot be finished'}
         
