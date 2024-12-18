@@ -110,6 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
 socket.on('task_updated', (data) => {
         console.log('Task updated:', data);
         if (data && data.task_id) {
+            if (data.status === 1 && data.link) { // IN_PROGRESS
+                window.open(data.link, '_blank');
+            }
             if (data.status === 2 || data.status === 3) { // COMPLETED or SKIPPED
                 window.location.reload(); // Refresh to show new task list
             } else {
@@ -233,7 +236,7 @@ socket.on('task_updated', (data) => {
         <div class="card-body">
             <!-- Progress Section -->
             <div class="mb-4">
-                <h5>Progress</h5>
+                <h5>Completion Status</h5>
                 <div class="progress mb-2">
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
                     {% set total = tasks_stats[enrollment.id]['total'] %}

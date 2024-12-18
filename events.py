@@ -62,12 +62,15 @@ def handle_start_task(data):
         student_task.skipped_at = None
         
         # Start this task
-        student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = datetime.now(pytz.UTC)
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        
+        student_task.start()  # Uses the model's start() method
         db.session.commit()
+        
+        # Send update with task URL to client
+        socketio.emit('task_updated', {
+            'task_id': task_id,
+            'status': StudentTask.STATUS_IN_PROGRESS,
+            'link': task.link
+        }, room=request.sid)
         
         # Send update to client
         socketio.emit('task_updated', {
