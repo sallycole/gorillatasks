@@ -31,6 +31,15 @@ def handle_start_task(data):
         if not task:
             return {'status': 'error', 'message': 'Task not found'}
 
+        # Reset any other in-progress tasks
+        StudentTask.query.filter_by(
+            student_id=current_user.id,
+            status=StudentTask.STATUS_IN_PROGRESS
+        ).update({
+            "status": StudentTask.STATUS_NOT_STARTED,
+            "started_at": None
+        })
+        
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id

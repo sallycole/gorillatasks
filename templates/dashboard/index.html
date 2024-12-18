@@ -95,104 +95,32 @@ document.addEventListener('DOMContentLoaded', function() {
 };
 
 socket.on('task_updated', (data) => {
-    console.log('Task updated:', data);
-    if (data && data.task_id) {
-        updateTaskUI(data);
-    } else {
-        console.error('Invalid task update data:', data);
-    }
-});
-                        <td>
-                            ${data.next_task.title}
-                            ${data.next_task.description ? `<p class="text-muted mb-0 small">${data.next_task.description}</p>` : ''}
-                        </td>
-                        <td class="text-end">
-                            <div class="task-actions" data-task-id="${data.next_task.id}" data-task-url="${data.next_task.link}">
-                                <div class="d-inline-flex gap-2">
-                                    <button onclick="handleTaskAction('start', ${data.next_task.id})" class="btn btn-sm btn-outline-primary">
-                                        <i data-feather="play"></i> Start
-                                    </button>
-                                    <button onclick="handleTaskAction('skip', ${data.next_task.id})" class="btn btn-sm btn-outline-secondary">
-                                        <i data-feather="skip-forward"></i> Skip
-                                    </button>
-                                </div>
+        console.log('Task updated:', data);
+        if (data && data.task_id) {
+            if (data.status === 2) { // COMPLETED
+                window.location.reload(); // Refresh to show new task list
+            } else {
+                const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
+                if (actionDiv) {
+                    if (data.status === 1) { // IN_PROGRESS
+                        actionDiv.innerHTML = `
+                            <div class="d-inline-flex gap-2">
+                                <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
+                                    <i data-feather="check"></i> Finish
+                                </button>
+                                <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                                    <i data-feather="skip-forward"></i> Skip
+                                </button>
                             </div>
-                        </td>
-                    `;
+                        `;
+                    }
                     if (typeof feather !== 'undefined') {
                         feather.replace();
                     }
-                } else if (taskRow) {
-                    // No next task, remove the row
-                    taskRow.remove();
                 }
-            } else {
-                updateTaskUI(data);
             }
-        } else {
-            console.error('Invalid task update data:', data);
         }
     });
-
-    window.handleTaskAction = function(action, taskId) {
-        if (!socket || !socket.connected) {
-            console.error('Socket not connected');
-            return;
-        }
-
-        console.log(`Handling ${action} for task ${taskId}`);
-        const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
-        if (!actionDiv) {
-            console.error('Could not find action div for task:', taskId);
-            return;
-        }
-        
-        // Show loading state
-        const originalContent = actionDiv.innerHTML;
-        actionDiv.innerHTML = `
-            <div class="d-inline-flex gap-2">
-                <button class="btn btn-sm btn-outline-secondary" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Loading...
-                </button>
-            </div>
-        `;
-        
-        // Emit socket event with timeout
-        console.log('Emitting socket event:', action + '_task');
-        const timeout = setTimeout(() => {
-            console.error('Socket event timed out');
-            actionDiv.innerHTML = originalContent;
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }, 5000);
-
-        socket.emit(action + '_task', { task_id: taskId }, (response) => {
-            clearTimeout(timeout);
-            console.log('Received response:', response);
-            
-            if (!response) {
-                console.error('No response from server');
-                actionDiv.innerHTML = originalContent;
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-                return;
-            }
-            
-            if (response.status === 'success') {
-                console.log('Task action successful:', response);
-                // UI will be updated by the task_updated event handler
-            } else {
-                console.error('Task action failed:', response.message);
-                actionDiv.innerHTML = originalContent;
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-            }
-        });
-    };
 
     function updateTaskUI(data) {
         console.log('Updating UI for task:', data);
