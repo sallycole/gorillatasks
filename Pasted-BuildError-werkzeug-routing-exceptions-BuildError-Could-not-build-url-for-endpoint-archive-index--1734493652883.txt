@@ -1,0 +1,53 @@
+BuildError
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'archive.index'. Did you mean 'dashboard.index' instead?
+
+Traceback (most recent call last)
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1514, in wsgi_app
+response = self.handle_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+response = self.full_dispatch_request()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+rv = self.handle_user_exception(e)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+rv = self.dispatch_request()
+     ^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+return current_app.ensure_sync(func)(*args, **kwargs)
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/routes.py", line 183, in index
+return render_template('dashboard/index.html',
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+return _render(app, template, context)
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+rv = template.render(context)
+     ^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+self.environment.handle_exception()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+raise rewrite_traceback_stack(source=source)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/templates/dashboard/index.html", line 14, in top-level template code
+{% extends "base.html" %}
+File "/home/runner/Gorilla-Tasks/templates/base.html", line 28, in top-level template code
+<a class="nav-link" href="{{ url_for('archive.index') }}">Archive</a>
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+return self.handle_url_build_error(error, endpoint, values)
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+rv = url_adapter.build(  # type: ignore[union-attr]
+     
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+raise BuildError(endpoint, values, method, self)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'archive.index'. Did you mean 'dashboard.index' instead?
+The debugger caught an exception in your WSGI application. You can now look at the traceback which led to the error.
+To switch between the interactive traceback and the plaintext one, you can click on the "Traceback" headline. From the text traceback you can also create a paste of it.
