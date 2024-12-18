@@ -112,27 +112,30 @@ def handle_finish_task(data):
             
             db.session.commit()
 
-            # Get next incomplete task
-            next_task = Task.query.outerjoin(
+            # Get next 10 incomplete tasks
+            next_tasks = Task.query.outerjoin(
                 StudentTask,
                 (Task.id == StudentTask.task_id) & 
                 (StudentTask.student_id == current_user.id)
             ).filter(
                 Task.curriculum_id == student_task.task.curriculum_id,
-                (StudentTask.status.is_(None)) |
-                (StudentTask.status != StudentTask.STATUS_COMPLETED) &
-                (StudentTask.status != StudentTask.STATUS_SKIPPED)
-            ).order_by(Task.position).first()
+                (StudentTask.status.is_(None)) |  
+                ((StudentTask.status != StudentTask.STATUS_COMPLETED) & 
+                (StudentTask.status != StudentTask.STATUS_SKIPPED))
+            ).order_by(Task.position).limit(10).all()
+
+            # Format tasks for response
+            tasks_data = [{
+                'id': task.id,
+                'title': task.title,
+                'description': task.description,
+                'link': task.link
+            } for task in next_tasks]
 
             update_data = {
                 'task_id': task_id,
                 'status': StudentTask.STATUS_COMPLETED,
-                'next_task': {
-                    'id': next_task.id,
-                    'title': next_task.title,
-                    'description': next_task.description,
-                    'link': next_task.link
-                } if next_task else None
+                'next_tasks': tasks_data
             }
             
             socketio.emit('task_updated', update_data, room=request.sid)

@@ -41,10 +41,38 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Task updated:', data);
         if (data && data.task_id) {
             if (data.status === 2) { // COMPLETED
-                const taskRow = document.querySelector(`tr[data-task-id="${data.task_id}"]`);
-                if (taskRow && data.next_task) {
-                    // Replace completed task with next task
-                    taskRow.innerHTML = `
+                const tbody = document.querySelector('tbody');
+                // Clear existing tasks
+                tbody.innerHTML = '';
+                // Add new tasks
+                data.next_tasks.forEach(task => {
+                    tbody.innerHTML += `
+                        <tr data-task-id="${task.id}">
+                            <td>
+                                ${task.title}
+                                ${task.description ? `<p class="text-muted mb-0 small">${task.description}</p>` : ''}
+                            </td>
+                            <td class="text-end">
+                                <div class="task-actions" data-task-id="${task.id}" data-task-url="${task.link}">
+                                    <div class="d-inline-flex gap-2">
+                                        <button onclick="handleTaskAction('start', ${task.id})" class="btn btn-sm btn-outline-primary">
+                                            <i data-feather="play"></i> Start
+                                        </button>
+                                        <button onclick="handleTaskAction('skip', ${task.id})" class="btn btn-sm btn-outline-secondary">
+                                            <i data-feather="skip-forward"></i> Skip
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            } else {
+                updateTaskUI(data);
+            }
                         <td>
                             ${data.next_task.title}
                             ${data.next_task.description ? `<p class="text-muted mb-0 small">${data.next_task.description}</p>` : ''}
