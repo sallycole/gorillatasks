@@ -9,6 +9,22 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-6">
+                    <h5>Start Date</h5>
+                    <p class="mb-0">{{ enrollment.created_at.strftime('%Y-%m-%d') }}</p>
+                </div>
+                <div class="col-6">
+                    <h5>Finish Date</h5>
+                    <p class="mb-0">
+                        {% if enrollment.is_completed() %}
+                            {{ enrollment.updated_at.strftime('%Y-%m-%d') }}
+                        {% else %}
+                            --
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-6">
                     <h5>Finished Tasks</h5>
                     <p class="mb-0">{{ stats.finished_tasks }}/{{ stats.total_tasks }} ({{ "%.1f"|format(stats.finished_percent) }}%)</p>
                 </div>
