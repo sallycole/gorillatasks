@@ -125,6 +125,27 @@ class StudentTask(db.Model):
     @property
     def can_skip(self):
         return self.status in [self.STATUS_NOT_STARTED, self.STATUS_IN_PROGRESS]
+        
+    def start(self):
+        self.status = self.STATUS_IN_PROGRESS
+        self.started_at = now_in_utc()
+        self.finished_at = None
+        self.skipped_at = None
+        self.time_spent_minutes = 0
+        
+    def finish(self):
+        if self.started_at:
+            self.finished_at = now_in_utc()
+            self.status = self.STATUS_COMPLETED
+            delta = self.finished_at - self.started_at
+            self.time_spent_minutes = int(delta.total_seconds() / 60)
+            
+    def skip(self):
+        self.status = self.STATUS_SKIPPED
+        self.skipped_at = now_in_utc()
+        self.started_at = None
+        self.finished_at = None
+        self.time_spent_minutes = 0
 
 class Enrollment(db.Model):
     __tablename__ = 'enrollments'

@@ -164,11 +164,7 @@ def start_task(id):
         })
         
         # Start this task
-        student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = datetime.now(pytz.UTC)
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        student_task.time_spent_minutes = 0
+        student_task.start()
         
         db.session.commit()
         logger.info(f"Successfully started task {id}")
@@ -218,11 +214,7 @@ def finish_task(id):
         ).first_or_404()
         
         if student_task.can_finish:
-            student_task.status = StudentTask.STATUS_COMPLETED
-            student_task.finished_at = datetime.utcnow()
-            if student_task.started_at:
-                delta = student_task.finished_at - student_task.started_at
-                student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+            student_task.finish()
             db.session.commit()
             return jsonify({
                 'status': 'success',
@@ -249,11 +241,7 @@ def skip_task(id):
         ).first_or_404()
         
         if student_task.can_skip:
-            student_task.status = StudentTask.STATUS_SKIPPED
-            student_task.skipped_at = datetime.utcnow()
-            student_task.started_at = None
-            student_task.finished_at = None
-            student_task.time_spent_minutes = 0
+            student_task.skip()
             db.session.commit()
             return jsonify({
                 'status': 'success',
