@@ -1,3 +1,4 @@
+
 import logging
 from flask import request
 from flask_login import current_user
@@ -32,13 +33,11 @@ def handle_start_task(data):
             logger.error('No task_id provided')
             return {'status': 'error', 'message': 'No task ID provided'}
 
-        # Get the task first to ensure it exists
         task = Task.query.get(task_id)
         if not task:
             logger.error(f'Task not found: {task_id}')
             return {'status': 'error', 'message': 'Task not found'}
 
-        # Get or create student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
@@ -72,13 +71,12 @@ def handle_start_task(data):
         db.session.commit()
         logger.info(f'Successfully started task {task_id} for user {current_user.id}')
         
-        # Emit task update to all clients
         update_data = {
             'task_id': task_id,
             'status': StudentTask.STATUS_IN_PROGRESS,
             'link': task.link if task.link else None
         }
-        socketio.emit('task_updated', update_data, to=request.sid)
+        socketio.emit('task_updated', update_data, room=request.sid)
         logger.info(f'Emitted task_updated event: {update_data}')
         
         return {'status': 'success', 'message': 'Task started successfully'}
@@ -103,42 +101,20 @@ def handle_finish_task(data):
         if student_task.can_finish:
             student_task.status = StudentTask.STATUS_COMPLETED
             student_task.finished_at = datetime.now(pytz.UTC)
+            
             if student_task.started_at:
-                # Convert naive datetime to UTC if needed
                 if student_task.started_at.tzinfo is None:
                     student_task.started_at = pytz.UTC.localize(student_task.started_at)
                 delta = student_task.finished_at - student_task.started_at
                 student_task.time_spent_minutes = int(delta.total_seconds() / 60)
             
             db.session.commit()
-
-            # Get next 10 incomplete tasks
-            next_tasks = Task.query.outerjoin(
-                StudentTask,
-                (Task.id == StudentTask.task_id) & 
-                (StudentTask.student_id == current_user.id)
-            ).filter(
-                Task.curriculum_id == student_task.task.curriculum_id,
-                (StudentTask.status.is_(None)) |  
-                ((StudentTask.status != StudentTask.STATUS_COMPLETED) & 
-                (StudentTask.status != StudentTask.STATUS_SKIPPED))
-            ).order_by(Task.position).limit(10).all()
-
-            # Format tasks for response
-            tasks_data = [{
-                'id': task.id,
-                'title': task.title,
-                'description': task.description,
-                'link': task.link
-            } for task in next_tasks]
-
-            update_data = {
-                'task_id': task_id,
-                'status': StudentTask.STATUS_COMPLETED,
-                'next_tasks': tasks_data
-            }
             
-            socketio.emit('task_updated', update_data, room=request.sid)
+            socketio.emit('task_updated', {
+                'task_id': task_id,
+                'status': StudentTask.STATUS_COMPLETED
+            }, room=request.sid)
+            
             return {'status': 'success', 'message': 'Task completed successfully'}
             
         return {'status': 'error', 'message': 'Task cannot be finished'}
