@@ -31,22 +31,7 @@ class CurriculumForm(FlaskForm):
     link = StringField('Link', validators=[Optional()])
     publisher = StringField('Publisher', validators=[Optional()])
     xml_file = FileField('Upload XML Curriculum')
-    grade_levels = SelectMultipleField('Grade Levels', choices=[
-        ('K', 'Kindergarten'),
-        ('1', '1st Grade'),
-        ('2', '2nd Grade'),
-        ('3', '3rd Grade'),
-        ('4', '4th Grade'),
-        ('5', '5th Grade'),
-        ('6', '6th Grade'),
-        ('7', '7th Grade'),
-        ('8', '8th Grade'),
-        ('9', '9th Grade'),
-        ('10', '10th Grade'),
-        ('11', '11th Grade'),
-        ('12', '12th Grade'),
-        ('College', 'College')
-    ])
+    grade_levels = SelectMultipleField('Grade Levels', choices=GRADE_LEVELS)
 
 class TaskForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])

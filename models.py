@@ -54,16 +54,25 @@ class Curriculum(db.Model):
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
     
     tasks = db.relationship('Task', backref='curriculum', cascade='all, delete-orphan')
-    grade_levels = db.relationship('GradeLevel', secondary='curriculum_grade_levels')
+    grade_levels = db.Column(db.ARRAY(db.String(255)), default=list)
 
-class GradeLevel(db.Model):
-    __tablename__ = 'grade_levels'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    description = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=now_in_utc)
-    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
+# Constants for grade levels
+GRADE_LEVELS = [
+    ('K', 'Kindergarten'),
+    ('1', '1st Grade'),
+    ('2', '2nd Grade'),
+    ('3', '3rd Grade'),
+    ('4', '4th Grade'),
+    ('5', '5th Grade'),
+    ('6', '6th Grade'),
+    ('7', '7th Grade'),
+    ('8', '8th Grade'),
+    ('9', '9th Grade'),
+    ('10', '10th Grade'),
+    ('11', '11th Grade'),
+    ('12', '12th Grade'),
+    ('College', 'College')
+]
 
 class CurriculumGradeLevel(db.Model):
     __tablename__ = 'curriculum_grade_levels'
