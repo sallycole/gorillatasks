@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 socket.on('task_updated', (data) => {
         console.log('Task updated:', data);
         if (data && data.task_id) {
-            if (data.status === 2) { // COMPLETED
+            if (data.status === 2 || data.status === 3) { // COMPLETED or SKIPPED
                 window.location.reload(); // Refresh to show new task list
             } else {
                 const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);

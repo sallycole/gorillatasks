@@ -164,9 +164,30 @@ def handle_skip_task(data):
             
             db.session.commit()
             
+            # Get next incomplete tasks after skipping
+            task = Task.query.get(task_id)
+            next_tasks = Task.query.outerjoin(
+                StudentTask,
+                (Task.id == StudentTask.task_id) & 
+                (StudentTask.student_id == current_user.id)
+            ).filter(
+                Task.curriculum_id == task.curriculum_id,
+                (StudentTask.status.is_(None)) |
+                (StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED]))
+            ).order_by(Task.position).limit(10).all()
+            
+            # Format tasks for response
+            tasks_data = [{
+                'id': task.id,
+                'title': task.title,
+                'description': task.description,
+                'link': task.link
+            } for task in next_tasks]
+            
             socketio.emit('task_updated', {
                 'task_id': task_id,
-                'status': StudentTask.STATUS_SKIPPED
+                'status': StudentTask.STATUS_SKIPPED,
+                'next_tasks': tasks_data
             }, room=request.sid)
             
             return {'status': 'success', 'message': 'Task skipped successfully'}
