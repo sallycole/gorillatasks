@@ -4,22 +4,54 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const socket = io();
+    let socket;
+    try {
+        socket = io({
+            transports: ['websocket', 'polling'],
+            reconnection: true,
+            reconnectionAttempts: 5
+        });
+    } catch (e) {
+        console.error('Failed to initialize socket:', e);
+        return;
+    }
     
     socket.on('connect', () => {
         console.log('Connected to WebSocket server');
+        document.querySelectorAll('.task-actions').forEach(div => {
+            div.classList.remove('disconnected');
+        });
+    });
+
+    socket.on('connect_error', (error) => {
+        console.error('Connection error:', error);
+        document.querySelectorAll('.task-actions').forEach(div => {
+            div.classList.add('disconnected');
+        });
     });
 
     socket.on('disconnect', () => {
         console.log('Disconnected from WebSocket server');
+        document.querySelectorAll('.task-actions').forEach(div => {
+            div.classList.add('disconnected');
+        });
     });
 
     socket.on('task_updated', (data) => {
         console.log('Task updated:', data);
-        updateTaskUI(data);
+        if (data && data.task_id) {
+            updateTaskUI(data);
+        } else {
+            console.error('Invalid task update data:', data);
+        }
     });
 
     window.handleTaskAction = function(action, taskId) {
+        if (!socket || !socket.connected) {
+            console.error('Socket not connected');
+            return;
+        }
+
         console.log(`Handling ${action} for task ${taskId}`);
         const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
         if (!actionDiv) {
@@ -28,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Show loading state
+        const originalContent = actionDiv.innerHTML;
         actionDiv.innerHTML = `
             <div class="d-inline-flex gap-2">
                 <button class="btn btn-sm btn-outline-secondary" disabled>
@@ -37,13 +70,26 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         
-        // Emit socket event
+        // Emit socket event with timeout
         console.log('Emitting socket event:', action + '_task');
+        const timeout = setTimeout(() => {
+            console.error('Socket event timed out');
+            actionDiv.innerHTML = originalContent;
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }, 5000);
+
         socket.emit(action + '_task', { task_id: taskId }, (response) => {
+            clearTimeout(timeout);
             console.log('Received response:', response);
+            
             if (!response) {
                 console.error('No response from server');
-                showError(actionDiv, taskId, action);
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
                 return;
             }
             
@@ -52,7 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // UI will be updated by the task_updated event handler
             } else {
                 console.error('Task action failed:', response.message);
-                showError(actionDiv, taskId, action);
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             }
         });
     };

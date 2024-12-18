@@ -21,11 +21,23 @@ def handle_disconnect():
 
 @socketio.on('start_task')
 def handle_start_task(data):
+    logger.info(f'Received start_task event: {data}')
     if not current_user.is_authenticated:
+        logger.warning('Unauthenticated user attempted to start task')
         return {'status': 'error', 'message': 'Authentication required'}
 
     try:
         task_id = data.get('task_id')
+        if not task_id:
+            logger.error('No task_id provided')
+            return {'status': 'error', 'message': 'No task ID provided'}
+
+        # Get the task first to ensure it exists
+        task = Task.query.get(task_id)
+        if not task:
+            logger.error(f'Task not found: {task_id}')
+            return {'status': 'error', 'message': 'Task not found'}
+
         # Get or create student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
@@ -33,7 +45,7 @@ def handle_start_task(data):
         ).first()
         
         if not student_task:
-            task = Task.query.get_or_404(task_id)
+            logger.info(f'Creating new student task for task {task_id}')
             student_task = StudentTask(
                 student_id=current_user.id,
                 task_id=task_id,
@@ -57,19 +69,17 @@ def handle_start_task(data):
         student_task.skipped_at = None
         student_task.time_spent_minutes = 0
         
-        student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = datetime.now(pytz.UTC)
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        student_task.time_spent_minutes = 0
-        
         db.session.commit()
+        logger.info(f'Successfully started task {task_id} for user {current_user.id}')
         
-        socketio.emit('task_updated', {
+        # Emit task update to all clients
+        update_data = {
             'task_id': task_id,
             'status': StudentTask.STATUS_IN_PROGRESS,
-            'link': task.link
-        }, room=request.sid)
+            'link': task.link if task.link else None
+        }
+        socketio.emit('task_updated', update_data, to=request.sid)
+        logger.info(f'Emitted task_updated event: {update_data}')
         
         return {'status': 'success', 'message': 'Task started successfully'}
         
