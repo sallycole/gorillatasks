@@ -50,7 +50,8 @@ def index():
     active_enrollments = [e for e in enrollments if not e.is_completed()]
     finished_enrollments = [e for e in enrollments if e.is_completed()]
     
-    now = datetime.now(pytz.UTC)
+    from utils.timezone import now_in_utc
+    now = now_in_utc()
     time_metrics = {}
     
     for enrollment in enrollments:
@@ -60,11 +61,11 @@ def index():
         ).all()
         
         weekly_time = sum(t.time_spent_minutes for t in tasks 
-                         if t.updated_at and t.updated_at >= now - timedelta(days=7))
+                         if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=7))
         monthly_time = sum(t.time_spent_minutes for t in tasks 
-                          if t.updated_at and t.updated_at >= now - timedelta(days=30))
+                          if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=30))
         yearly_time = sum(t.time_spent_minutes for t in tasks 
-                         if t.updated_at and t.updated_at >= now - timedelta(days=365))
+                         if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=365))
         
         time_metrics[enrollment.id] = {
             'weekly': weekly_time,
