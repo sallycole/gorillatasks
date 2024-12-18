@@ -43,14 +43,41 @@ archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
 @archive_bp.route('/')
 @login_required
 def index():
-    enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
-    active_count = sum(1 for e in enrollments if not e.is_completed())
-    finished_count = len(enrollments) - active_count
+    from datetime import datetime, timedelta
+    import pytz
     
-    return render_template('archive/index.html', 
-                         enrollments=enrollments,
-                         active_count=active_count,
-                         finished_count=finished_count)
+    enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
+    active_enrollments = [e for e in enrollments if not e.is_completed()]
+    finished_enrollments = [e for e in enrollments if e.is_completed()]
+    
+    now = datetime.now(pytz.UTC)
+    time_metrics = {}
+    
+    for enrollment in enrollments:
+        tasks = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == current_user.id,
+            Task.curriculum_id == enrollment.curriculum_id
+        ).all()
+        
+        weekly_time = sum(t.time_spent_minutes for t in tasks 
+                         if t.updated_at and t.updated_at >= now - timedelta(days=7))
+        monthly_time = sum(t.time_spent_minutes for t in tasks 
+                          if t.updated_at and t.updated_at >= now - timedelta(days=30))
+        yearly_time = sum(t.time_spent_minutes for t in tasks 
+                         if t.updated_at and t.updated_at >= now - timedelta(days=365))
+        
+        time_metrics[enrollment.id] = {
+            'weekly': weekly_time,
+            'monthly': monthly_time,
+            'yearly': yearly_time
+        }
+    
+    return render_template('archive/index.html',
+                         active_enrollments=active_enrollments,
+                         finished_enrollments=finished_enrollments,
+                         active_count=len(active_enrollments),
+                         finished_count=len(finished_enrollments),
+                         time_metrics=time_metrics)
 
 @archive_bp.route('/enrollment/<int:id>')
 @login_required

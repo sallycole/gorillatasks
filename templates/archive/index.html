@@ -21,16 +21,39 @@
     </div>
 
     <div class="row">
-        {% for enrollment in enrollments %}
-        <div class="col-md-6 mb-4">
-            <div class="card h-100">
+        <div class="col-md-6">
+            <h5 class="mb-3">Active Enrollments</h5>
+            {% for enrollment in active_enrollments %}
+            <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ enrollment.curriculum.name }}</h5>
-                    <a href="{{ url_for('archive.view_enrollment', id=enrollment.id) }}" class="btn btn-primary">View Details</a>
+                    <div class="small text-muted mb-2">
+                        <div>Past 7 days: {{ time_metrics[enrollment.id]['weekly'] }} minutes</div>
+                        <div>Past 30 days: {{ time_metrics[enrollment.id]['monthly'] }} minutes</div>
+                        <div>Past 365 days: {{ time_metrics[enrollment.id]['yearly'] }} minutes</div>
+                    </div>
+                    <a href="{{ url_for('archive.view_enrollment', id=enrollment.id) }}" class="btn btn-primary">View Progress</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        
+        <div class="col-md-6">
+            <h5 class="mb-3">Finished Enrollments</h5>
+            {% for enrollment in finished_enrollments %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ enrollment.curriculum.name }}</h5>
+                    <div class="small text-muted mb-2">
+                        <div>Past 7 days: {{ time_metrics[enrollment.id]['weekly'] }} minutes</div>
+                        <div>Past 30 days: {{ time_metrics[enrollment.id]['monthly'] }} minutes</div>
+                        <div>Past 365 days: {{ time_metrics[enrollment.id]['yearly'] }} minutes</div>
+                    </div>
+                    <a href="{{ url_for('archive.view_enrollment', id=enrollment.id) }}" class="btn btn-primary">View Progress</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
