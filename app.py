@@ -25,7 +25,7 @@ login_manager = LoginManager()
 csrf = CSRFProtect()
 socketio = SocketIO()
 
-def create_app():
+def create_app(environment=None):
     app = Flask(__name__)
     
     # Configure app
