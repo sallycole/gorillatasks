@@ -61,7 +61,7 @@ def handle_start_task(data):
             "started_at": None
         })
         
-        # Simply store start timestamp
+        # Set task to in progress with start timestamp
         student_task.status = StudentTask.STATUS_IN_PROGRESS
         student_task.started_at = datetime.now(pytz.UTC)
         student_task.finished_at = None
@@ -92,24 +92,22 @@ def handle_finish_task(data):
 
     try:
         task_id = data.get('task_id')
-        # Get student task and related task in one query
-        student_task = StudentTask.query.join(
-            Task, StudentTask.task_id == Task.id
-        ).filter(
-            StudentTask.student_id == current_user.id,
-            StudentTask.task_id == task_id
-        ).add_entity(Task).first()
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=task_id
+        ).first()
 
         if not student_task:
             return {'status': 'error', 'message': 'Task not found'}
             
-        student_task, task = student_task # Unpack the tuple from the query
-        
         if student_task.can_finish:
             student_task.status = StudentTask.STATUS_COMPLETED
             student_task.finished_at = datetime.now(pytz.UTC)
             
             db.session.commit()
+
+            # Get task details for the next tasks query
+            task = Task.query.get(task_id)
             
             # Get next 10 incomplete tasks from same curriculum
             next_tasks = Task.query.outerjoin(
