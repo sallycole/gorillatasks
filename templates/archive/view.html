@@ -1,0 +1,93 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">{{ enrollment.curriculum.name }}</h1>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <h5>Finished Tasks</h5>
+                    <p class="mb-0">{{ stats.finished_tasks }}/{{ stats.total_tasks }} ({{ "%.1f"|format(stats.finished_percent) }}%)</p>
+                </div>
+                <div class="col-6">
+                    <h5>Skipped Tasks</h5>
+                    <p class="mb-0">{{ stats.skipped_tasks }}/{{ stats.total_tasks }} ({{ "%.1f"|format(stats.skipped_percent) }}%)</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-6">
+                    <h5>Total Time Spent</h5>
+                    <p class="mb-0">{{ stats.total_time }} minutes</p>
+                </div>
+                <div class="col-6">
+                    <h5>Average Time per Task</h5>
+                    <p class="mb-0">{{ "%.1f"|format(stats.avg_time) }} minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Time Spent</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student_task in completed_tasks %}
+                <tr>
+                    <td>
+                        {% if student_task.task.link %}
+                            <a href="{{ student_task.task.link }}" target="_blank">{{ student_task.task.title }}</a>
+                        {% else %}
+                            {{ student_task.task.title }}
+                        {% endif %}
+                        {% if student_task.task.description %}
+                            <p class="text-muted mb-0 small">{{ student_task.task.description }}</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if student_task.status == 2 %}
+                            <span class="badge bg-success">Completed</span>
+                        {% else %}
+                            <span class="badge bg-warning">Skipped</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ student_task.time_spent_minutes }} minutes</td>
+                    <td>
+                        <button onclick="unarchiveTask({{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
+                            <i data-feather="refresh-cw"></i> Unarchive
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+function unarchiveTask(taskId) {
+    fetch(`/archive/task/${taskId}/unarchive`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            window.location.reload();
+        }
+    });
+}
+</script>
+{% endblock %}

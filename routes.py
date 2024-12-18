@@ -38,6 +38,68 @@ def register_routes(app):
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
 dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
+archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
+
+@archive_bp.route('/')
+@login_required
+def index():
+    enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
+    active_count = sum(1 for e in enrollments if not e.is_completed())
+    finished_count = len(enrollments) - active_count
+    
+    return render_template('archive/index.html', 
+                         enrollments=enrollments,
+                         active_count=active_count,
+                         finished_count=finished_count)
+
+@archive_bp.route('/enrollment/<int:id>')
+@login_required
+def view_enrollment(id):
+    enrollment = Enrollment.query.get_or_404(id)
+    if enrollment.student_id != current_user.id:
+        abort(403)
+        
+    completed_tasks = StudentTask.query.join(Task).filter(
+        StudentTask.student_id == current_user.id,
+        Task.curriculum_id == enrollment.curriculum_id,
+        StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
+    ).all()
+    
+    total_tasks = len(enrollment.curriculum.tasks)
+    finished_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_COMPLETED)
+    skipped_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_SKIPPED)
+    
+    stats = {
+        'total_tasks': total_tasks,
+        'finished_tasks': finished_tasks,
+        'finished_percent': (finished_tasks / total_tasks * 100) if total_tasks > 0 else 0,
+        'skipped_tasks': skipped_tasks,
+        'skipped_percent': (skipped_tasks / total_tasks * 100) if total_tasks > 0 else 0,
+        'total_time': sum(t.time_spent_minutes for t in completed_tasks),
+        'avg_time': sum(t.time_spent_minutes for t in completed_tasks) / len(completed_tasks) if completed_tasks else 0
+    }
+    
+    return render_template('archive/view.html',
+                         enrollment=enrollment,
+                         completed_tasks=completed_tasks,
+                         stats=stats)
+
+@archive_bp.route('/task/<int:id>/unarchive', methods=['POST'])
+@login_required
+def unarchive_task(id):
+    student_task = StudentTask.query.filter_by(
+        student_id=current_user.id,
+        task_id=id
+    ).first_or_404()
+    
+    student_task.status = StudentTask.STATUS_NOT_STARTED
+    student_task.started_at = None
+    student_task.finished_at = None
+    student_task.skipped_at = None
+    student_task.time_spent_minutes = 0
+    
+    db.session.commit()
+    return jsonify({'status': 'success'})
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():

@@ -150,6 +150,19 @@ class StudentTask(db.Model):
 class Enrollment(db.Model):
     __tablename__ = 'enrollments'
     
+    def is_completed(self):
+        total_tasks = len(self.curriculum.tasks)
+        if total_tasks == 0:
+            return False
+            
+        completed_count = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
+        ).count()
+        
+        return completed_count == total_tasks
+    
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     curriculum_id = db.Column(db.Integer, db.ForeignKey('curriculums.id'), nullable=False)
