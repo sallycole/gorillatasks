@@ -26,6 +26,15 @@ def handle_start_task(data):
         return {'status': 'error', 'message': 'Authentication required'}
 
     try:
+        # Check if user has any in-progress tasks
+        in_progress = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            status=StudentTask.STATUS_IN_PROGRESS
+        ).first()
+        
+        if in_progress:
+            return {'status': 'error', 'message': 'Please finish or skip your in-progress task first'}
+            
         task_id = data.get('task_id')
         task = Task.query.get(task_id)
         if not task:
