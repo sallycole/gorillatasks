@@ -1,3 +1,4 @@
+
 import os
 import logging
 from flask import Flask, jsonify
@@ -27,28 +28,10 @@ socketio = SocketIO()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'dev'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@0.0.0.0:5432/postgres'
-    
-    db.init_app(app)
-    login_manager.init_app(app)
-    csrf.init_app(app)
-    socketio.init_app(app)
-    
-    from routes import auth_bp, curriculum_bp, dashboard_bp, archive_bp
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(curriculum_bp)
-    app.register_blueprint(dashboard_bp) 
-    app.register_blueprint(archive_bp)
-    
-    return app
-
-def create_app(environment=None):
-    app = Flask(__name__)
     
     # Configure app
     app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_key_only")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "postgresql://postgres:postgres@0.0.0.0:5432/postgres")
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
         "pool_recycle": 300,
         "pool_pre_ping": True,
@@ -60,6 +43,7 @@ def create_app(environment=None):
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
     socketio.init_app(app, cors_allowed_origins="*", async_mode='eventlet')
+    
     # Import WebSocket events
     import events  # noqa: F401
     
@@ -69,12 +53,18 @@ def create_app(environment=None):
             import models  # noqa: F401
             
             # Register blueprints after models are imported
-            from routes import auth_bp, curriculum_bp, dashboard_bp, register_routes
+            from routes import auth_bp, curriculum_bp, dashboard_bp, archive_bp
             app.register_blueprint(auth_bp, url_prefix='/auth')
             app.register_blueprint(curriculum_bp, url_prefix='/curriculum')
             app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
-            register_routes(app)
-            logger.info("Registered blueprints: auth, curriculum, dashboard")
+            app.register_blueprint(archive_bp, url_prefix='/archive')
+            
+            # Register root route
+            @app.route('/')
+            def root():
+                return redirect(url_for('dashboard.index'))
+            
+            logger.info("Registered blueprints: auth, curriculum, dashboard, archive")
             
             # Create tables if they don't exist
             db.create_all()
