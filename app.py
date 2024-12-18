@@ -25,6 +25,24 @@ login_manager = LoginManager()
 csrf = CSRFProtect()
 socketio = SocketIO()
 
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'dev'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@0.0.0.0:5432/postgres'
+    
+    db.init_app(app)
+    login_manager.init_app(app)
+    csrf.init_app(app)
+    socketio.init_app(app)
+    
+    from routes import auth_bp, curriculum_bp, dashboard_bp, archive_bp
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(curriculum_bp)
+    app.register_blueprint(dashboard_bp) 
+    app.register_blueprint(archive_bp)
+    
+    return app
+
 def create_app(environment=None):
     app = Flask(__name__)
     
