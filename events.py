@@ -126,35 +126,6 @@ def handle_finish_task(data):
             return {'status': 'success', 'message': 'Task completed successfully'}
             
         return {'status': 'error', 'message': 'Task must be in progress to finish'}
-            
-            # Get next 10 incomplete tasks from same curriculum
-            next_tasks = Task.query.outerjoin(
-                StudentTask,
-                (Task.id == StudentTask.task_id) & 
-                (StudentTask.student_id == current_user.id)
-            ).filter(
-                Task.curriculum_id == task.curriculum_id,
-                (StudentTask.status.is_(None)) |
-                (StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]))
-            ).order_by(Task.position).limit(10).all()
-            
-            # Format tasks for response
-            tasks_data = [{
-                'id': task.id,
-                'title': task.title,
-                'description': task.description,
-                'link': task.link
-            } for task in next_tasks]
-            
-            socketio.emit('task_updated', {
-                'task_id': task_id,
-                'status': StudentTask.STATUS_COMPLETED,
-                'next_tasks': tasks_data
-            }, room=request.sid)
-            
-            return {'status': 'success', 'message': 'Task completed successfully'}
-            
-        return {'status': 'error', 'message': 'Task cannot be finished'}
         
     except Exception as e:
         logger.error(f'Error finishing task: {str(e)}')
@@ -171,14 +142,16 @@ def handle_skip_task(data):
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
-        ).first_or_404()
+        ).first()
         
-        if student_task.can_skip:
+        if not student_task:
+            return {'status': 'error', 'message': 'Task not found'}
+        
+        if student_task.status != StudentTask.STATUS_COMPLETED:
             student_task.status = StudentTask.STATUS_SKIPPED
             student_task.skipped_at = datetime.now(pytz.UTC)
             student_task.started_at = None
             student_task.finished_at = None
-            student_task.time_spent_minutes = 0
             
             db.session.commit()
             
@@ -189,7 +162,7 @@ def handle_skip_task(data):
             
             return {'status': 'success', 'message': 'Task skipped successfully'}
             
-        return {'status': 'error', 'message': 'Task cannot be skipped'}
+        return {'status': 'error', 'message': 'Completed tasks cannot be skipped'}
         
     except Exception as e:
         logger.error(f'Error skipping task: {str(e)}')
