@@ -40,7 +40,38 @@ document.addEventListener('DOMContentLoaded', function() {
     socket.on('task_updated', (data) => {
         console.log('Task updated:', data);
         if (data && data.task_id) {
-            updateTaskUI(data);
+            if (data.status === 2) { // COMPLETED
+                const taskRow = document.querySelector(`tr[data-task-id="${data.task_id}"]`);
+                if (taskRow && data.next_task) {
+                    // Replace completed task with next task
+                    taskRow.innerHTML = `
+                        <td>
+                            ${data.next_task.title}
+                            ${data.next_task.description ? `<p class="text-muted mb-0 small">${data.next_task.description}</p>` : ''}
+                        </td>
+                        <td class="text-end">
+                            <div class="task-actions" data-task-id="${data.next_task.id}" data-task-url="${data.next_task.link}">
+                                <div class="d-inline-flex gap-2">
+                                    <button onclick="handleTaskAction('start', ${data.next_task.id})" class="btn btn-sm btn-outline-primary">
+                                        <i data-feather="play"></i> Start
+                                    </button>
+                                    <button onclick="handleTaskAction('skip', ${data.next_task.id})" class="btn btn-sm btn-outline-secondary">
+                                        <i data-feather="skip-forward"></i> Skip
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    `;
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                } else if (taskRow) {
+                    // No next task, remove the row
+                    taskRow.remove();
+                }
+            } else {
+                updateTaskUI(data);
+            }
         } else {
             console.error('Invalid task update data:', data);
         }
@@ -214,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </thead>
                     <tbody>
                         {% for task in filtered_tasks[enrollment.id] %}
-                        <tr>
+                        <tr data-task-id="{{ task.id }}">
                             <td>
                                 {{ task.title }}
                                 {% if task.description %}

@@ -104,16 +104,38 @@ def handle_finish_task(data):
             student_task.status = StudentTask.STATUS_COMPLETED
             student_task.finished_at = datetime.now(pytz.UTC)
             if student_task.started_at:
+                # Convert naive datetime to UTC if needed
+                if student_task.started_at.tzinfo is None:
+                    student_task.started_at = pytz.UTC.localize(student_task.started_at)
                 delta = student_task.finished_at - student_task.started_at
                 student_task.time_spent_minutes = int(delta.total_seconds() / 60)
             
             db.session.commit()
-            
-            socketio.emit('task_updated', {
+
+            # Get next incomplete task
+            next_task = Task.query.outerjoin(
+                StudentTask,
+                (Task.id == StudentTask.task_id) & 
+                (StudentTask.student_id == current_user.id)
+            ).filter(
+                Task.curriculum_id == student_task.task.curriculum_id,
+                (StudentTask.status.is_(None)) |
+                (StudentTask.status != StudentTask.STATUS_COMPLETED) &
+                (StudentTask.status != StudentTask.STATUS_SKIPPED)
+            ).order_by(Task.position).first()
+
+            update_data = {
                 'task_id': task_id,
-                'status': StudentTask.STATUS_COMPLETED
-            }, room=request.sid)
+                'status': StudentTask.STATUS_COMPLETED,
+                'next_task': {
+                    'id': next_task.id,
+                    'title': next_task.title,
+                    'description': next_task.description,
+                    'link': next_task.link
+                } if next_task else None
+            }
             
+            socketio.emit('task_updated', update_data, room=request.sid)
             return {'status': 'success', 'message': 'Task completed successfully'}
             
         return {'status': 'error', 'message': 'Task cannot be finished'}
