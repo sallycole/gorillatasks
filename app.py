@@ -58,8 +58,7 @@ def create_app(environment=None):
             register_routes(app)
             logger.info("Registered blueprints: auth, curriculum, dashboard")
             
-            # Drop and recreate all tables (development only)
-            db.drop_all()
+            # Create tables if they don't exist
             db.create_all()
             logger.info("Database tables created successfully")
             
