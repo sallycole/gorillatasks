@@ -1,0 +1,78 @@
+~/Gorilla-Tasks$ python -m unittest tests/test_task_actions.py -v
+2024-12-18 02:29:08,480 - app - INFO - Registered blueprints: auth, curriculum, dashboard
+2024-12-18 02:29:09,581 - app - INFO - Database tables created successfully
+2024-12-18 02:29:09,581 - app - INFO - Available routes:
+2024-12-18 02:29:09,581 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2024-12-18 02:29:09,581 - app - DEBUG - Route: /auth/login -> auth.login [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:09,581 - app - DEBUG - Route: /auth/register -> auth.register [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /curriculum/new -> curriculum.new [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /dashboard/ -> dashboard.index [HEAD,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2024-12-18 02:29:09,582 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2024-12-18 02:29:09,582 - app - INFO - Blueprints registered successfully
+2024-12-18 02:29:09,582 - app - DEBUG - Complete URL map:
+2024-12-18 02:29:09,582 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (HEAD, POST, OPTIONS, GET) -> auth.login>,
+ <Rule '/auth/register' (HEAD, POST, OPTIONS, GET) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (HEAD, POST, OPTIONS, GET) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (HEAD, POST, OPTIONS, GET) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (HEAD, POST, OPTIONS, GET) -> curriculum.enroll>,
+ <Rule '/dashboard/' (HEAD, OPTIONS, GET) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+test_start_task (tests.test_task_actions.TestTaskActions.test_start_task) ... 2024-12-18 02:29:09,593 - app - INFO - Registered blueprints: auth, curriculum, dashboard
+2024-12-18 02:29:10,634 - app - INFO - Database tables created successfully
+2024-12-18 02:29:10,634 - app - INFO - Available routes:
+2024-12-18 02:29:10,634 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2024-12-18 02:29:10,634 - app - DEBUG - Route: /auth/login -> auth.login [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:10,634 - app - DEBUG - Route: /auth/register -> auth.register [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:10,634 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2024-12-18 02:29:10,634 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2024-12-18 02:29:10,634 - app - DEBUG - Route: /curriculum/new -> curriculum.new [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [HEAD,POST,OPTIONS,GET]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /dashboard/ -> dashboard.index [HEAD,OPTIONS,GET]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2024-12-18 02:29:10,635 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2024-12-18 02:29:10,635 - app - INFO - Blueprints registered successfully
+2024-12-18 02:29:10,635 - app - DEBUG - Complete URL map:
+2024-12-18 02:29:10,635 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (HEAD, POST, OPTIONS, GET) -> auth.login>,
+ <Rule '/auth/register' (HEAD, POST, OPTIONS, GET) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (HEAD, POST, OPTIONS, GET) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (HEAD, POST, OPTIONS, GET) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (HEAD, POST, OPTIONS, GET) -> curriculum.enroll>,
+ <Rule '/dashboard/' (HEAD, OPTIONS, GET) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+2024-12-18 02:29:12,039 - routes - INFO - Starting task 1 for user 1
+/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask_sqlalchemy/query.py:30: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  rv = self.get(ident)
+2024-12-18 02:29:12,133 - routes - INFO - Created new student task for task 1
+2024-12-18 02:29:12,300 - routes - INFO - Successfully started task 1
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 4.039s
+
+OK

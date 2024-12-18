@@ -1,0 +1,49 @@
+~/Gorilla-Tasks$ python -m unittest tests/test_task_actions.py -v
+2024-12-18 02:19:47,856 - app - INFO - Registered blueprints: auth, curriculum, dashboard
+2024-12-18 02:19:48,920 - app - INFO - Database tables created successfully
+2024-12-18 02:19:48,921 - app - INFO - Available routes:
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /static/<path:filename> -> static [GET,OPTIONS,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /auth/login -> auth.login [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /auth/register -> auth.register [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /auth/logout -> auth.logout [GET,OPTIONS,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /curriculum/ -> curriculum.list [GET,OPTIONS,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /curriculum/new -> curriculum.new [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [GET,OPTIONS,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /dashboard/ -> dashboard.index [GET,OPTIONS,HEAD]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [OPTIONS,POST]
+2024-12-18 02:19:48,921 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [OPTIONS,POST]
+2024-12-18 02:19:48,922 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [OPTIONS,POST]
+2024-12-18 02:19:48,922 - app - DEBUG - Route: / -> root [GET,OPTIONS,HEAD]
+2024-12-18 02:19:48,922 - app - INFO - Blueprints registered successfully
+2024-12-18 02:19:48,922 - app - DEBUG - Complete URL map:
+2024-12-18 02:19:48,922 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, OPTIONS, HEAD) -> static>,
+ <Rule '/auth/login' (GET, OPTIONS, POST, HEAD) -> auth.login>,
+ <Rule '/auth/register' (GET, OPTIONS, POST, HEAD) -> auth.register>,
+ <Rule '/auth/logout' (GET, OPTIONS, HEAD) -> auth.logout>,
+ <Rule '/curriculum/' (GET, OPTIONS, HEAD) -> curriculum.list>,
+ <Rule '/curriculum/new' (GET, OPTIONS, POST, HEAD) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, OPTIONS, HEAD) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (GET, OPTIONS, POST, HEAD) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (GET, OPTIONS, POST, HEAD) -> curriculum.enroll>,
+ <Rule '/dashboard/' (GET, OPTIONS, HEAD) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (OPTIONS, POST) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (OPTIONS, POST) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (OPTIONS, POST) -> dashboard.skip_task>,
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
+test_start_task (tests.test_task_actions.TestTaskActions.test_start_task) ... ERROR
+
+======================================================================
+ERROR: test_start_task (tests.test_task_actions.TestTaskActions.test_start_task)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/Gorilla-Tasks/tests/test_task_actions.py", line 10, in setUp
+    self.app = create_app('testing')
+               ^^^^^^^^^^^^^^^^^^^^^
+TypeError: create_app() takes 0 positional arguments but 1 was given
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

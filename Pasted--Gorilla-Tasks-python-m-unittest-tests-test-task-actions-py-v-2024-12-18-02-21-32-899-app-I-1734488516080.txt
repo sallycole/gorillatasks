@@ -1,0 +1,83 @@
+~/Gorilla-Tasks$ python -m unittest tests/test_task_actions.py -v
+2024-12-18 02:21:32,899 - app - INFO - Registered blueprints: auth, curriculum, dashboard
+2024-12-18 02:21:33,961 - app - INFO - Database tables created successfully
+2024-12-18 02:21:33,961 - app - INFO - Available routes:
+2024-12-18 02:21:33,961 - app - DEBUG - Route: /static/<path:filename> -> static [GET,OPTIONS,HEAD]
+2024-12-18 02:21:33,961 - app - DEBUG - Route: /auth/login -> auth.login [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:33,961 - app - DEBUG - Route: /auth/register -> auth.register [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:33,961 - app - DEBUG - Route: /auth/logout -> auth.logout [GET,OPTIONS,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /curriculum/ -> curriculum.list [GET,OPTIONS,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /curriculum/new -> curriculum.new [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [GET,OPTIONS,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /dashboard/ -> dashboard.index [GET,OPTIONS,HEAD]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2024-12-18 02:21:33,962 - app - DEBUG - Route: / -> root [GET,OPTIONS,HEAD]
+2024-12-18 02:21:33,962 - app - INFO - Blueprints registered successfully
+2024-12-18 02:21:33,962 - app - DEBUG - Complete URL map:
+2024-12-18 02:21:33,962 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, OPTIONS, HEAD) -> static>,
+ <Rule '/auth/login' (GET, OPTIONS, POST, HEAD) -> auth.login>,
+ <Rule '/auth/register' (GET, OPTIONS, POST, HEAD) -> auth.register>,
+ <Rule '/auth/logout' (GET, OPTIONS, HEAD) -> auth.logout>,
+ <Rule '/curriculum/' (GET, OPTIONS, HEAD) -> curriculum.list>,
+ <Rule '/curriculum/new' (GET, OPTIONS, POST, HEAD) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, OPTIONS, HEAD) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (GET, OPTIONS, POST, HEAD) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (GET, OPTIONS, POST, HEAD) -> curriculum.enroll>,
+ <Rule '/dashboard/' (GET, OPTIONS, HEAD) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
+test_start_task (tests.test_task_actions.TestTaskActions.test_start_task) ... 2024-12-18 02:21:33,969 - app - INFO - Registered blueprints: auth, curriculum, dashboard
+2024-12-18 02:21:35,029 - app - INFO - Database tables created successfully
+2024-12-18 02:21:35,030 - app - INFO - Available routes:
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /static/<path:filename> -> static [GET,OPTIONS,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /auth/login -> auth.login [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /auth/register -> auth.register [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /auth/logout -> auth.logout [GET,OPTIONS,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /curriculum/ -> curriculum.list [GET,OPTIONS,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /curriculum/new -> curriculum.new [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [GET,OPTIONS,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [GET,OPTIONS,POST,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /dashboard/ -> dashboard.index [GET,OPTIONS,HEAD]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2024-12-18 02:21:35,030 - app - DEBUG - Route: / -> root [GET,OPTIONS,HEAD]
+2024-12-18 02:21:35,030 - app - INFO - Blueprints registered successfully
+2024-12-18 02:21:35,030 - app - DEBUG - Complete URL map:
+2024-12-18 02:21:35,030 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, OPTIONS, HEAD) -> static>,
+ <Rule '/auth/login' (GET, OPTIONS, POST, HEAD) -> auth.login>,
+ <Rule '/auth/register' (GET, OPTIONS, POST, HEAD) -> auth.register>,
+ <Rule '/auth/logout' (GET, OPTIONS, HEAD) -> auth.logout>,
+ <Rule '/curriculum/' (GET, OPTIONS, HEAD) -> curriculum.list>,
+ <Rule '/curriculum/new' (GET, OPTIONS, POST, HEAD) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, OPTIONS, HEAD) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (GET, OPTIONS, POST, HEAD) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (GET, OPTIONS, POST, HEAD) -> curriculum.enroll>,
+ <Rule '/dashboard/' (GET, OPTIONS, HEAD) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
+2024-12-18 02:21:36,075 - flask_wtf.csrf - INFO - The CSRF token is missing.
+2024-12-18 02:21:36,198 - flask_wtf.csrf - INFO - The CSRF token is missing.
+FAIL
+
+======================================================================
+FAIL: test_start_task (tests.test_task_actions.TestTaskActions.test_start_task)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/Gorilla-Tasks/tests/test_task_actions.py", line 54, in test_start_task
+    self.assertEqual(response.status_code, 200)
+AssertionError: 400 != 200
+
+----------------------------------------------------------------------
+Ran 1 test in 3.270s
+
+FAILED (failures=1)
