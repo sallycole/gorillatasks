@@ -219,6 +219,15 @@ class Enrollment(db.Model):
         daily_goal = int((self.weekly_goal_count / self.calculate_daily_divisor()) + 0.5)  # Equivalent to ceil
         remaining_weekly_tasks = self.weekly_goal_count - self.tasks_completed_this_week()
         return max(daily_goal, remaining_weekly_tasks, 0)
+
+    def tasks_completed_today(self):
+        today_start = datetime.now(pytz.UTC).replace(hour=0, minute=0, second=0, microsecond=0)
+        return StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            StudentTask.status == StudentTask.STATUS_COMPLETED,
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.updated_at >= today_start
+        ).count()
         
     @staticmethod
     def progress_status(completed, goal):
