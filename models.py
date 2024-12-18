@@ -219,6 +219,15 @@ class Enrollment(db.Model):
         daily_goal = int((self.weekly_goal_count / self.calculate_daily_divisor()) + 0.5)  # Equivalent to ceil
         remaining_weekly_tasks = self.weekly_goal_count - self.tasks_completed_this_week()
         return max(daily_goal, remaining_weekly_tasks, 0)
+        
+    @staticmethod
+    def progress_status(completed, goal):
+        if completed == 0:
+            return 'progress-none'
+        elif completed < goal:
+            return 'progress-partial'
+        else:
+            return 'progress-complete'
 
 class WeeklySnapshot(db.Model):
     __tablename__ = 'weekly_snapshots'

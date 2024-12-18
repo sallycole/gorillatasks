@@ -1,3 +1,16 @@
+
+<style>
+.progress-none {
+    color: #dc3545;  /* red */
+}
+.progress-partial {
+    color: #ffc107;  /* yellow */
+}
+.progress-complete {
+    color: #28a745;  /* green */
+}
+</style>
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -196,9 +209,19 @@ socket.on('task_updated', (data) => {
     <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="mb-0">{{ enrollment.curriculum.name }}</h3>
-            <div>
-                <span class="badge bg-primary">Daily Goal: {{ enrollment.calculate_todays_goal() }} tasks</span>
-                <span class="badge bg-info">Weekly Goal: {{ enrollment.weekly_goal_count }} tasks</span>
+            <div class="d-flex gap-3">
+                <div>
+                    <strong>Daily Progress:</strong>
+                    <span class="{{ enrollment.progress_status(enrollment.tasks_completed_today(), enrollment.calculate_todays_goal()) }}">
+                        {{ enrollment.tasks_completed_today() }} / {{ enrollment.calculate_todays_goal() }} tasks
+                    </span>
+                </div>
+                <div>
+                    <strong>Weekly Progress:</strong>
+                    <span class="{{ enrollment.progress_status(enrollment.tasks_completed_this_week(), enrollment.weekly_goal_count) }}">
+                        {{ enrollment.tasks_completed_this_week() }} / {{ enrollment.weekly_goal_count }} tasks
+                    </span>
+                </div>
             </div>
         </div>
         <div class="card-body">
