@@ -99,7 +99,7 @@ class StudentTask(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
-    task = db.relationship('Task', backref='student_tasks')
+    task = db.relationship('Task', backref='student_tasks', lazy='joined')
     status = db.Column(db.Integer, default=STATUS_NOT_STARTED)
     started_at = db.Column(db.DateTime)
     finished_at = db.Column(db.DateTime)
