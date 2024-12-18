@@ -93,18 +93,26 @@ def handle_finish_task(data):
 
     try:
         task_id = data.get('task_id')
-        student_task = StudentTask.query.join(Task).filter(
+        # Get student task and related task in one query
+        student_task = StudentTask.query.join(
+            Task, StudentTask.task_id == Task.id
+        ).filter(
             StudentTask.student_id == current_user.id,
             StudentTask.task_id == task_id
-        ).first_or_404()
+        ).add_entity(Task).first()
+
+        if not student_task:
+            return {'status': 'error', 'message': 'Task not found'}
+            
+        student_task, task = student_task # Unpack the tuple from the query
         
         if student_task.can_finish:
             current_time = datetime.now(pytz.UTC)
             student_task.status = StudentTask.STATUS_COMPLETED
             student_task.finished_at = current_time
             
+            # Handle time calculation with timezone awareness
             if student_task.started_at:
-                # Ensure started_at is timezone-aware
                 started_at = student_task.started_at if student_task.started_at.tzinfo else pytz.UTC.localize(student_task.started_at)
                 delta = current_time - started_at
                 student_task.time_spent_minutes = int(delta.total_seconds() / 60)
@@ -112,13 +120,12 @@ def handle_finish_task(data):
             db.session.commit()
             
             # Get next 10 incomplete tasks from same curriculum
-            curriculum_id = student_task.task.curriculum_id
             next_tasks = Task.query.outerjoin(
                 StudentTask,
                 (Task.id == StudentTask.task_id) & 
                 (StudentTask.student_id == current_user.id)
             ).filter(
-                Task.curriculum_id == curriculum_id,
+                Task.curriculum_id == task.curriculum_id,
                 (StudentTask.status.is_(None)) |
                 (StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]))
             ).order_by(Task.position).limit(10).all()
@@ -138,8 +145,6 @@ def handle_finish_task(data):
             }, room=request.sid)
             
             return {'status': 'success', 'message': 'Task completed successfully'}
-            
-        return {'status': 'error', 'message': 'Task cannot be finished'}
             
         return {'status': 'error', 'message': 'Task cannot be finished'}
         
