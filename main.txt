@@ -1,0 +1,60 @@
+
+# WebSocket Implementation System Prompt
+
+Implement real-time UI updates without page refreshes using the following architecture:
+
+1. Backend Setup:
+- Use Flask-SocketIO for WebSocket support
+- Initialize with: socketio = SocketIO(app, cors_allowed_origins="*")
+- Handle events with @socketio.on decorators
+- Use pytz.UTC for consistent timestamp handling
+
+2. Event Handler Structure:
+```python
+@socketio.on('event_name')
+def handle_event(data):
+    try:
+        # Update database
+        db.session.commit()
+        
+        # Emit update to clients
+        socketio.emit('ui_update', response_data, to=request.sid)
+        return {'status': 'success'}
+    except Exception as e:
+        db.session.rollback()
+        return {'status': 'error', 'message': str(e)}
+```
+
+3. Frontend Implementation:
+```javascript
+const socket = io({
+    transports: ['websocket', 'polling'],
+    reconnection: true
+});
+
+socket.on('ui_update', (data) => {
+    updateUI(data);
+});
+
+function handleAction(action, id) {
+    socket.emit(action, { id: id }, (response) => {
+        if (response.status === 'success') {
+            // UI updates handled by ui_update event
+        }
+    });
+}
+```
+
+4. Error Handling:
+- Use try/except blocks in event handlers
+- Rollback database transactions on error
+- Send error responses to client
+- Implement client-side timeout handling
+
+5. UI State Management:
+- Show loading states during actions
+- Handle connection status
+- Update UI only after server confirmation
+- Maintain consistent state between server/client
+
+Run with: socketio.run(app, host="0.0.0.0", port=5000)
