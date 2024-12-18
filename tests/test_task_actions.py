@@ -45,6 +45,15 @@ class TestTaskActions(unittest.TestCase):
             response = self.client.post(f'/dashboard/task/{self.task.id}/start')
             after_time = datetime.now(pytz.UTC)
             
+            # Convert response timestamps to UTC
+            self.assertEqual(response.status_code, 200)
+            response_data = response.get_json()
+            student_task = StudentTask.query.filter_by(
+                student_id=self.user.id,
+                task_id=self.task.id
+            ).first()
+            student_task.started_at = pytz.UTC.localize(student_task.started_at)
+            
             # Get updated student task
             student_task = StudentTask.query.filter_by(
                 student_id=self.user.id,
