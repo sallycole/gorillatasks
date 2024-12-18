@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 import pytz
+from utils.timezone import now_in_utc, to_user_timezone, from_user_timezone
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -17,8 +18,8 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
     time_zone = db.Column(db.String(64))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
     
     profile = db.relationship('Profile', backref='user', uselist=False)
     created_curriculums = db.relationship('Curriculum', backref='creator')
@@ -35,8 +36,8 @@ class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     bio = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 
 class Curriculum(db.Model):
     __tablename__ = 'curriculums'
@@ -49,8 +50,8 @@ class Curriculum(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     publisher = db.Column(db.String(255))
     published_at = db.Column(db.DateTime)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
     
     tasks = db.relationship('Task', backref='curriculum', cascade='all, delete-orphan')
     grade_levels = db.relationship('GradeLevel', secondary='curriculum_grade_levels')
@@ -61,8 +62,8 @@ class GradeLevel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     description = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 
 class CurriculumGradeLevel(db.Model):
     __tablename__ = 'curriculum_grade_levels'
@@ -70,8 +71,8 @@ class CurriculumGradeLevel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     curriculum_id = db.Column(db.Integer, db.ForeignKey('curriculums.id'), nullable=False)
     grade_level_id = db.Column(db.Integer, db.ForeignKey('grade_levels.id'), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 
 class Task(db.Model):
     __tablename__ = 'tasks'
@@ -84,8 +85,8 @@ class Task(db.Model):
     link = db.Column(db.String(255))
     action = db.Column(db.Integer)
     position = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 
 class StudentTask(db.Model):
     __tablename__ = 'student_tasks'
@@ -105,8 +106,8 @@ class StudentTask(db.Model):
     finished_at = db.Column(db.DateTime)
     skipped_at = db.Column(db.DateTime)
     time_spent_minutes = db.Column(db.Integer, default=0, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
     
     @property
     def can_start(self):
@@ -134,8 +135,8 @@ class Enrollment(db.Model):
     weekly_goal_count = db.Column(db.Integer, default=5, nullable=False)
     study_days_per_week = db.Column(db.Integer)
     target_completion_date = db.Column(db.Date)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
     
     weekly_snapshots = db.relationship('WeeklySnapshot', backref='enrollment')
     curriculum = db.relationship('Curriculum', backref='enrollments')
@@ -207,5 +208,5 @@ class WeeklySnapshot(db.Model):
     tasks_completed = db.Column(db.Integer)
     weekly_goal = db.Column(db.Integer)
     week_ending = db.Column(db.Date)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=now_in_utc)
+    updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)

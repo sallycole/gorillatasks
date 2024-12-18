@@ -6,6 +6,7 @@ from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, Wee
 from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
 from datetime import datetime, timedelta
 import pytz
+from utils.timezone import now_in_utc, to_user_timezone, from_user_timezone
 import logging
 
 logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, Wee
 from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
 from datetime import datetime, timedelta
 import pytz
+from utils.timezone import now_in_utc, to_user_timezone, from_user_timezone
 import logging
 
 logger = logging.getLogger(__name__)
