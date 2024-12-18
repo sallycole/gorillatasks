@@ -61,12 +61,11 @@ def handle_start_task(data):
             "started_at": None
         })
         
-        # Start this task
+        # Simply store start timestamp
         student_task.status = StudentTask.STATUS_IN_PROGRESS
         student_task.started_at = datetime.now(pytz.UTC)
         student_task.finished_at = None
         student_task.skipped_at = None
-        student_task.time_spent_minutes = 0
         
         db.session.commit()
         logger.info(f'Successfully started task {task_id} for user {current_user.id}')
@@ -107,15 +106,8 @@ def handle_finish_task(data):
         student_task, task = student_task # Unpack the tuple from the query
         
         if student_task.can_finish:
-            current_time = datetime.now(pytz.UTC)
             student_task.status = StudentTask.STATUS_COMPLETED
-            student_task.finished_at = current_time
-            
-            # Handle time calculation with timezone awareness
-            if student_task.started_at:
-                started_at = student_task.started_at if student_task.started_at.tzinfo else pytz.UTC.localize(student_task.started_at)
-                delta = current_time - started_at
-                student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+            student_task.finished_at = datetime.now(pytz.UTC)
             
             db.session.commit()
             
