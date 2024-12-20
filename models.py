@@ -201,7 +201,7 @@ class Enrollment(db.Model):
             
         return int((remaining_tasks / weeks_remaining) + 0.5)  # Equivalent to ceil in Ruby
 
-    def calculate_daily_divisor(self):
+    def get_remaining_study_days(self):
         if not self.study_days_per_week:
             return 0
             
@@ -217,6 +217,9 @@ class Enrollment(db.Model):
         }.get(current_day, 0)
         
         return min(remaining_days, self.study_days_per_week)
+        
+    def calculate_daily_divisor(self):
+        return self.get_remaining_study_days()
 
     def tasks_completed_this_week(self):
         week_start = datetime.now(pytz.UTC).date() - timedelta(days=datetime.now(pytz.UTC).weekday())
@@ -232,8 +235,8 @@ class Enrollment(db.Model):
             self.weekly_goal_count = self.calculate_weekly_goal()
             db.session.commit()
             
-        daily_divisor = self.calculate_daily_divisor()
-        if daily_divisor == 0:
+        remaining_days = self.get_remaining_study_days()
+        if remaining_days == 0:
             return 0
             
         tasks_completed = self.tasks_completed_this_week()
@@ -242,8 +245,8 @@ class Enrollment(db.Model):
         if remaining_weekly_tasks <= 0:
             return 0
             
-        # Daily goal is ceiling of remaining tasks divided by remaining study days
-        return -(-remaining_weekly_tasks // daily_divisor)  # Python's ceiling division
+        # Daily goal is ceiling of remaining weekly tasks divided by remaining study days
+        return -(-remaining_weekly_tasks // remaining_days)  # Python's ceiling division
 
     def tasks_completed_today(self):
         today_start = datetime.now(pytz.UTC).replace(hour=0, minute=0, second=0, microsecond=0)
