@@ -202,7 +202,11 @@ class Enrollment(db.Model):
         return int((remaining_tasks / weeks_remaining) + 0.5)  # Equivalent to ceil in Ruby
 
     def get_weekday_value(self):
-        current_day = datetime.now(pytz.UTC).strftime('%A')
+        from flask_login import current_user
+        from utils.timezone import to_user_timezone
+        current_time = datetime.now(pytz.UTC)
+        user_time = to_user_timezone(current_time, current_user)
+        current_day = user_time.strftime('%A')
         return {
             'Monday': 5,
             'Tuesday': 4,
