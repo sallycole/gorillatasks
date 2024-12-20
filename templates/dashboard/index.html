@@ -221,14 +221,6 @@ socket.on('task_updated', (data) => {
                         <span class="{{ enrollment.progress_status(enrollment.tasks_completed_today(), enrollment.calculate_todays_goal()) }}">
                             {{ enrollment.tasks_completed_today() }} / {{ enrollment.calculate_todays_goal() }} tasks
                         </span>
-                        <div class="small text-muted mt-2">
-                            <div>Weekly Goal: {{ enrollment.weekly_goal_count }}</div>
-                            <div>Study Days/Week: {{ enrollment.study_days_per_week }}</div>
-                            {% set current_day = enrollment.get_weekday_value() %}
-                            <div>Current Day Value: {{ current_day }}</div>
-                            <div>Available Days: {{ enrollment.get_remaining_study_days() }}</div>
-                            <div>Daily Goal = ⌈{{ enrollment.weekly_goal_count }}/{{ enrollment.get_remaining_study_days() }}⌉</div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-6 p-3">
