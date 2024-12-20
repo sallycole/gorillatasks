@@ -239,14 +239,10 @@ class Enrollment(db.Model):
         if remaining_days == 0:
             return 0
             
-        tasks_completed = self.tasks_completed_this_week()
-        remaining_weekly_tasks = self.weekly_goal_count - tasks_completed
-        
-        if remaining_weekly_tasks <= 0:
-            return 0
+        # Daily goal denominator is weekly goal divided by remaining study days
+        daily_goal = -(-self.weekly_goal_count // remaining_days)  # Ceiling division
             
-        # Daily goal is ceiling of remaining weekly tasks divided by remaining study days
-        return -(-remaining_weekly_tasks // remaining_days)  # Python's ceiling division
+        return daily_goal
 
     def tasks_completed_today(self):
         today_start = datetime.now(pytz.UTC).replace(hour=0, minute=0, second=0, microsecond=0)
