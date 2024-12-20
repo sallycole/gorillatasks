@@ -235,12 +235,12 @@ class Enrollment(db.Model):
             self.weekly_goal_count = self.calculate_weekly_goal()
             db.session.commit()
             
-        remaining_days = self.get_remaining_study_days()
-        if remaining_days == 0:
+        remaining_study_days = self.get_remaining_study_days()
+        if remaining_study_days == 0:
             return 0
             
         # Daily goal is weekly goal divided by remaining study days
-        return -(-self.weekly_goal_count // study_days)  # Ceiling division of 9/2 = 5
+        return -(-self.weekly_goal_count // remaining_study_days)  # Ceiling division
 
     def tasks_completed_today(self):
         today_start = datetime.now(pytz.UTC).replace(hour=0, minute=0, second=0, microsecond=0)
