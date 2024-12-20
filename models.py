@@ -202,18 +202,21 @@ class Enrollment(db.Model):
         return int((remaining_tasks / weeks_remaining) + 0.5)  # Equivalent to ceil in Ruby
 
     def calculate_daily_divisor(self):
+        if not self.study_days_per_week:
+            return 0
+            
         current_day = datetime.now(pytz.UTC).strftime('%A')
-        max_possible_days = {
-            'Saturday': 7,
-            'Sunday': 6,
+        remaining_days = {
             'Monday': 5,
             'Tuesday': 4,
             'Wednesday': 3,
             'Thursday': 2,
-            'Friday': 1
-        }.get(current_day, 7)
+            'Friday': 1,
+            'Saturday': 7,
+            'Sunday': 6
+        }.get(current_day, 0)
         
-        return min(max_possible_days, self.study_days_per_week)
+        return min(remaining_days, self.study_days_per_week)
 
     def tasks_completed_this_week(self):
         week_start = datetime.now(pytz.UTC).date() - timedelta(days=datetime.now(pytz.UTC).weekday())
