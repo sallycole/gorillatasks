@@ -1,4 +1,3 @@
-
 import os
 import logging
 from flask import Flask, jsonify, redirect, url_for
@@ -32,7 +31,9 @@ def create_app():
     
     # Configure app
     app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_key_only")
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "postgresql://postgres:postgres@0.0.0.0:5432/postgres")
+    database_url = os.environ.get("DATABASE_URL", "postgresql://postgres:postgres@0.0.0.0:5432/postgres")
+    logger.info(f"Database URL configured: {database_url.split('@')[0]}@[REDACTED]")
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
         "pool_recycle": 300,
         "pool_pre_ping": True,
