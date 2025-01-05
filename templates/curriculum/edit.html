@@ -23,6 +23,60 @@
                 <div class="tab-content" id="curriculumTabsContent">
                     <!-- XML Upload Tab -->
                     <div class="tab-pane fade show active" id="xml" role="tabpanel" aria-labelledby="xml-tab">
+                        <div class="mb-4">
+                            <h4>XML Upload Instructions</h4>
+                            <p>Each curriculum includes basic details (name, description) and an ordered sequence of tasks for students to complete.</p>
+                            <p>Format your curriculum in an XML file as shown in the example below. Save with a .xml extension before uploading.</p>
+                            <ul class="mb-3">
+                                <li>Grade levels shown are all available options - include only those that apply</li>
+                                <li>Task descriptions are optional and can be left empty</li>
+                                <li>Task URLs are optional but recommended for online content</li>
+                                <li>Action tags must contain one of: Read, Watch, Listen, or Do</li>
+                                <li>Tasks should be ordered from first to last in the sequence</li>
+                            </ul>
+                            
+                            <div class="bg-light p-3 mb-4" style="max-height: 400px; overflow-y: auto;">
+                                <pre class="mb-0"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;curriculum&gt;
+    &lt;name&gt;Curriculum Name i.e. Grade 3 Math&lt;/name&gt;
+    &lt;link&gt;https://www.khanacademy.org/math/cc-2nd-grade-math&lt;/link&gt;
+    &lt;publisher&gt;Khan Academy&lt;/publisher&gt;
+    &lt;description&gt;2nd grade math covering topics including addition, subtraction, place value, money, time, measurement, data, and geometry.&lt;/description&gt;
+    &lt;grade_levels&gt;
+        &lt;grade_level&gt;K&lt;/grade_level&gt;
+        &lt;grade_level&gt;1&lt;/grade_level&gt;
+        &lt;grade_level&gt;2&lt;/grade_level&gt;
+        &lt;grade_level&gt;3&lt;/grade_level&gt;
+        &lt;grade_level&gt;4&lt;/grade_level&gt;
+        &lt;grade_level&gt;5&lt;/grade_level&gt;
+        &lt;grade_level&gt;6&lt;/grade_level&gt;
+        &lt;grade_level&gt;7&lt;/grade_level&gt;
+        &lt;grade_level&gt;8&lt;/grade_level&gt;
+        &lt;grade_level&gt;9&lt;/grade_level&gt;
+        &lt;grade_level&gt;10&lt;/grade_level&gt;
+        &lt;grade_level&gt;11&lt;/grade_level&gt;
+        &lt;grade_level&gt;12&lt;/grade_level&gt;
+        &lt;grade_level&gt;College&lt;/grade_level&gt;
+        &lt;grade_level&gt;Any&lt;/grade_level&gt;
+    &lt;/grade_levels&gt;
+    &lt;tasks&gt;
+        &lt;task&gt;
+            &lt;title&gt;Add and subtract within 20: FAQ&lt;/title&gt;
+            &lt;description&gt;Optional description of the task&lt;/description&gt;
+            &lt;action&gt;Read&lt;/action&gt;
+            &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/a/add-within-20-faq&lt;/url&gt;
+        &lt;/task&gt;
+        &lt;task&gt;
+            &lt;title&gt;Adding within 20 using place value blocks&lt;/title&gt;
+            &lt;description&gt;Optional description of the task&lt;/description&gt;
+            &lt;action&gt;Watch&lt;/action&gt;
+            &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20-using-place-value-blocks&lt;/url&gt;
+        &lt;/task&gt;
+    &lt;/tasks&gt;
+&lt;/curriculum&gt;</code></pre>
+                            </div>
+                        </div>
+                        
                         <form method="POST" enctype="multipart/form-data" class="xml-form">
                             {{ form.csrf_token }}
                             <div class="mb-3">
