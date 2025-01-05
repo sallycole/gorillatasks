@@ -7,8 +7,10 @@ def run_migrations():
         with db.engine.connect() as conn:
             conn.execute(text("""
                 ALTER TABLE curriculums 
+                ADD COLUMN IF NOT EXISTS public BOOLEAN DEFAULT FALSE,
                 ADD COLUMN IF NOT EXISTS published BOOLEAN DEFAULT FALSE,
-                ADD COLUMN IF NOT EXISTS locked BOOLEAN DEFAULT FALSE
+                ADD COLUMN IF NOT EXISTS locked BOOLEAN DEFAULT FALSE,
+                ADD COLUMN IF NOT EXISTS published_at TIMESTAMP WITH TIME ZONE
             """))
             conn.commit()
 
