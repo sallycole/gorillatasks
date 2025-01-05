@@ -1,14 +1,15 @@
 
 from app import db, app
+from sqlalchemy import text
 
 def run_migrations():
     with app.app_context():
         with db.engine.connect() as conn:
-            conn.execute("""
+            conn.execute(text("""
                 ALTER TABLE curriculums 
                 ADD COLUMN IF NOT EXISTS published BOOLEAN DEFAULT FALSE,
                 ADD COLUMN IF NOT EXISTS locked BOOLEAN DEFAULT FALSE
-            """)
+            """))
             conn.commit()
 
 if __name__ == "__main__":
