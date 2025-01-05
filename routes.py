@@ -537,8 +537,46 @@ def edit(id):
                 curriculum.published_at = datetime.now(pytz.UTC)
             db.session.commit()
         flash('Curriculum updated successfully!')
-        return redirect(url_for('curriculum.list'))
+        return redirect(url_for('curriculum.edit', id=curriculum.id))
     return render_template('curriculum/edit.html', form=form, curriculum=curriculum)
+
+@curriculum_bp.route('/<int:id>/tasks/add', methods=['POST'])
+@login_required
+def add_task(id):
+    curriculum = Curriculum.query.get_or_404(id)
+    if curriculum.creator_id != current_user.id:
+        flash('You can only edit your own curriculums')
+        return redirect(url_for('curriculum.list'))
+    
+    if not curriculum.locked:
+        position = len(curriculum.tasks) + 1
+        task = Task(
+            curriculum_id=curriculum.id,
+            title=request.form['title'],
+            description=request.form['description'],
+            action=request.form['action'],
+            link=request.form['url'] if request.form['url'] else None,
+            position=position
+        )
+        db.session.add(task)
+        db.session.commit()
+        flash('Task added successfully!')
+    return redirect(url_for('curriculum.edit', id=curriculum.id))
+
+@curriculum_bp.route('/<int:curriculum_id>/tasks/<int:task_id>/delete', methods=['POST'])
+@login_required
+def delete_task(curriculum_id, task_id):
+    curriculum = Curriculum.query.get_or_404(curriculum_id)
+    if curriculum.creator_id != current_user.id:
+        flash('You can only edit your own curriculums')
+        return redirect(url_for('curriculum.list'))
+    
+    if not curriculum.locked:
+        task = Task.query.get_or_404(task_id)
+        db.session.delete(task)
+        db.session.commit()
+        flash('Task deleted successfully!')
+    return redirect(url_for('curriculum.edit', id=curriculum_id))
 
 @curriculum_bp.route('/<int:id>/enroll', methods=['GET', 'POST'])
 @login_required
