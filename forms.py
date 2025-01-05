@@ -18,7 +18,34 @@ class RegisterForm(FlaskForm):
                                       validators=[DataRequired(), EqualTo('password')])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
-    time_zone = SelectField('Time Zone', choices=[(tz, tz) for tz in pytz.all_timezones])
+    STANDARD_TIMEZONES = [
+        ('Etc/GMT+12', 'IDLW'),  # International Date Line West
+        ('Etc/GMT+11', 'NT'),    # Nome Time
+        ('Etc/GMT+10', 'HST'),   # Hawaii Standard Time
+        ('Etc/GMT+9', 'AKST'),   # Alaska Standard Time
+        ('Etc/GMT+8', 'PST'),    # Pacific Standard Time
+        ('Etc/GMT+7', 'MST'),    # Mountain Standard Time
+        ('Etc/GMT+6', 'CST'),    # Central Standard Time
+        ('Etc/GMT+5', 'EST'),    # Eastern Standard Time
+        ('Etc/GMT+4', 'AST'),    # Atlantic Standard Time
+        ('Etc/GMT+3', 'BRT'),    # Brazil Time
+        ('Etc/GMT+2', 'AT'),     # Azores Time
+        ('Etc/GMT+1', 'WAT'),    # West Africa Time
+        ('Etc/GMT+0', 'GMT'),    # Greenwich Mean Time
+        ('Etc/GMT-1', 'CET'),    # Central European Time
+        ('Etc/GMT-2', 'EET'),    # Eastern European Time
+        ('Etc/GMT-3', 'MSK'),    # Moscow Time
+        ('Etc/GMT-4', 'GST'),    # Gulf Standard Time
+        ('Etc/GMT-5', 'PKT'),    # Pakistan Time
+        ('Etc/GMT-6', 'BST'),    # Bangladesh Standard Time
+        ('Etc/GMT-7', 'ICT'),    # Indochina Time
+        ('Etc/GMT-8', 'CST'),    # China Standard Time
+        ('Etc/GMT-9', 'JST'),    # Japan Standard Time
+        ('Etc/GMT-10', 'AEST'),  # Australian Eastern Standard Time
+        ('Etc/GMT-11', 'AEDT'),  # Australian Eastern Daylight Time
+        ('Etc/GMT-12', 'NZST'),  # New Zealand Standard Time
+    ]
+    time_zone = SelectField('Time Zone', choices=STANDARD_TIMEZONES)
 
 class ProfileForm(FlaskForm):
     bio = TextAreaField('Bio')
