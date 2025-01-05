@@ -1,6 +1,27 @@
 
 {% extends "base.html" %}
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.edit-task').forEach(button => {
+        button.addEventListener('click', function() {
+            const td = this.closest('td');
+            td.querySelector('.task-edit-form').style.display = 'block';
+            td.querySelector('.task-actions').style.display = 'none';
+        });
+    });
+
+    document.querySelectorAll('.cancel-edit').forEach(button => {
+        button.addEventListener('click', function() {
+            const td = this.closest('td');
+            td.querySelector('.task-edit-form').style.display = 'none';
+            td.querySelector('.task-actions').style.display = 'block';
+        });
+    });
+});
+</script>
+
 {% block content %}
 <div class="container">
     <div class="row">
@@ -116,8 +137,31 @@
                                 </td>
                                 {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editTaskModal{{ task.id }}">
+                                    <form action="{{ url_for('curriculum.edit_task', curriculum_id=curriculum.id, task_id=task.id) }}" method="POST" class="task-edit-form" style="display: none;">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <div class="mb-2">
+                                            <input type="text" class="form-control form-control-sm" name="title" value="{{ task.title }}" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <textarea class="form-control form-control-sm" name="description" rows="2">{{ task.description }}</textarea>
+                                        </div>
+                                        <div class="mb-2">
+                                            <select class="form-select form-select-sm" name="action" required>
+                                                {% for action_text, action_value in task.ACTION_MAP.items() %}
+                                                <option value="{{ action_text }}" {% if task.action == action_value %}selected{% endif %}>{{ action_text }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <input type="url" class="form-control form-control-sm" name="url" value="{{ task.link }}" placeholder="Resource URL">
+                                        </div>
+                                        <div class="btn-group">
+                                            <button type="submit" class="btn btn-sm btn-success">Save</button>
+                                            <button type="button" class="btn btn-sm btn-secondary cancel-edit">Cancel</button>
+                                        </div>
+                                    </form>
+                                    <div class="btn-group task-actions">
+                                        <button type="button" class="btn btn-sm btn-primary edit-task">
                                             <i data-feather="edit"></i>
                                         </button>
                                         <form action="{{ url_for('curriculum.delete_task', curriculum_id=curriculum.id, task_id=task.id) }}" method="POST" class="d-inline">
@@ -126,44 +170,6 @@
                                                 <i data-feather="trash-2"></i>
                                             </button>
                                         </form>
-                                    </div>
-                                    
-                                    <!-- Edit Task Modal -->
-                                    <div class="modal fade" id="editTaskModal{{ task.id }}" tabindex="-1">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Edit Task</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ url_for('curriculum.edit_task', curriculum_id=curriculum.id, task_id=task.id) }}" method="POST">
-                                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Title</label>
-                                                            <input type="text" class="form-control" name="title" value="{{ task.title }}" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Description</label>
-                                                            <textarea class="form-control" name="description">{{ task.description }}</textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Action</label>
-                                                            <select class="form-select" name="action" required>
-                                                                {% for action_text, action_value in task.ACTION_MAP.items() %}
-                                                                <option value="{{ action_text }}" {% if task.action == action_value %}selected{% endif %}>{{ action_text }}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Resource URL</label>
-                                                            <input type="url" class="form-control" name="url" value="{{ task.link }}">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </td>
                                 {% endif %}
