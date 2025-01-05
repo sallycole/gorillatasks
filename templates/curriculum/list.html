@@ -8,9 +8,38 @@
     </a>
 </div>
 
+<div class="row mb-4">
+    <div class="col-md-6">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search curriculums...">
+    </div>
+    <div class="col-md-6">
+        <select id="gradeFilter" class="form-select">
+            <option value="">All Grades</option>
+            {% for grade_code, grade_name in [
+                ('K', 'Kindergarten'),
+                ('1', '1st Grade'),
+                ('2', '2nd Grade'),
+                ('3', '3rd Grade'),
+                ('4', '4th Grade'),
+                ('5', '5th Grade'),
+                ('6', '6th Grade'),
+                ('7', '7th Grade'),
+                ('8', '8th Grade'),
+                ('9', '9th Grade'),
+                ('10', '10th Grade'),
+                ('11', '11th Grade'),
+                ('12', '12th Grade'),
+                ('College', 'College')
+            ] %}
+                <option value="{{ grade_code }}">{{ grade_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
 <div class="row">
     {% for curriculum in curriculums %}
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-4" data-grades="{{ ','.join(curriculum.grade_levels) }}">
         <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">{{ curriculum.name }}</h5>
@@ -42,4 +71,31 @@
     </div>
     {% endfor %}
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const gradeFilter = document.getElementById('gradeFilter');
+    const curriculumCards = document.querySelectorAll('.col-md-4');
+
+    function filterCurriculums() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedGrade = gradeFilter.value;
+
+        curriculumCards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const description = card.querySelector('.card-text').textContent.toLowerCase();
+            const grades = card.getAttribute('data-grades') || '';
+
+            const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+            const matchesGrade = !selectedGrade || grades.includes(selectedGrade);
+
+            card.style.display = (matchesSearch && matchesGrade) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterCurriculums);
+    gradeFilter.addEventListener('change', filterCurriculums);
+});
+</script>
 {% endblock %}
