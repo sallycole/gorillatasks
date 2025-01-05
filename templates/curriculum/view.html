@@ -12,7 +12,7 @@
                         {% if not curriculum.locked %}
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#editPanel">
-                                <i data-feather="edit"></i> Edit
+                                <i data-feather="edit"></i> Edit Details
                             </button>
                             <form action="{{ url_for('curriculum.publish', id=curriculum.id) }}" method="POST" class="d-inline">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
@@ -31,51 +31,38 @@
                 </div>
             </div>
 
+            <!-- Curriculum Edit Panel -->
             <div class="collapse mb-4" id="editPanel">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="mb-0">Add Task</h4>
+                        <h4 class="mb-0">Edit Curriculum Details</h4>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ url_for('curriculum.add_task', id=curriculum.id) }}">
+                        <form method="POST" action="{{ url_for('curriculum.edit', id=curriculum.id) }}">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Title</label>
-                                        <input type="text" name="title" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">Action</label>
-                                        <select name="action" class="form-select" required>
-                                            <option value="Read">Read</option>
-                                            <option value="Watch">Watch</option>
-                                            <option value="Listen">Listen</option>
-                                            <option value="Do">Do</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">URL (Optional)</label>
-                                        <input type="url" name="url" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-end">
-                                    <button type="submit" class="btn btn-primary">Add Task</button>
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" value="{{ curriculum.name }}" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Description (Optional)</label>
-                                <textarea name="description" class="form-control" rows="2"></textarea>
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" name="description" rows="3">{{ curriculum.description }}</textarea>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Resource URL</label>
+                                <input type="url" class="form-control" name="link" value="{{ curriculum.link }}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Publisher</label>
+                                <input type="text" class="form-control" name="publisher" value="{{ curriculum.publisher }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </form>
                     </div>
                 </div>
             </div>
 
+            <!-- Curriculum Info Card -->
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">Description</h5>
@@ -92,55 +79,95 @@
                 </div>
             </div>
 
+            <!-- Tasks Section -->
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Tasks</h3>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Tasks</h3>
+                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#addTaskPanel">
+                        <i data-feather="plus"></i> Add Task
+                    </button>
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     {% if curriculum.tasks %}
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Action</th>
-                                    <th>Resource</th>
-                                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
-                                    <th>Actions</th>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                                <th>Resource</th>
+                                {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                                <th>Actions</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in curriculum.tasks|sort(attribute='position') %}
+                            <tr>
+                                <td>{{ task.title }}</td>
+                                <td>{{ task.description }}</td>
+                                <td>{{ task.action }}</td>
+                                <td>
+                                    {% if task.link %}
+                                    <a href="{{ task.link }}" target="_blank">Open</a>
                                     {% endif %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for task in curriculum.tasks|sort(attribute='position') %}
-                                <tr>
-                                    <td>{{ task.title }}</td>
-                                    <td>{{ task.description }}</td>
-                                    <td>{{ task.action }}</td>
-                                    <td>
-                                        {% if task.link %}
-                                        <a href="{{ task.link }}" target="_blank" class="btn btn-sm btn-outline-info">
-                                            <i data-feather="external-link"></i> Visit
-                                        </a>
-                                        {% endif %}
-                                    </td>
-                                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
-                                    <td>
-                                        <form action="{{ url_for('curriculum.delete_task', curriculum_id=curriculum.id, task_id=task.id) }}" method="POST" class="d-inline">
-                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                <i data-feather="trash-2"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                    {% endif %}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                                </td>
+                                {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                                <td>
+                                    <form action="{{ url_for('curriculum.delete_task', curriculum_id=curriculum.id, task_id=task.id) }}" method="POST" class="d-inline">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i data-feather="trash-2"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                     {% else %}
-                    <p class="text-muted">No tasks have been added to this curriculum yet.</p>
+                    <p class="text-muted">No tasks added yet.</p>
+                    {% endif %}
+
+                    <!-- Add Task Panel -->
+                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                    <div class="collapse mt-4" id="addTaskPanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0">Add New Task</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ url_for('curriculum.add_task', id=curriculum.id) }}" method="POST">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <div class="mb-3">
+                                        <label class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Description</label>
+                                        <textarea class="form-control" name="description"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Action</label>
+                                        <select class="form-select" name="action" required>
+                                            <option value="Read">Read</option>
+                                            <option value="Watch">Watch</option>
+                                            <option value="Listen">Listen</option>
+                                            <option value="Do">Do</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Resource URL</label>
+                                        <input type="url" class="form-control" name="url">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Add Task</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
                 </div>
             </div>
