@@ -1,4 +1,3 @@
-
 from app import db, app
 from sqlalchemy import text
 

@@ -55,7 +55,9 @@ class Curriculum(db.Model):
     created_at = db.Column(db.DateTime, default=now_in_utc)
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
     
-    tasks = db.relationship('Task', backref='curriculum', cascade='all, delete-orphan')
+    tasks = db.relationship('Task', backref='curriculum', 
+                          cascade='all, delete-orphan', 
+                          passive_deletes=True)
     grade_levels = db.Column(db.ARRAY(db.String(255)), default=list)
 
 # Constants for grade levels
