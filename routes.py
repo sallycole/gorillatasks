@@ -537,7 +537,7 @@ def edit(id):
                 curriculum.published_at = datetime.now(pytz.UTC)
             db.session.commit()
         flash('Curriculum updated successfully!')
-        return redirect(url_for('curriculum.edit', id=curriculum.id))
+        return redirect(url_for('curriculum.view', id=curriculum.id))
     return render_template('curriculum/edit.html', form=form, curriculum=curriculum)
 
 @curriculum_bp.route('/<int:id>/tasks/add', methods=['POST'])
