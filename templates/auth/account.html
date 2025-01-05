@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             <h3>Account Information</h3>
         </div>
@@ -24,6 +24,33 @@
                 <div class="col-md-3"><strong>Time Zone:</strong></div>
                 <div class="col-md-9">{{ current_user.time_zone }}</div>
             </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Active Enrollments</h3>
+        </div>
+        <div class="card-body">
+            {% if enrollments %}
+                <div class="list-group">
+                {% for enrollment in enrollments %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ enrollment.curriculum.name }}</h5>
+                            <small class="text-muted">Enrolled on {{ enrollment.created_at.strftime('%Y-%m-%d') }}</small>
+                        </div>
+                        <form action="{{ url_for('auth.unenroll', enrollment_id=enrollment.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to unenroll from this curriculum?')">
+                                Unenroll
+                            </button>
+                        </form>
+                    </div>
+                {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">You are not enrolled in any curriculums.</p>
+            {% endif %}
         </div>
     </div>
 </div>

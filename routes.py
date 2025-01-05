@@ -177,7 +177,17 @@ def logout():
 @auth_bp.route('/account')
 @login_required
 def account():
-    return render_template('auth/account.html')
+    enrollments = Enrollment.query.filter_by(student_id=current_user.id).join(Curriculum).all()
+    return render_template('auth/account.html', enrollments=enrollments)
+
+@auth_bp.route('/unenroll/<int:enrollment_id>', methods=['POST'])
+@login_required
+def unenroll(enrollment_id):
+    enrollment = Enrollment.query.filter_by(id=enrollment_id, student_id=current_user.id).first_or_404()
+    db.session.delete(enrollment)
+    db.session.commit()
+    flash('Successfully unenrolled from the curriculum.')
+    return redirect(url_for('auth.account'))
 
 # Dashboard routes
 @dashboard_bp.route('/')
