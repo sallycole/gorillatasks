@@ -398,6 +398,10 @@ def new():
             # Process XML file upload first
             try:
                 xml_content = form.xml_file.data.read().decode('utf-8')
+                # Escape ampersands in URLs but preserve existing escaped ampersands
+                xml_content = xml_content.replace("&amp;", "TEMP_AMP")\
+                                       .replace("&", "&amp;")\
+                                       .replace("TEMP_AMP", "&amp;")
                 root = ET.fromstring(xml_content)
                 
                 # Extract curriculum data from XML
