@@ -4,8 +4,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.edit-task').forEach(button => {
-        button.addEventListener('click', function(e) {
+    document.addEventListener('click', function(e) {
+        const editButton = e.target.closest('.edit-task');
+        if (!editButton) return;
+        
+        e.preventDefault();
             e.preventDefault();
             const row = this.closest('tr');
             const cells = row.querySelectorAll('td');
