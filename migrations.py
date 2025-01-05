@@ -5,6 +5,9 @@ from sqlalchemy import text
 def run_migrations():
     with app.app_context():
         with db.engine.connect() as conn:
+            # Backup existing data
+            conn.execute(text("CREATE TEMP TABLE curriculum_backup AS SELECT * FROM curriculums"))
+            
             # Drop existing table
             conn.execute(text("DROP TABLE IF EXISTS curriculums CASCADE"))
             
@@ -26,6 +29,18 @@ def run_migrations():
                     grade_levels VARCHAR(255)[]
                 )
             """))
+            
+            # Restore data
+            conn.execute(text("""
+                INSERT INTO curriculums (id, name, description, link, public, published, 
+                    locked, creator_id, publisher, published_at, created_at, updated_at)
+                SELECT id, name, description, link, public, published,
+                    locked, creator_id, publisher, published_at, created_at, updated_at
+                FROM curriculum_backup
+            """))
+            
+            # Reset sequence
+            conn.execute(text("SELECT setval('curriculums_id_seq', (SELECT MAX(id) FROM curriculums))"))
             conn.commit()
 
 if __name__ == "__main__":
