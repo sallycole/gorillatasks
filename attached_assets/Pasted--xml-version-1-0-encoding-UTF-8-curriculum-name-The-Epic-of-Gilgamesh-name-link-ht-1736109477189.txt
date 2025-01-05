@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>The Epic of Gilgamesh</name>
+<link>https://en.wikipedia.org/wiki/Epic_of_Gilgamesh</link>
+<publisher>Penguin Classics</publisher>
+  <description>Read and study The Epic of Gilgamesh.</description>
+  <grade_levels>
+    <grade_level>9</grade_level>
+  </grade_levels>
+  <tasks>
+    <task>
+      <title>Watch "The Epic of Gilgamesh: Crash Course World Mythology #26"</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.youtube.com/watch?v=sWppk7-Mti4</url>
+    </task>
+    <task>
+      <title>Read "Gilgamesh the King" by Ludila Zeman to Phoebe</title>
+      <description></description>
+      <action>Read</action>
+      <url></url>
+    </task>
+    <task>
+      <title>Read pages 61-69 of "The Epic of Gilgamesh" to yourself</title>
+      <description>This covers the Prologue, and Chapter 1: The Coming of Enkidu.</description>
+      <action>Read</action>
+      <url></url>
+    </task>
+    <task>
+      <title>Read "The Revenge of Ishtar" by Ludmila Zeman to Phoebe</title>
+      <description></description>
+      <action>Read</action>
+      <url></url>
+    </task>
+    <task>
+      <title>Read pages 70-96 of "The Epic of Gilgamesh" to yourself</title>
+      <description>This covers Chapter 2: The Forest Journey and Chapter 3: Ishtar and Gilgamesh and the Death of Enkidu.</description>
+      <action>Read</action>
+      <url></url>
+    </task>
+    <task>
+      <title>Read "The Last Quest of Gilgamesh" to Phoebe</title>
+      <description></description>
+      <action>Read</action>
+      <url></url>
+    </task>
+    <task>
+      <title>Read pages 97-119 of "The Epic of Gilgamesh" to yourself</title>
+      <description>This covers Chapter 4: The Search for Everlasting Life, Chapter 5: The Story of the Flood, Chapter 6: The Return, and Chapter 7: The Death of Gilgamesh.</description>
+      <action>Read</action>
+      <url></url>
+    </task>
+    <task>
+      <title>Watch "AP Epic of Gilgamesh, A" lecture</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.youtube.com/watch?v=fRgkQrG7ayw</url>
+    </task>
+    <task>
+      <title>Watch "AP Epic of Gilgamesh, B" lecture</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.youtube.com/watch?v=Zue2LL-QXWw</url>
+    </task>
+     </tasks>
+</curriculum>
