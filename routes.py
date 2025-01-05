@@ -412,7 +412,7 @@ def new():
                     public=False,  # All new curriculums start as private
                     creator_id=current_user.id,
                     publisher=root.find('publisher').text.strip() if root.find('publisher') is not None else None,
-                    grade_levels=root.findall('grade_levels/grade_level') if root.find('grade_levels') is not None else []
+                    grade_levels=[grade.text.strip() for grade in root.findall('grade_levels/grade_level')] if root.find('grade_levels') is not None else []
                 )
                 db.session.add(curriculum)
                 db.session.flush()  # Get curriculum.id without committing
