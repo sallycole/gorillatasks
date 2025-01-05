@@ -563,6 +563,24 @@ def add_task(id):
         flash('Task added successfully!')
     return redirect(url_for('curriculum.view', id=curriculum.id))
 
+@curriculum_bp.route('/<int:curriculum_id>/tasks/<int:task_id>/edit', methods=['POST'])
+@login_required
+def edit_task(curriculum_id, task_id):
+    curriculum = Curriculum.query.get_or_404(curriculum_id)
+    if curriculum.creator_id != current_user.id:
+        flash('You can only edit your own curriculums')
+        return redirect(url_for('curriculum.list'))
+    
+    if not curriculum.locked:
+        task = Task.query.get_or_404(task_id)
+        task.title = request.form['title']
+        task.description = request.form['description']
+        task.action = Task.ACTION_MAP[request.form['action']]
+        task.link = request.form['url'] if request.form['url'] else None
+        db.session.commit()
+        flash('Task updated successfully!')
+    return redirect(url_for('curriculum.view', id=curriculum.id))
+
 @curriculum_bp.route('/<int:curriculum_id>/tasks/<int:task_id>/delete', methods=['POST'])
 @login_required
 def delete_task(curriculum_id, task_id):
