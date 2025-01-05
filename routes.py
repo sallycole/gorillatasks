@@ -527,10 +527,18 @@ def delete(id):
     if curriculum.enrollments:
         flash('Cannot delete curriculum with active enrollments')
         return redirect(url_for('curriculum.view', id=curriculum.id))
+    
+    try:
+        # Delete associated tasks first
+        Task.query.filter_by(curriculum_id=curriculum.id).delete()
+        # Then delete the curriculum
+        db.session.delete(curriculum)
+        db.session.commit()
+        flash('Curriculum deleted successfully!')
+    except Exception as e:
+        db.session.rollback()
+        flash('Error deleting curriculum: ' + str(e))
         
-    db.session.delete(curriculum)
-    db.session.commit()
-    flash('Curriculum deleted successfully!')
     return redirect(url_for('curriculum.list'))
 
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
