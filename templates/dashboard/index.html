@@ -31,23 +31,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     socket.on('connect', () => {
         console.log('Connected to WebSocket server');
+        socket.sendBuffer = [];  // Clear any buffered events
         document.querySelectorAll('.task-actions').forEach(div => {
             div.classList.remove('disconnected');
         });
     });
 
-    socket.on('connect_error', (error) => {
-        console.error('Connection error:', error);
-        document.querySelectorAll('.task-actions').forEach(div => {
-            div.classList.add('disconnected');
-        });
+    let reconnectAttempts = 0;
+    socket.io.on("reconnect_attempt", () => {
+        if (reconnectAttempts++ > 2) {
+            socket.disconnect();  // Stop reconnection after 3 attempts
+            location.reload();    // Refresh the page
+        }
     });
 
-    socket.on('disconnect', () => {
-        console.log('Disconnected from WebSocket server');
-        document.querySelectorAll('.task-actions').forEach(div => {
-            div.classList.add('disconnected');
-        });
+    socket.io.on("reconnect", () => {
+        reconnectAttempts = 0;  // Reset counter on successful reconnection
     });
 
     window.handleTaskAction = function(action, taskId) {

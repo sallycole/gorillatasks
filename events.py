@@ -182,9 +182,10 @@ def handle_skip_task(data):
 
     try:
         task_id = data.get('task_id')
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
+        # Use join to reduce queries
+        student_task = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == current_user.id,
+            StudentTask.task_id == task_id
         ).first()
         
         if not student_task:
