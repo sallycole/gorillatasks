@@ -4,17 +4,37 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const editModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
+    // Initialize all modals
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modalElement => {
+        new bootstrap.Modal(modalElement);
+    });
     
-    document.addEventListener('click', function(e) {
-        const editButton = e.target.closest('.edit-task');
-        if (!editButton) return;
-        
-        e.preventDefault();
-        const taskId = editButton.dataset.taskId;
-        const curriculumId = editButton.dataset.curriculumId;
-        const row = editButton.closest('tr');
-        const cells = row.querySelectorAll('td');
+    // Handle edit button clicks
+    document.querySelectorAll('.edit-task').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const taskId = this.dataset.taskId;
+            const curriculumId = this.dataset.curriculumId;
+            const row = this.closest('tr');
+            const cells = row.querySelectorAll('td');
+            
+            // Populate modal form
+            const modal = document.getElementById('editTaskModal');
+            modal.querySelector('input[name="title"]').value = cells[0].textContent.trim();
+            modal.querySelector('textarea[name="description"]').value = cells[1].textContent.trim();
+            modal.querySelector('select[name="action"]').value = cells[2].textContent.trim();
+            const link = cells[3].querySelector('a');
+            modal.querySelector('input[name="url"]').value = link ? link.href : '';
+            
+            // Set form action URL
+            modal.querySelector('form').action = `/curriculum/${curriculumId}/tasks/${taskId}/edit`;
+            
+            // Show modal
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.show();
+        });
+    });
         
         // Populate modal form
         const modal = document.getElementById('editTaskModal');
