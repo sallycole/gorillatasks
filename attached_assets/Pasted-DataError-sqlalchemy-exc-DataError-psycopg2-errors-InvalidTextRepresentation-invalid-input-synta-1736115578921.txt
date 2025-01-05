@@ -1,0 +1,115 @@
+DataError
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "Watch"
+LINE 1: ...et-safety/v/internet-safety-course-introduction', 'Watch', 1...
+                                                             ^
+
+[SQL: INSERT INTO tasks (title, description, completed, curriculum_id, link, action, position, created_at, updated_at) VALUES (%(title)s, %(description)s, %(completed)s, %(curriculum_id)s, %(link)s, %(action)s, %(position)s, %(created_at)s, %(updated_at)s) RETURNING tasks.id]
+[parameters: {'title': 'Internet safety course introduction', 'description': '', 'completed': False, 'curriculum_id': 10, 'link': 'https://www.khanacademy.org/college-careers-more/internet-safety/xef9bb6e081c9f4ff:online-data-security/xef9bb6e081c9f4ff:introduction-to-internet-safety/v/internet-safety-course-introduction', 'action': 'Watch', 'position': 1, 'created_at': datetime.datetime(2025, 1, 5, 22, 19, 13, 739534, tzinfo=<UTC>), 'updated_at': datetime.datetime(2025, 1, 5, 22, 19, 13, 739548, tzinfo=<UTC>)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+
+Traceback (most recent call last)
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+self.dialect.do_execute(
+^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+cursor.execute(statement, parameters)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The above exception was the direct cause of the following exception:
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1514, in wsgi_app
+response = self.handle_exception(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+response = self.full_dispatch_request()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+rv = self.handle_user_exception(e)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+rv = self.dispatch_request()
+     ^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+return current_app.ensure_sync(func)(*args, **kwargs)
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/routes.py", line 562, in add_task
+db.session.commit()
+^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 597, in commit
+return self._proxied.commit()
+       ^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2028, in commit
+trans.commit(_to_root=True)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "<string>", line 2, in commit
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+ret_value = fn(self, *arg, **kw)
+            ^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+self._prepare_impl()
+^^^^^^^^^^^^^^^^^^^^
+File "<string>", line 2, in _prepare_impl
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+ret_value = fn(self, *arg, **kw)
+            ^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+self.session.flush()
+^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4352, in flush
+self._flush(objects)
+^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4487, in _flush
+with util.safe_reraise():
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+raise exc_value.with_traceback(exc_tb)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4448, in _flush
+flush_context.execute()
+^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+rec.execute(self)
+^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+util.preloaded.orm_persistence.save_obj(
+^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+_emit_insert_statements(
+^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+result = connection.execute(
+         
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+return meth(
+       
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+return connection._execute_clauseelement(
+       
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+ret = self._execute_context(
+      
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+return self._exec_single_context(
+       
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+self._handle_dbapi_exception(
+^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+self.dialect.do_execute(
+^
+File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+cursor.execute(statement, parameters)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type integer: "Watch"
+LINE 1: ...et-safety/v/internet-safety-course-introduction', 'Watch', 1...
+^
+
+[SQL: INSERT INTO tasks (title, description, completed, curriculum_id, link, action, position, created_at, updated_at) VALUES (%(title)s, %(description)s, %(completed)s, %(curriculum_id)s, %(link)s, %(action)s, %(position)s, %(created_at)s, %(updated_at)s) RETURNING tasks.id]
+[parameters: {'title': 'Internet safety course introduction', 'description': '', 'completed': False, 'curriculum_id': 10, 'link': 'https://www.khanacademy.org/college-careers-more/internet-safety/xef9bb6e081c9f4ff:online-data-security/xef9bb6e081c9f4ff:introduction-to-internet-safety/v/internet-safety-course-introduction', 'action': 'Watch', 'position': 1, 'created_at': datetime.datetime(2025, 1, 5, 22, 19, 13, 739534, tzinfo=<UTC>), 'updated_at': datetime.datetime(2025, 1, 5, 22, 19, 13, 739548, tzinfo=<UTC>)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+The debugger caught an exception in your WSGI application. You can now look at the traceback which led to the error.
+To switch between the interactive traceback and the plaintext one, you can click on the "Traceback" headline. From the text traceback you can also create a paste of it.
