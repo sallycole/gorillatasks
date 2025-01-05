@@ -174,11 +174,20 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@auth_bp.route('/account')
+@auth_bp.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
+    form = UserEditForm(obj=current_user)
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.time_zone = form.time_zone.data
+        db.session.commit()
+        flash('Your information has been updated.')
+        return redirect(url_for('auth.account'))
+        
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).join(Curriculum).all()
-    return render_template('auth/account.html', enrollments=enrollments)
+    return render_template('auth/account.html', enrollments=enrollments, form=form)
 
 @auth_bp.route('/unenroll/<int:enrollment_id>', methods=['POST'])
 @login_required

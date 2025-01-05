@@ -69,6 +69,11 @@ class TaskForm(FlaskForm):
     action = SelectField('Action Type', coerce=int)
     position = IntegerField('Position')
 
+class UserEditForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    time_zone = SelectField('Time Zone', choices=RegisterForm.STANDARD_TIMEZONES, validators=[DataRequired()])
+
 class EnrollmentForm(FlaskForm):
     study_days_per_week = IntegerField('Study Days Per Week', validators=[DataRequired()])
     target_completion_date = DateField('Target Completion Date', validators=[DataRequired()])

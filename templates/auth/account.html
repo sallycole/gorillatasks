@@ -12,18 +12,26 @@
                 <div class="col-md-3"><strong>Email:</strong></div>
                 <div class="col-md-9">{{ current_user.email }}</div>
             </div>
-            <div class="row mb-3">
-                <div class="col-md-3"><strong>First Name:</strong></div>
-                <div class="col-md-9">{{ current_user.first_name }}</div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-3"><strong>Last Name:</strong></div>
-                <div class="col-md-9">{{ current_user.last_name }}</div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-3"><strong>Time Zone:</strong></div>
-                <div class="col-md-9">{{ current_user.time_zone }}</div>
-            </div>
+            <form method="POST">
+                {{ form.csrf_token }}
+                <div class="row mb-3">
+                    <div class="col-md-3">{{ form.first_name.label(class="form-label") }}</div>
+                    <div class="col-md-9">{{ form.first_name(class="form-control") }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3">{{ form.last_name.label(class="form-label") }}</div>
+                    <div class="col-md-9">{{ form.last_name(class="form-control") }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3">{{ form.time_zone.label(class="form-label") }}</div>
+                    <div class="col-md-9">{{ form.time_zone(class="form-control") }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
