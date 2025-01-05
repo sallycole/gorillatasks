@@ -1,0 +1,126 @@
+<h1>Add a Curriculum</h1>
+
+<div class="content-section">
+    <h2>About Adding Curriculums</h2>
+      <p>All curriculums on this site come from our community of users like you. You can add a curriculum for your own use and keep it private. Or, you can publish a curriculum you've added so that other users can study the same content as you. If you do publish a curriculum, please make sure it is final before you publish it. Once a curriculum has been published, it cannot be edited or deleted by its contributor.</p>
+  <h2>XML Upload Instructions</h2>
+    <p>Each curriculum on this site includes basic curriculum details like name and description along with a set of tasks that students of the curriculum should do in order to study the entire curriculum.</p>
+    <p>To upload a curriculum, simply put its basic curriculum details and its sequence of tasks into an XML file formatted like the example below. Be sure to save your curriculum file with an .xml extension and then upload it to the site.</p>
+    <p>Please note that all grade level options for curriculums on this site (i.e. &lt;grade_level&gt;College&lt;/grade_level&gt;) are shown in the XML example below. You should remove any grade levels from your XML file that do not apply to your curriculum. All task descriptions in the XML file are optional and may be left blank by putting nothing between the open description tag (&lt;description&gt;) and the close description tag (&lt;/description&gt;). These task descriptions may be crucial for offline curriculums, but are less important for online curriculums. Similarly, all task URLs are optional and may be left blank by putting nothing between the open url tag (&lt;url&gt;) and the close url tag (&lt;/url&gt;). These task URLs are very important for online curriculums, but less significant (and possibly don't exist) for offline curriculums. Finally, each set of &lt;action&gt;&lt;/action&gt; XML tags can be populated with any one of the following words: Read, Watch, Listen, or Do. These action words inform learners about the type of activity required to complete a task within a curriculum.</p>
+        <p>Also, keep in mind that you may have as many tasks in your curriculum as you need. Try adding a full year or a full semester of curriculum tasks to your XML file before uploading it. Be sure to put the curriculum tasks in your XML file in order from the tasks that should be done first to the tasks that should be done last.</p>
+    <div data-controller="copy" class="relative">
+      <button data-action="click->copy#copy" class="absolute top-2 right-2 px-2 py-1 text-sm bg-gray-700 text-white rounded hover:bg-gray-600">
+        Copy
+      </button>
+      <pre data-copy-target="source" class="bg-gray-800 text-white p-6 rounded-lg mt-4 overflow-x-auto">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;curriculum&gt;
+  &lt;name&gt;Curriculum Name i.e. Grade 3 Math&lt;/name&gt;
+  &lt;link&gt;https://www.khanacademy.org/math/cc-2nd-grade-math&lt;/link&gt;
+  &lt;publisher&gt;Khan Academy&lt;/publisher&gt;
+  &lt;description&gt;2nd grade math covering topics including addition, subtraction, place value, money, time, measurement, data, and geometry.&lt;/description&gt;
+  &lt;grade_levels&gt;
+    &lt;grade_level&gt;K&lt;/grade_level&gt;
+    &lt;grade_level&gt;1&lt;/grade_level&gt;
+    &lt;grade_level&gt;2&lt;/grade_level&gt;
+    &lt;grade_level&gt;3&lt;/grade_level&gt;
+    &lt;grade_level&gt;4&lt;/grade_level&gt;
+    &lt;grade_level&gt;5&lt;/grade_level&gt;
+    &lt;grade_level&gt;6&lt;/grade_level&gt;
+    &lt;grade_level&gt;7&lt;/grade_level&gt;
+    &lt;grade_level&gt;8&lt;/grade_level&gt;
+    &lt;grade_level&gt;9&lt;/grade_level&gt;
+    &lt;grade_level&gt;10&lt;/grade_level&gt;
+    &lt;grade_level&gt;11&lt;/grade_level&gt;
+    &lt;grade_level&gt;12&lt;/grade_level&gt;
+    &lt;grade_level&gt;College&lt;/grade_level&gt;
+    &lt;grade_level&gt;Any&lt;/grade_level&gt;
+  &lt;/grade_levels&gt;
+  &lt;tasks&gt;
+    &lt;task&gt;
+      &lt;title&gt;Add and subtract within 20: FAQ&lt;/title&gt;
+      &lt;description&gt;Optional description of the task&lt;/description&gt;
+      &lt;action&gt;Read&lt;/action&gt;
+      &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/a/add-within-20-faq&lt;/url&gt;
+    &lt;/task&gt;
+    &lt;task&gt;
+      &lt;title&gt;Adding within 20 using place value blocks&lt;/title&gt;
+      &lt;description&gt;Optional description of the task&lt;/description&gt;
+      &lt;action&gt;Watch&lt;/action&gt;
+      &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20-using-place-value-blocks&lt;/url&gt;
+    &lt;/task&gt;
+    &lt;task&gt;
+      &lt;title&gt;Adding within 20 using ten frames&lt;/title&gt;
+      &lt;description&gt;Optional description of the task&lt;/description&gt;
+      &lt;action&gt;Listen&lt;/action&gt;
+      &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20-using-ten-frames&lt;/url&gt;
+    &lt;/task&gt;
+    &lt;task&gt;
+      &lt;title&gt;Add within 20 visually&lt;/title&gt;
+      &lt;description&gt;Optional description of the task&lt;/description&gt;
+      &lt;action&gt;Do&lt;/action&gt;
+      &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/e/add-within-20-visually&lt;/url&gt;
+    &lt;/task&gt;
+  &lt;/tasks&gt;
+&lt;/curriculum&gt;
+    </pre>
+<BR>
+<h2>XML Upload</h2>
+  <%= form_with url: import_xml_curriculums_path, multipart: true do |form| %>
+    <div class="field">
+      <%= form.label :xml_file, "XML File" %>
+      <%= form.file_field :xml_file, accept: '.xml' %>
+    </div>
+    <%= form.submit "Upload Curriculum", class: "btn-primary" %>
+  <% end %>
+<BR>
+  <h2>Or Create Manually</h2>
+  <%= form_with model: @curriculum, local: true do |form| %>
+    <% if @curriculum.errors.any? %>
+      <div class="flash flash-alert">
+        <h2><%= pluralize(@curriculum.errors.count, "error") %> prohibited this curriculum from being saved:</h2>
+        <ul>
+          <% @curriculum.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :link %>
+      <%= form.text_field :link %>
+    </div>
+
+    <div class="field">
+      <%= form.label :publisher %>
+      <%= form.text_field :publisher %>
+    </div>
+
+    <div class="field">
+      <%= form.label :grade_levels %>
+      <div class="grade-levels-list">
+        <%= form.collection_check_boxes :grade_level_ids, @grade_levels, :id, :name do |b| %>
+          <div class="grade-level-option">
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "btn-primary" %>
+    </div>
+  <% end %>
+</div>
