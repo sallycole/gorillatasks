@@ -554,7 +554,7 @@ def add_task(id):
             curriculum_id=curriculum.id,
             title=request.form['title'],
             description=request.form['description'],
-            action=request.form['action'],
+            action=Task.ACTION_MAP[request.form['action']],
             link=request.form['url'] if request.form['url'] else None,
             position=position
         )

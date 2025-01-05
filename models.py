@@ -81,6 +81,18 @@ GRADE_LEVELS = [
 class Task(db.Model):
     __tablename__ = 'tasks'
     
+    ACTION_READ = 1
+    ACTION_WATCH = 2
+    ACTION_LISTEN = 3
+    ACTION_DO = 4
+
+    ACTION_MAP = {
+        'Read': ACTION_READ,
+        'Watch': ACTION_WATCH,
+        'Listen': ACTION_LISTEN,
+        'Do': ACTION_DO
+    }
+
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     description = db.Column(db.Text)
