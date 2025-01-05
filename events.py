@@ -139,6 +139,9 @@ def handle_finish_task(data):
         if student_task.status == StudentTask.STATUS_IN_PROGRESS:
             student_task.status = StudentTask.STATUS_COMPLETED
             student_task.finished_at = datetime.now(pytz.UTC)
+            if student_task.started_at:
+                delta = student_task.finished_at - student_task.started_at
+                student_task.time_spent_minutes = int(delta.total_seconds() / 60)
             db.session.commit()
 
             # Get next 10 incomplete tasks
