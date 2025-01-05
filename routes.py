@@ -86,6 +86,10 @@ def view_enrollment(id):
     enrollment = Enrollment.query.get_or_404(id)
     if enrollment.student_id != current_user.id:
         abort(403)
+    
+    if not enrollment.curriculum:
+        flash('This enrollment has no associated curriculum', 'error')
+        return redirect(url_for('archive.index'))
         
     completed_tasks = StudentTask.query.join(Task).filter(
         StudentTask.student_id == current_user.id,
