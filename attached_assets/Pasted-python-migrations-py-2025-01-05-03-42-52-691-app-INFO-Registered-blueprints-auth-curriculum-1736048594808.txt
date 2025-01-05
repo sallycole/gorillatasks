@@ -1,0 +1,56 @@
+python migrations.py
+2025-01-05 03:42:52,691 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive
+2025-01-05 03:42:53,725 - app - INFO - Database tables created successfully
+2025-01-05 03:42:53,726 - app - INFO - Available routes:
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /auth/login -> auth.login [HEAD,POST,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /auth/register -> auth.register [HEAD,POST,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /curriculum/new -> curriculum.new [HEAD,POST,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [HEAD,POST,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [HEAD,POST,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /dashboard/ -> dashboard.index [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [POST,OPTIONS]
+2025-01-05 03:42:53,726 - app - DEBUG - Route: / -> root [HEAD,GET,OPTIONS]
+2025-01-05 03:42:53,726 - app - INFO - Blueprints registered successfully
+2025-01-05 03:42:53,726 - app - DEBUG - Complete URL map:
+2025-01-05 03:42:53,726 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, GET, OPTIONS) -> static>,
+ <Rule '/auth/login' (HEAD, POST, GET, OPTIONS) -> auth.login>,
+ <Rule '/auth/register' (HEAD, POST, GET, OPTIONS) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, GET, OPTIONS) -> auth.logout>,
+ <Rule '/curriculum/' (HEAD, GET, OPTIONS) -> curriculum.list>,
+ <Rule '/curriculum/new' (HEAD, POST, GET, OPTIONS) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, GET, OPTIONS) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (HEAD, POST, GET, OPTIONS) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (HEAD, POST, GET, OPTIONS) -> curriculum.enroll>,
+ <Rule '/dashboard/' (HEAD, GET, OPTIONS) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/archive/' (HEAD, GET, OPTIONS) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, GET, OPTIONS) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/' (HEAD, GET, OPTIONS) -> root>])
+Traceback (most recent call last):
+  File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1414, in execute
+    meth = statement._execute_on_connection
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute '_execute_on_connection'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/Gorilla-Tasks/migrations.py", line 15, in <module>
+    run_migrations()
+  File "/home/runner/Gorilla-Tasks/migrations.py", line 7, in run_migrations
+    conn.execute("""
+  File "/home/runner/Gorilla-Tasks/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    raise exc.ObjectNotExecutableError(statement) from err
+sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: '\n                ALTER TABLE curriculums \n                ADD COLUMN IF NOT EXISTS published BOOLEAN DEFAULT FALSE,\n                ADD COLUMN IF NOT EXISTS locked BOOLEAN DEFAULT FALSE\n
