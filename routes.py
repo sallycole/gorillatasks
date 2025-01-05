@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot
-from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
+from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm, UserEditForm
 from datetime import datetime, timedelta
 import pytz
 from utils.timezone import now_in_utc, to_user_timezone, from_user_timezone
@@ -17,7 +17,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot
-from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm
+from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm, UserEditForm
 from datetime import datetime, timedelta
 import pytz
 from utils.timezone import now_in_utc, to_user_timezone, from_user_timezone
