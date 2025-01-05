@@ -4,31 +4,41 @@
 {% block content %}
 <div class="container">
     <div class="card mb-4">
-        <div class="card-header">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h3>Account Information</h3>
+            <button id="editToggle" class="btn btn-primary">Edit Account Info</button>
         </div>
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-3"><strong>Email:</strong></div>
                 <div class="col-md-9">{{ current_user.email }}</div>
             </div>
-            <form method="POST">
+            <form method="POST" id="accountForm">
                 {{ form.csrf_token }}
                 <div class="row mb-3">
                     <div class="col-md-3">{{ form.first_name.label(class="form-label") }}</div>
-                    <div class="col-md-9">{{ form.first_name(class="form-control") }}</div>
+                    <div class="col-md-9">
+                        <span class="view-mode">{{ current_user.first_name }}</span>
+                        {{ form.first_name(class="form-control edit-mode", disabled=true) }}
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-3">{{ form.last_name.label(class="form-label") }}</div>
-                    <div class="col-md-9">{{ form.last_name(class="form-control") }}</div>
+                    <div class="col-md-9">
+                        <span class="view-mode">{{ current_user.last_name }}</span>
+                        {{ form.last_name(class="form-control edit-mode", disabled=true) }}
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-3">{{ form.time_zone.label(class="form-label") }}</div>
-                    <div class="col-md-9">{{ form.time_zone(class="form-control") }}</div>
+                    <div class="col-md-9">
+                        <span class="view-mode">{{ current_user.time_zone }}</span>
+                        {{ form.time_zone(class="form-control edit-mode", disabled=true) }}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9 offset-md-3">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary edit-mode" style="display: none;">Save Changes</button>
                     </div>
                 </div>
             </form>
@@ -68,4 +78,30 @@
         </div>
     </div>
 </div>
+
+<style>
+.edit-mode {
+    display: none;
+}
+.editing .edit-mode {
+    display: block;
+}
+.editing .view-mode {
+    display: none;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editToggle = document.getElementById('editToggle');
+    const form = document.getElementById('accountForm');
+    const inputs = form.querySelectorAll('input, select');
+    
+    editToggle.addEventListener('click', function() {
+        const isEditing = form.classList.toggle('editing');
+        editToggle.textContent = isEditing ? 'Cancel Editing' : 'Edit Account Info';
+        inputs.forEach(input => input.disabled = !isEditing);
+    });
+});
+</script>
 {% endblock %}
