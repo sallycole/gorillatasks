@@ -4,13 +4,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all modals
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modalElement => {
-        new bootstrap.Modal(modalElement);
-    });
+    const editModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
     
-    // Handle edit button clicks
     document.querySelectorAll('.edit-task').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -19,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = this.closest('tr');
             const cells = row.querySelectorAll('td');
             
-            // Populate modal form
             const modal = document.getElementById('editTaskModal');
             modal.querySelector('input[name="title"]').value = cells[0].textContent.trim();
             modal.querySelector('textarea[name="description"]').value = cells[1].textContent.trim();
@@ -27,17 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const link = cells[3].querySelector('a');
             modal.querySelector('input[name="url"]').value = link ? link.href : '';
             
-            // Set form action URL
             modal.querySelector('form').action = `/curriculum/${curriculumId}/tasks/${taskId}/edit`;
-            
-            // Show modal
-            const modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.show();
+            editModal.show();
         });
     });
-        
-        // Populate modal form
-        const modal = document.getElementById('editTaskModal');
         modal.querySelector('input[name="title"]').value = cells[0].textContent.trim();
         modal.querySelector('textarea[name="description"]').value = cells[1].textContent.trim();
         modal.querySelector('select[name="action"]').value = cells[2].textContent.trim();
