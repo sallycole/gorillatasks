@@ -40,7 +40,7 @@ class RegisterForm(FlaskForm):
         ('Etc/GMT-5', 'PKT (UTC+5)'),    # Pakistan Time
         ('Etc/GMT-6', 'BST (UTC+6)'),    # Bangladesh Standard Time
         ('Etc/GMT-7', 'ICT (UTC+7)'),    # Indochina Time
-        ('Etc/GMT-8', 'CST (UTC+8)'),    # China Standard Time
+        ('Etc/GMT-8', 'CNST (UTC+8)'),    # China Standard Time
         ('Etc/GMT-9', 'JST (UTC+9)'),    # Japan Standard Time
         ('Etc/GMT-10', 'AEST (UTC+10)'), # Australian Eastern Standard Time
         ('Etc/GMT-11', 'AEDT (UTC+11)'), # Australian Eastern Daylight Time
