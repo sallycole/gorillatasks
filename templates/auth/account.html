@@ -39,12 +39,18 @@
                         <div>
                             <h5 class="mb-1">{{ enrollment.curriculum.name }}</h5>
                             <small class="text-muted">Enrolled on {{ enrollment.created_at.strftime('%Y-%m-%d') }}</small>
+                            <div class="mt-1">
+                                <small class="text-muted">Study Days: {{ enrollment.study_days_per_week }}/week | Target: {{ enrollment.target_completion_date.strftime('%Y-%m-%d') }}</small>
+                            </div>
                         </div>
-                        <form action="{{ url_for('auth.unenroll', enrollment_id=enrollment.id) }}" method="POST" style="display: inline;">
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to unenroll from this curriculum?')">
-                                Unenroll
-                            </button>
-                        </form>
+                        <div>
+                            <a href="{{ url_for('auth.edit_enrollment', enrollment_id=enrollment.id) }}" class="btn btn-primary btn-sm me-2">Edit Settings</a>
+                            <form action="{{ url_for('auth.unenroll', enrollment_id=enrollment.id) }}" method="POST" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to unenroll from this curriculum?')">
+                                    Unenroll
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 {% endfor %}
                 </div>

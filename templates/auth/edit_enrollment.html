@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Edit Enrollment Settings</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {{ form.csrf_token }}
+                        <div class="mb-3">
+                            {{ form.study_days_per_week.label(class="form-label") }}
+                            {{ form.study_days_per_week(class="form-control") }}
+                            <div class="form-text">How many days per week will you dedicate to studying?</div>
+                        </div>
+                        <div class="mb-3">
+                            {{ form.target_completion_date.label(class="form-label") }}
+                            {{ form.target_completion_date(class="form-control", type="date") }}
+                            <div class="form-text">When would you like to complete this curriculum?</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a href="{{ url_for('auth.account') }}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

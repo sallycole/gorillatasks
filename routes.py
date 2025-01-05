@@ -189,6 +189,22 @@ def unenroll(enrollment_id):
     flash('Successfully unenrolled from the curriculum.')
     return redirect(url_for('auth.account'))
 
+@auth_bp.route('/enrollment/<int:enrollment_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_enrollment(enrollment_id):
+    enrollment = Enrollment.query.filter_by(id=enrollment_id, student_id=current_user.id).first_or_404()
+    form = EnrollmentForm(obj=enrollment)
+    
+    if form.validate_on_submit():
+        enrollment.study_days_per_week = form.study_days_per_week.data
+        enrollment.target_completion_date = form.target_completion_date.data
+        enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
+        db.session.commit()
+        flash('Enrollment settings updated successfully.')
+        return redirect(url_for('auth.account'))
+        
+    return render_template('auth/edit_enrollment.html', form=form, enrollment=enrollment)
+
 # Dashboard routes
 @dashboard_bp.route('/')
 @login_required
