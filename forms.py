@@ -19,6 +19,7 @@ class RegisterForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     STANDARD_TIMEZONES = [
+        ('', 'Select Time Zone'),  # Default empty option
         ('Etc/GMT+12', 'IDLW'),  # International Date Line West
         ('Etc/GMT+11', 'NT'),    # Nome Time
         ('Etc/GMT+10', 'HST'),   # Hawaii Standard Time
@@ -45,7 +46,7 @@ class RegisterForm(FlaskForm):
         ('Etc/GMT-11', 'AEDT'),  # Australian Eastern Daylight Time
         ('Etc/GMT-12', 'NZST'),  # New Zealand Standard Time
     ]
-    time_zone = SelectField('Time Zone', choices=STANDARD_TIMEZONES)
+    time_zone = SelectField('Time Zone', choices=STANDARD_TIMEZONES, validators=[DataRequired(message="Please select a time zone")])
 
 class ProfileForm(FlaskForm):
     bio = TextAreaField('Bio')
