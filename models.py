@@ -153,6 +153,8 @@ class Enrollment(db.Model):
     __tablename__ = 'enrollments'
     
     def is_completed(self):
+        if not self.curriculum:
+            return False
         total_tasks = len(self.curriculum.tasks)
         if total_tasks == 0:
             return False
