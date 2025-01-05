@@ -516,6 +516,23 @@ def publish(id):
     flash('Curriculum published successfully!')
     return redirect(url_for('curriculum.view', id=id))
 
+@curriculum_bp.route('/<int:id>/delete', methods=['POST'])
+@login_required
+def delete(id):
+    curriculum = Curriculum.query.get_or_404(id)
+    if curriculum.creator_id != current_user.id:
+        flash('You can only delete your own curriculums')
+        return redirect(url_for('curriculum.list'))
+    
+    if curriculum.enrollments:
+        flash('Cannot delete curriculum with active enrollments')
+        return redirect(url_for('curriculum.view', id=curriculum.id))
+        
+    db.session.delete(curriculum)
+    db.session.commit()
+    flash('Curriculum deleted successfully!')
+    return redirect(url_for('curriculum.list'))
+
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit(id):
