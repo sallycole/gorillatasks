@@ -6,11 +6,24 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         const editButton = e.target.closest('.edit-task');
-        if (!editButton) return;
+        console.log('Click event:', e);
+        console.log('Edit button found:', editButton);
+        
+        if (!editButton) {
+            console.log('No edit button found in click target');
+            return;
+        }
         
         e.preventDefault();
+        console.log('Edit button data:', {
+            taskId: editButton.dataset.taskId,
+            curriculumId: editButton.dataset.curriculumId
+        });
+        
         const row = editButton.closest('tr');
+        console.log('Found row:', row);
         const cells = row.querySelectorAll('td');
+        console.log('Found cells:', cells);
             
             // Save current values before switching to edit mode
             const currentTitle = cells[0].textContent.trim();
