@@ -14,7 +14,7 @@
                                 <i data-feather="edit"></i> Edit
                             </a>
                             <form action="{{ url_for('curriculum.publish', id=curriculum.id) }}" method="POST" class="d-inline">
-                                {{ csrf_token }}
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <button type="submit" class="btn btn-outline-success" {% if curriculum.published %}disabled{% endif %}>
                                     <i data-feather="globe"></i> Publish
                                 </button>
