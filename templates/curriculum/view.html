@@ -4,10 +4,24 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content loaded - Setting up event listeners');
     document.addEventListener('click', function(e) {
+        console.log('Click detected on:', e.target);
+        console.log('Click target classList:', e.target.classList);
+        console.log('Click target parent:', e.target.parentElement);
+        
         const editButton = e.target.closest('.edit-task');
-        console.log('Click event:', e);
-        console.log('Edit button found:', editButton);
+        console.log('Looking for edit-task button:', editButton);
+        
+        // Check if click was on Feather icon
+        const wasFeatherIcon = e.target.tagName.toLowerCase() === 'svg' || 
+                             e.target.tagName.toLowerCase() === 'path';
+        console.log('Was Feather icon clicked:', wasFeatherIcon);
+        
+        if (wasFeatherIcon) {
+            const parentButton = e.target.closest('.edit-task');
+            console.log('Parent edit button if icon clicked:', parentButton);
+        }
         
         if (!editButton) {
             console.log('No edit button found in click target');
