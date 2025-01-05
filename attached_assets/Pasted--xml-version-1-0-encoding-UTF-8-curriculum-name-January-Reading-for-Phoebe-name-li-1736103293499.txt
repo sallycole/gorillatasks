@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>January Reading for Phoebe</name>
+<link>https://studio.code.org/s/pre-express-2024</link>
+<publisher>Various</publisher>
+  <description>Read books and do related activities on Book Adventure.</description>
+  <grade_levels>
+    <grade_level>1</grade_level>
+  </grade_levels>
+  <tasks>
+    <task>
+      <title>Read "Put Me in the Zoo" by Robert Lopshire</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/putmeinzoo0000unse/mode/2up</url>
+    </task>
+    <task>
+      <title>Take a quiz about "Put Me in the Zoo"</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://bookadventure.com/student/activities.php?bookid=10371&qz=1&wl=1</url>
+    </task>
+    <task>
+      <title>Read "One Fish Two Fish Red Fish Blue Fish" by Dr. Seuss</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/onefishtwofishre0000unse_k3n1</url>
+    </task>
+    <task>
+      <title>Take a quiz about "One Fish Two Fish Red Fish Blue Fish"</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://bookadventure.com/student/activities.php?bookid=6563&qz=1&wl=1</url>
+    </task>
+    <task>
+      <title>Read "The Cat in the Hat"</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/completecatinhat0000seus_f6j7</url>
+    </task>
+    <task>
+      <title>Take a quiz about "The Cat in the Hat"</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://bookadventure.com/student/activities.php?bookid=5703&qz=1&wl=1</url>
+    </task>
+    <task>
+      <title>Read "Green Eggs and Ham" by Dr. Seuss</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/greeneggsham0000unse</url>
+    </task>
+    <task>
+      <title>Take a quiz about "Green Eggs and Ham"</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://bookadventure.com/student/activities.php?bookid=6804&qz=1&wl=1</url>
+    </task>
+    <task>
+      <title>Read "A Big Ball of String"</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/bigballofstring00holl</url>
+    </task>
+    <task>
+      <title>Read "The Best Trick" by Gwendolyn Hooks</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/besttrickpetclub0000hook</url>
+    </task>
+    <task>
+      <title>Do spelling lessons related to "The Best Trick"</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://bookadventure.com/student/activities.php?bookid=106635&qz=0&wl=1</url>
+    </task>
+    <task>
+      <title>Read "A Fly Went By" by Mike McClintock</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/flywentby0000mccl</url>
+    </task>
+    <task>
+      <title>Take a quiz about "A Fly Went By"</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://bookadventure.com/student/activities.php?bookid=10656&qz=1&wl=1</url>
+    </task>
+    <task>
+      <title>Read "I Wish that I Had Duck Feet" by Dr. Seuss</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://archive.org/details/iwishthatihadduc0000lesi</url>
+    </task>
+    <task>
+      <title>Take a quiz about "I Wish that I Had Duck Feet"</title>
+      <description></description>
+      <action>Watch</action>
+      <urlhttps://bookadventure.com/student/activities.php?bookid=7068&qz=1&wl=1</url>
+    </task>
+     </tasks>
+</curriculum>
