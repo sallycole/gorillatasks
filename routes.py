@@ -352,7 +352,11 @@ def skip_task(id):
 @curriculum_bp.route('/')
 @login_required
 def list():
-    curriculums = Curriculum.query.all()
+    # Show published curriculums and private ones created by the current user
+    curriculums = Curriculum.query.filter(
+        (Curriculum.published == True) | 
+        (Curriculum.creator_id == current_user.id)
+    ).all()
     # Get user's enrollments
     user_enrollments = set(
         enrollment.curriculum_id 
@@ -453,12 +457,16 @@ def edit(id):
     
     form = CurriculumForm(obj=curriculum)
     if form.validate_on_submit():
-        curriculum.name = form.name.data
-        curriculum.description = form.description.data
-        curriculum.link = form.link.data
-        # public status is managed separately, not through the edit form
-        curriculum.publisher = form.publisher.data
-        db.session.commit()
+        if not curriculum.locked:
+            curriculum.name = form.name.data
+            curriculum.description = form.description.data
+            curriculum.link = form.link.data
+            curriculum.publisher = form.publisher.data
+            curriculum.published = bool(request.form.get('published'))
+            if request.form.get('locked'):
+                curriculum.locked = True
+                curriculum.published_at = datetime.now(pytz.UTC)
+            db.session.commit()
         flash('Curriculum updated successfully!')
         return redirect(url_for('curriculum.list'))
     return render_template('curriculum/edit.html', form=form, curriculum=curriculum)

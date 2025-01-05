@@ -38,7 +38,15 @@
                         {{ form.grade_levels(class="form-select", multiple="multiple", size="8") }}
                         <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="published" name="published" value="1" {% if curriculum and curriculum.published %}checked{% endif %} {% if curriculum and curriculum.locked %}disabled{% endif %}>
+                        <label class="form-check-label" for="published">Publish curriculum</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="locked" name="locked" value="1" {% if curriculum and curriculum.locked %}checked disabled{% endif %}>
+                        <label class="form-check-label" for="locked">Lock curriculum (prevents further changes)</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
                     <a href="{{ url_for('curriculum.list') }}" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>

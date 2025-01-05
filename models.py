@@ -47,6 +47,8 @@ class Curriculum(db.Model):
     description = db.Column(db.Text)
     link = db.Column(db.String(255))
     public = db.Column(db.Boolean, default=False)
+    published = db.Column(db.Boolean, default=False)
+    locked = db.Column(db.Boolean, default=False)
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     publisher = db.Column(db.String(255))
     published_at = db.Column(db.DateTime)
