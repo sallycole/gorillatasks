@@ -1,0 +1,40 @@
+python migrations.py
+2025-01-05 03:46:11,891 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive
+2025-01-05 03:46:12,955 - app - INFO - Database tables created successfully
+2025-01-05 03:46:12,956 - app - INFO - Available routes:
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /static/<path:filename> -> static [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /auth/login -> auth.login [GET,OPTIONS,HEAD,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /auth/register -> auth.register [GET,OPTIONS,HEAD,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /auth/logout -> auth.logout [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /curriculum/ -> curriculum.list [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /curriculum/new -> curriculum.new [GET,OPTIONS,HEAD,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [GET,OPTIONS,HEAD,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [GET,OPTIONS,HEAD,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /dashboard/ -> dashboard.index [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [OPTIONS,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [OPTIONS,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [OPTIONS,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /archive/ -> archive.index [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [OPTIONS,POST]
+2025-01-05 03:46:12,956 - app - DEBUG - Route: / -> root [GET,OPTIONS,HEAD]
+2025-01-05 03:46:12,956 - app - INFO - Blueprints registered successfully
+2025-01-05 03:46:12,956 - app - DEBUG - Complete URL map:
+2025-01-05 03:46:12,956 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, OPTIONS, HEAD) -> static>,
+ <Rule '/auth/login' (GET, OPTIONS, HEAD, POST) -> auth.login>,
+ <Rule '/auth/register' (GET, OPTIONS, HEAD, POST) -> auth.register>,
+ <Rule '/auth/logout' (GET, OPTIONS, HEAD) -> auth.logout>,
+ <Rule '/curriculum/' (GET, OPTIONS, HEAD) -> curriculum.list>,
+ <Rule '/curriculum/new' (GET, OPTIONS, HEAD, POST) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, OPTIONS, HEAD) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (GET, OPTIONS, HEAD, POST) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (GET, OPTIONS, HEAD, POST) -> curriculum.enroll>,
+ <Rule '/dashboard/' (GET, OPTIONS, HEAD) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (OPTIONS, POST) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (OPTIONS, POST) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (OPTIONS, POST) -> dashboard.skip_task>,
+ <Rule '/archive/' (GET, OPTIONS, HEAD) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (GET, OPTIONS, HEAD) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (OPTIONS, POST) -> archive.unarchive_task>,
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
