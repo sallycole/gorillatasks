@@ -34,12 +34,9 @@
                 <div class="card-body">
                     <h5 class="card-title">Description</h5>
                     <p class="card-text">{{ curriculum.description }}</p>
-                    
-                    {% if curriculum.publisher %}
-                    <h5 class="card-title">Publisher</h5>
-                    <p class="card-text">{{ curriculum.publisher }}</p>
+                    {% if curriculum.grade_levels %}
+                    <p class="card-text"><strong>Grade Levels:</strong> {{ curriculum.grade_levels|join(', ') }}</p>
                     {% endif %}
-
                     {% if curriculum.link %}
                     <h5 class="card-title">Resource</h5>
                     <a href="{{ curriculum.link }}" class="btn btn-outline-info" target="_blank">
