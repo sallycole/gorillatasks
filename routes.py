@@ -460,22 +460,10 @@ def publish(id):
         return redirect(url_for('curriculum.view', id=id))
     
     curriculum.published = True
+    curriculum.locked = True
     curriculum.published_at = datetime.now(pytz.UTC)
     db.session.commit()
     flash('Curriculum published successfully!')
-    return redirect(url_for('curriculum.view', id=id))
-
-@curriculum_bp.route('/<int:id>/lock', methods=['POST'])
-@login_required
-def lock(id):
-    curriculum = Curriculum.query.get_or_404(id)
-    if curriculum.creator_id != current_user.id:
-        flash('You can only lock your own curriculums')
-        return redirect(url_for('curriculum.view', id=id))
-    
-    curriculum.locked = True
-    db.session.commit()
-    flash('Curriculum locked successfully!')
     return redirect(url_for('curriculum.view', id=id))
 
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
