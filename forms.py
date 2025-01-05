@@ -20,31 +20,31 @@ class RegisterForm(FlaskForm):
     last_name = StringField('Last Name', validators=[DataRequired()])
     STANDARD_TIMEZONES = [
         ('', 'Select Time Zone'),  # Default empty option
-        ('Etc/GMT+12', 'IDLW'),  # International Date Line West
-        ('Etc/GMT+11', 'NT'),    # Nome Time
-        ('Etc/GMT+10', 'HST'),   # Hawaii Standard Time
-        ('Etc/GMT+9', 'AKST'),   # Alaska Standard Time
-        ('Etc/GMT+8', 'PST'),    # Pacific Standard Time
-        ('Etc/GMT+7', 'MST'),    # Mountain Standard Time
-        ('Etc/GMT+6', 'CST'),    # Central Standard Time
-        ('Etc/GMT+5', 'EST'),    # Eastern Standard Time
-        ('Etc/GMT+4', 'AST'),    # Atlantic Standard Time
-        ('Etc/GMT+3', 'BRT'),    # Brazil Time
-        ('Etc/GMT+2', 'AT'),     # Azores Time
-        ('Etc/GMT+1', 'WAT'),    # West Africa Time
-        ('Etc/GMT+0', 'GMT'),    # Greenwich Mean Time
-        ('Etc/GMT-1', 'CET'),    # Central European Time
-        ('Etc/GMT-2', 'EET'),    # Eastern European Time
-        ('Etc/GMT-3', 'MSK'),    # Moscow Time
-        ('Etc/GMT-4', 'GST'),    # Gulf Standard Time
-        ('Etc/GMT-5', 'PKT'),    # Pakistan Time
-        ('Etc/GMT-6', 'BST'),    # Bangladesh Standard Time
-        ('Etc/GMT-7', 'ICT'),    # Indochina Time
-        ('Etc/GMT-8', 'CST'),    # China Standard Time
-        ('Etc/GMT-9', 'JST'),    # Japan Standard Time
-        ('Etc/GMT-10', 'AEST'),  # Australian Eastern Standard Time
-        ('Etc/GMT-11', 'AEDT'),  # Australian Eastern Daylight Time
-        ('Etc/GMT-12', 'NZST'),  # New Zealand Standard Time
+        ('Etc/GMT+12', 'IDLW (UTC-12)'),  # International Date Line West
+        ('Etc/GMT+11', 'NT (UTC-11)'),    # Nome Time
+        ('Etc/GMT+10', 'HST (UTC-10)'),   # Hawaii Standard Time
+        ('Etc/GMT+9', 'AKST (UTC-9)'),   # Alaska Standard Time
+        ('Etc/GMT+8', 'PST (UTC-8)'),    # Pacific Standard Time
+        ('Etc/GMT+7', 'MST (UTC-7)'),    # Mountain Standard Time
+        ('Etc/GMT+6', 'CST (UTC-6)'),    # Central Standard Time
+        ('Etc/GMT+5', 'EST (UTC-5)'),    # Eastern Standard Time
+        ('Etc/GMT+4', 'AST (UTC-4)'),    # Atlantic Standard Time
+        ('Etc/GMT+3', 'BRT (UTC-3)'),    # Brazil Time
+        ('Etc/GMT+2', 'AT (UTC-2)'),     # Azores Time
+        ('Etc/GMT+1', 'WAT (UTC-1)'),    # West Africa Time
+        ('Etc/GMT+0', 'GMT (UTC+0)'),    # Greenwich Mean Time
+        ('Etc/GMT-1', 'CET (UTC+1)'),    # Central European Time
+        ('Etc/GMT-2', 'EET (UTC+2)'),    # Eastern European Time
+        ('Etc/GMT-3', 'MSK (UTC+3)'),    # Moscow Time
+        ('Etc/GMT-4', 'GST (UTC+4)'),    # Gulf Standard Time
+        ('Etc/GMT-5', 'PKT (UTC+5)'),    # Pakistan Time
+        ('Etc/GMT-6', 'BST (UTC+6)'),    # Bangladesh Standard Time
+        ('Etc/GMT-7', 'ICT (UTC+7)'),    # Indochina Time
+        ('Etc/GMT-8', 'CST (UTC+8)'),    # China Standard Time
+        ('Etc/GMT-9', 'JST (UTC+9)'),    # Japan Standard Time
+        ('Etc/GMT-10', 'AEST (UTC+10)'), # Australian Eastern Standard Time
+        ('Etc/GMT-11', 'AEDT (UTC+11)'), # Australian Eastern Daylight Time
+        ('Etc/GMT-12', 'NZST (UTC+12)'), # New Zealand Standard Time
     ]
     time_zone = SelectField('Time Zone', choices=STANDARD_TIMEZONES, validators=[DataRequired(message="Please select a time zone")])
 
