@@ -28,6 +28,7 @@ socketio = SocketIO()
 
 def create_app():
     app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
     
     # Configure app
     app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_key_only")
