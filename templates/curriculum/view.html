@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -10,9 +11,9 @@
                     {% if curriculum.creator_id == current_user.id %}
                         {% if not curriculum.locked %}
                         <div class="btn-group">
-                            <a href="{{ url_for('curriculum.edit', id=curriculum.id) }}" class="btn btn-outline-primary">
+                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#editPanel">
                                 <i data-feather="edit"></i> Edit
-                            </a>
+                            </button>
                             <form action="{{ url_for('curriculum.publish', id=curriculum.id) }}" method="POST" class="d-inline">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <button type="submit" class="btn btn-outline-success" {% if curriculum.published %}disabled{% endif %}>
@@ -27,6 +28,51 @@
                         <i data-feather="user-plus"></i> Enroll
                     </a>
                     {% endif %}
+                </div>
+            </div>
+
+            <div class="collapse mb-4" id="editPanel">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Add Task</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('curriculum.add_task', id=curriculum.id) }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Title</label>
+                                        <input type="text" name="title" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">Action</label>
+                                        <select name="action" class="form-select" required>
+                                            <option value="Read">Read</option>
+                                            <option value="Watch">Watch</option>
+                                            <option value="Listen">Listen</option>
+                                            <option value="Do">Do</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">URL (Optional)</label>
+                                        <input type="url" name="url" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary">Add Task</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description (Optional)</label>
+                                <textarea name="description" class="form-control" rows="2"></textarea>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -58,14 +104,19 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Action</th>
                                     <th>Resource</th>
+                                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                                    <th>Actions</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for task in curriculum.tasks %}
+                                {% for task in curriculum.tasks|sort(attribute='position') %}
                                 <tr>
                                     <td>{{ task.title }}</td>
                                     <td>{{ task.description }}</td>
+                                    <td>{{ task.action }}</td>
                                     <td>
                                         {% if task.link %}
                                         <a href="{{ task.link }}" target="_blank" class="btn btn-sm btn-outline-info">
@@ -73,6 +124,16 @@
                                         </a>
                                         {% endif %}
                                     </td>
+                                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                                    <td>
+                                        <form action="{{ url_for('curriculum.delete_task', curriculum_id=curriculum.id, task_id=task.id) }}" method="POST" class="d-inline">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i data-feather="trash-2"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    {% endif %}
                                 </tr>
                                 {% endfor %}
                             </tbody>
