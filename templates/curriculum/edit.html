@@ -35,8 +35,13 @@
                                 <li>Tasks should be ordered from first to last in the sequence</li>
                             </ul>
                             
-                            <div class="bg-light p-3 mb-4" style="max-height: 400px; overflow-y: auto;">
-                                <pre class="mb-0"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                            <div class="card p-3 mb-4" style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa; border: 1px solid #dee2e6;">
+                                <div class="d-flex justify-content-end mb-2">
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="copyXmlExample()">
+                                        Copy XML
+                                    </button>
+                                </div>
+                                <pre class="mb-0" id="xmlExample" style="color: #212529; background-color: #f8f9fa;"><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;curriculum&gt;
     &lt;name&gt;Curriculum Name i.e. Grade 3 Math&lt;/name&gt;
     &lt;link&gt;https://www.khanacademy.org/math/cc-2nd-grade-math&lt;/link&gt;
@@ -76,6 +81,19 @@
 &lt;/curriculum&gt;</code></pre>
                             </div>
                         </div>
+                        
+                        <script>
+                            function copyXmlExample() {
+                                const xmlText = document.getElementById('xmlExample').textContent;
+                                navigator.clipboard.writeText(xmlText).then(() => {
+                                    const btn = event.target;
+                                    btn.textContent = 'Copied!';
+                                    setTimeout(() => {
+                                        btn.textContent = 'Copy XML';
+                                    }, 2000);
+                                });
+                            }
+                        </script>
                         
                         <form method="POST" enctype="multipart/form-data" class="xml-form">
                             {{ form.csrf_token }}
