@@ -356,8 +356,13 @@ def skip_task(id):
 @curriculum_bp.route('/')
 @login_required
 def list():
-    # Show published curriculums and private ones created by the current user
-    curriculums = Curriculum.query.filter_by(creator_id=current_user.id).all()
+    # Show user's own curriculums and any published ones
+    curriculums = Curriculum.query.filter(
+        db.or_(
+            Curriculum.creator_id == current_user.id,
+            Curriculum.published == True
+        )
+    ).all()
     logger.info(f"Found {len(curriculums)} curriculums for user {current_user.email}")
     for c in curriculums:
         logger.info(f"Curriculum: {c.id} - {c.name} - Creator: {c.creator_id}")
