@@ -108,7 +108,7 @@
                             <tr>
                                 <td>{{ task.title }}</td>
                                 <td>{{ task.description }}</td>
-                                <td>{{ task.action }}</td>
+                                <td>{{ task.ACTION_MAP_REVERSE[task.action] }}</td>
                                 <td>
                                     {% if task.link %}
                                     <a href="{{ task.link }}" target="_blank">Open</a>
