@@ -424,9 +424,9 @@ def new():
                     for task_elem in tasks_element.findall('task'):
                         task = Task(
                             curriculum_id=curriculum.id,
-                            title=task_elem.find('title').text.strip(),
-                            description=task_elem.find('description').text.strip() if task_elem.find('description').text else '',
-                            link=task_elem.find('url').text.strip() if task_elem.find('url') is not None else None,
+                            title=task_elem.find('title').text.strip() if task_elem.find('title') is not None and task_elem.find('title').text else '',
+                            description=task_elem.find('description').text.strip() if task_elem.find('description') is not None and task_elem.find('description').text else '',
+                            link=task_elem.find('url').text.strip() if task_elem.find('url') is not None and task_elem.find('url').text else None,
                             position=position
                         )
                         db.session.add(task)
