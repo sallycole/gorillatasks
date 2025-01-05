@@ -451,6 +451,33 @@ def view(id):
     curriculum = Curriculum.query.get_or_404(id)
     return render_template('curriculum/view.html', curriculum=curriculum)
 
+@curriculum_bp.route('/<int:id>/publish', methods=['POST'])
+@login_required
+def publish(id):
+    curriculum = Curriculum.query.get_or_404(id)
+    if curriculum.creator_id != current_user.id:
+        flash('You can only publish your own curriculums')
+        return redirect(url_for('curriculum.view', id=id))
+    
+    curriculum.published = True
+    curriculum.published_at = datetime.now(pytz.UTC)
+    db.session.commit()
+    flash('Curriculum published successfully!')
+    return redirect(url_for('curriculum.view', id=id))
+
+@curriculum_bp.route('/<int:id>/lock', methods=['POST'])
+@login_required
+def lock(id):
+    curriculum = Curriculum.query.get_or_404(id)
+    if curriculum.creator_id != current_user.id:
+        flash('You can only lock your own curriculums')
+        return redirect(url_for('curriculum.view', id=id))
+    
+    curriculum.locked = True
+    db.session.commit()
+    flash('Curriculum locked successfully!')
+    return redirect(url_for('curriculum.view', id=id))
+
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit(id):
