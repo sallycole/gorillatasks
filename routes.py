@@ -561,7 +561,7 @@ def add_task(id):
         db.session.add(task)
         db.session.commit()
         flash('Task added successfully!')
-    return redirect(url_for('curriculum.edit', id=curriculum.id))
+    return redirect(url_for('curriculum.view', id=curriculum.id))
 
 @curriculum_bp.route('/<int:curriculum_id>/tasks/<int:task_id>/delete', methods=['POST'])
 @login_required
