@@ -1,0 +1,1335 @@
+python check_tasks.py
+2025-01-05 04:14:19,086 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive
+2025-01-05 04:14:20,166 - app - INFO - Database tables created successfully
+2025-01-05 04:14:20,166 - app - INFO - Available routes:
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /auth/login -> auth.login [HEAD,OPTIONS,GET,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /auth/register -> auth.register [HEAD,OPTIONS,GET,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /curriculum/new -> curriculum.new [HEAD,OPTIONS,GET,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [HEAD,OPTIONS,GET,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [HEAD,OPTIONS,GET,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /dashboard/ -> dashboard.index [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [OPTIONS,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [OPTIONS,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [OPTIONS,POST]
+2025-01-05 04:14:20,166 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,167 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,167 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [OPTIONS,POST]
+2025-01-05 04:14:20,167 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2025-01-05 04:14:20,167 - app - INFO - Blueprints registered successfully
+2025-01-05 04:14:20,167 - app - DEBUG - Complete URL map:
+2025-01-05 04:14:20,167 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (HEAD, OPTIONS, GET, POST) -> auth.login>,
+ <Rule '/auth/register' (HEAD, OPTIONS, GET, POST) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (HEAD, OPTIONS, GET, POST) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/edit' (HEAD, OPTIONS, GET, POST) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/enroll' (HEAD, OPTIONS, GET, POST) -> curriculum.enroll>,
+ <Rule '/dashboard/' (HEAD, OPTIONS, GET) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (OPTIONS, POST) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (OPTIONS, POST) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (OPTIONS, POST) -> dashboard.skip_task>,
+ <Rule '/archive/' (HEAD, OPTIONS, GET) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, OPTIONS, GET) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (OPTIONS, POST) -> archive.unarchive_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+
+Orphaned Tasks (tasks without curriculums):
+--------------------------------------------------
+Task ID: 1
+Title: 1. Learn to Drag and Drop, Lessons 1-12
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 2
+Title: 2. Sequencing with Scrat, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 3
+Title: 2. Sequencing with Scrat, Lessons 2-7
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 4
+Title: 3. Programming with Angry Birds, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 5
+Title: 3. Programming with Angry Birds, Lessons 2-10
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 6
+Title: 4. Programming with Rey and BB-8, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 7
+Title: 4. Programming with Rey and BB-8, Lessons 2-12
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 8
+Title: 5. Programming with Harvester, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 9
+Title: 5. Programming with Harvester, Lessons 2-4
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 10
+Title: 5. Programming with Harvester, Lesson 5
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 11
+Title: 5. Programming with Harvester, Lessons 6-15
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 12
+Title: 6. Loops with Scrat, Lessons 1-2
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 13
+Title: 6. Loops with Scrat, Lesson 3
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 14
+Title: 6. Loops with Scrat, Lessons 4-12
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 15
+Title: 7. Loops with Laurel, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 16
+Title: 7. Loops with Laurel, Lessons 2-3
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 17
+Title: 7. Loops with Laurel, Lesson 4
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 18
+Title: 7. Loops with Laurel, Lessons 5-14
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 19
+Title: 8. Ocean Scene with Loops, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 20
+Title: 8. Ocean Scene with Loops, Lessons 2-4
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 21
+Title: 8. Ocean Scene with Loops, Lesson 5
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 22
+Title: 8. Ocean Scene with Loops, Lessons 6-14
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 23
+Title: 9. Drawing Gardens with Loops, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 24
+Title: 9. Drawing Gardens with Loops, Lesson 2
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 25
+Title: 9. Drawing Gardens with Loops, Lesson 3
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 26
+Title: 9. Drawing Gardens with Loops, Lessons 4-12
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 27
+Title: 10. Mini-Project: On the Move with Play Lab, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 28
+Title: 10. Mini-Project: On the Move with Play Lab, Lessons 2-8
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 29
+Title: 11. Mini-Project: A Royal Battle with Events, Lesson 1
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 30
+Title: 11. Mini-Project: A Royal Battle with Events, Lessons 2-9
+Curriculum ID: 1
+--------------------------------------------------
+Task ID: 31
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 32
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 33
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 34
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 35
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 36
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 37
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 38
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 39
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 40
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 41
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 42
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 43
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 44
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 45
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 46
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 47
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 48
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 49
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 50
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 51
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 52
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 53
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 54
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 55
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 56
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 57
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 58
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 59
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 60
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 61
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 62
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 63
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 64
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 65
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 66
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 67
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 68
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 69
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 70
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 71
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 72
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 73
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 74
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 75
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 76
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 77
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 78
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 79
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 80
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 81
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 82
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 83
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 84
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 85
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 86
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 87
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 88
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 89
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 90
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 91
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 92
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 93
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 94
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 95
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 96
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 97
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 98
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 99
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 100
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 101
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 102
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 103
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 104
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 105
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 106
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 107
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 108
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 109
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 110
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 111
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 112
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 113
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 114
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 115
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 116
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 117
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 118
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 119
+Title: Boddle Learning Math Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 120
+Title: Boddle Learning English Session
+Curriculum ID: 2
+--------------------------------------------------
+Task ID: 121
+Title: Add and subtract within 20: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 122
+Title: Adding within 20 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 123
+Title: Adding within 20 using ten frames
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 124
+Title: Adding 7 + 6
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 125
+Title: Adding 8 + 7
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 126
+Title: Add within 20 visually
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 127
+Title: Add within 20
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 128
+Title: Adding with arrays
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 129
+Title: Adding with arrays
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 130
+Title: Using arrays in word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 131
+Title: Repeated addition: haircuts
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 132
+Title: Array word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 133
+Title: Unit 1, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 134
+Title: Subtract within 20 using a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 135
+Title: Subtract within 20 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 136
+Title: Subtract within 20 using ten frames
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 137
+Title: Subtracting 14 - 6
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 138
+Title: Subtract within 20 visually
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 139
+Title: Subtract within 20
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 140
+Title: Adding within 20 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 141
+Title: Adding within 20 using ten frames
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 142
+Title: Subtract within 20 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 143
+Title: Subtract within 20 using a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 144
+Title: Add and subtract within 20
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 145
+Title: Addition and subtraction word problems: gorillas
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 146
+Title: Addition and subtraction word problems: superheroes
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 147
+Title: Add and subtract within 20 word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 148
+Title: Unit 1, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 149
+Title: Unit 1 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 150
+Title: Intro to place value: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 151
+Title: Intro to place value
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 152
+Title: Use place value blocks to show numbers within 1,000
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 153
+Title: Place value blocks within 1,000
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 154
+Title: Place value tables within 1,000
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 155
+Title: Place value tables within 1,000
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 156
+Title: Identifying value in digits
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 157
+Title: Identify the value of a digit (ones, tens, hundreds)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 158
+Title: Creating the largest number
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 159
+Title: Create the largest number
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 160
+Title: Unit 2, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 161
+Title: Expanded form of numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 162
+Title: Write numbers in number and expanded form
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 163
+Title: Number and word form of a number
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 164
+Title: Write numbers in number and word form
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 165
+Title: Word form and expanded form
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 166
+Title: Write numbers in word and expanded form
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 167
+Title: Write numbers in different forms
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 168
+Title: Unit 2, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 169
+Title: Regrouping whole numbers: 675
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 170
+Title: Regroup whole numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 171
+Title: Hundreds, tens, and ones
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 172
+Title: Greater than and less than symbols
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 173
+Title: Comparing whole numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 174
+Title: Compare 2-digit numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 175
+Title: Compare 3-digit numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 176
+Title: Unit 2, Quiz 3
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 177
+Title: Understanding even and odd numbers visually
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 178
+Title: Understand even and odd numbers visually
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 179
+Title: Skip-counting by 5s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 180
+Title: Skip-count by 5s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 181
+Title: Counting by 10s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 182
+Title: Skip-count by 10s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 183
+Title: Skip-counting by 100s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 184
+Title: Skip-counting by 100s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 185
+Title: Unit 2, Quiz 4
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 186
+Title: Unit 2 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 187
+Title: Add and subtract within 100: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 188
+Title: Adding 2-digit numbers without regrouping
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 189
+Title: Understanding place value when adding ones
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 190
+Title: Understanding place value when adding tens
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 191
+Title: Adding with regrouping
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 192
+Title: Add within 100 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 193
+Title: Addition and subtraction with number lines
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 194
+Title: Add within 100 using a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 195
+Title: Breaking apart 2-digit addition problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 196
+Title: Break apart 2-digit addition problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 197
+Title: Adding 53+17 by making a group of 10
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 198
+Title: Adding by making a group of 10
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 199
+Title: Add 2-digit numbers by making tens
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 200
+Title: Strategies for adding 2-digit numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 201
+Title: Select strategies for adding within 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 202
+Title: Unit 3, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 203
+Title: Subtracting 1s using place value
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 204
+Title: Subtracting 10s using place value
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 205
+Title: Subtracting two-digit numbers without regrouping
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 206
+Title: Subtracting a 1-digit number with regrouping
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 207
+Title: Subtract within 100 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 208
+Title: Addition and subtraction with number lines
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 209
+Title: Subtract within 100 using a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 210
+Title: Missing numbers in addition and subtraction
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 211
+Title: Find the missing number (add and subtract within 100)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 212
+Title: Unit 3, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 213
+Title: Addition word problem: horses
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 214
+Title: Addition word problems within 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 215
+Title: Subtraction word problem: crayons
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 216
+Title: Subtraction word problem: basketball
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 217
+Title: Subtraction word problems within 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 218
+Title: Adding and subtracting on number line word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 219
+Title: Adding two-digit numbers on a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 220
+Title: Add and subtract on the number line word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 221
+Title: Multi step addition word problem
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 222
+Title: 2-step addition word problems within 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 223
+Title: Multi-step subtraction word problem
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 224
+Title: 2-step subtraction word problems within 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 225
+Title: Unit 3, Quiz 3
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 226
+Title: Unit 3 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 227
+Title: Adding and subtracting within 1,000: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 228
+Title: Adding 10 or 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 229
+Title: Adding 1s, 10s, and 100s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 230
+Title: Add within 1,000 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 231
+Title: Adding and subtracting on number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 232
+Title: Add on a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 233
+Title: Adding 3-digit numbers (no regrouping)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 234
+Title: Add 10s and 100s (no regrouping)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 235
+Title: Addition using groups of 10 and 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 236
+Title: Add using groups of 10 and 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 237
+Title: Breaking apart 3-digit addition problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 238
+Title: Break apart 3-digit addition problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 239
+Title: Select strategies for adding within 1000
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 240
+Title: Unit 4, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 241
+Title: Subtracting 1, 10, or 100
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 242
+Title: Subtracting 1s, 10s, and 100s
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 243
+Title: Subtracting 3-digit numbers (no regrouping)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 244
+Title: Subtract 10s and 100s (no regrouping)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 245
+Title: Subtracting with place value blocks (regrouping)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 246
+Title: Subtract within 1,000 using place value blocks
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 247
+Title: Adding and subtracting on number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 248
+Title: Subtract on a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 249
+Title: Adding four two digit numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 250
+Title: Adding up to four 2-digit numbers
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 251
+Title: Adding multiple 2-digit numbers word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 252
+Title: Adding up to four 2-digit numbers word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 253
+Title: Unit 4, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 254
+Title: Unit 4 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 255
+Title: Money and time: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 256
+Title: Counting American coins
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 257
+Title: Counting dollars
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 258
+Title: Identify the value of US coins and dollars
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 259
+Title: Count money (U.S.)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 260
+Title: Money word problems (U.S.)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 261
+Title: Unit 5, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 262
+Title: Time on a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 263
+Title: Telling time on a number line
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 264
+Title: Telling time (labeled clock)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 265
+Title: Telling time on a clock
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 266
+Title: Unit 5, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 267
+Title: Unit 5 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 268
+Title: Measurement: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 269
+Title: Getting a sense of meters and centimeters
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 270
+Title: Units of length (cm, m)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 271
+Title: Getting a sense of inches and feet
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 272
+Title: Units of length (inch, ft)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 273
+Title: Measuring in inches
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 274
+Title: Measure lengths (inch, ft)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 275
+Title: Measuring lengths (cm, m)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 276
+Title: Measure lengths (cm, m)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 277
+Title: Measuring lengths in different units
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 278
+Title: Measure length in different units
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 279
+Title: Unit 6, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 280
+Title: Estimating lengths
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 281
+Title: Estimate lengths
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 282
+Title: Estimate lengths (US Customary units)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 283
+Title: Length word problem example (US Customary)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 284
+Title: Length word problem (US customary)
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 285
+Title: Length word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 286
+Title: Length word problems
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 287
+Title: Unit 6, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 288
+Title: Unit 6 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 289
+Title: Data: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 290
+Title: Making picture graphs and line plots
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 291
+Title: Picture graphs
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 292
+Title: Make picture graphs
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 293
+Title: Solve problems with picture graphs
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 294
+Title: Unit 7, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 295
+Title: Creating a bar graph
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 296
+Title: Reading bar graphs: bikes
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 297
+Title: Make bar graphs
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 298
+Title: Solve problems with bar graphs
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 299
+Title: Unit 7, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 300
+Title: Making picture graphs and line plots
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 301
+Title: Read line plots
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 302
+Title: Make line plots
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 303
+Title: Solve problems with line plots
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 304
+Title: Unit 7, Quiz 3
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 305
+Title: Unit 7 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 306
+Title: Geometry: FAQ
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 307
+Title: Recognizing shapes
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 308
+Title: Cousin Fal's shape collection
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 309
+Title: Identify shapes
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 310
+Title: Classify shapes
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 311
+Title: Analyze shapes
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 312
+Title: Shapes and angles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 313
+Title: Analyze shapes by angles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 314
+Title: Unit 8, Quiz 1
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 315
+Title: Equal parts of circles and rectangles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 316
+Title: Equal parts of circles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 317
+Title: Equal parts of rectangles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 318
+Title: Equal parts of circles and rectangles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 319
+Title: Partitioning rectangles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 320
+Title: Partitioning rectangles
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 321
+Title: Unit 8, Quiz 2
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 322
+Title: Unit 8 test
+Curriculum ID: 3
+--------------------------------------------------
+Task ID: 323
+Title: Course challenge
+Curriculum ID: 3
+--------------------------------------------------
