@@ -140,7 +140,9 @@ def handle_finish_task(data):
             student_task.status = StudentTask.STATUS_COMPLETED
             student_task.finished_at = datetime.now(pytz.UTC)
             if student_task.started_at:
-                delta = student_task.finished_at - student_task.started_at
+                # Convert started_at to UTC if it's naive
+                started_at_utc = pytz.UTC.localize(student_task.started_at) if student_task.started_at.tzinfo is None else student_task.started_at.astimezone(pytz.UTC)
+                delta = student_task.finished_at - started_at_utc
                 student_task.time_spent_minutes = int(delta.total_seconds() / 60)
             db.session.commit()
 
