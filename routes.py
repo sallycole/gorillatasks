@@ -174,6 +174,11 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+@auth_bp.route('/account')
+@login_required
+def account():
+    return render_template('auth/account.html')
+
 # Dashboard routes
 @dashboard_bp.route('/')
 @login_required
