@@ -264,22 +264,17 @@ socket.on('task_updated', (data) => {
                             <td>
                                 <div class="d-flex align-items-center">
                                     {% if task.action == 1 %}
-                                    <i data-feather="book-open" class="feather-sm me-2" title="Read"></i>
+                                    <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
                                     {% elif task.action == 2 %}
-                                    <i data-feather="video" class="feather-sm me-2" title="Watch"></i>
+                                    <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
                                     {% elif task.action == 3 %}
-                                    <i data-feather="headphones" class="feather-sm me-2" title="Listen"></i>
+                                    <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
                                     {% elif task.action == 4 %}
-                                    <i data-feather="edit-3" class="feather-sm me-2" title="Do"></i>
+                                    <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
                                     {% else %}
-                                    <i data-feather="circle" class="feather-sm me-2" title="Task"></i>
+                                    <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
                                     {% endif %}
                                     {{ task.title }}
-                                    {% if task.link %}
-                                    <a href="{{ task.link }}" target="_blank" class="ms-2">
-                                        <i data-feather="external-link" class="feather-sm"></i>
-                                    </a>
-                                    {% endif %}
                                 </div>
                             </td>
                             <td class="text-end">
