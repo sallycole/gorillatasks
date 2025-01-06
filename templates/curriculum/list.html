@@ -44,6 +44,12 @@
             <div class="card-body">
                 <h5 class="card-title">{{ curriculum.name }}</h5>
                 <p class="card-text">{{ curriculum.description }}</p>
+                {% if curriculum.publisher %}
+                <p class="card-text"><small class="text-muted">Publisher: {{ curriculum.publisher }}</small></p>
+                {% endif %}
+                {% if curriculum.grade_levels %}
+                <p class="card-text"><small class="text-muted">Grade Level(s): {{ curriculum.grade_levels|join(', ') }}</small></p>
+                {% endif %}
                 <div class="mb-2">
                     {% if curriculum.published %}
                     <span class="badge bg-success">Public</span>
