@@ -124,8 +124,17 @@ function copyXmlExample() {
     const originalText = button.textContent;
     
     if (xmlExample) {
+        // Create text area and clean up the XML content
         const textArea = document.createElement('textarea');
-        textArea.value = xmlExample.textContent;
+        let xmlContent = xmlExample.textContent
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>')
+            .replace(/^\s+|\s+$/gm, ''); // Trim whitespace
+        textArea.value = xmlContent;
+        
+        // Position off-screen
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
         document.body.appendChild(textArea);
         textArea.select();
         
