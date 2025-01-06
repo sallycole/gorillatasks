@@ -33,8 +33,9 @@
                                 <li>All grade level options are shown in the example. Choose only the grade levels applicable to your curriculum in your .xml file.</li>
                             </ul>
                             
-                            <div class="bg-light p-3 mt-3 mb-3">
-                                <pre class="mb-0" style="white-space: pre-wrap; color: #000;">
+                            <div class="bg-light p-3 mt-3 mb-3 position-relative">
+                                <button id="copyXmlButton" class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2">Copy XML</button>
+                                <pre id="xmlExample" class="mb-0" style="white-space: pre-wrap; color: #000;">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;curriculum&gt;
     &lt;name&gt;Curriculum Name i.e. Grade 3 Math&lt;/name&gt;
@@ -114,3 +115,24 @@
     </div>
 </div>
 {% endblock %}
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const copyButton = document.getElementById('copyXmlButton');
+    const xmlExample = document.getElementById('xmlExample');
+    
+    copyButton.addEventListener('click', function() {
+        const xmlText = xmlExample.textContent;
+        navigator.clipboard.writeText(xmlText).then(function() {
+            const originalText = copyButton.textContent;
+            copyButton.textContent = 'Copied!';
+            setTimeout(function() {
+                copyButton.textContent = originalText;
+            }, 2000);
+        }).catch(function(err) {
+            console.error('Failed to copy text: ', err);
+        });
+    });
+});
+</script>
