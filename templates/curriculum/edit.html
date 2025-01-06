@@ -23,13 +23,18 @@
                     <div class="tab-pane fade show active" id="xml" role="tabpanel" aria-labelledby="xml-tab">
                         <div class="mb-4">
                             <h4>XML Upload Instructions</h4>
-                            <p>Each curriculum on this site includes basic curriculum details like name and description along with a set of tasks that students of the curriculum should do in order to study the entire curriculum.</p>
-                            <p>To upload a curriculum, simply put its basic curriculum details and its sequence of tasks into an XML file formatted like the example below. Be sure to save your curriculum file with an .xml extension and then upload it to the site.</p>
-                            <p>Please note that task descriptions are optional and may be left blank. Task URLs are optional for offline curriculums but important for online ones. Each action tag should contain one of: Read, Watch, Listen, or Do.</p>
-                            <p>Put tasks in order from first to last. You can add as many tasks as needed for a full year or semester curriculum.</p>
+                            <ul class="mb-4">
+                                <li>Each curriculum must include basic details (name, description) and an ordered sequence of tasks</li>
+                                <li>Save your curriculum file with an .xml extension</li>
+                                <li>Task descriptions are optional and may be left blank</li>
+                                <li>Task URLs are optional for offline curriculums but important for online ones</li>
+                                <li>Action tags must contain one of: Read, Watch, Listen, or Do</li>
+                                <li>Put tasks in order from first to last</li>
+                                <li>You can add as many tasks as needed for a full year or semester</li>
+                            </ul>
                             
                             <div class="bg-light p-3 mt-3 mb-3">
-                                <pre class="mb-0" style="white-space: pre-wrap;">
+                                <pre class="mb-0" style="white-space: pre-wrap; color: #000;">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;curriculum&gt;
     &lt;name&gt;Curriculum Name i.e. Grade 3 Math&lt;/name&gt;
