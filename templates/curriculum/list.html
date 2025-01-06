@@ -91,9 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
         curriculumCards.forEach(card => {
             const title = card.querySelector('.card-title').textContent.toLowerCase();
             const description = card.querySelector('.card-text').textContent.toLowerCase();
+            const publisher = card.querySelector('.text-muted')?.textContent.toLowerCase() || '';
             const grades = card.getAttribute('data-grades') || '';
 
-            const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+            const matchesSearch = title.includes(searchTerm) || 
+                                description.includes(searchTerm) || 
+                                publisher.includes(searchTerm);
             const matchesGrade = !selectedGrade || grades.includes(selectedGrade);
 
             card.style.display = (matchesSearch && matchesGrade) ? '' : 'none';
