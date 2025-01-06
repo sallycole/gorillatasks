@@ -556,6 +556,7 @@ def edit(id):
             curriculum.description = form.description.data
             curriculum.link = form.link.data
             curriculum.publisher = form.publisher.data
+            curriculum.grade_levels = request.form.getlist('grade_levels')
             curriculum.published = bool(request.form.get('published'))
             if request.form.get('locked'):
                 curriculum.locked = True
