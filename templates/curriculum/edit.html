@@ -123,6 +123,15 @@ function copyXmlExample() {
     const button = event.target;
     const originalText = button.textContent;
     
+    // Create success alert div
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-3';
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.innerHTML = `
+        <strong>Success!</strong> XML copied to clipboard.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
     if (xmlExample) {
         // Create text area and clean up the XML content
         const textArea = document.createElement('textarea');
@@ -141,8 +150,10 @@ function copyXmlExample() {
         try {
             document.execCommand('copy');
             button.textContent = 'Copied!';
+            document.body.appendChild(alertDiv);
             setTimeout(function() {
                 button.textContent = originalText;
+                alertDiv.remove();
             }, 2000);
         } catch (err) {
             console.error('Failed to copy: ', err);
