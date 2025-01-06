@@ -23,6 +23,41 @@
                     <div class="tab-pane fade show active" id="xml" role="tabpanel" aria-labelledby="xml-tab">
                         <div class="mb-4">
                             <h4>XML Upload Instructions</h4>
+                            <p>Each curriculum on this site includes basic curriculum details like name and description along with a set of tasks that students of the curriculum should do in order to study the entire curriculum.</p>
+                            <p>To upload a curriculum, simply put its basic curriculum details and its sequence of tasks into an XML file formatted like the example below. Be sure to save your curriculum file with an .xml extension and then upload it to the site.</p>
+                            <p>Please note that task descriptions are optional and may be left blank. Task URLs are optional for offline curriculums but important for online ones. Each action tag should contain one of: Read, Watch, Listen, or Do.</p>
+                            <p>Put tasks in order from first to last. You can add as many tasks as needed for a full year or semester curriculum.</p>
+                            
+                            <div class="bg-light p-3 mt-3 mb-3">
+                                <pre class="mb-0" style="white-space: pre-wrap;">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;curriculum&gt;
+    &lt;name&gt;Curriculum Name i.e. Grade 3 Math&lt;/name&gt;
+    &lt;link&gt;https://www.khanacademy.org/math/cc-2nd-grade-math&lt;/link&gt;
+    &lt;publisher&gt;Khan Academy&lt;/publisher&gt;
+    &lt;description&gt;2nd grade math covering topics including addition, subtraction, place value, money, time, measurement, data, and geometry.&lt;/description&gt;
+    &lt;grade_levels&gt;
+        &lt;grade_level&gt;2&lt;/grade_level&gt;
+    &lt;/grade_levels&gt;
+    &lt;tasks&gt;
+        &lt;task&gt;
+            &lt;title&gt;Add and subtract within 20: FAQ&lt;/title&gt;
+            &lt;description&gt;Optional description of the task&lt;/description&gt;
+            &lt;action&gt;Read&lt;/action&gt;
+            &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/add-within-20/a/add-within-20-faq&lt;/url&gt;
+        &lt;/task&gt;
+        &lt;task&gt;
+            &lt;title&gt;Adding within 20 using place value blocks&lt;/title&gt;
+            &lt;description&gt;&lt;/description&gt;
+            &lt;action&gt;Watch&lt;/action&gt;
+            &lt;url&gt;https://www.khanacademy.org/math/cc-2nd-grade-math/add-within-20/v/adding-blocks&lt;/url&gt;
+        &lt;/task&gt;
+    &lt;/tasks&gt;
+&lt;/curriculum&gt;
+                                </pre>
+                            </div>
+                        <div class="mb-4">
+                            <h4>XML Upload Instructions</h4>
                             <p>Each curriculum includes basic details (name, description) and an ordered sequence of tasks for students to complete.</p>
                             <!-- XML example section remains the same -->
                         </div>
