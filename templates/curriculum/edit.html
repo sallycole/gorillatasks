@@ -116,23 +116,26 @@
 </div>
 {% endblock %}
 
-
+{% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const copyButton = document.getElementById('copyXmlButton');
     const xmlExample = document.getElementById('xmlExample');
     
-    copyButton.addEventListener('click', function() {
-        const xmlText = xmlExample.textContent;
-        navigator.clipboard.writeText(xmlText).then(function() {
+    copyButton.addEventListener('click', async function() {
+        try {
+            const xmlText = xmlExample.textContent.trim();
+            await navigator.clipboard.writeText(xmlText);
             const originalText = copyButton.textContent;
             copyButton.textContent = 'Copied!';
-            setTimeout(function() {
+            setTimeout(() => {
                 copyButton.textContent = originalText;
             }, 2000);
-        }).catch(function(err) {
+        } catch (err) {
             console.error('Failed to copy text: ', err);
-        });
+            alert('Failed to copy to clipboard');
+        }
     });
 });
 </script>
+{% endblock %}
