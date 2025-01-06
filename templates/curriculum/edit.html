@@ -34,7 +34,7 @@
                             </ul>
                             
                             <div class="bg-light p-3 mt-3 mb-3 position-relative">
-                                <button id="copyXmlButton" class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2">Copy XML</button>
+                                <button onclick="copyXmlExample()" class="btn btn-sm btn-secondary position-absolute top-0 end-0 m-2">Copy XML</button>
                                 <pre id="xmlExample" class="mb-0" style="white-space: pre-wrap; color: #000;">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;curriculum&gt;
@@ -118,24 +118,30 @@
 
 {% block scripts %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const copyButton = document.getElementById('copyXmlButton');
+function copyXmlExample() {
     const xmlExample = document.getElementById('xmlExample');
+    const button = event.target;
+    const originalText = button.textContent;
     
-    copyButton.addEventListener('click', async function() {
+    if (xmlExample) {
+        const textArea = document.createElement('textarea');
+        textArea.value = xmlExample.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        
         try {
-            const xmlText = xmlExample.textContent.trim();
-            await navigator.clipboard.writeText(xmlText);
-            const originalText = copyButton.textContent;
-            copyButton.textContent = 'Copied!';
-            setTimeout(() => {
-                copyButton.textContent = originalText;
+            document.execCommand('copy');
+            button.textContent = 'Copied!';
+            setTimeout(function() {
+                button.textContent = originalText;
             }, 2000);
         } catch (err) {
-            console.error('Failed to copy text: ', err);
+            console.error('Failed to copy: ', err);
             alert('Failed to copy to clipboard');
         }
-    });
-});
+        
+        document.body.removeChild(textArea);
+    }
+}
 </script>
 {% endblock %}
