@@ -61,8 +61,6 @@
 &lt;/curriculum&gt;
                                 </pre>
                             </div>
-                        <div class="mb-4">
-                            <!-- XML example section remains the same -->
                         </div>
                         
                         <form method="POST" enctype="multipart/form-data" class="xml-form">
@@ -84,26 +82,6 @@
                                 {{ form.name.label(class="form-label") }}
                                 {{ form.name(class="form-control", required=true) }}
                             </div>
-                            <div class="mb-3">
-                                {{ form.description.label(class="form-label") }}
-                                {{ form.description(class="form-control", required=true) }}
-                            </div>
-                            <div class="mb-3">
-                                {{ form.link.label(class="form-label") }}
-                                {{ form.link(class="form-control") }}
-                            </div>
-                            <div class="mb-3">
-                                {{ form.publisher.label(class="form-label") }}
-                                {{ form.publisher(class="form-control") }}
-                            </div>
-                            <div class="mb-3">
-                                {{ form.grade_levels.label(class="form-label") }}
-                                {{ form.grade_levels(class="form-select", multiple="multiple", size="8") }}
-                                <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary" name="form_type" value="manual">Create Curriculum</button>
-                        </form>
-                    </div>
                             <div class="mb-3">
                                 {{ form.description.label(class="form-label") }}
                                 {{ form.description(class="form-control", required=true) }}
