@@ -462,11 +462,16 @@ def new():
                 if tasks_element is not None:
                     position = 1
                     for task_elem in tasks_element.findall('task'):
+                        action_elem = task_elem.find('action')
+                        action_text = action_elem.text.strip() if action_elem is not None and action_elem.text else 'Read'
+                        action_value = Task.ACTION_MAP.get(action_text, Task.ACTION_READ)
+                        
                         task = Task(
                             curriculum_id=curriculum.id,
                             title=task_elem.find('title').text.strip() if task_elem.find('title') is not None and task_elem.find('title').text else '',
                             description=task_elem.find('description').text.strip() if task_elem.find('description') is not None and task_elem.find('description').text else '',
                             link=task_elem.find('url').text.strip() if task_elem.find('url') is not None and task_elem.find('url').text else None,
+                            action=action_value,
                             position=position
                         )
                         db.session.add(task)
