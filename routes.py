@@ -529,7 +529,10 @@ def delete(id):
         return redirect(url_for('curriculum.view', id=curriculum.id))
     
     try:
-        # Delete associated tasks first
+        # Delete associated student_tasks first
+        task_ids = [task.id for task in curriculum.tasks]
+        StudentTask.query.filter(StudentTask.task_id.in_(task_ids)).delete(synchronize_session=False)
+        # Then delete tasks
         Task.query.filter_by(curriculum_id=curriculum.id).delete()
         # Then delete the curriculum
         db.session.delete(curriculum)
