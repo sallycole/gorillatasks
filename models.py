@@ -209,11 +209,21 @@ class Enrollment(db.Model):
         if not self.target_completion_date:
             return 0
             
+        # Get user timezone for accurate week calculation
+        from flask_login import current_user
+        user_tz = pytz.timezone(current_user.time_zone or 'UTC')
+        user_now = datetime.now(user_tz)
+        
+        # Only count tasks completed before this week
+        week_start = user_now.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=user_now.weekday())
+        week_start_utc = week_start.astimezone(pytz.UTC)
+            
         total_tasks = len(self.curriculum.tasks)
         completed_tasks = StudentTask.query.join(Task).filter(
             StudentTask.student_id == self.student_id,
             StudentTask.status == 2,  # Completed status
-            Task.curriculum_id == self.curriculum_id
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.updated_at < week_start_utc  # Only count tasks from previous weeks
         ).count()
         
         remaining_tasks = total_tasks - completed_tasks
