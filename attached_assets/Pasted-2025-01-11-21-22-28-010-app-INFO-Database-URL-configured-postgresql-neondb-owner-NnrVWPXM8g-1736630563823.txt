@@ -1,0 +1,70 @@
+2025-01-11 21:22:28,010 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-01-11 21:22:28,179 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive
+2025-01-11 21:22:29,239 - app - INFO - Database tables created successfully
+2025-01-11 21:22:29,239 - app - INFO - Available routes:
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /auth/login -> auth.login [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /auth/register -> auth.register [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /auth/account -> auth.account [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [POST,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/new -> curriculum.new [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [POST,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [POST,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [POST,OPTIONS]
+2025-01-11 21:22:29,239 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [POST,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [POST,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [POST,HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /dashboard/ -> dashboard.index [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [POST,OPTIONS]
+2025-01-11 21:22:29,240 - app - DEBUG - Route: / -> root [HEAD,GET,OPTIONS]
+2025-01-11 21:22:29,240 - app - INFO - Blueprints registered successfully
+2025-01-11 21:22:29,240 - app - DEBUG - Complete URL map:
+2025-01-11 21:22:29,240 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, GET, OPTIONS) -> static>,
+ <Rule '/auth/login' (POST, HEAD, GET, OPTIONS) -> auth.login>,
+ <Rule '/auth/register' (POST, HEAD, GET, OPTIONS) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, GET, OPTIONS) -> auth.logout>,
+ <Rule '/auth/account' (POST, HEAD, GET, OPTIONS) -> auth.account>,
+ <Rule '/auth/unenroll/<enrollment_id>' (POST, OPTIONS) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (POST, HEAD, GET, OPTIONS) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (HEAD, GET, OPTIONS) -> curriculum.list>,
+ <Rule '/curriculum/new' (POST, HEAD, GET, OPTIONS) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, GET, OPTIONS) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (POST, OPTIONS) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (POST, OPTIONS) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (POST, HEAD, GET, OPTIONS) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (POST, OPTIONS) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (POST, OPTIONS) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (POST, OPTIONS) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (POST, HEAD, GET, OPTIONS) -> curriculum.enroll>,
+ <Rule '/dashboard/' (HEAD, GET, OPTIONS) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/archive/' (HEAD, GET, OPTIONS) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, GET, OPTIONS) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/' (HEAD, GET, OPTIONS) -> root>])
+Found 9 enrollments
+Traceback (most recent call last):
+  File "/home/runner/workspace/reset_weekly_goals.py", line 18, in <module>
+    reset_all_weekly_goals()
+  File "/home/runner/workspace/reset_weekly_goals.py", line 12, in reset_all_weekly_goals
+    new_goal = enrollment.recalculate_weekly_goal()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/models.py", line 313, in recalculate_weekly_goal
+    self.weekly_goal_count = self.calculate_weekly_goal()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/models.py", line 214, in calculate_weekly_goal
+    user_tz = pytz.timezone(current_user.time_zone or 'UTC')
+                            ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'time_zone'
