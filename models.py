@@ -307,6 +307,12 @@ class Enrollment(db.Model):
             Task.curriculum_id == self.curriculum_id,
             StudentTask.updated_at >= today_start_utc
         ).count()
+
+    def recalculate_weekly_goal(self):
+        """Force recalculation of weekly goal"""
+        self.weekly_goal_count = self.calculate_weekly_goal()
+        db.session.commit()
+        return self.weekly_goal_count
         
     @staticmethod
     def progress_status(completed, goal):
