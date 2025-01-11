@@ -239,7 +239,6 @@ class Enrollment(db.Model):
         remaining_tasks = total_tasks - completed_tasks
         current_date = datetime.now(pytz.UTC).date()
         weeks_remaining = ((self.target_completion_date - current_date).days / 7)
-        weeks_remaining = int(weeks_remaining) + (1 if weeks_remaining > int(weeks_remaining) else 0)
         
         if weeks_remaining <= 0:
             return 0
