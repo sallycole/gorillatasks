@@ -205,13 +205,19 @@ class Enrollment(db.Model):
                                   secondaryjoin='Task.id==StudentTask.task_id',
                                   viewonly=True)
 
-    def calculate_weekly_goal(self):
+    def calculate_weekly_goal(self, timezone='UTC'):
         if not self.target_completion_date:
             return 0
             
         # Get user timezone for accurate week calculation
-        from flask_login import current_user
-        user_tz = pytz.timezone(current_user.time_zone or 'UTC')
+        try:
+            from flask_login import current_user
+            if current_user and current_user.is_authenticated:
+                timezone = current_user.time_zone or 'UTC'
+        except RuntimeError:
+            pass  # Outside request context
+            
+        user_tz = pytz.timezone(timezone)
         user_now = datetime.now(user_tz)
         
         # Only count tasks completed before this week
