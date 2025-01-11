@@ -220,10 +220,10 @@ class Enrollment(db.Model):
         user_tz = pytz.timezone(timezone)
         user_now = datetime.now(user_tz)
         
-        # Calculate Friday midnight in UTC
+        # Calculate last Friday 11:59:59 PM in user's timezone
         days_since_friday = (user_now.weekday() - 4) % 7  # Friday is 4
         last_friday = user_now - timedelta(days=days_since_friday)
-        friday_midnight = last_friday.replace(hour=0, minute=0, second=0, microsecond=0)
+        friday_midnight = last_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
         friday_midnight_utc = friday_midnight.astimezone(pytz.UTC)
         
         # Count tasks completed before Friday midnight
@@ -276,13 +276,18 @@ class Enrollment(db.Model):
         from flask_login import current_user
         user_tz = pytz.timezone(current_user.time_zone or 'UTC')
         user_now = datetime.now(user_tz)
-        week_start = user_now.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=user_now.weekday())
-        week_start_utc = week_start.astimezone(pytz.UTC)
+        
+        # Calculate last Friday 11:59:59 PM in user's timezone
+        days_since_friday = (user_now.weekday() - 4) % 7  # Friday is 4
+        last_friday = user_now - timedelta(days=days_since_friday)
+        friday_midnight = last_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
+        friday_midnight_utc = friday_midnight.astimezone(pytz.UTC)
+        
         return StudentTask.query.join(Task).filter(
             StudentTask.student_id == self.student_id,
-            StudentTask.status == 2,  # Completed status
+            StudentTask.status == StudentTask.STATUS_COMPLETED,
             Task.curriculum_id == self.curriculum_id,
-            StudentTask.updated_at >= week_start_utc
+            StudentTask.finished_at > friday_midnight_utc
         ).count()
 
     def calculate_todays_goal(self):
