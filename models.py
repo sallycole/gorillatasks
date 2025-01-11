@@ -282,12 +282,16 @@ class Enrollment(db.Model):
         return -(-remaining_tasks // remaining_study_days)  # Ceiling division
 
     def tasks_completed_today(self):
-        today_start = datetime.now(pytz.UTC).replace(hour=0, minute=0, second=0, microsecond=0)
+        from flask_login import current_user
+        user_tz = pytz.timezone(current_user.time_zone or 'UTC')
+        user_now = datetime.now(user_tz)
+        today_start = user_now.replace(hour=0, minute=0, second=0, microsecond=0)
+        today_start_utc = today_start.astimezone(pytz.UTC)
         return StudentTask.query.join(Task).filter(
             StudentTask.student_id == self.student_id,
             StudentTask.status == StudentTask.STATUS_COMPLETED,
             Task.curriculum_id == self.curriculum_id,
-            StudentTask.updated_at >= today_start
+            StudentTask.updated_at >= today_start_utc
         ).count()
         
     @staticmethod
