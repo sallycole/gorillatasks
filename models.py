@@ -292,7 +292,9 @@ class Enrollment(db.Model):
         
     @staticmethod
     def progress_status(completed, goal):
-        if completed == 0:
+        if goal == 0:
+            return 'progress-complete'
+        elif completed == 0:
             return 'progress-none'
         elif completed < goal:
             return 'progress-partial'
