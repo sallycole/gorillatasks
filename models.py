@@ -219,21 +219,22 @@ class Enrollment(db.Model):
             
         user_tz = pytz.timezone(timezone)
         user_now = datetime.now(user_tz)
-            
-        total_tasks = len(self.curriculum.tasks)
         
-        if ignore_completed:
-            completed_tasks = 0  # Ignore all completed tasks for fresh start
-        else:
-            # Only count tasks completed before this week
-            week_start = user_now.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=user_now.weekday())
-            week_start_utc = week_start.astimezone(pytz.UTC)
-            completed_tasks = StudentTask.query.join(Task).filter(
-                StudentTask.student_id == self.student_id,
-                StudentTask.status == 2,  # Completed status
-                Task.curriculum_id == self.curriculum_id,
-                StudentTask.updated_at < week_start_utc
-            ).count()
+        # Calculate Friday midnight in UTC
+        days_since_friday = (user_now.weekday() - 4) % 7  # Friday is 4
+        last_friday = user_now - timedelta(days=days_since_friday)
+        friday_midnight = last_friday.replace(hour=0, minute=0, second=0, microsecond=0)
+        friday_midnight_utc = friday_midnight.astimezone(pytz.UTC)
+        
+        # Count tasks completed before Friday midnight
+        completed_tasks = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            StudentTask.status == StudentTask.STATUS_COMPLETED,
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.finished_at < friday_midnight_utc
+        ).count()
+        
+        total_tasks = len(self.curriculum.tasks)
         
         remaining_tasks = total_tasks - completed_tasks
         current_date = datetime.now(pytz.UTC).date()
