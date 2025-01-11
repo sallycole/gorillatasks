@@ -253,12 +253,16 @@ class Enrollment(db.Model):
         return self.get_remaining_study_days()
 
     def tasks_completed_this_week(self):
-        week_start = datetime.now(pytz.UTC).date() - timedelta(days=datetime.now(pytz.UTC).weekday())
+        from flask_login import current_user
+        user_tz = pytz.timezone(current_user.time_zone or 'UTC')
+        user_now = datetime.now(user_tz)
+        week_start = user_now.replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(days=user_now.weekday())
+        week_start_utc = week_start.astimezone(pytz.UTC)
         return StudentTask.query.join(Task).filter(
             StudentTask.student_id == self.student_id,
             StudentTask.status == 2,  # Completed status
             Task.curriculum_id == self.curriculum_id,
-            StudentTask.updated_at >= week_start
+            StudentTask.updated_at >= week_start_utc
         ).count()
 
     def calculate_todays_goal(self):
