@@ -218,8 +218,11 @@ def edit_enrollment(enrollment_id):
 @dashboard_bp.route('/')
 @login_required
 def index():
-    # Get user's enrollments
+    # Get user's enrollments and recalculate weekly goals
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
+    for enrollment in enrollments:
+        enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
+    db.session.commit()
     
     # Initialize statistics and tasks dictionaries
     tasks_stats = {}
