@@ -262,9 +262,9 @@ class Enrollment(db.Model):
         ).count()
 
     def calculate_todays_goal(self):
-        if not self.weekly_goal_count:
-            self.weekly_goal_count = self.calculate_weekly_goal()
-            db.session.commit()
+        # Always recalculate weekly goal to ensure it's current
+        self.weekly_goal_count = self.calculate_weekly_goal()
+        db.session.commit()
             
         # Check tasks already completed this week
         tasks_done = self.tasks_completed_this_week()
