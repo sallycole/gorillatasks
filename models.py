@@ -224,7 +224,7 @@ class Enrollment(db.Model):
         if weeks_remaining <= 0:
             return 0
             
-        return int((remaining_tasks / weeks_remaining) + 0.5)  # Equivalent to ceil in Ruby
+        return -(-remaining_tasks // weeks_remaining)  # Ceiling division
 
     def get_weekday_value(self):
         from flask_login import current_user
