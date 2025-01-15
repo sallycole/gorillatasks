@@ -275,7 +275,13 @@ socket.on('task_updated', (data) => {
                                     <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
                                     {% endif %}
                                     <div>
-                                        <div>{{ task.title }}</div>
+                                        <div>
+                                            {% if task.link %}
+                                            <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
+                                            {% else %}
+                                            {{ task.title }}
+                                            {% endif %}
+                                        </div>
                                         {% if task.description %}
                                         <small class="text-muted">{{ task.description }}</small>
                                         {% endif %}
