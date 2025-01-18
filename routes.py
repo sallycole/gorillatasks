@@ -218,42 +218,51 @@ def edit_enrollment(enrollment_id):
 @dashboard_bp.route('/')
 @login_required
 def index():
-    # Get user's enrollments and force recalculate weekly goals
-    enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
+    # Single efficient query with eager loading
+    enrollments = (Enrollment.query
+        .options(
+            db.joinedload(Enrollment.curriculum).joinedload(Curriculum.tasks),
+            db.joinedload(Enrollment.student_tasks)
+        )
+        .filter_by(student_id=current_user.id)
+        .all())
+
+    # Update weekly goals in bulk
     for enrollment in enrollments:
         enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
-        db.session.add(enrollment)
     db.session.commit()
-    
-    # Initialize statistics and tasks dictionaries
+
+    # Get all task stats in a single query
+    task_stats_query = (db.session.query(
+            Task.curriculum_id,
+            db.func.count(Task.id).label('total_tasks'),
+            db.func.count(db.case(
+                [(StudentTask.status == StudentTask.STATUS_COMPLETED, 1)],
+                else_=None
+            )).label('completed_tasks')
+        )
+        .outerjoin(StudentTask, db.and_(
+            Task.id == StudentTask.task_id,
+            StudentTask.student_id == current_user.id
+        ))
+        .group_by(Task.curriculum_id)
+        .all())
+
+    # Process stats
     tasks_stats = {}
     filtered_tasks = {}
-    
+    curriculum_stats = {r[0]: {'total': r[1], 'completed': r[2]} for r in task_stats_query}
+
     for enrollment in enrollments:
-        # Get total and completed task counts
-        total_tasks = Task.query.filter_by(curriculum_id=enrollment.curriculum_id).count()
-        completed_tasks = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            status=StudentTask.STATUS_COMPLETED
-        ).join(Task).filter(Task.curriculum_id == enrollment.curriculum_id).count()
-        
-        tasks_stats[enrollment.id] = {
-            'total': total_tasks,
-            'completed': completed_tasks
-        }
-        
-        # Get next 10 incomplete tasks
-        incomplete_tasks = Task.query.outerjoin(
-            StudentTask, 
-            (Task.id == StudentTask.task_id) & 
-            (StudentTask.student_id == current_user.id)
-        ).filter(
-            Task.curriculum_id == enrollment.curriculum_id,
-            (StudentTask.status.is_(None)) |  # No student task record
-            (StudentTask.status != StudentTask.STATUS_COMPLETED) &  # Not completed
-            (StudentTask.status != StudentTask.STATUS_SKIPPED)  # Not skipped
-        ).order_by(Task.position).limit(10).all()
-        
+        curr_id = enrollment.curriculum_id
+        tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0})
+
+        # Filter incomplete tasks in memory since we already loaded them
+        incomplete_tasks = [
+            task for task in enrollment.curriculum.tasks
+            if not any(st.status in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED] 
+                      for st in task.student_tasks if st.student_id == current_user.id)
+        ][:10]  # Limit to 10 tasks
         filtered_tasks[enrollment.id] = incomplete_tasks
     
     return render_template('dashboard/index.html',
