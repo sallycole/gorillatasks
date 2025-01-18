@@ -54,6 +54,7 @@
                     <th>Task</th>
                     <th>Status</th>
                     <th>Time Spent</th>
+                    <th>Completed On</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -78,6 +79,15 @@
                         {% endif %}
                     </td>
                     <td>{{ student_task.time_spent_minutes }} minutes</td>
+                    <td>
+                        {% if student_task.finished_at %}
+                            {{ student_task.finished_at.strftime('%Y-%m-%d %H:%M') }}
+                        {% elif student_task.skipped_at %}
+                            {{ student_task.skipped_at.strftime('%Y-%m-%d %H:%M') }}
+                        {% else %}
+                            --
+                        {% endif %}
+                    </td>
                     <td>
                         <button onclick="unarchiveTask({{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
                             <i data-feather="refresh-cw"></i> Unarchive
