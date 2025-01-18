@@ -228,10 +228,12 @@ def index():
         .filter_by(student_id=current_user.id)
         .all())
 
-    # Update weekly goals in bulk
+    # Recalculate weekly goals with forced commit
     for enrollment in enrollments:
         enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
+        db.session.add(enrollment)
     db.session.commit()
+    db.session.expire_all()
 
     # Get all task stats in a single query
     task_stats_query = (db.session.query(
