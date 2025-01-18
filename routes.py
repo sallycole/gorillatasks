@@ -238,7 +238,7 @@ def index():
             Task.curriculum_id,
             db.func.count(Task.id).label('total_tasks'),
             db.func.count(db.case(
-                [(StudentTask.status == StudentTask.STATUS_COMPLETED, 1)],
+                (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
                 else_=None
             )).label('completed_tasks')
         )
