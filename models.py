@@ -282,17 +282,21 @@ class Enrollment(db.Model):
         user_tz = pytz.timezone(current_user.time_zone or 'UTC')
         user_now = datetime.now(user_tz)
         
-        # Calculate last Friday 11:59:59 PM in user's timezone
-        days_since_friday = (user_now.weekday() - 4) % 7  # Friday is 4
-        last_friday = user_now - timedelta(days=days_since_friday)
-        friday_midnight = last_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
-        friday_midnight_utc = friday_midnight.astimezone(pytz.UTC)
+        # Calculate this Friday 11:59:59 PM in user's timezone
+        days_until_friday = (4 - user_now.weekday()) % 7  # Friday is 4
+        this_friday = user_now + timedelta(days=days_until_friday)
+        this_friday_midnight = this_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
+        
+        # Get last Friday for start of week
+        last_friday = this_friday - timedelta(days=7)
+        last_friday_midnight = last_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
+        last_friday_utc = last_friday_midnight.astimezone(pytz.UTC)
         
         return StudentTask.query.join(Task).filter(
             StudentTask.student_id == self.student_id,
             StudentTask.status == StudentTask.STATUS_COMPLETED,
             Task.curriculum_id == self.curriculum_id,
-            StudentTask.finished_at > friday_midnight_utc
+            StudentTask.finished_at > last_friday_utc
         ).count()
 
     def calculate_todays_goal(self):
