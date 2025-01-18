@@ -313,13 +313,16 @@ class Enrollment(db.Model):
         if remaining_weekly == 0:
             return 0
             
-        # Calculate remaining study days based on weekday and study preferences
-        remaining_days = self.get_remaining_study_days()
-        if remaining_days == 0:
+        # Get the weekday value (1-7)
+        weekday_value = self.get_weekday_value()
+        
+        # Get the smaller value between study_days_per_week and weekday_value
+        study_days = min(self.study_days_per_week or 7, weekday_value)
+        if study_days == 0:
             return 0
             
-        # Daily goal is remaining weekly tasks divided by remaining study days
-        return -(-remaining_weekly // remaining_days)  # Ceiling division
+        # Daily goal is remaining weekly tasks divided by study days
+        return -(-remaining_weekly // study_days)  # Ceiling division
 
     def tasks_completed_today(self):
         from flask_login import current_user
