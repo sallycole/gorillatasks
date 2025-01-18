@@ -257,6 +257,12 @@ class Enrollment(db.Model):
         current_time = datetime.now(pytz.UTC)
         user_time = to_user_timezone(current_time, current_user)
         current_day = user_time.strftime('%A')
+        
+        # Special case for Friday - if it's after noon, treat as last day
+        if current_day == 'Friday':
+            if user_time.hour >= 12:
+                return 1
+            
         return {
             'Monday': 5,
             'Tuesday': 4,
