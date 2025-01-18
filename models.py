@@ -290,24 +290,21 @@ class Enrollment(db.Model):
         ).count()
 
     def calculate_todays_goal(self):
-        # Always recalculate weekly goal to ensure it's current
-        self.weekly_goal_count = self.calculate_weekly_goal()
-        db.session.commit()
-            
         # Check tasks already completed this week
         tasks_done = self.tasks_completed_this_week()
-        remaining_tasks = max(0, self.weekly_goal_count - tasks_done)
+        remaining_weekly = max(0, self.weekly_goal_count - tasks_done)
         
         # If weekly goal is met or exceeded, no tasks needed today
-        if remaining_tasks == 0:
+        if remaining_weekly == 0:
             return 0
             
-        remaining_study_days = self.get_remaining_study_days()
-        if remaining_study_days == 0:
+        # Calculate remaining study days based on weekday and study preferences
+        remaining_days = self.get_remaining_study_days()
+        if remaining_days == 0:
             return 0
             
-        # Daily goal is remaining tasks divided by remaining study days
-        return -(-remaining_tasks // remaining_study_days)  # Ceiling division
+        # Daily goal is remaining weekly tasks divided by remaining study days
+        return -(-remaining_weekly // remaining_days)  # Ceiling division
 
     def tasks_completed_today(self):
         from flask_login import current_user
