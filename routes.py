@@ -218,11 +218,12 @@ def edit_enrollment(enrollment_id):
 @dashboard_bp.route('/')
 @login_required
 def index():
-    # Single efficient query with eager loading
+    # Get enrollments with related data
     enrollments = (Enrollment.query
         .options(
-            db.joinedload(Enrollment.curriculum).joinedload(Curriculum.tasks),
-            db.joinedload(Enrollment.student_tasks)
+            db.joinedload(Enrollment.curriculum)
+            .joinedload(Curriculum.tasks)
+            .joinedload(Task.student_tasks)
         )
         .filter_by(student_id=current_user.id)
         .all())
