@@ -287,6 +287,28 @@ class Enrollment(db.Model):
         user_tz = pytz.timezone(current_user.time_zone or 'UTC')
         user_now = datetime.now(user_tz)
         
+        # Calculate this Friday 11:59:59 PM in user's timezone
+        days_until_friday = (4 - user_now.weekday()) % 7  # Friday is 4
+        this_friday = user_now + timedelta(days=days_until_friday)
+        this_friday_midnight = this_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
+        
+        # Get last Friday for start of week
+        last_friday = this_friday - timedelta(days=7)
+        last_friday_midnight = last_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
+        last_friday_utc = last_friday_midnight.astimezone(pytz.UTC)
+        
+        return StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            StudentTask.status == StudentTask.STATUS_COMPLETED,
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.finished_at > last_friday_utc
+        ).count()
+
+    def tasks_completed_this_week_but_not_today(self):
+        from flask_login import current_user
+        user_tz = pytz.timezone(current_user.time_zone or 'UTC')
+        user_now = datetime.now(user_tz)
+        
         # Get start of today
         today_start = user_now.replace(hour=0, minute=0, second=0, microsecond=0)
         today_start_utc = today_start.astimezone(pytz.UTC)
@@ -294,7 +316,6 @@ class Enrollment(db.Model):
         # Calculate this Friday 11:59:59 PM in user's timezone
         days_until_friday = (4 - user_now.weekday()) % 7  # Friday is 4
         this_friday = user_now + timedelta(days=days_until_friday)
-        this_friday_midnight = this_friday.replace(hour=23, minute=59, second=59, microsecond=999999)
         
         # Get last Friday for start of week
         last_friday = this_friday - timedelta(days=7)
@@ -310,8 +331,8 @@ class Enrollment(db.Model):
         ).count()
 
     def calculate_todays_goal(self):
-        # Check tasks already completed this week
-        tasks_done = self.tasks_completed_this_week()
+        # Check tasks already completed this week (excluding today)
+        tasks_done = self.tasks_completed_this_week_but_not_today()
         remaining_weekly = max(0, self.weekly_goal_count - tasks_done)
         
         # If weekly goal is met or exceeded, no tasks needed today
