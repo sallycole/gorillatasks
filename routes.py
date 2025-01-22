@@ -260,9 +260,9 @@ def index():
         curr_id = enrollment.curriculum_id
         tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0})
 
-        # Filter incomplete tasks in memory since we already loaded them
+        # Filter incomplete tasks in memory and sort by position
         incomplete_tasks = [
-            task for task in enrollment.curriculum.tasks
+            task for task in sorted(enrollment.curriculum.tasks, key=lambda x: x.position or 0)
             if not any(st.status in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED] 
                       for st in task.student_tasks if st.student_id == current_user.id)
         ][:10]  # Limit to 10 tasks
