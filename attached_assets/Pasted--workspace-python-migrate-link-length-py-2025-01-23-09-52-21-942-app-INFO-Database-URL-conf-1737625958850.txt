@@ -1,0 +1,62 @@
+~/workspace$ python migrate_link_length.py
+2025-01-23 09:52:21,942 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-01-23 09:52:22,750 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive
+2025-01-23 09:52:23,832 - app - INFO - Database tables created successfully
+2025-01-23 09:52:23,832 - app - INFO - Available routes:
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /auth/login -> auth.login [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /auth/register -> auth.register [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /auth/account -> auth.account [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [OPTIONS,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/new -> curriculum.new [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [OPTIONS,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [OPTIONS,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [OPTIONS,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [OPTIONS,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [OPTIONS,POST]
+2025-01-23 09:52:23,832 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [HEAD,OPTIONS,GET,POST]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /dashboard/ -> dashboard.index [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [OPTIONS,POST]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [OPTIONS,POST]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [OPTIONS,POST]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [OPTIONS,POST]
+2025-01-23 09:52:23,833 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2025-01-23 09:52:23,833 - app - INFO - Blueprints registered successfully
+2025-01-23 09:52:23,833 - app - DEBUG - Complete URL map:
+2025-01-23 09:52:23,833 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (HEAD, OPTIONS, GET, POST) -> auth.login>,
+ <Rule '/auth/register' (HEAD, OPTIONS, GET, POST) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/auth/account' (HEAD, OPTIONS, GET, POST) -> auth.account>,
+ <Rule '/auth/unenroll/<enrollment_id>' (OPTIONS, POST) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (HEAD, OPTIONS, GET, POST) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (HEAD, OPTIONS, GET, POST) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (OPTIONS, POST) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (OPTIONS, POST) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (HEAD, OPTIONS, GET, POST) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (OPTIONS, POST) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (OPTIONS, POST) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (OPTIONS, POST) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (HEAD, OPTIONS, GET, POST) -> curriculum.enroll>,
+ <Rule '/dashboard/' (HEAD, OPTIONS, GET) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (OPTIONS, POST) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (OPTIONS, POST) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (OPTIONS, POST) -> dashboard.skip_task>,
+ <Rule '/archive/' (HEAD, OPTIONS, GET) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, OPTIONS, GET) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (OPTIONS, POST) -> archive.unarchive_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+Traceback (most recent call last):
+  File "/home/runner/workspace/migrate_link_length.py", line 5, in <module>
+    db.engine.execute('ALTER TABLE tasks ALTER COLUMN link TYPE VARCHAR(1000)')
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'Engine' object has no attribute 'execute'
