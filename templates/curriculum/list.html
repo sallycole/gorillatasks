@@ -86,9 +86,10 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
     const searchInput = document.getElementById('searchInput');
     const gradeFilter = document.getElementById('gradeFilter');
+    const visibilityFilter = document.getElementById('visibilityFilter');
     const curriculumCards = document.querySelectorAll('.col-md-4');
 
     function filterCurriculums() {
@@ -132,6 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.addEventListener('input', filterCurriculums);
     gradeFilter.addEventListener('change', filterCurriculums);
     visibilityFilter.addEventListener('change', filterCurriculums);
-});
+})();
 </script>
 {% endblock %}
