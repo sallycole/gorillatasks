@@ -12,7 +12,7 @@
     <div class="col-md-6">
         <input type="text" id="searchInput" class="form-control" placeholder="Search curriculums...">
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <select id="gradeFilter" class="form-select">
             <option value="">All Grades</option>
             {% for grade_code, grade_name in [
@@ -33,13 +33,6 @@
             ] %}
                 <option value="{{ grade_code }}">{{ grade_name }}</option>
             {% endfor %}
-        </select>
-    </div>
-    <div class="col-md-4">
-        <select id="visibilityFilter" class="form-select">
-            <option value="all">Public and Private</option>
-            <option value="public">Public Only</option>
-            <option value="private">Private Only</option>
         </select>
     </div>
 </div>
@@ -94,32 +87,24 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterCurriculums() {
         const searchTerm = searchInput.value.toLowerCase();
         const selectedGrade = gradeFilter.value;
-        const selectedVisibility = visibilityFilter.value;
 
         curriculumCards.forEach(card => {
             const title = card.querySelector('.card-title').textContent.toLowerCase();
             const description = card.querySelector('.card-text').textContent.toLowerCase();
             const publisher = card.querySelector('.text-muted')?.textContent.toLowerCase() || '';
             const grades = card.getAttribute('data-grades') || '';
-            const isPublic = card.querySelector('.badge.bg-success') !== null;
 
             const matchesSearch = title.includes(searchTerm) || 
                                 description.includes(searchTerm) || 
                                 publisher.includes(searchTerm);
             const matchesGrade = !selectedGrade || grades.includes(selectedGrade);
-            const matchesVisibility = selectedVisibility === 'all' || 
-                                    (selectedVisibility === 'public' && isPublic) ||
-                                    (selectedVisibility === 'private' && !isPublic);
 
-            card.style.display = (matchesSearch && matchesGrade && matchesVisibility) ? '' : 'none';
+            card.style.display = (matchesSearch && matchesGrade) ? '' : 'none';
         });
     }
 
-    const visibilityFilter = document.getElementById('visibilityFilter');
-    
     searchInput.addEventListener('input', filterCurriculums);
     gradeFilter.addEventListener('change', filterCurriculums);
-    visibilityFilter.addEventListener('change', filterCurriculums);
 });
 </script>
 {% endblock %}
