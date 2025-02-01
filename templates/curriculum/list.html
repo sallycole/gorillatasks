@@ -86,31 +86,26 @@
 </div>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const gradeFilter = document.getElementById('gradeFilter');
     const visibilityFilter = document.getElementById('visibilityFilter');
     const curriculumCards = document.querySelectorAll('.col-md-4');
 
     function filterCurriculums() {
-        console.log('filterCurriculums called');
         const searchTerm = searchInput.value.toLowerCase();
         const selectedGrade = gradeFilter.value;
-        console.log('Search term:', searchTerm);
-        console.log('Selected grade:', selectedGrade);
-        console.log('Selected visibility:', visibilityFilter.value);
         const selectedVisibility = visibilityFilter.value;
 
         curriculumCards.forEach(card => {
-            // Extract card data
-            const title = card.querySelector('.card-title').textContent.toLowerCase();
-            const description = card.querySelector('.card-text').textContent.toLowerCase();
-            const publisherElement = card.querySelector('.text-muted');
-            const publisher = publisherElement ? publisherElement.textContent.toLowerCase() : '';
+            const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+            const descriptionElem = card.querySelector('.card-text:first-of-type');
+            const description = descriptionElem?.textContent.toLowerCase() || '';
+            const publisherElement = card.querySelector('small.text-muted');
+            const publisher = publisherElement?.textContent.toLowerCase() || '';
             const grades = card.getAttribute('data-grades') || '';
             const isPublic = card.querySelector('.badge.bg-success') !== null;
 
-            // Check each filter condition
             const matchesSearch = !searchTerm || 
                 title.includes(searchTerm) || 
                 description.includes(searchTerm) || 
@@ -123,16 +118,13 @@
                 (selectedVisibility === 'public' && isPublic) || 
                 (selectedVisibility === 'private' && !isPublic);
 
-            // Show card only if ALL filters match
             card.style.display = (matchesSearch && matchesGrade && matchesVisibility) ? '' : 'none';
         });
     }
-
-    const visibilityFilter = document.getElementById('visibilityFilter');
     
     searchInput.addEventListener('input', filterCurriculums);
     gradeFilter.addEventListener('change', filterCurriculums);
     visibilityFilter.addEventListener('change', filterCurriculums);
-})();
+});
 </script>
 {% endblock %}
