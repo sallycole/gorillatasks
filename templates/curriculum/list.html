@@ -103,9 +103,12 @@
 
         curriculumCards.forEach(card => {
             // Extract card data
-            const title = card.querySelector('.card-title').textContent.toLowerCase();
-            const description = card.querySelector('.card-text').textContent.toLowerCase();
+            const titleElement = card.querySelector('.card-title');
+            const descElement = card.querySelector('.card-text');
             const publisherElement = card.querySelector('.text-muted');
+            
+            const title = titleElement ? titleElement.textContent.toLowerCase() : '';
+            const description = descElement ? descElement.textContent.toLowerCase() : '';
             const publisher = publisherElement ? publisherElement.textContent.toLowerCase() : '';
             const grades = card.getAttribute('data-grades') || '';
             const isPublic = card.querySelector('.badge.bg-success') !== null;
