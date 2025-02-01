@@ -8,7 +8,7 @@ import pytz
 from models import GRADE_LEVELS
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username or Email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
 
 class RegisterForm(FlaskForm):

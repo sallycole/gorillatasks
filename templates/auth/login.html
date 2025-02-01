@@ -11,8 +11,8 @@
                 <form method="POST">
                     {{ form.csrf_token }}
                     <div class="mb-3">
-                        <label for="email">{{ form.email.label }}</label>
-                        {{ form.email(class="form-control", id="email", autocomplete="email") }}
+                        <label for="username">{{ form.username.label }}</label>
+                        {{ form.username(class="form-control", id="username", autocomplete="username") }}
                     </div>
                     <div class="mb-3">
                         <label for="password">{{ form.password.label }}</label>
