@@ -97,20 +97,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedVisibility = visibilityFilter.value;
 
         curriculumCards.forEach(card => {
+            // Extract card data
             const title = card.querySelector('.card-title').textContent.toLowerCase();
             const description = card.querySelector('.card-text').textContent.toLowerCase();
-            const publisher = card.querySelector('.text-muted')?.textContent.toLowerCase() || '';
+            const publisherElement = card.querySelector('.text-muted');
+            const publisher = publisherElement ? publisherElement.textContent.toLowerCase() : '';
             const grades = card.getAttribute('data-grades') || '';
             const isPublic = card.querySelector('.badge.bg-success') !== null;
 
-            const matchesSearch = title.includes(searchTerm) || 
-                                description.includes(searchTerm) || 
-                                publisher.includes(searchTerm);
-            const matchesGrade = !selectedGrade || grades.includes(selectedGrade);
+            // Check each filter condition
+            const matchesSearch = !searchTerm || 
+                title.includes(searchTerm) || 
+                description.includes(searchTerm) || 
+                publisher.includes(searchTerm);
+                
+            const matchesGrade = !selectedGrade || 
+                grades.split(',').some(grade => grade.trim() === selectedGrade);
+                
             const matchesVisibility = selectedVisibility === 'all' || 
-                                    (selectedVisibility === 'public' && isPublic) ||
-                                    (selectedVisibility === 'private' && !isPublic);
+                (selectedVisibility === 'public' && isPublic) || 
+                (selectedVisibility === 'private' && !isPublic);
 
+            // Show card only if ALL filters match
             card.style.display = (matchesSearch && matchesGrade && matchesVisibility) ? '' : 'none';
         });
     }
