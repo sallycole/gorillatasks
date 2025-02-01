@@ -92,8 +92,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const curriculumCards = document.querySelectorAll('.col-md-4');
 
     function filterCurriculums() {
+        console.log('filterCurriculums called');
         const searchTerm = searchInput.value.toLowerCase();
         const selectedGrade = gradeFilter.value;
+        console.log('Search term:', searchTerm);
+        console.log('Selected grade:', selectedGrade);
+        console.log('Selected visibility:', visibilityFilter.value);
         const selectedVisibility = visibilityFilter.value;
 
         curriculumCards.forEach(card => {
