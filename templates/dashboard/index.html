@@ -325,7 +325,7 @@ socket.on('task_updated', (data) => {
     {% else %}
     <div class="alert alert-info">
         <h4 class="alert-heading">Welcome to your Study Dashboard!</h4>
-        <p>You haven't enrolled in any curriculums yet. Visit the <a href="{{ url_for('curriculum.list') }}" class="alert-link">Curriculum List</a> to find and enroll in curriculums.</p>
+        <p>You haven't enrolled in any curriculums yet. Visit the <a href="{{ url_for('curriculum.list') }}" class="alert-link">Curriculum List</a> to find and enroll in curriculums or <a href="{{ url_for('curriculum.new') }}" class="alert-link">Create a New Curriculum</a> and enroll in it to fully personalize your learning dashboard. (You may create and enroll in as many curriculums as you like.)</p>
     </div>
     {% endif %}
 </div>
