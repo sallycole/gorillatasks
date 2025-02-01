@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -44,13 +45,15 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" id="curriculumContainer">
     {% for curriculum in curriculums %}
-    <div class="col-md-4 mb-4" data-grades="{{ ','.join(curriculum.grade_levels) }}">
+    <div class="col-md-4 mb-4 curriculum-card" data-grades="{{ ','.join(curriculum.grade_levels) }}">
         <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">{{ curriculum.name }}</h5>
+                {% if curriculum.description %}
                 <p class="card-text">{{ curriculum.description }}</p>
+                {% endif %}
                 {% if curriculum.publisher %}
                 <p class="card-text"><small class="text-muted">Publisher: {{ curriculum.publisher }}</small></p>
                 {% endif %}
@@ -86,34 +89,28 @@
 </div>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const gradeFilter = document.getElementById('gradeFilter');
     const visibilityFilter = document.getElementById('visibilityFilter');
-    const curriculumCards = document.querySelectorAll('.col-md-4');
+    const curriculumCards = document.querySelectorAll('.curriculum-card');
 
     function filterCurriculums() {
-        console.log('filterCurriculums called');
         const searchTerm = searchInput.value.toLowerCase();
         const selectedGrade = gradeFilter.value;
-        console.log('Search term:', searchTerm);
-        console.log('Selected grade:', selectedGrade);
-        console.log('Selected visibility:', visibilityFilter.value);
         const selectedVisibility = visibilityFilter.value;
 
         curriculumCards.forEach(card => {
-            // Extract card data
-            const titleElement = card.querySelector('.card-title');
-            const descElement = card.querySelector('.card-text');
-            const publisherElement = card.querySelector('.text-muted');
+            const titleEl = card.querySelector('.card-title');
+            const descEl = card.querySelector('.card-text');
+            const publisherEl = card.querySelector('.text-muted');
             
-            const title = titleElement ? titleElement.textContent.toLowerCase() : '';
-            const description = descElement ? descElement.textContent.toLowerCase() : '';
-            const publisher = publisherElement ? publisherElement.textContent.toLowerCase() : '';
+            const title = titleEl ? titleEl.textContent.toLowerCase() : '';
+            const description = descEl ? descEl.textContent.toLowerCase() : '';
+            const publisher = publisherEl ? publisherEl.textContent.toLowerCase() : '';
             const grades = card.getAttribute('data-grades') || '';
             const isPublic = card.querySelector('.badge.bg-success') !== null;
 
-            // Check each filter condition
             const matchesSearch = !searchTerm || 
                 title.includes(searchTerm) || 
                 description.includes(searchTerm) || 
@@ -126,14 +123,13 @@
                 (selectedVisibility === 'public' && isPublic) || 
                 (selectedVisibility === 'private' && !isPublic);
 
-            // Show card only if ALL filters match
             card.style.display = (matchesSearch && matchesGrade && matchesVisibility) ? '' : 'none';
         });
     }
 
-    searchInput.addEventListener('input', filterCurriculums);
-    gradeFilter.addEventListener('change', filterCurriculums);
-    visibilityFilter.addEventListener('change', filterCurriculums);
-})();
+    if (searchInput) searchInput.addEventListener('input', filterCurriculums);
+    if (gradeFilter) gradeFilter.addEventListener('change', filterCurriculums);
+    if (visibilityFilter) visibilityFilter.addEventListener('change', filterCurriculums);
+});
 </script>
 {% endblock %}
