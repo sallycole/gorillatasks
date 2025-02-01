@@ -1,0 +1,118 @@
+~/workspace$ python3 make_superuser.py
+2025-02-01 05:49:03,621 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-02-01 05:49:03,809 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive
+2025-02-01 05:49:04,879 - app - INFO - Database tables created successfully
+2025-02-01 05:49:04,879 - app - INFO - Available routes:
+2025-02-01 05:49:04,879 - app - DEBUG - Route: /static/<path:filename> -> static [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,879 - app - DEBUG - Route: /auth/login -> auth.login [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /auth/register -> auth.register [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /auth/logout -> auth.logout [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /auth/account -> auth.account [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/ -> curriculum.list [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/new -> curriculum.new [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [POST,GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /dashboard/ -> dashboard.index [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /dashboard/task/<int:id>/start -> dashboard.start_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /dashboard/task/<int:id>/finish -> dashboard.finish_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /dashboard/task/<int:id>/skip -> dashboard.skip_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /archive/ -> archive.index [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [POST,OPTIONS]
+2025-02-01 05:49:04,880 - app - DEBUG - Route: / -> root [GET,HEAD,OPTIONS]
+2025-02-01 05:49:04,880 - app - INFO - Blueprints registered successfully
+2025-02-01 05:49:04,880 - app - DEBUG - Complete URL map:
+2025-02-01 05:49:04,880 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, HEAD, OPTIONS) -> static>,
+ <Rule '/auth/login' (POST, GET, HEAD, OPTIONS) -> auth.login>,
+ <Rule '/auth/register' (POST, GET, HEAD, OPTIONS) -> auth.register>,
+ <Rule '/auth/logout' (GET, HEAD, OPTIONS) -> auth.logout>,
+ <Rule '/auth/account' (POST, GET, HEAD, OPTIONS) -> auth.account>,
+ <Rule '/auth/unenroll/<enrollment_id>' (POST, OPTIONS) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (POST, GET, HEAD, OPTIONS) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (GET, HEAD, OPTIONS) -> curriculum.list>,
+ <Rule '/curriculum/new' (POST, GET, HEAD, OPTIONS) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, HEAD, OPTIONS) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (POST, OPTIONS) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (POST, OPTIONS) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (POST, GET, HEAD, OPTIONS) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (POST, OPTIONS) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (POST, OPTIONS) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (POST, OPTIONS) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (POST, GET, HEAD, OPTIONS) -> curriculum.enroll>,
+ <Rule '/dashboard/' (GET, HEAD, OPTIONS) -> dashboard.index>,
+ <Rule '/dashboard/task/<id>/start' (POST, OPTIONS) -> dashboard.start_task>,
+ <Rule '/dashboard/task/<id>/finish' (POST, OPTIONS) -> dashboard.finish_task>,
+ <Rule '/dashboard/task/<id>/skip' (POST, OPTIONS) -> dashboard.skip_task>,
+ <Rule '/archive/' (GET, HEAD, OPTIONS) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (GET, HEAD, OPTIONS) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/' (GET, HEAD, OPTIONS) -> root>])
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column users.is_superuser does not exist
+LINE 1: ...rs_last_name, users.time_zone AS users_time_zone, users.is_s...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/workspace/make_superuser.py", line 6, in <module>
+    user = User.query.filter_by(email='sallycole@gmail.com').first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2362, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column users.is_superuser does not exist
+LINE 1: ...rs_last_name, users.time_zone AS users_time_zone, users.is_s...
+                                                             ^
+
+[SQL: SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.first_name AS users_first_name, users.last_name AS users_last_name, users.time_zone AS users_time_zone, users.is_superuser AS users_is_superuser, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'sallycole@gmail.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
