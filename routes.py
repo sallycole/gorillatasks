@@ -144,7 +144,10 @@ def login():
         user = User.query.filter(
             db.or_(
                 User.email == form.username.data,
-                User.username == form.username.data
+                db.and_(
+                    User.username.isnot(None),
+                    User.username == form.username.data
+                )
             )
         ).first()
         if user and user.check_password(form.password.data):
