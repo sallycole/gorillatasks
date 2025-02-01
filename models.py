@@ -19,6 +19,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
     time_zone = db.Column(db.String(64))
+    is_superuser = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=now_in_utc)
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 

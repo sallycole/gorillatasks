@@ -535,7 +535,10 @@ def view(id):
 @login_required
 def publish(id):
     curriculum = Curriculum.query.get_or_404(id)
-    if curriculum.creator_id != current_user.id:
+    if not current_user.is_superuser:
+        flash('Only superusers can publish curriculums')
+        return redirect(url_for('curriculum.view', id=id))
+    if curriculum.creator_id != current_user.id and not current_user.is_superuser:
         flash('You can only publish your own curriculums')
         return redirect(url_for('curriculum.view', id=id))
     
