@@ -1,0 +1,19 @@
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "curriculum-manager"
+version = "1.0.0"
+description = "Curriculum Management System"
+requires-python = ">=3.11"
+dependencies = [
+    "flask",
+    "flask-sqlalchemy",
+    "flask-socketio",
+    "psycopg2-binary",
+    "python-dotenv",
+    "werkzeug",
+    "js2py"
+]
