@@ -5,7 +5,7 @@ modules = ["python-3.11", "postgresql-16"]
 channel = "stable-24_05"
 
 [deployment]
-run = ["python", "main.py"]
+run = "python main.py"
 deploymentTarget = "cloudrun"
 
 [workflows]
