@@ -1,11 +1,12 @@
+
 modules = ["python-3.11", "postgresql-16"]
 
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-deploymentTarget = "autoscale"
-run = ["sh", "-c", "python main.py"]
+run = ["python", "main.py"]
+deploymentTarget = "cloudrun"
 
 [workflows]
 runButton = "Project"
