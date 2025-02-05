@@ -5,8 +5,9 @@ modules = ["python-3.11", "postgresql-16"]
 channel = "stable-24_05"
 
 [deployment]
-run = "python main.py"
+run = ["sh", "-c", "python main.py"]
 deploymentTarget = "cloudrun"
+build = ["sh", "-c", "pip install -r requirements.txt"]
 
 [workflows]
 runButton = "Project"
