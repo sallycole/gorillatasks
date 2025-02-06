@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>Learn to Type
+</name>
+<link>https://www.typing.com/student/lessons</link>
+<publisher>Typing.com</publisher>
+  <description>These typing lessons teach foundational typing skills, from proper finger placement to increasing speed and accuracy through interactive exercises.</description>
+  <grade_levels>
+    <grade_level>Any</grade_level>
+  </grade_levels>
+  <tasks>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Keyboard Jump</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/keyboard-jump</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Keyboard Ninja</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/keyboard-ninja</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Tommy Q: Zombie Defender</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/tommyq</url>
+    </task>    
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Phoboslab Ztype</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/ztype</url>
+    </task>  
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type a Balloon</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-a-balloon</url>
+    </task>     
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type Toss</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-toss</url>
+    </task>     
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type Toss</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-toss</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Keyboard Jump</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/keyboard-jump</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Keyboard Ninja</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/keyboard-ninja</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Tommy Q: Zombie Defender</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/tommyq</url>
+    </task>    
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Phoboslab Ztype</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/ztype</url>
+    </task>  
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type a Balloon</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-a-balloon</url>
+    </task>     
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type Toss</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-toss</url>
+    </task>     
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type Toss</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-toss</url>
+    </task> 
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Keyboard Jump</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/keyboard-jump</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Keyboard Ninja</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/keyboard-ninja</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Tommy Q: Zombie Defender</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/tommyq</url>
+    </task>    
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Phoboslab Ztype</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/ztype</url>
+    </task>  
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type a Balloon</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-a-balloon</url>
+    </task>     
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type Toss</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-toss</url>
+    </task>     
+     <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Typing Session</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/lessons</url>
+    </task>
+    <task>
+      <title>Type Toss</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.typing.com/student/game/type-toss</url>
+    </task>      
+      </tasks>
+</curriculum>

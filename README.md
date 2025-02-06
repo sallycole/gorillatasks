@@ -1,7 +1,7 @@
 
 # Gorilla Tasks
 
-Gorilla Tasks is a web-based curriculum management system that helps users track and manage their learning progress across multiple courses and subjects, which are fully customizable. The platform allows users to create structured learning paths, automate daily and weekly goals for each curriculum based on a desired finish date, and track progress across all curriculums over time.
+Gorilla Tasks is a web-based curriculum management system that helps users track and manage their learning progress across multiple courses and subjects, each of which is fully customizable. The platform allows users to create structured learning paths, automate daily and weekly goals for each curriculum based on a desired finish date, and track progress across all curriculums over time.
 
 ## Features
 
@@ -21,7 +21,7 @@ Gorilla Tasks is a web-based curriculum management system that helps users track
   - User registration and authentication
   - Customizable user profiles
   - Time zone support for accurate progress tracking
-  - Role-based access (students and curriculum creators)
+  - Role-based access (users and superusers)
 
 - **Real-time Updates**
   - WebSocket integration for live progress updates
@@ -74,9 +74,10 @@ python main.py
 1. Create an account
 2. Create any number of private curriculums
 3. Browse public curriculums
-2. Enroll in any number of private or public curriculums
-3. Set study goals and target completion dates
-4. Visit the study dashboard, which shows the next 10 tasks to complete for each and every enrolled curriculum as well as the daily task completion goal per curriculum and the weekly task completion goal per curriculum
+4. Enroll in any number of private or public curriculums
+5. Set study goals and target completion dates
+6. Visit the study dashboard, which shows the next 10 tasks to complete for each and every enrolled curriculum as well as the daily task and weekly tasks to complete for each curriculum
+7. Press start when a task is started and finish when a task is finished. If a task has an associated URL, it will automatically launch when the user clicks the start button. 
 
 ### For Superusers
 1. Set superuser status in the database for the most trusted users
@@ -144,15 +145,10 @@ Key features demonstrated in the screenshots:
 ### Archive View
 ![View of archived enrollments](static/images/archive%20view.png)
 
-### Progress Report
+### Progress Reporting
 ![Detailed progress reporting](static/images/progress%20report.png)
 
 ## Future Roadmap
 
 Upcoming Features:
 - AI-powered motivation system featuring an engaging gorilla character
-- Personalized student encouragement based on learning patterns
-- Real-time motivation messages using the latest educational psychology research
-- Adaptive feedback system to maintain student engagement
-- Integration with existing task completion tracking
-

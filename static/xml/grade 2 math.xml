@@ -1,0 +1,1230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>2nd Grade Math</name>
+<link>https://www.khanacademy.org/math/cc-2nd-grade-math</link>
+<publisher>Khan Academy</publisher>
+  <description>2nd grade math covering topics including addition, subtraction, place value, money, time, measurement, data, and geometry.</description>
+  <grade_levels>
+    <grade_level>2</grade_level>
+  </grade_levels>
+  <tasks>
+    <task>
+      <title>Add and subtract within 20: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/a/add-within-20-faq</url>
+    </task>
+    <task>
+      <title>Adding within 20 using place value blocks</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20-using-place-value-blocks</url>
+    </task>
+    <task>
+      <title>Adding within 20 using ten frames</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20-using-ten-frames</url>
+    </task>
+    <task>
+      <title>Adding 7 + 6</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20</url>
+    </task>
+    <task>
+      <title>Adding 8 + 7</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/v/adding-within-20-example</url>
+    </task>
+<task>
+  <title>Add within 20 visually</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/e/add-within-20-visually</url>
+</task>
+<task>
+  <title>Add within 20</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:add-within-20/e/addition_2</url>
+</task>
+<task>
+  <title>Adding with arrays</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/cc-2nd-repeated-addition/v/adding-with-arrays</url>
+</task>
+<task>
+  <title>Adding with arrays</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/cc-2nd-repeated-addition/e/repeated-addition</url>
+</task>
+<task>
+  <title>Using arrays in word problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/cc-2nd-repeated-addition/v/using-arrays-in-word-problems</url>
+</task>
+<task>
+  <title>Repeated addition: haircuts</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/cc-2nd-repeated-addition/v/repeated-addition-example</url>
+</task>
+<task>
+  <title>Array word problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/cc-2nd-repeated-addition/e/array-word-problems</url>
+</task>
+<task>
+  <title>Unit 1, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/cc-2nd-repeated-addition/quiz/x3184e0ec:add-and-subtract-within-20-quiz-1</url>
+</task>
+<task>
+  <title>Subtract within 20 using a number line</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:subtract-within-20/v/subtract-within-20-using-a-number-line</url>
+</task>
+<task>
+  <title>Subtract within 20 using place value blocks</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:subtract-within-20/v/subtract-within-20-using-place-value-blocks</url>
+</task>
+<task>
+  <title>Subtract within 20 using ten frames</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:subtract-within-20/v/subtract-within-20-using-ten-frames</url>
+</task>
+<task>
+  <title>Subtracting 14 - 6</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:subtract-within-20/v/subtracting-within-20</url>
+</task>
+<task>
+  <title>Subtract within 20 visually</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:subtract-within-20/e/subtract-within-20-visually</url>
+</task>
+<task>
+  <title>Subtract within 20</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:subtract-within-20/e/subtraction_2</url>
+</task>
+<task>
+  <title>Adding within 20 using place value blocks</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/v/adding-within-20-using-place-value-blocks</url>
+</task>
+<task>
+  <title>Adding within 20 using ten frames</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/v/adding-within-20-using-ten-frames</url>
+</task>
+<task>
+  <title>Subtract within 20 using place value blocks</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/v/subtract-within-20-using-place-value-blocks</url>
+</task>
+<task>
+  <title>Subtract within 20 using a number line</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/v/subtract-within-20-using-a-number-line</url>
+</task>
+<task>
+  <title>Add and subtract within 20</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/e/add-subtract-within-20</url>
+</task>
+<task>
+  <title>Addition and subtraction word problems: gorillas</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/v/exercising-gorillas</url>
+</task>
+<task>
+  <title>Addition and subtraction word problems: superheroes</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/v/sea-monsters-and-superheroes</url>
+</task>
+<task>
+  <title>Add and subtract within 20 word problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/e/addition-and-subtraction-word-problems-within-20--level-3</url>
+</task>
+<task>
+  <title>Unit 1, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/quiz/x3184e0ec:add-and-subtract-within-20-quiz-2</url>
+</task>
+<task>
+  <title>Unit 1 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:add-and-subtract-within-20/x3184e0ec:untitled-177/test/x3184e0ec:add-and-subtract-within-20-unit-test</url>
+</task>
+<task>
+  <title>Intro to place value: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/a/intro-to-place-value-faq</url>
+</task>
+<task>
+  <title>Intro to place value</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/v/baseten-warmup</url>
+</task>
+<task>
+  <title>Use place value blocks to show numbers within 1,000</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/v/use-place-value-blocks-to-show-numbers-within-1000</url>
+</task>
+<task>
+  <title>Place value blocks within 1,000</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/e/place-value-blocks-within-1000</url>
+</task>
+<task>
+  <title>Place value tables within 1,000</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/v/place-value-tables-within-1000-2</url>
+</task>
+<task>
+  <title>Place value tables within 1,000</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/e/place-value-tables-within-1000</url>
+</task>
+<task>
+  <title>Identifying value in digits</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/v/identifying-value-in-digits</url>
+</task>
+<task>
+  <title>Identify the value of a digit (ones, tens, hundreds)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/e/identify-the-value-of-a-digit</url>
+</task>
+<task>
+  <title>Creating the largest number</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/v/creating-the-largest-number</url>
+</task>
+<task>
+  <title>Create the largest number</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/e/create-the-largest-number</url>
+</task>
+<task>
+  <title>Unit 2, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:intro-to-place-value/quiz/cc-2nd-place-value-quiz-1</url>
+</task>
+<task>
+  <title>Expanded form of numbers</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/v/expanded-form-of-numbers</url>
+</task>
+<task>
+  <title>Write numbers in number and expanded form</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/e/write-numbers-between-standard-and-expanded-form</url>
+</task>
+<task>
+  <title>Number and word form of a number</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/v/number-and-word-form-of-a-number</url>
+</task>
+<task>
+  <title>Write numbers in number and word form</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/e/write-numbers-between-standard-and-written-form</url>
+</task>
+<task>
+  <title>Word form and expanded form</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/v/word-form-and-expanded-form</url>
+</task>
+<task>
+  <title>Write numbers in word and expanded form</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/e/write-numbers-between-written-and-expanded-form</url>
+</task>
+<task>
+  <title>Write numbers in different forms</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/e/writing-numbers-to-1000</url>
+</task>
+<task>
+  <title>Unit 2, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:numbers-in-standard-word-and-expanded-form/quiz/cc-2nd-place-value-quiz-2</url>
+</task>
+<task>
+  <title>Regrouping whole numbers: 675</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-hundreds/v/regrouping-whole-numbers</url>
+</task>
+<task>
+  <title>Regroup whole numbers</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-hundreds/e/regroup-whole-numbers</url>
+</task>
+<task>
+  <title>Hundreds, tens, and ones</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-hundreds/e/hundreds--tens--and-ones</url>
+</task>
+<task>
+  <title>Greater than and less than symbols</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-three-digit-compare/v/greater-than-and-less-than-symbols</url>
+</task>
+<task>
+  <title>Comparing whole numbers</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-three-digit-compare/v/comparing-whole-numbers</url>
+</task>
+<task>
+  <title>Compare 2-digit numbers</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-three-digit-compare/e/comparing_whole_numbers</url>
+</task>
+<task>
+  <title>Compare 3-digit numbers</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-three-digit-compare/e/comparing-numbers-within-1000</url>
+</task>
+<task>
+  <title>Unit 2, Quiz 3</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-three-digit-compare/quiz/cc-2nd-place-value-quiz-3</url>
+</task>
+<task>
+  <title>Understanding even and odd numbers visually</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:even-and-odd-numbers/v/understand-even-and-odd-numbers-visually</url>
+</task>
+<task>
+  <title>Understand even and odd numbers visually</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/x3184e0ec:even-and-odd-numbers/e/understanding-even-and-odd-numbers-visually</url>
+</task>
+<task>
+  <title>Skip-counting by 5s</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/v/skip-counting-by-5-example</url>
+</task>
+<task>
+  <title>Skip-count by 5s</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/e/skip-counting-by-5s</url>
+</task>
+<task>
+  <title>Counting by 10s</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/v/counting-by-tens-examples</url>
+</task>
+<task>
+  <title>Skip-count by 10s</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/e/skip-counting-by-10s</url>
+</task>
+<task>
+  <title>Skip-counting by 100s</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/v/skip-counting-by-100-example</url>
+</task>
+<task>
+  <title>Skip-counting by 100s</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/e/skip-counting-by-100s</url>
+</task>
+<task>
+  <title>Unit 2, Quiz 4</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/quiz/cc-2nd-place-value-quiz-4</url>
+</task>
+<task>
+  <title>Unit 2 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-place-value/cc-2nd-skip-counting/test/cc-2nd-place-value-unit-test</url>
+</task>
+<task>
+  <title>Add and subtract within 100: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/a/add-and-subtract-within-100-faq</url>
+</task>
+<task>
+  <title>Adding 2-digit numbers without regrouping</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/v/adding-two-digit-numbers-without-regrouping</url>
+</task>
+<task>
+  <title>Understanding place value when adding ones</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/v/understanding-place-value-when-adding-ones</url>
+</task>
+<task>
+  <title>Understanding place value when adding tens</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/v/understanding-place-value-while-adding-tens</url>
+</task>
+<task>
+  <title>Adding with regrouping</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/v/addition-with-regrouping</url>
+</task>
+<task>
+  <title>Add within 100 using place value blocks</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/e/addition_3</url>
+</task>
+<task>
+  <title>Addition and subtraction with number lines</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/v/correct-number-lines-for-addition-and-subtraction</url>
+</task>
+<task>
+  <title>Add within 100 using a number line</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-100/e/add-sub-within-100-w-num-line</url>
+</task>
+<task>
+  <title>Breaking apart 2-digit addition problems</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/v/breaking-apart-two-digit-addition-problems</url>
+</task>
+<task>
+  <title>Break apart 2-digit addition problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/e/breaking-apart-two-digit-addition-problems</url>
+</task>
+<task>
+  <title>Adding 53+17 by making a group of 10</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/v/addition-using-groups-of-10-intro</url>
+</task>
+<task>
+  <title>Adding by making a group of 10</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/v/adding-by-getting-to-group-of-10-first</url>
+</task>
+<task>
+  <title>Add 2-digit numbers by making tens</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/e/making-100</url>
+</task>
+<task>
+  <title>Strategies for adding 2-digit numbers</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/v/example-exercises-on-ways-to-add-two-digit-numbers</url>
+</task>
+<task>
+  <title>Select strategies for adding within 100</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/e/select-strategies-for-adding-within-100</url>
+</task>
+<task>
+  <title>Unit 3, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-math-strategies-for-adding-within-100/quiz/cc-2nd-add-subtract-100-quiz-1</url>
+</task>
+<task>
+  <title>Subtracting 1s using place value</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/v/understanding-place-value-while-subtracting-ones</url>
+</task>
+<task>
+  <title>Subtracting 10s using place value</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/v/understanding-place-value-when-subtracting-tens</url>
+</task>
+<task>
+  <title>Subtracting two-digit numbers without regrouping</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/v/subtracting-two-digit-numbers-without-regrouping</url>
+</task>
+<task>
+  <title>Subtracting a 1-digit number with regrouping</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/v/regrouping-to-subtract-one-digit-number</url>
+</task>
+<task>
+  <title>Subtract within 100 using place value blocks</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/e/subtraction_3</url>
+</task>
+<task>
+  <title>Addition and subtraction with number lines</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/v/correct-number-lines-for-addition-and-subtraction</url>
+</task>
+<task>
+  <title>Subtract within 100 using a number line</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-sub-ones-tens/e/subtract-within-100-level-2</url>
+</task>
+<task>
+  <title>Missing numbers in addition and subtraction</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-miss-value-prob/v/missing-numbers-in-addition-and-subtraction-within-100</url>
+</task>
+<task>
+  <title>Find the missing number (add and subtract within 100)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-miss-value-prob/e/find-the-missing-number-add-sub-within-100</url>
+</task>
+<task>
+  <title>Unit 3, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-miss-value-prob/quiz/cc-2nd-add-subtract-100-quiz-2</url>
+</task>
+<task>
+  <title>Addition word problem: horses</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-100-word-problems/v/fence-posts-for-horses</url>
+</task>
+<task>
+  <title>Addition word problems within 100</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-100-word-problems/e/addition-and-subtraction-word-problems-within-100--level-1</url>
+</task>
+<task>
+  <title>Subtraction word problem: crayons</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-100-word-problems/v/using-crayons</url>
+</task>
+<task>
+  <title>Subtraction word problem: basketball</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-100-word-problems/v/fewer-word-problems</url>
+</task>
+<task>
+  <title>Subtraction word problems within 100</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-add-sub-100-word-problems/e/addition-and-subtraction-word-problems-within-100--level-2</url>
+</task>
+<task>
+  <title>Adding and subtracting on number line word problems</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/v/adding-and-subtracting-on-number-line-word-problems</url>
+</task>
+<task>
+  <title>Adding two-digit numbers on a number line</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/v/adding-two-digit-numbers-on-a-number-line</url>
+</task>
+<task>
+  <title>Add and subtract on the number line word problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/e/adding-and-subtracting-on-the-number-line-word-problems</url>
+</task>
+<task>
+  <title>Multi step addition word problem</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/v/multi-step-addition-word-problem</url>
+</task>
+<task>
+  <title>2-step addition word problems within 100</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/e/addition-and-subtraction-word-problems-within-100--level-3</url>
+</task>
+<task>
+  <title>Multi-step subtraction word problem</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/v/multi-step-subtraction-word-problem</url>
+</task>
+<task>
+  <title>2-step subtraction word problems within 100</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/e/addition-and-subtraction-word-problems-within-100--level-4</url>
+</task>
+<task>
+  <title>Unit 3, Quiz 3</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/quiz/cc-2nd-add-subtract-100-quiz-3</url>
+</task>
+<task>
+  <title>Unit 3 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-100/cc-2nd-more-fewer-100/test/cc-2nd-add-subtract-100-unit-test</url>
+</task>
+<task>
+  <title>Adding and subtracting within 1,000: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-add-ones-tens-hundreds/a/adding-and-subtracting-within-1000-faq</url>
+</task>
+<task>
+  <title>Adding 10 or 100</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-add-ones-tens-hundreds/v/adding-ten-or-one-hundred</url>
+</task>
+<task>
+  <title>Adding 1s, 10s, and 100s</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-add-ones-tens-hundreds/v/adding-hundreds-tens-and-ones</url>
+</task>
+<task>
+  <title>Add within 1,000 using place value blocks</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-add-ones-tens-hundreds/e/add-within-1000--level-2</url>
+</task>
+<task>
+  <title>Adding and subtracting on number line</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-add-ones-tens-hundreds/v/exercise-for-numberline-addition-and-subtraction</url>
+</task>
+<task>
+  <title>Add on a number line</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-add-ones-tens-hundreds/e/adding-and-subtracting-within-1000-using-a-number-line</url>
+</task>
+<task>
+  <title>Adding 3-digit numbers (no regrouping)</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/v/adding-three-digit-numbers-without-regrouping</url>
+</task>
+<task>
+  <title>Add 10s and 100s (no regrouping)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/e/add-within-1000--level-1</url>
+</task>
+<task>
+  <title>Addition using groups of 10 and 100</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/v/addition-using-groups-of-10-and-100</url>
+</task>
+<task>
+  <title>Add using groups of 10 and 100</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/e/making-100-and-1000</url>
+</task>
+<task>
+  <title>Breaking apart 3-digit addition problems</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/v/breaking-apart-three-digit-addition-problems</url>
+</task>
+<task>
+  <title>Break apart 3-digit addition problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/e/break-apart-three-dig-add</url>
+</task>
+<task>
+  <title>Select strategies for adding within 1000</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/e/select-strategies-for-adding-within-1000</url>
+</task>
+<task>
+  <title>Unit 4, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-strategies-for-adding-two-and-three-digit-numbers/quiz/cc-2nd-add-subtract-1000-quiz-1</url>
+</task>
+<task>
+  <title>Subtracting 1, 10, or 100</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/v/subtracting-hundreds-and-tens</url>
+</task>
+<task>
+  <title>Subtracting 1s, 10s, and 100s</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/v/subtracting-3-digits</url>
+</task>
+<task>
+  <title>Subtracting 3-digit numbers (no regrouping)</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/v/subtracting-three-digit-numbers-without-regrouping</url>
+</task>
+<task>
+  <title>Subtract 10s and 100s (no regrouping)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/e/subtract-within-1000--level-1</url>
+</task>
+<task>
+  <title>Subtracting with place value blocks (regrouping)</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/v/subtracting-with-place-value-blocks-regrouping</url>
+</task>
+<task>
+  <title>Subtract within 1,000 using place value blocks</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/e/subtract-within-1000--level-2</url>
+</task>
+<task>
+  <title>Adding and subtracting on number line</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/v/exercise-for-numberline-addition-and-subtraction</url>
+</task>
+<task>
+  <title>Subtract on a number line</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/cc-2nd-sub-ones-tens-hundreds/e/subtract-on-a-number-line</url>
+</task>
+<task>
+  <title>Adding four two digit numbers</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/x3184e0ec:adding-up-to-four-2-digit-numbers/v/adding-four-two-digit-numbers</url>
+</task>
+<task>
+  <title>Adding up to four 2-digit numbers</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/x3184e0ec:adding-up-to-four-2-digit-numbers/e/add-within-100--level-2</url>
+</task>
+<task>
+  <title>Adding multiple 2-digit numbers word problems</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/x3184e0ec:adding-up-to-four-2-digit-numbers/v/adding-multiple-2-digit-numbers-word-problems</url>
+</task>
+<task>
+  <title>Adding up to four 2-digit numbers word problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/x3184e0ec:adding-up-to-four-2-digit-numbers/e/adding-up-to-four-2-digit-numbers-word-problems</url>
+</task>
+<task>
+  <title>Unit 4, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/x3184e0ec:adding-up-to-four-2-digit-numbers/quiz/cc-2nd-add-subtract-1000-quiz-2</url>
+</task>
+<task>
+  <title>Unit 4 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-add-subtract-1000/x3184e0ec:adding-up-to-four-2-digit-numbers/test/cc-2nd-add-subtract-1000-unit-test</url>
+</task>
+<task>
+  <title>Money and time: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/a/money-and-time-faq</url>
+</task>
+<task>
+  <title>Counting American coins</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/v/counting-american-coins</url>
+</task>
+<task>
+  <title>Counting dollars</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/v/counting-dollars</url>
+</task>
+<task>
+  <title>Identify the value of US coins and dollars</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/e/identify-the-value-of-different-forms-of-money-us</url>
+</task>
+<task>
+  <title>Count money (U.S.)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/e/counting-money--us-</url>
+</task>
+<task>
+  <title>Money word problems (U.S.)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/e/money-word-problems-us</url>
+</task>
+<task>
+  <title>Unit 5, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-money/quiz/x3184e0ec:money-and-time-quiz-1</url>
+</task>
+<task>
+  <title>Time on a number line</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-time/v/time-on-a-number-line</url>
+</task>
+<task>
+  <title>Telling time on a number line</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-time/e/telling_time</url>
+</task>
+<task>
+  <title>Telling time (labeled clock)</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-time/v/telling-time-exercise-example-1</url>
+</task>
+<task>
+  <title>Telling time on a clock</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-time/e/telling_time_0.5</url>
+</task>
+<task>
+  <title>Unit 5, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-time/quiz/x3184e0ec:money-and-time-quiz-2</url>
+</task>
+<task>
+  <title>Unit 5 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:money-and-time/cc-2nd-time/test/x3184e0ec:money-and-time-unit-test</url>
+</task>
+<task>
+  <title>Measurement: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/x3184e0ec:units-of-length/a/measurement2-faq</url>
+</task>
+<task>
+  <title>Getting a sense of meters and centimeters</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/x3184e0ec:units-of-length/v/getting-a-sense-of-meters-and-centimeters</url>
+</task>
+<task>
+  <title>Units of length (cm, m)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/x3184e0ec:units-of-length/e/units-of-length-cm-m</url>
+</task>
+<task>
+  <title>Getting a sense of inches and feet</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/x3184e0ec:units-of-length/v/getting-a-sense-of-inches-and-feet</url>
+</task>
+<task>
+  <title>Units of length (inch, ft)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/x3184e0ec:units-of-length/e/units-of-length-inch-ft</url>
+</task>
+<task>
+  <title>Measuring in inches</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/v/measuring-width-in-inches</url>
+</task>
+<task>
+  <title>Measure lengths (inch, ft)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/e/measure-lengths-inch-ft</url>
+</task>
+<task>
+  <title>Measuring lengths (cm, m)</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/v/measuring-lengths-2</url>
+</task>
+<task>
+  <title>Measure lengths (cm, m)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/e/measuring-lengths-2</url>
+</task>
+<task>
+  <title>Measuring lengths in different units</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/v/measuring-lengths-in-different-units</url>
+</task>
+<task>
+  <title>Measure length in different units</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/e/measuring-length-in-different-units</url>
+</task>
+<task>
+  <title>Unit 6, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-measuring-length/quiz/cc-2nd-measurement-data-quiz-1</url>
+</task>
+<task>
+  <title>Estimating lengths</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-compare-estimate-length/v/estimating-lengths</url>
+</task>
+<task>
+  <title>Estimate lengths</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-compare-estimate-length/e/estimating-lengths</url>
+</task>
+<task>
+  <title>Estimate lengths (US Customary units)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-compare-estimate-length/e/estimate-lengths--us-customary-units-</url>
+</task>
+<task>
+  <title>Length word problem example (US Customary)</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-length-word-problems/v/length-word-problem-example-us-customary</url>
+</task>
+<task>
+  <title>Length word problem (US customary)</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-length-word-problems/e/length-word-problem-us-customary</url>
+</task>
+<task>
+  <title>Length word problems</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-length-word-problems/v/length-word-problems</url>
+</task>
+<task>
+  <title>Length word problems</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-length-word-problems/e/length-word-problems</url>
+</task>
+<task>
+  <title>Unit 6, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-length-word-problems/quiz/cc-2nd-measurement-data-quiz-2</url>
+</task>
+<task>
+  <title>Unit 6 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/cc-2nd-measurement-data/cc-2nd-length-word-problems/test/cc-2nd-measurement-data-unit-test</url>
+</task>
+<task>
+  <title>Data: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-picture-graphs/a/data-faq</url>
+</task>
+<task>
+  <title>Making picture graphs and line plots</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-picture-graphs/v/making-line-plots</url>
+</task>
+<task>
+  <title>Picture graphs</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-picture-graphs/v/picture-graphs</url>
+</task>
+<task>
+  <title>Make picture graphs</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-picture-graphs/e/make-picture-graphs-1</url>
+</task>
+<task>
+  <title>Solve problems with picture graphs</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-picture-graphs/e/solving-problems-with-picture-graphs-1</url>
+</task>
+<task>
+  <title>Unit 7, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-picture-graphs/quiz/x3184e0ec:data-quiz-1</url>
+</task>
+<task>
+  <title>Creating a bar graph</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-bar-graphs/v/creating-bar-charts-1</url>
+</task>
+<task>
+  <title>Reading bar graphs: bikes</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-bar-graphs/v/solving-problems-with-bar-graphs-2</url>
+</task>
+<task>
+  <title>Make bar graphs</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-bar-graphs/e/make-bar-graphs-1</url>
+</task>
+<task>
+  <title>Solve problems with bar graphs</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-bar-graphs/e/solving-problems-with-bar-graphs-2</url>
+</task>
+<task>
+  <title>Unit 7, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-bar-graphs/quiz/x3184e0ec:data-quiz-2</url>
+</task>
+<task>
+  <title>Making picture graphs and line plots</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-line-plots/v/making-line-plots</url>
+</task>
+<task>
+  <title>Read line plots</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-line-plots/v/introduction-to-line-plots</url>
+</task>
+<task>
+  <title>Make line plots</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-line-plots/e/creating-line-plots-1</url>
+</task>
+<task>
+  <title>Solve problems with line plots</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-line-plots/e/solving-problems-with-line-plots-1</url>
+</task>
+<task>
+  <title>Unit 7, Quiz 3</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-line-plots/quiz/x3184e0ec:data-quiz-3</url>
+</task>
+<task>
+  <title>Unit 7 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:data/cc-2nd-line-plots/test/x3184e0ec:data-unit-test</url>
+</task>
+<task>
+  <title>Geometry: FAQ</title>
+  <description></description>
+  <action>Read</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/a/geometry2-faq</url>
+</task>
+<task>
+  <title>Recognizing shapes</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/v/recognizing-shapes</url>
+</task>
+<task>
+  <title>Cousin Fal's shape collection</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/v/sides-corners</url>
+</task>
+<task>
+  <title>Identify shapes</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/e/recognizing-shapes</url>
+</task>
+<task>
+  <title>Classify shapes</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/e/classify-shapes</url>
+</task>
+<task>
+  <title>Analyze shapes</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/e/analyze-shapes</url>
+</task>
+<task>
+  <title>Shapes and angles</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/v/shapes-and-angles</url>
+</task>
+<task>
+  <title>Analyze shapes by angles</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/e/analyze-shapes-by-angles</url>
+</task>
+<task>
+  <title>Unit 8, Quiz 1</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-shapes/quiz/x3184e0ec:geometry-quiz-1</url>
+</task>
+<task>
+  <title>Equal parts of circles and rectangles</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-fractions-of-shapes/v/equal-parts-of-circles-and-rectangles</url>
+</task>
+<task>
+  <title>Equal parts of circles</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-fractions-of-shapes/e/equal-parts-of-circles</url>
+</task>
+<task>
+  <title>Equal parts of rectangles</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/cc-2nd-fractions-of-shapes/e/equal-parts-of-circles-and-rectangles</url>
+</task>
+<task>
+  <title>Equal parts of circles and rectangles</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/x3184e0ec:partition-rectangles/v/equal-parts-of-circles-and-rectangles</url>
+</task>
+<task>
+  <title>Partitioning rectangles</title>
+  <description></description>
+  <action>Watch</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/x3184e0ec:partition-rectangles/v/partition-rectangles</url>
+</task>
+<task>
+  <title>Partitioning rectangles</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/x3184e0ec:partition-rectangles/e/partitioning-rectangles</url>
+</task>
+<task>
+  <title>Unit 8, Quiz 2</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/x3184e0ec:partition-rectangles/quiz/x3184e0ec:geometry-quiz-2</url>
+</task>
+<task>
+  <title>Unit 8 test</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/x3184e0ec:geometry/x3184e0ec:partition-rectangles/test/x3184e0ec:geometry-unit-test</url>
+</task>
+<task>
+  <title>Course challenge</title>
+  <description></description>
+  <action>Do</action>
+  <url>https://www.khanacademy.org/math/cc-2nd-grade-math/test/x3184e0ec:course-challenge</url>
+</task>
+  </tasks>
+</curriculum>

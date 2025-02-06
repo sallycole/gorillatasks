@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>How to Learn Online</name>
+<link>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/home</link>
+<publisher>edX</publisher>
+  <description>Practice new and effective learning techniques. Explore different learning strategies and develop your studying skills with online courses delivered through edX.</description>
+  <grade_levels>
+    <grade_level>College</grade_level>
+  </grade_levels>  
+<tasks>
+    <task>
+      <title>Introduction to this Course</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@9230b0a830d645bfaa53e35bcb0e486c/block-v1:edX+edx201+1T2025+type@vertical+block@bb593d150096488bb9cd5fc2bf23d709</url>
+    </task>
+    <task>
+      <title>Create a story using AI</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://coach.microsoft.com/webapp</url>
+    </task>
+    <task>
+      <title>Pre-Course Survey</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@9e8737df789b4763a8269c39e78cf062/block-v1:edX+edx201+1T2025+type@vertical+block@ba5d50ba9495410eaa935d9f19dc3bb6</url>
+    </task>
+    <task>
+      <title>What is Online Learning?</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@bb65a8a7288644e4aeec5a15bcdc0f44/block-v1:edX+edx201+1T2025+type@vertical+block@50e1a026f3574cb6a56e70bbda3ef9cc</url>
+    </task>
+    <task>
+      <title>Learning Online with edX</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@f6542691fde740d8a4ce80db670362fd/block-v1:edX+edx201+1T2025+type@vertical+block@956ae01d72324b3183fea2e598ddf3ad</url>
+    </task>
+    <task>
+      <title>Knowledge Check</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@5e8029edc08d4b80962641425aca59de/block-v1:edX+edx201+1T2025+type@vertical+block@8eeadbae5ee3498e94dccf6e1e72ff9e</url>
+    </task>
+    <task>
+      <title>Technology Introduction</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@fbd0e740b11d4c9b804b4c876e906817/block-v1:edX+edx201+1T2025+type@vertical+block@7c3d9d9a5491412db2352489c2a1a03c</url>
+    </task>
+    <task>
+      <title>Digital Skill Building</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@1fc4a26a68174c4f83644c2ee7b95786/block-v1:edX+edx201+1T2025+type@vertical+block@030394db86c842f28839e887cbb097a7</url>
+    </task>
+    <task>
+      <title>Gather Your Tools</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@f7bb7500545e41ec8cdbdeb195c74b08/block-v1:edX+edx201+1T2025+type@vertical+block@9770df0c31a544ae8f734b163be10060</url>
+    </task>
+    <task>
+      <title>Using a Learning Management System (LMS)</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@14d6c33ae9a24085a5921458b561b808/block-v1:edX+edx201+1T2025+type@vertical+block@9f5a87ff455a46fa99a0efb9aaed2337</url>
+    </task>
+    <task>
+      <title>edX Features and Accessibility</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@7217da2734fa4fde88811dd935dfaf59/block-v1:edX+edx201+1T2025+type@vertical+block@e66d4b81dd4444638d2d7233e3c6b1aa</url>
+    </task>
+    <task>
+      <title>Knowledge Check</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@ee2219a7cd724c1e9cc0ac647ec298a2/block-v1:edX+edx201+1T2025+type@vertical+block@2923cf6c43bb41c58dd1e1380958127e</url>
+    </task>
+    <task>
+      <title>Study Strategies Introduction</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@d75de04a6bd348b8b0d3e8c4043a38fe/block-v1:edX+edx201+1T2025+type@vertical+block@57dc729e8f7944338328b3fc84467c8b</url>
+    </task>
+    <task>
+      <title>Awareness</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@aa65734710ce43c5be37947359e3105a/block-v1:edX+edx201+1T2025+type@vertical+block@d8c6a48210c64c4094dbf759c27a4ce4</url>
+    </task>
+    <task>
+      <title>Balance</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@fa4da739e6824c12a6c56e63fed4d904/block-v1:edX+edx201+1T2025+type@vertical+block@b1327465e615431990e6e232c2b00d28</url>
+    </task>
+    <task>
+      <title>Community</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@ebd5642f78ff4149a510703ded8c8b28/block-v1:edX+edx201+1T2025+type@vertical+block@759e28422c31408386cd148bf0214de6</url>
+    </task>
+    <task>
+      <title>Dedication</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@243ad295291045cd83c908c5b813189f/block-v1:edX+edx201+1T2025+type@vertical+block@13c9968c99164cfea015091d246358e2</url>
+    </task>
+    <task>
+      <title>Knowledge Check</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@ec759708afdb462589744c928c37a645/block-v1:edX+edx201+1T2025+type@vertical+block@153aceaa54e74a3bacc17e9938611235</url>
+    </task>
+    <task>
+      <title>Time Management Introduction</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@710ea9e5ff0844458611b1277f101430/block-v1:edX+edx201+1T2025+type@vertical+block@66b64c4c7b2248529617a8cc0992163a</url>
+    </task>
+    <task>
+      <title>Your Relationship with Time</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@76d9c3d8ee0b4d87ac2aecebd63f87b0/block-v1:edX+edx201+1T2025+type@vertical+block@f2f3693db48a47d1a697af64be555e73</url>
+    </task>
+    <task>
+      <title>Time-Based Methods</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@e1c09cab5eca4e13acbb8c08a28b9f5a/block-v1:edX+edx201+1T2025+type@vertical+block@456c17ff13384c35afecd03785fac598</url>
+    </task>
+    <task>
+      <title>Making New Behaviors a Routine</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@3bd8162d54ca457f8a1f5847127668a4/block-v1:edX+edx201+1T2025+type@vertical+block@86418651c24246e4a5272e867f18082c</url>
+    </task>
+    <task>
+      <title>Your Weekly Study Plan</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@1eede99543c245389102f17d3ebd2dff/block-v1:edX+edx201+1T2025+type@vertical+block@439a7be156034c3db2001592955cea49</url>
+    </task>
+    <task>
+      <title>Knowledge Check</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@0884cfe2d7d34c529d844a89083cfb09/block-v1:edX+edx201+1T2025+type@vertical+block@2dc1cb9b541f4eea9ba910e0956c65d6</url>
+    </task>
+    <task>
+      <title>Post-Course Survey</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@5983732c919e4a57b2d67af9853d5ba8/block-v1:edX+edx201+1T2025+type@vertical+block@4e196756d846457e8763fe3eb228380f</url>
+    </task>
+    <task>
+      <title>Happy Learning!</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@18a8edcf2ecf494dbf63aef56ee7d9ac/block-v1:edX+edx201+1T2025+type@vertical+block@020c218976c548368f5f4e7ef9f1bab6</url>
+    </task>
+    <task>
+      <title>AI Acknowledgement</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://learning.edx.org/course/course-v1:edX+edx201+1T2025/block-v1:edX+edx201+1T2025+type@sequential+block@afae3ec581964ba39a665cae79590372/block-v1:edX+edx201+1T2025+type@vertical+block@cf3b98449f6c4e1f92d3b333546e0a1f</url>
+    </task>
+  </tasks>
+</curriculum>
