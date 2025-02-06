@@ -3,6 +3,10 @@
 
 Frustrated with slow learning progress? Gorilla Tasks accelerates student learning with a web-based curriculum management system built for efficiency. It transforms any curriculum—whether a custom collection of online resources or an existing course sequence—into a set of easily accomplishable tasks: read, watch, listen, or do. Upon enrolling in a curriculum, students select their desired finish date and study days per week, and Gorilla Tasks automatically calculates and dynamically updates daily and weekly goals to maintain an optimal pace for on-time completion.  Real-time progress tracking visualizes completed and skipped tasks, allowing students to archive finished work or reactivate past tasks from the archive as needed.
 
+## Disclaimer
+
+This project was created with a heavy reliance on AI tools including Cursor AI, Chat GPT, Replit Assistant, and Replit Agent. It is a proof of concept for a learning management system capable of making homeschooling more efficient and effective.
+
 ## Live Demo
 
 Try out Gorilla Tasks at [https://gorilla-tasks.replit.app/](https://gorilla-tasks.replit.app/)
@@ -125,10 +129,6 @@ This project uses several open-source libraries:
 - Flask-SocketIO
 - Bootstrap
 - Feather Icons
-
-## Support
-
-For support, questions, or feedback, please contact: sallycole@gmail.com
 
 ## Screenshots
 
