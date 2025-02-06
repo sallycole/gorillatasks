@@ -3,6 +3,10 @@
 
 Gorilla Tasks is a web-based curriculum management system that helps users track and manage their learning progress across multiple courses and subjects, each of which is fully customizable. The platform allows users to create structured learning paths, automate daily and weekly goals for each curriculum based on a desired finish date, and track progress across all curriculums over time.
 
+## Live Demo
+
+Try out Gorilla Tasks at [https://gorilla-tasks.replit.app/](https://gorilla-tasks.replit.app/)
+
 ## Features
 
 - **Curriculum Creation & Management**
