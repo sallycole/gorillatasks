@@ -128,12 +128,24 @@ For support, questions, or feedback, please contact: sallycole@gmail.com
 ## Screenshots
 
 Key features demonstrated in the screenshots:
-1. Dashboard with progress tracking
-2. Curriculum creation interface
-3. Task editing interface
-4. Curriculum browsing and sorting interface
-5. Archive view of active enrollments and finished enrollments
-6. Progress report for each enrollment
+
+### Dashboard with Progress Tracking
+![Dashboard showing task progress and goals](static/images/dashboard%20with%20progress%20tracking.png)
+
+### Curriculum Creation Interface
+![Interface for creating new curriculums](static/images/curriculum%20creation%20interface.png)
+
+### Task Editing Interface
+![Interface for editing curriculum tasks](static/images/task%20editing%20interface.png)
+
+### Curriculum Browsing and Sorting
+![Browse and sort available curriculums](static/images/curriculum%20browsing%20and%20sorting%20interface.png)
+
+### Archive View
+![View of archived enrollments](static/images/archive%20view.png)
+
+### Progress Report
+![Detailed progress reporting](static/images/progress%20report.png)
 
 ## Future Roadmap
 
