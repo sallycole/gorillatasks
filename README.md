@@ -1,7 +1,7 @@
 
-# Curriculum Manager
+# Gorilla Tasks
 
-A web-based curriculum management system that helps users track and manage their learning progress across multiple courses and subjects. The platform allows educators to create structured learning paths and enables students to follow their progress, manage tasks, and maintain consistent study habits.
+Gorilla Tasks is a web-based curriculum management system that helps users track and manage their learning progress across multiple courses and subjects, which are fully customizable. The platform allows users to create structured learning paths, automate daily and weekly goals for each curriculum based on a desired finish date, and track progress across all curriculums over time.
 
 ## Features
 
@@ -70,17 +70,18 @@ python main.py
 
 ## Usage
 
-### For Educators
+### For Users
 1. Create an account
-2. Create a new curriculum
-3. Add tasks with descriptions and resources
-4. Publish the curriculum for students
-
-### For Students
-1. Browse available curriculums
-2. Enroll in desired courses
+2. Create any number of private curriculums
+3. Browse public curriculums
+2. Enroll in any number of private or public curriculums
 3. Set study goals and target completion dates
-4. Track progress through the dashboard
+4. Visit the study dashboard, which shows the next 10 tasks to complete for each and every enrolled curriculum as well as the daily task completion goal per curriculum and the weekly task completion goal per curriculum
+
+### For Superusers
+1. Set superuser status in the database for the most trusted users
+2. Superusers have all the features that users have along with the ability to publish curriculums they have contributed
+3. Only superusers can make public curriculums
 
 ## Configuration
 
@@ -129,9 +130,10 @@ For support, questions, or feedback, please contact: sallycole@gmail.com
 Key features demonstrated in the screenshots:
 1. Dashboard with progress tracking
 2. Curriculum creation interface
-3. Task management system
-4. Weekly goal visualization
-5. Archive view of completed curriculums
+3. Task editing interface
+4. Curriculum browsing and sorting interface
+5. Archive view of active enrollments and finished enrollments
+6. Progress report for each enrollment
 
 ## Future Roadmap
 
