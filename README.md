@@ -105,7 +105,11 @@ Guidelines:
 
 ## License
 
-[What license would you like to use for this project?]
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either in source code form or as a compiled binary, for any purpose, commercial or non-commercial, and by any means.
+
+For more information, please refer to <http://unlicense.org/>
 
 ## Credits
 
@@ -118,13 +122,23 @@ This project uses several open-source libraries:
 
 ## Support
 
-[Would you like to add any specific contact information or support channels?]
+For support, questions, or feedback, please contact: sallycole@gmail.com
 
 ## Screenshots
 
-[Would you like me to list specific features to capture in screenshots?]
+Key features demonstrated in the screenshots:
+1. Dashboard with progress tracking
+2. Curriculum creation interface
+3. Task management system
+4. Weekly goal visualization
+5. Archive view of completed curriculums
 
 ## Future Roadmap
 
-[What upcoming features or improvements would you like to highlight?]
+Upcoming Features:
+- AI-powered motivation system featuring an engaging gorilla character
+- Personalized student encouragement based on learning patterns
+- Real-time motivation messages using the latest educational psychology research
+- Adaptive feedback system to maintain student engagement
+- Integration with existing task completion tracking
 
