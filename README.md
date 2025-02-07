@@ -84,7 +84,7 @@ python main.py
 3. Browse public curriculums
 4. Enroll in any number of private or public curriculums
 5. Set study goals and target completion dates
-6. Visit the study dashboard, which shows the next 10 tasks to complete for each and every enrolled curriculum as well as the daily task and weekly tasks to complete for each curriculum
+6. Visit the study dashboard, which shows the next 10 tasks to complete for each and every enrolled curriculum as well as the daily tasks and weekly tasks to complete for each curriculum
 7. Press start when a task is started and finish when a task is finished. If a task has an associated URL, it will automatically launch when the user clicks the start button. 
 
 ### For Superusers
