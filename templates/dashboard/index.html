@@ -256,11 +256,6 @@ socket.on('task_updated', (data) => {
                         {{ completed + skipped }} / {{ total }} Tasks
                     </span>
                     {% endif %}
-                    {% if percentage > 50 %}
-                    <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% - 85px);">
-                        {{ completed + skipped }} / {{ total }} Tasks
-                    </span>
-                    {% endif %}
                 </div>
             </div>
 
