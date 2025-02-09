@@ -272,7 +272,11 @@ def index():
             db.func.count(db.case(
                 (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
                 else_=None
-            )).label('completed_tasks')
+            )).label('completed_tasks'),
+            db.func.count(db.case(
+                (StudentTask.status == StudentTask.STATUS_SKIPPED, 1),
+                else_=None
+            )).label('skipped_tasks')
         )
         .outerjoin(StudentTask, db.and_(
             Task.id == StudentTask.task_id,
@@ -284,7 +288,7 @@ def index():
     # Process stats
     tasks_stats = {}
     filtered_tasks = {}
-    curriculum_stats = {r[0]: {'total': r[1], 'completed': r[2]} for r in task_stats_query}
+    curriculum_stats = {r[0]: {'total': r[1], 'completed': r[2], 'skipped': r[3]} for r in task_stats_query}
 
     for enrollment in enrollments:
         curr_id = enrollment.curriculum_id

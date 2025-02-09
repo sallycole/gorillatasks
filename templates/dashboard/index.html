@@ -237,14 +237,15 @@ socket.on('task_updated', (data) => {
                 <h5>Completion Status</h5>
                 <div class="progress mb-2">
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
+                    {% set skipped = tasks_stats[enrollment.id]['skipped'] %}
                     {% set total = tasks_stats[enrollment.id]['total'] %}
-                    {% set percentage = (completed / total * 100) if total > 0 else 0 %}
+                    {% set percentage = ((completed + skipped) / total * 100) if total > 0 else 0 %}
                     <div class="progress-bar" role="progressbar" 
                          style="width: {{ percentage }}%" 
                          aria-valuenow="{{ percentage }}" 
                          aria-valuemin="0" 
                          aria-valuemax="100">
-                        {{ completed }}/{{ total }} Tasks
+                        {{ completed + skipped }}/{{ total }} Tasks
                     </div>
                 </div>
             </div>
