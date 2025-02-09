@@ -254,6 +254,9 @@ def index():
         )
         .filter_by(student_id=current_user.id, paused=False)
         .all())
+    
+    # Filter out completed enrollments
+    enrollments = [e for e in enrollments if not e.is_completed()]
 
     # Recalculate weekly goals with forced commit
     for enrollment in enrollments:
