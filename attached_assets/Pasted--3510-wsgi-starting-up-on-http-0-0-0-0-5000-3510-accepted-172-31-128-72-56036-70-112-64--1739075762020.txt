@@ -1,0 +1,27 @@
+(3510) wsgi starting up on http://0.0.0.0:5000
+(3510) accepted ('172.31.128.72', 56036)
+70.112.64.202,10.81.4.27,172.31.128.72 - - [09/Feb/2025 04:35:26] "GET / HTTP/1.1" 302 352 0.001393
+70.112.64.202,10.81.4.27,172.31.128.72 - - [09/Feb/2025 04:35:30] "GET /dashboard/ HTTP/1.1" 200 169726 4.575476
+(3510) accepted ('172.31.128.72', 56044)
+(3510) accepted ('172.31.128.72', 56050)
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:35:30] "GET / HTTP/1.1" 302 352 0.000947
+2025-02-09 04:35:31,175 - events - INFO - Client connected: jdqUfqawbuwoBs9nAAAB
+70.112.64.202,10.81.1.23,172.31.128.72 - - [09/Feb/2025 04:35:31] "GET /static/css/feather.min.css HTTP/1.1" 200 787 0.007199
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:35:35] "GET /dashboard/ HTTP/1.1" 200 169726 4.201522
+(3510) accepted ('172.31.128.72', 56052)
+2025-02-09 04:35:35,432 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.1.23,172.31.128.72 - - [09/Feb/2025 04:35:35] "GET /static/fonts/feather.ttf HTTP/1.1" 404 174 0.001047
+2025-02-09 04:35:35,617 - events - INFO - Client connected: TTcD0yNa9pGj1EjpAAAD
+2025-02-09 04:35:35,661 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.1.23,172.31.128.72 - - [09/Feb/2025 04:35:35] "GET /static/fonts/feather.woff HTTP/1.1" 404 174 0.001103
+70.112.64.202,10.81.5.18,172.31.128.72 - - [09/Feb/2025 04:35:35] "GET /static/css/feather.min.css HTTP/1.1" 304 189 0.001055
+(3510) accepted ('172.31.128.72', 49932)
+2025-02-09 04:35:35,990 - events - INFO - Client connected: clswCBbTc66zTj76AAAF
+(3510) accepted ('172.31.128.72', 49938)
+2025-02-09 04:35:36,172 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.1.23,172.31.128.72 - - [09/Feb/2025 04:35:36] "GET /static/fonts/feather.ttf HTTP/1.1" 404 174 0.001714
+2025-02-09 04:35:36,304 - events - INFO - Client connected: 6QgrFAk-Lo9XWFCpAAAH
+2025-02-09 04:35:36,349 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.1.23,172.31.128.72 - - [09/Feb/2025 04:35:36] "GET /static/fonts/feather.woff HTTP/1.1" 404 174 0.001052
+(3510) accepted ('172.31.128.72', 49948)
+2025-02-09 04:35:36,733 - events - INFO - Client connected: 2qLAqSbM60H8fsrFAAAJ
