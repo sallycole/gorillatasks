@@ -67,10 +67,19 @@ def index():
         yearly_time = sum(t.time_spent_minutes for t in tasks 
                          if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=365))
         
+        # Calculate today's time
+        today_time = sum(t.time_spent_minutes for t in tasks 
+                        if t.updated_at and pytz.UTC.localize(t.updated_at).date() == now.date())
+        
+        # Calculate all time
+        all_time = sum(t.time_spent_minutes for t in tasks if t.time_spent_minutes)
+        
         time_metrics[enrollment.id] = {
+            'today': today_time,
             'weekly': weekly_time,
             'monthly': monthly_time,
-            'yearly': yearly_time
+            'yearly': yearly_time,
+            'all_time': all_time
         }
     
     return render_template('archive/index.html',
