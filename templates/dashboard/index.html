@@ -252,14 +252,16 @@ socket.on('task_updated', (data) => {
                         {% endif %}
                     </div>
                     {% if percentage <= 50 %}
-                    <span class="position-absolute end-0 translate-middle-y" style="top: 50%; right: -85px;">
+                    <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% + 10px);">
+                        {{ completed + skipped }} / {{ total }} Tasks
+                    </span>
+                    {% endif %}
+                    {% if percentage > 50 %}
+                    <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% - 85px);">
                         {{ completed + skipped }} / {{ total }} Tasks
                     </span>
                     {% endif %}
                 </div>
-                        <div class="position-absolute w-100 text-center" style="top: 0">
-                            {{ completed + skipped }}/{{ total }} Tasks
-                        </div>
                     </div>
                 </div>
             </div>
