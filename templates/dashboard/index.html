@@ -240,18 +240,17 @@ socket.on('task_updated', (data) => {
                     {% set skipped = tasks_stats[enrollment.id]['skipped'] %}
                     {% set total = tasks_stats[enrollment.id]['total'] %}
                     {% set percentage = ((completed + skipped) / total * 100) if total > 0 else 0 %}
-                    <div class="progress-bar" role="progressbar" 
-                         style="width: {{ percentage }}%" 
-                         aria-valuenow="{{ percentage }}" 
-                         aria-valuemin="0" 
-                         aria-valuemax="100">
-                        {{ completed + skipped }}/{{ total }} Tasks
+                    <div class="position-relative">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: {{ percentage }}%" 
+                             aria-valuenow="{{ percentage }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                        </div>
+                        <div class="position-absolute w-100 text-center" style="top: 0">
+                            {{ completed + skipped }}/{{ total }} Tasks
+                        </div>
                     </div>
-                    {% if percentage == 0 %}
-                    <div class="progress-bar bg-transparent text-dark" role="progressbar" style="width: 100%">
-                        0 / {{ total }} Tasks
-                    </div>
-                    {% endif %}
                 </div>
             </div>
 
