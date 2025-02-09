@@ -4,6 +4,11 @@ from sqlalchemy import text
 def run_migrations():
     with app.app_context():
         with db.engine.connect() as conn:
+            # Add paused column to enrollments if it doesn't exist
+            conn.execute(text("ALTER TABLE enrollments ADD COLUMN IF NOT EXISTS paused BOOLEAN DEFAULT FALSE"))
+            conn.commit()
+            
+            # Continue with other migrations
             # Backup existing data
             conn.execute(text("CREATE TEMP TABLE curriculum_backup AS SELECT * FROM curriculums"))
             
