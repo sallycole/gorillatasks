@@ -235,18 +235,28 @@ socket.on('task_updated', (data) => {
             <!-- Progress Section -->
             <div class="mb-4">
                 <h5>Completion Status</h5>
-                <div class="progress mb-2">
+                <div class="progress mb-2 position-relative" style="height: 20px;">
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
                     {% set skipped = tasks_stats[enrollment.id]['skipped'] %}
                     {% set total = tasks_stats[enrollment.id]['total'] %}
                     {% set percentage = ((completed + skipped) / total * 100) if total > 0 else 0 %}
-                    <div class="position-relative">
-                        <div class="progress-bar" role="progressbar" 
-                             style="width: {{ percentage }}%" 
-                             aria-valuenow="{{ percentage }}" 
-                             aria-valuemin="0" 
-                             aria-valuemax="100">
-                        </div>
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ percentage }}%" 
+                         aria-valuenow="{{ percentage }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {% if percentage > 50 %}
+                        <span class="position-absolute start-50 translate-middle-x text-white">
+                            {{ completed + skipped }} / {{ total }} Tasks
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if percentage <= 50 %}
+                    <span class="position-absolute end-0 translate-middle-y" style="top: 50%; right: -85px;">
+                        {{ completed + skipped }} / {{ total }} Tasks
+                    </span>
+                    {% endif %}
+                </div>
                         <div class="position-absolute w-100 text-center" style="top: 0">
                             {{ completed + skipped }}/{{ total }} Tasks
                         </div>
