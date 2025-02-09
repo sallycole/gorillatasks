@@ -198,6 +198,15 @@ def account():
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).join(Curriculum).all()
     return render_template('auth/account.html', enrollments=enrollments, form=form)
 
+@auth_bp.route('/enrollment/<int:enrollment_id>/toggle_pause', methods=['POST'])
+@login_required
+def toggle_pause(enrollment_id):
+    enrollment = Enrollment.query.filter_by(id=enrollment_id, student_id=current_user.id).first_or_404()
+    enrollment.paused = not enrollment.paused
+    db.session.commit()
+    flash('Enrollment has been ' + ('paused' if enrollment.paused else 'unpaused'))
+    return redirect(url_for('auth.account'))
+
 @auth_bp.route('/unenroll/<int:enrollment_id>', methods=['POST'])
 @login_required
 def unenroll(enrollment_id):
@@ -234,7 +243,7 @@ def index():
             .joinedload(Curriculum.tasks)
             .joinedload(Task.student_tasks)
         )
-        .filter_by(student_id=current_user.id)
+        .filter_by(student_id=current_user.id, paused=False)
         .all())
 
     # Recalculate weekly goals with forced commit

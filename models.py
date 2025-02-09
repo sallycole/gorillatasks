@@ -196,6 +196,7 @@ class Enrollment(db.Model):
     weekly_goal_count = db.Column(db.Integer, default=5, nullable=False)
     study_days_per_week = db.Column(db.Integer)
     target_completion_date = db.Column(db.Date)
+    paused = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=now_in_utc)
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 
