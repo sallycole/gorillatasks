@@ -243,9 +243,15 @@ class Enrollment(db.Model):
             StudentTask.finished_at <= friday_midnight_utc
         ).count()
 
+        skipped_tasks = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            StudentTask.status == StudentTask.STATUS_SKIPPED,
+            Task.curriculum_id == self.curriculum_id
+        ).count()
+
         total_tasks = len(self.curriculum.tasks)
 
-        remaining_tasks = total_tasks - completed_tasks
+        remaining_tasks = total_tasks - completed_tasks - skipped_tasks
         current_date = datetime.now(pytz.UTC).date()
         weeks_remaining = ((self.target_completion_date - current_date).days / 7)
 
