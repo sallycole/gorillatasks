@@ -1,0 +1,30 @@
+2025-02-09 04:21:31,737 - __main__ - INFO - Starting Flask-SocketIO application on port 5000
+2025-02-09 04:21:31,748 - werkzeug - WARNING -  * Debugger is active!
+2025-02-09 04:21:31,749 - werkzeug - INFO -  * Debugger PIN: 131-608-174
+(2192) wsgi starting up on http://0.0.0.0:5000
+(2192) accepted ('172.31.128.72', 53424)
+(2192) accepted ('172.31.128.72', 53440)
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:21:32] "GET / HTTP/1.1" 302 352 0.001549
+2025-02-09 04:21:32,788 - events - INFO - Client connected: EdsDRY7Dz_CTMroAAAAB
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:21:37] "GET /dashboard/ HTTP/1.1" 200 169726 4.512091
+(2192) accepted ('172.31.128.72', 53448)
+(2192) accepted ('172.31.128.72', 53454)
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:21:37] "GET / HTTP/1.1" 302 352 0.001228
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:21:41] "GET /dashboard/ HTTP/1.1" 200 169726 4.142539
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:21:41] "GET /static/css/feather.min.css HTTP/1.1" 304 189 0.004334
+2025-02-09 04:21:41,700 - events - INFO - Client connected: yeAyFC_xN1WY4xEYAAAD
+(2192) accepted ('172.31.128.72', 53466)
+2025-02-09 04:21:41,746 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:21:41] "GET /static/css/fonts/feather.ttf HTTP/1.1" 404 174 0.001171
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:21:41] "GET /static/css/feather.min.css HTTP/1.1" 304 189 0.000980
+2025-02-09 04:21:41,936 - events - INFO - Client connected: y0Eyd7V8fzfAEwg7AAAF
+2025-02-09 04:21:41,981 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:21:41] "GET /static/css/fonts/feather.woff HTTP/1.1" 404 174 0.000935
+(2192) accepted ('172.31.128.72', 55086)
+2025-02-09 04:21:42,338 - events - INFO - Client connected: FlHkUN-meUdZzs9QAAAH
+2025-02-09 04:21:42,382 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:21:42] "GET /static/css/fonts/feather.ttf HTTP/1.1" 404 174 0.001047
+(2192) accepted ('172.31.128.72', 55098)
+2025-02-09 04:21:42,431 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:21:42] "GET /static/css/fonts/feather.woff HTTP/1.1" 404 174 0.000931
+2025-02-09 04:21:42,650 - events - INFO - Client connected: DmCxoWxsT9wkghLKAAAJ
