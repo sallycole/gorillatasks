@@ -47,7 +47,7 @@
 
 <div class="row" id="curriculumContainer">
     {% for curriculum in curriculums %}
-    <div class="col-md-4 mb-4 curriculum-card" data-grades="{{ ','.join(curriculum.grade_levels) }}">
+    <div class="col-md-4 mb-4 curriculum-card" data-grades="{{ ','.join(curriculum.grade_levels or []) }}">
         <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">{{ curriculum.name }}</h5>
