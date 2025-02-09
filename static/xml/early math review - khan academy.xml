@@ -1,0 +1,1735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>Early Math Review</name>
+<link>https://www.khanacademy.org/math/early-math</link>
+<publisher>Khan Academy</publisher>
+  <description>Early math practice in 8 areas: counting, addition and subtraction intro, place value (tens and hundreds), addition and subtraction within 20, addition and subtraction within 100, addition and subtraction within 1000, measurement and data, and geometry.</description>
+  <grade_levels>
+    <grade_level>K</grade_level>
+<grade_level>1</grade_level>
+  </grade_levels>
+    <tasks>
+        <task>
+            <title>Counting with small numbers</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-counting/v/counting-with-small-numbers</url>
+        </task>
+        <task>
+            <title>Counting in order</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-counting/v/counting-in-order</url>
+        </task>
+        <task>
+            <title>Count with small numbers</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-counting/e/counting-out-1-20-objects</url>
+        </task>
+        <task>
+            <title>Count in order</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-counting/e/counting-objects</url>
+        </task>
+        <task>
+            <title>Find 1 more or 1 less than a number</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-counting/e/one-more--one-less</url>
+        </task>
+        <task>
+            <title>Number grid</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/v/number-grid</url>
+        </task>
+        <task>
+            <title>Missing numbers between 0 and 120</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/v/numbers-to-120</url>
+        </task>
+        <task>
+            <title>Counting by tens</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/v/counting-by-tens-example-problems</url>
+        </task>
+        <task>
+            <title>Missing numbers</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/e/count-from-any-number</url>
+        </task>
+        <task>
+            <title>Numbers to 100</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/e/count-to-100</url>
+        </task>
+        <task>
+            <title>Numbers to 120</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/e/numbers-to-120</url>
+        </task>
+        <task>
+            <title>Count 10s</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/e/counting-tens</url>
+        </task>
+        <task>
+            <title>Unit 1 Quiz 1</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-numbers-120/quiz/cc-early-math-counting-topic-quiz-1</url>
+        </task>
+        <task>
+            <title>Count in pictures</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-count-object-topic/e/counting-in-scenes</url>
+        </task>
+        <task>
+            <title>Counting objects 1</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-count-object-topic/v/how-many-objects-1</url>
+        </task>
+        <task>
+            <title>Count objects 1</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-count-object-topic/e/how-many-objects-1</url>
+        </task>
+        <task>
+            <title>Counting objects 2</title>
+            <description></description>
+            <action>Watch</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-count-object-topic/v/counting-objects-2</url>
+        </task>
+        <task>
+            <title>Count objects 2</title>
+            <description></description>
+            <action>Do</action>
+            <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-count-object-topic/e/how-many-objects-2</url>
+        </task>
+            <task>
+                <title>Comparing numbers of objects</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/v/comparing-groups-through-10-example</url>
+            </task>
+            <task>
+                <title>Compare numbers of objects 1</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/e/compare-groups-through-10</url>
+            </task>
+            <task>
+                <title>Comparing numbers on the number line</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/v/comparing-numbers-through-10-example</url>
+            </task>
+            <task>
+                <title>Comparing numbers to 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/e/comparing-numbers-through-10</url>
+            </task>
+            <task>
+                <title>Counting by category</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/v/count-by-category</url>
+            </task>
+            <task>
+                <title>Compare numbers of objects 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/e/sort-groups-by-count</url>
+            </task>
+            <task>
+                <title>Unit 1, Quiz 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/quiz/cc-early-math-counting-topic-quiz-2</url>
+            </task>
+            <task>
+                <title>Unit 1 test</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-counting-topic/cc-early-math-comparing-numbers/test/cc-early-math-counting-topic-unit-test</url>
+            </task>
+            <task>
+                <title>Intro to addition</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-intro/v/addition-introduction</url>
+            </task>
+            <task>
+                <title>Add within 5</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-intro/e/addition_1</url>
+            </task>
+            <task>
+                <title>Intro to subtraction</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-intro/v/subtraction-introduction</url>
+            </task>
+            <task>
+                <title>Subtract within 5</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-intro/e/subtraction_1</url>
+            </task>
+            <task>
+                <title>Making 5</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-making-5-9/v/making-5</url>
+            </task>
+            <task>
+                <title>Making 5</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-making-5-9/e/making-five</url>
+            </task>
+            <task>
+                <title>Making small numbers in different ways</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-making-5-9/e/making-totals-in-different-ways-within-10</url>
+            </task>
+            <task>
+                <title>Unit 2, Quiz 1</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-making-5-9/quiz/cc-early-math-add-sub-basics-quiz-1</url>
+            </task>
+            <task>
+                <title>Getting to 10 by filling boxes</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-make-10/v/getting-to-10-by-filling-boxes</url>
+            </task>
+            <task>
+                <title>Make 10 (grids and number bonds)</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-make-10/e/making-ten</url>
+            </task>
+            <task>
+                <title>Adding to 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-make-10/v/adding-to-10-example</url>
+            </task>
+            <task>
+                <title>Make 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-make-10/e/making-ten-2</url>
+            </task>
+            <task>
+                <title>Add and subtract: pieces of fruit</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-together-apart/v/adding-fruit</url>
+            </task>
+            <task>
+                <title>Addition and subtraction within 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-together-apart/v/addition-and-subtraction-within-10</url>
+            </task>
+            <task>
+                <title>Add within 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-together-apart/e/put-together</url>
+            </task>
+            <task>
+                <title>Subtract within 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-together-apart/e/take-apart</url>
+            </task>
+            <task>
+                <title>Unit 2, Quiz 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-together-apart/quiz/cc-early-math-add-sub-basics-quiz-2</url>
+            </task>
+            <task>
+                <title>Relating addition and subtraction</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-subtract-10/v/relating-addition-and-subtraction</url>
+            </task>
+            <task>
+                <title>Relate addition and subtraction</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-subtract-10/e/relate-addition-and-subtraction</url>
+            </task>
+            <task>
+                <title>Addition word problems within 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-word-problem-within-10/v/addition-word-problems-within-10</url>
+            </task>
+            <task>
+                <title>Addition word problems within 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-word-problem-within-10/e/addition-word-problems-within-10</url>
+            </task>
+            <task>
+                <title>Subtraction word problems within 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-word-problem-within-10/v/subtraction-word-problems-within-10</url>
+            </task>
+            <task>
+                <title>Subtraction word problems within 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-word-problem-within-10/e/subtraction-word-problems-within-10</url>
+            </task>
+            <task>
+                <title>Unit 2, Quiz 3</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-word-problem-within-10/quiz/cc-early-math-add-sub-basics-quiz-3</url>
+            </task>
+            <task>
+                <title>Unit 2 test</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-word-problem-within-10/test/cc-early-math-add-sub-basics-unit-test</url>
+            </task>
+            <task>
+                <title>Teens as sums with 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-teens/v/teens-and-ten</url>
+            </task>
+            <task>
+                <title>Teen numbers: monkeys</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-teens/v/monkeys-for-party</url>
+            </task>
+            <task>
+                <title>Teen numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-teens/e/teen-numbers-1</url>
+            </task>
+            <task>
+                <title>Intro to place value</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-tens/v/place-value-introduction</url>
+            </task>
+            <task>
+                <title>Place value example: 25</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-tens/v/place-value-example</url>
+            </task>
+            <task>
+                <title>Place value example: 42</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-tens/v/rep-quantity-with-digits</url>
+            </task>
+            <task>
+                <title>Groups of ten objects</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-tens/e/groups-of-tens</url>
+            </task>
+            <task>
+                <title>Tens and ones</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-tens/e/tens-and-ones</url>
+            </task>
+            <task>
+                <title>2-digit place value challenge</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-tens/e/understanding-2-digit-numbers</url>
+            </task>
+            <task>
+                <title>Greater than and less than symbols</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-two-digit-compare/v/greater-than-and-less-than-symbols</url>
+            </task>
+            <task>
+                <title>Compare 2-digit numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-two-digit-compare/e/comparing_whole_numbers</url>
+            </task>
+            <task>
+                <title>Compare 2-digit numbers 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-two-digit-compare/e/comparing-two-digit-numbers-1</url>
+            </task>
+            <task>
+                <title>Comparison symbols review</title>
+                <description></description>
+                <action>Read</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-two-digit-compare/a/comparison-symbols-review</url>
+            </task>
+            <task>
+                <title>Unit 3, Quiz 1</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-two-digit-compare/quiz/cc-early-math-place-value-topic-quiz-1</url>
+            </task>
+            <task>
+                <title>Regrouping whole numbers: 675</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-hundreds/v/regrouping-whole-numbers</url>
+            </task>
+            <task>
+                <title>Regroup whole numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-hundreds/e/regroup-whole-numbers</url>
+            </task>
+            <task>
+                <title>Hundreds, tens, and ones</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-hundreds/e/hundreds--tens--and-ones</url>
+            </task>
+            <task>
+                <title>Write numbers in different forms</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-hundreds/e/writing-numbers-to-1000</url>
+            </task>
+            <task>
+                <title>Comparing whole numbers</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-three-digit-compare/v/comparing-whole-numbers</url>
+            </task>
+            <task>
+                <title>Compare 3-digit numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-three-digit-compare/e/comparing-numbers-within-1000</url>
+            </task>
+            <task>
+                <title>Unit 3, Quiz 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-three-digit-compare/quiz/cc-early-math-place-value-topic-quiz-2</url>
+            </task>
+            <task>
+                <title>Unit 3 test</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-place-value-topic/cc-early-math-three-digit-compare/test/cc-early-math-place-value-topic-unit-test</url>
+            </task>
+<task>
+                <title>Adding within 20 using place value blocks</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/v/adding-within-20-using-place-value-blocks</url>
+            </task>
+            <task>
+                <title>Adding within 20 using ten frames</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/v/adding-within-20-using-ten-frames</url>
+            </task>
+            <task>
+                <title>Adding 7 + 6</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/v/adding-within-20</url>
+            </task>
+            <task>
+                <title>Adding 8 + 7</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/v/adding-within-20-example</url>
+            </task>
+            <task>
+                <title>Add within 20 visually</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/e/add-within-20-visually</url>
+            </task>
+            <task>
+                <title>Add within 20</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/e/addition_2</url>
+            </task>
+            <task>
+                <title>Adding 5 + 3 + 6</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/v/adding-3-numbers</url>
+            </task>
+            <task>
+                <title>Add 3 numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-add-20/e/adding-three-numbers</url>
+            </task>
+            <task>
+                <title>Subtract within 20 using a number line</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/v/subtract-within-20-using-a-number-line</url>
+            </task>
+            <task>
+                <title>Subtract within 20 using place value blocks</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/v/subtract-within-20-using-place-value-blocks</url>
+            </task>
+            <task>
+                <title>Subtract within 20 using ten frames</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/v/subtract-within-20-using-ten-frames</url>
+            </task>
+            <task>
+                <title>Subtracting 14 - 6</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/v/subtracting-within-20</url>
+            </task>
+            <task>
+                <title>Subtract within 20 visually</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/e/subtract-within-20-visually</url>
+            </task>
+            <task>
+                <title>Subtract within 20</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/e/subtraction_2</url>
+            </task>
+            <task>
+                <title>Unit 4, Quiz 1</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-sub-20/quiz/cc-early-math-add-sub-20-quiz-1</url>
+            </task>
+            <task>
+                <title>Equal sign</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-equals-sign/v/equal-sign</url>
+            </task>
+            <task>
+                <title>Equal sign</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-equals-sign/e/meaning-of-equal-sign-1</url>
+            </task>
+            <task>
+                <title>Missing numbers in addition and subtraction</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/missing-number-within-20/v/missing-numbers-in-addition-and-subtraction-within-100</url>
+            </task>
+            <task>
+                <title>Find missing number (add and subtract within 20)</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/missing-number-within-20/e/missing-number-within-20--add-and-subtract-</url>
+            </task>
+            <task>
+                <title>Unit 4, Quiz 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/missing-number-within-20/quiz/cc-early-math-add-sub-20-quiz-2</url>
+            </task>
+<task>
+                <title>Addition and subtraction word problems: superheroes</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-within-20/v/sea-monsters-and-superheroes</url>
+            </task>
+            <task>
+                <title>Addition and subtraction word problems 1</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-within-20/e/addition-and-subtraction-word-problems-within-20--level-1</url>
+            </task>
+            <task>
+                <title>Addition and subtraction word problems: gorillas</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-within-20/v/exercising-gorillas</url>
+            </task>
+            <task>
+                <title>Addition and subtraction word problems 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-within-20/e/addition-and-subtraction-word-problems-within-20--level-2</url>
+            </task>
+            <task>
+                <title>Comparison word problems: marbles</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-more-fewer-20/v/comparison-word-problems</url>
+            </task>
+            <task>
+                <title>Add and subtract within 20 word problems</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-more-fewer-20/e/addition-and-subtraction-word-problems-within-20--level-3</url>
+            </task>
+            <task>
+                <title>Comparison word problems: roly-polies</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-more-fewer-20/v/more-comparison-word-problems</url>
+            </task>
+            <task>
+                <title>Word problems with "more" and "fewer" 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-more-fewer-20/e/addition-and-subtraction-word-problems-within-20--level-4</url>
+            </task>
+            <task>
+                <title>Unit 4, Quiz 3</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-word-problems-more-fewer-20/quiz/cc-early-math-add-sub-20-quiz-3</url>
+            </task>
+            <task>
+                <title>Adding with arrays</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-repeated-addition/v/adding-with-arrays</url>
+            </task>
+            <task>
+                <title>Adding with arrays</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-repeated-addition/e/repeated-addition</url>
+            </task>
+            <task>
+                <title>Using arrays in word problems</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-repeated-addition/v/using-arrays-in-word-problems</url>
+            </task>
+            <task>
+                <title>Repeated addition: haircuts</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-repeated-addition/v/repeated-addition-example</url>
+            </task>
+            <task>
+                <title>Array word problems</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-repeated-addition/e/array-word-problems</url>
+            </task>
+            <task>
+                <title>Unit 4 test</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-20/cc-early-math-repeated-addition/test/cc-early-math-add-sub-20-unit-test</url>
+            </task>
+            <task>
+                <title>Skip-counting by 5s</title>
+                <description></description>
+                <action>Play</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-skip-counting/v/skip-counting-by-5-example</url>
+            </task>
+            <task>
+                <title>Skip-count by 5s</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-skip-counting/e/skip-counting-by-5s</url>
+            </task>
+            <task>
+                <title>Counting by 10s</title>
+                <description></description>
+                <action>Play</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-skip-counting/v/counting-by-tens-examples</url>
+            </task>
+            <task>
+                <title>Skip-count by 10s</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-skip-counting/e/skip-counting-by-10s</url>
+            </task>
+            <task>
+                <title>Adding 1 vs. adding 10</title>
+                <description></description>
+                <action>Play</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-ones-tens/v/comparing-adding-1-and-10</url>
+            </task>
+            <task>
+                <title>Add 1 or 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-ones-tens/e/add-within-100--level-1</url>
+            </task>
+            <task>
+                <title>Understanding place value when adding tens</title>
+                <description></description>
+                <action>Play</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-ones-tens/v/understanding-place-value-while-adding-tens</url>
+            </task>
+            <task>
+                <title>Understanding place value when adding ones</title>
+                <description></description>
+                <action>Play</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-ones-tens/v/understanding-place-value-when-adding-ones</url>
+            </task>
+            <task>
+                <title>Adding 1s and 10s guided practice</title>
+                <description></description>
+                <action>Read</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-ones-tens/a/adding-1s-and-10s-practice</url>
+            </task>
+            <task>
+                <title>Add 1s or 10s (no regrouping)</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-ones-tens/e/adding-1s-or-10s-to-two-digit-numbers</url>
+            </task>
+<task>
+                <title>Subtracting 1 vs. subtracting 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-ones-tens/v/comparing-subtracting-1-and-10</url>
+            </task>
+            <task>
+                <title>Subtract 1 or 10</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-ones-tens/e/subtract-with-in-100-level-1</url>
+            </task>
+            <task>
+                <title>Subtracting 1s using place value</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-ones-tens/v/understanding-place-value-while-subtracting-ones</url>
+            </task>
+            <task>
+                <title>Subtracting 10s using place value</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-ones-tens/v/understanding-place-value-when-subtracting-tens</url>
+            </task>
+            <task>
+                <title>Subtracting 1s or 10s (no regrouping)</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-ones-tens/e/subtracting-1s-or-10s</url>
+            </task>
+            <task>
+                <title>Unit 5, Quiz 1</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-ones-tens/quiz/cc-early-math-add-sub-100-quiz-1</url>
+            </task>
+            <task>
+                <title>Adding 2-digit numbers without regrouping 1</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/v/adding-two-digit-numbers-no-regrouping</url>
+            </task>
+            <task>
+                <title>Adding up to four 2-digit numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/e/add-within-100--level-2</url>
+            </task>
+            <task>
+                <title>Breaking apart 2-digit addition problems</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/v/breaking-apart-two-digit-addition-problems</url>
+            </task>
+            <task>
+                <title>Break apart 2-digit addition problems</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/e/breaking-apart-two-digit-addition-problems</url>
+            </task>
+            <task>
+                <title>Regrouping to add 1-digit number</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/v/regrouping-when-adding-two-digit-and-one-digit-number</url>
+            </task>
+            <task>
+                <title>Adding by making a group of 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/v/adding-by-getting-to-group-of-10-first</url>
+            </task>
+            <task>
+                <title>Regroup when adding 1-digit numbers</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-two-dig-intro/e/regroup-two-digit-plus-one-digit</url>
+            </task>
+<task>
+                <title>Subtracting 2-digit numbers without regrouping 1</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-two-dig-intro/v/subtracting-2-digit-numbers-without-regrouping</url>
+            </task>
+            <task>
+                <title>Subtracting two-digit numbers without regrouping</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-two-dig-intro/v/subtracting-two-digit-numbers-without-regrouping</url>
+            </task>
+            <task>
+                <title>Subtracting a 1-digit number with regrouping</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-two-dig-intro/v/regrouping-to-subtract-one-digit-number</url>
+            </task>
+            <task>
+                <title>Subtract 1-digit numbers with regrouping</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-sub-two-dig-intro/e/regroup-two-dig-minus-one-dig</url>
+            </task>
+            <task>
+                <title>Adding 53+17 by making a group of 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/v/addition-using-groups-of-10-intro</url>
+            </task>
+            <task>
+                <title>Add 2-digit numbers by making tens</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/e/making-100</url>
+            </task>
+            <task>
+                <title>Adding by making a group of 10</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/v/adding-by-getting-to-group-of-10-first</url>
+            </task>
+            <task>
+                <title>Add 2-digit numbers by making tens 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/e/making-100-level-2</url>
+            </task>
+            <task>
+                <title>Strategies for adding 2-digit numbers</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/v/example-exercises-on-ways-to-add-two-digit-numbers</url>
+            </task>
+            <task>
+                <title>Select strategies for adding within 100</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/e/select-strategies-for-adding-within-100</url>
+            </task>
+            <task>
+                <title>Addition and subtraction with number lines</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/v/correct-number-lines-for-addition-and-subtraction</url>
+            </task>
+            <task>
+                <title>Add within 100 using a number line</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/e/add-sub-within-100-w-num-line</url>
+            </task>
+            <task>
+                <title>Subtract within 100 using a number line</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/e/subtract-within-100-level-2</url>
+            </task>
+            <task>
+                <title>Unit 5, Quiz 2</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-strategies-for-adding-within-100/quiz/cc-early-math-add-sub-100-quiz-2</url>
+            </task>
+            <task>
+                <title>Adding 2-digit numbers without regrouping</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-subtract-100/v/adding-two-digit-numbers-without-regrouping</url>
+            </task>
+            <task>
+                <title>Adding with regrouping</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-subtract-100/v/addition-with-regrouping</url>
+            </task>
+            <task>
+                <title>Add within 100 using place value blocks</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-subtract-100/e/addition_3</url>
+            </task>
+<task>
+                <title>Subtracting 2-digit numbers without regrouping 1</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/subtraction-within-100/v/subtracting-2-digit-numbers-without-regrouping</url>
+            </task>
+            <task>
+                <title>Subtracting with regrouping (borrowing)</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/subtraction-within-100/v/introduction-to-regrouping-borrowing</url>
+            </task>
+            <task>
+                <title>Subtract within 100 using place value blocks</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/subtraction-within-100/e/subtraction_3</url>
+            </task>
+            <task>
+                <title>Unit 5, Quiz 3</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/subtraction-within-100/quiz/cc-early-math-add-sub-100-quiz-3</url>
+            </task>
+            <task>
+                <title>Adding and subtracting on number line word problems</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/v/adding-and-subtracting-on-number-line-word-problems</url>
+            </task>
+            <task>
+                <title>Adding two digit numbers on a number line</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/v/adding-two-digit-numbers-on-a-number-line</url>
+            </task>
+            <task>
+                <title>Add and subtract on the number line word problems</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/e/adding-and-subtracting-on-the-number-line-word-problems</url>
+            </task>
+            <task>
+                <title>Subtraction word problem: tennis balls</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/v/losing-tennis-balls</url>
+            </task>
+            <task>
+                <title>Addition word problem: horses</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/v/fence-posts-for-horses</url>
+            </task>
+            <task>
+                <title>Addition word problems within 100</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/e/addition-and-subtraction-word-problems-within-100--level-1</url>
+            </task>
+            <task>
+                <title>Subtraction word problem: snow</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/v/snow-on-friday</url>
+            </task>
+            <task>
+                <title>Subtraction word problem: crayons</title>
+                <description></description>
+                <action>Watch</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/v/using-crayons</url>
+            </task>
+            <task>
+                <title>Subtraction word problems within 100</title>
+                <description></description>
+                <action>Do</action>
+                <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-100-word-problems/e/addition-and-subtraction-word-problems-within-100--level-2</url>
+            </task>
+<task>
+    <title>Addition word problem: starfish</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/v/starfish-rulers</url>
+</task>
+<task>
+    <title>Addition word problem: spots</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/v/spots-on-a-die</url>
+</task>
+<task>
+    <title>Multi step addition word problem</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/v/multi-step-addition-word-problem</url>
+</task>
+<task>
+    <title>2-step addition word problems within 100</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/e/addition-and-subtraction-word-problems-within-100--level-3</url>
+</task>
+<task>
+    <title>Subtraction word problem: basketball</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/v/fewer-word-problems</url>
+</task>
+<task>
+    <title>Multi-step subtraction word problem</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/v/multi-step-subtraction-word-problem</url>
+</task>
+<task>
+    <title>2-step subtraction word problems within 100</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/e/addition-and-subtraction-word-problems-within-100--level-4</url>
+</task>
+<task>
+    <title>Unit 5, Quiz 4</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-more-fewer-100/quiz/cc-early-math-add-sub-100-quiz-4</url>
+</task>
+<task>
+    <title>Missing numbers in addition and subtraction</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-miss-value-prob/v/missing-numbers-in-addition-and-subtraction-within-100</url>
+</task>
+<task>
+    <title>Find the missing number (add and subtract within 100)</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-miss-value-prob/e/find-the-missing-number-add-sub-within-100</url>
+</task>
+<task>
+    <title>Unit 5 test</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-100/cc-early-math-add-sub-miss-value-prob/test/cc-early-math-add-sub-100-unit-test</url>
+</task>
+<task>
+    <title>Skip-counting by 100s</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/skip-counting-by-100s/v/skip-counting-by-100-example</url>
+</task>
+<task>
+    <title>Skip-counting by 100s</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/skip-counting-by-100s/e/skip-counting-by-100s</url>
+</task>
+<task>
+    <title>Adding 10 or 100</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-add-ones-tens-hundreds/v/adding-ten-or-one-hundred</url>
+</task>
+<task>
+    <title>Adding 1s, 10s, and 100s</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-add-ones-tens-hundreds/v/adding-hundreds-tens-and-ones</url>
+</task>
+<task>
+    <title>Add 10s and 100s (no regrouping)</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-add-ones-tens-hundreds/e/add-within-1000--level-1</url>
+</task>
+<task>
+    <title>Adding 3-digit numbers (no regrouping)</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-add-ones-tens-hundreds/v/adding-three-digit-numbers-without-regrouping</url>
+</task>
+<task>
+    <title>Add within 1,000 using place value blocks</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-add-ones-tens-hundreds/e/add-within-1000--level-2</url>
+</task>
+<task>
+    <title>Subtracting 1, 10, or 100</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-sub-ones-tens-hundreds/v/subtracting-hundreds-and-tens</url>
+</task>
+<task>
+    <title>Subtracting 1s, 10s, and 100s</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-sub-ones-tens-hundreds/v/subtracting-3-digits</url>
+</task>
+<task>
+    <title>Subtract 10s and 100s (no regrouping)</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-sub-ones-tens-hundreds/e/subtract-within-1000--level-1</url>
+</task>
+<task>
+    <title>Subtracting 3-digit numbers (no regrouping)</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-sub-ones-tens-hundreds/v/subtracting-three-digit-numbers-without-regrouping</url>
+</task>
+<task>
+    <title>Subtract within 1,000 using place value blocks</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-sub-ones-tens-hundreds/e/subtract-within-1000--level-2</url>
+</task>
+<task>
+    <title>Unit 6, Quiz 1</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-sub-ones-tens-hundreds/quiz/cc-early-math-add-sub-1000-quiz-1</url>
+</task>
+<task>
+    <title>Breaking apart 3-digit addition problems</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/v/breaking-apart-three-digit-addition-problems</url>
+</task>
+<task>
+    <title>Break apart 3-digit addition problems</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/e/break-apart-three-dig-add</url>
+</task>
+<task>
+    <title>Solving 3-digit addition in your head</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/v/rethinking-three-digit-addition-for-mental-calculation</url>
+</task>
+<task>
+    <title>Addition using groups of 10 and 100</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/v/addition-using-groups-of-10-and-100</url>
+</task>
+<task>
+    <title>Add using groups of 10 and 100</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/e/making-100-and-1000</url>
+</task>
+<task>
+    <title>Adding and subtracting on number line</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/v/exercise-for-numberline-addition-and-subtraction</url>
+</task>
+<task>
+    <title>Add on a number line</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/e/adding-and-subtracting-within-1000-using-a-number-line</url>
+</task>
+<task>
+    <title>Select strategies for adding within 1000</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/e/select-strategies-for-adding-within-1000</url>
+</task>
+<task>
+    <title>Unit 6, Quiz 2</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/cc-early-math-strategies-for-adding-two-and-three-digit-numbers/quiz/cc-early-math-add-sub-1000-quiz-2</url>
+</task>
+<task>
+    <title>Adding four two digit numbers</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/xb5feb28c:adding-up-to-four-2-digit-numbers/v/adding-four-two-digit-numbers</url>
+</task>
+<task>
+    <title>Adding up to four 2-digit numbers</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/xb5feb28c:adding-up-to-four-2-digit-numbers/e/add-within-100--level-2</url>
+</task>
+<task>
+    <title>Adding multiple 2-digit numbers word problems</title>
+    <description></description>
+    <action>Watch</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/xb5feb28c:adding-up-to-four-2-digit-numbers/v/adding-multiple-2-digit-numbers-word-problems</url>
+</task>
+<task>
+    <title>Adding up to four 2-digit numbers word problems</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/xb5feb28c:adding-up-to-four-2-digit-numbers/e/adding-up-to-four-2-digit-numbers-word-problems</url>
+</task>
+<task>
+    <title>Unit 6 test</title>
+    <description></description>
+    <action>Do</action>
+    <url>https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-1000/xb5feb28c:adding-up-to-four-2-digit-numbers/test/cc-early-math-add-sub-1000-unit-test</url>
+</task>
+<task>
+   <title>Compare size</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-intro/e/which-has-more-</url>
+</task>
+<task>
+   <title>Ordering by length</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-intro/v/order-by-length</url>
+</task>
+<task>
+   <title>Order by length</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-intro/e/order-by-length</url>
+</task>
+<task>
+   <title>Indirect measurement</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-intro/e/indirect-measurement</url>
+</task>
+<task>
+   <title>Getting a sense of meters and centimeters</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/v/getting-a-sense-of-meters-and-centimeters</url>
+</task>
+<task>
+   <title>Units of length (cm, m)</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/e/units-of-length-cm-m</url>
+</task>
+<task>
+   <title>Getting a sense of inches and feet</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/v/getting-a-sense-of-inches-and-feet</url>
+</task>
+<task>
+   <title>Units of length (inch, ft)</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/e/units-of-length-inch-ft</url>
+</task>
+<task>
+   <title>Measuring in inches</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/v/measuring-width-in-inches</url>
+</task>
+<task>
+   <title>Measure lengths 1</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/e/measuring-lengths-1</url>
+</task>
+<task>
+   <title>Measure lengths (inch, ft)</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/e/measure-lengths-inch-ft</url>
+</task>
+<task>
+   <title>Measuring lengths (cm, m)</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/v/measuring-lengths-2</url>
+</task>
+<task>
+   <title>Measure lengths (cm, m)</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/e/measuring-lengths-2</url>
+</task>
+<task>
+   <title>Measuring lengths with different units</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/v/measuring-lengths-with-different-units</url>
+</task>
+<task>
+   <title>Measuring lengths in different units</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/v/measuring-lengths-in-different-units</url>
+</task>
+<task>
+   <title>Measure length in different units</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/e/measuring-length-in-different-units</url>
+</task>
+<task>
+   <title>Measuring lengths with different units</title>
+   <description></description>
+   <action>Read</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/a/measuring-lengths-with-different-units</url>
+</task>
+<task>
+   <title>Unit 7, Quiz 1</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-measuring-length/quiz/cc-early-math-measure-data-topic-quiz-1</url>
+</task>
+<task>
+   <title>Comparing lengths</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-compare-estimate-length/v/comparing-lengths</url>
+</task>
+<task>
+   <title>Comparing lengths</title>
+   <description></description>
+   <action>Read</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-compare-estimate-length/a/comparing-lengths</url>
+</task>
+<task>
+   <title>Estimating lengths</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-compare-estimate-length/v/estimating-lengths</url>
+</task>
+<task>
+   <title>Estimate lengths</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-compare-estimate-length/e/estimating-lengths</url>
+</task>
+<task>
+   <title>Estimate lengths (US Customary units)</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-compare-estimate-length/e/estimate-lengths--us-customary-units-</url>
+</task>
+<task>
+   <title>Length word problem example (US Customary)</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-word-problems/v/length-word-problem-example-us-customary</url>
+</task>
+<task>
+   <title>Length word problem (US customary)</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-word-problems/e/length-word-problem-us-customary</url>
+</task>
+<task>
+   <title>Length word problems</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-word-problems/v/length-word-problems</url>
+</task>
+<task>
+   <title>Length word problems</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-word-problems/e/length-word-problems</url>
+</task>
+<task>
+   <title>Measuring length: golden statue</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-word-problems/v/basic-measurement</url>
+</task>
+<task>
+   <title>Unit 7, Quiz 2</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-length-word-problems/quiz/cc-early-math-measure-data-topic-quiz-2</url>
+</task>
+<task>
+   <title>Picture graphs</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-picture-graphs/v/picture-graphs</url>
+</task>
+<task>
+   <title>Make picture graphs</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-picture-graphs/e/make-picture-graphs-1</url>
+</task>
+<task>
+   <title>Making picture graphs and line plots</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-picture-graphs/v/making-line-plots</url>
+</task>
+<task>
+   <title>Solve problems with picture graphs</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-picture-graphs/e/solving-problems-with-picture-graphs-1</url>
+</task>
+<task>
+   <title>Reading bar graphs: dog bones</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-bar-graphs/v/reading-bar-graph-examples</url>
+</task>
+<task>
+   <title>Make bar graphs</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-bar-graphs/e/make-bar-graphs-1</url>
+</task>
+<task>
+   <title>Reading bar graphs: bikes</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-bar-graphs/v/solving-problems-with-bar-graphs-2</url>
+</task>
+<task>
+   <title>Solve problems with bar graphs</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-bar-graphs/e/solving-problems-with-bar-graphs-2</url>
+</task>
+<task>
+   <title>Creating picture and bar graphs</title>
+   <description></description>
+   <action>Watch</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-bar-graphs/v/creating-picture-and-bar-graphs-2-exercise-examples</url>
+</task>
+<task>
+   <title>Solve problems with bar graphs 1</title>
+   <description></description>
+   <action>Do</action>
+   <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-bar-graphs/e/solving-problems-with-bar-graphs-1</url>
+</task>
+   <task>
+      <title>Read line plots</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-line-plots/v/introduction-to-line-plots</url>
+   </task>
+   <task>
+      <title>Making picture graphs and line plots</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-line-plots/v/making-line-plots</url>
+   </task>
+   <task>
+      <title>Make line plots</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-line-plots/e/creating-line-plots-1</url>
+   </task>
+   <task>
+      <title>Solve problems with line plots</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-line-plots/e/solving-problems-with-line-plots-1</url>
+   </task>
+   <task>
+      <title>Line plots review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-line-plots/a/line-plots-review</url>
+   </task>
+   <task>
+      <title>Unit 7, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-line-plots/quiz/cc-early-math-measure-data-topic-quiz-3</url>
+   </task>
+   <task>
+      <title>Time on a number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-time/v/time-on-a-number-line</url>
+   </task>
+   <task>
+      <title>Telling time on a number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-time/e/telling_time</url>
+   </task>
+   <task>
+      <title>Telling time (labeled clock)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-time/v/telling-time-exercise-example-1</url>
+   </task>
+   <task>
+      <title>Tell time to hour or half hour</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-time/e/tell-time-to-hour-or-half-hour</url>
+   </task>
+   <task>
+      <title>Telling time on a clock</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-time/e/telling_time_0.5</url>
+   </task>
+   <task>
+      <title>Telling time (unlabeled clock)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-time/v/telling-time-exercise-example-2</url>
+   </task>
+   <task>
+      <title>Counting dollars</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/v/counting-dollars</url>
+   </task>
+   <task>
+      <title>Counting American coins</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/v/counting-american-coins</url>
+   </task>
+   <task>
+      <title>Identify the value of US coins and dollars</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/e/identify-the-value-of-different-forms-of-money-us</url>
+   </task>
+   <task>
+      <title>Count money (U.S.)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/e/counting-money--us-</url>
+   </task>
+   <task>
+      <title>Money word problems (U.S.)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/e/money-word-problems-us</url>
+   </task>
+   <task>
+      <title>U.S. coins review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/a/us-coins-review</url>
+   </task>
+   <task>
+      <title>Unit 7, Quiz 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/quiz/cc-early-math-measure-data-topic-quiz-4</url>
+   </task>
+   <task>
+      <title>Unit 7 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-measure-data-topic/cc-early-math-money/test/cc-early-math-measure-data-topic-unit-test</url>
+   </task>
+   <task>
+      <title>Cousin Fal's shape collection</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/v/sides-corners</url>
+   </task>
+   <task>
+      <title>Recognizing shapes</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/v/recognizing-shapes</url>
+   </task>
+   <task>
+      <title>Name shapes 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/e/naming-shapes</url>
+   </task>
+   <task>
+      <title>Relative position</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/v/relative-position</url>
+   </task>
+   <task>
+      <title>Relative position</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/e/relative-position</url>
+   </task>
+   <task>
+      <title>Name shapes 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/e/naming-shapes-2</url>
+   </task>
+   <task>
+      <title>Name shapes 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-shapes/e/attributes-of-shapes</url>
+   </task>
+   <task>
+      <title>Cousin Fal's shape collection</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/v/sides-corners</url>
+   </task>
+   <task>
+      <title>Recognizing shapes</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/v/recognizing-shapes</url>
+   </task>
+   <task>
+      <title>Compare shapes</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/e/compare-shapes</url>
+   </task>
+   <task>
+      <title>Identify shapes</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/e/recognizing-shapes</url>
+   </task>
+   <task>
+      <title>Classify shapes</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/e/classify-shapes</url>
+   </task>
+   <task>
+      <title>Analyze shapes</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/e/analyze-shapes</url>
+   </task>
+   <task>
+      <title>Shapes and angles</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/v/shapes-and-angles</url>
+   </task>
+   <task>
+      <title>Analyze shapes by angles</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/e/analyze-shapes-by-angles</url>
+   </task>
+   <task>
+      <title>Polygons review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/a/polygons-review</url>
+   </task>
+   <task>
+      <title>Unit 8, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-properties-shapes/quiz/cc-early-math-geometry-topic-quiz-1</url>
+   </task>
+   <task>
+      <title>Composing shapes</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-composing-shapes/v/compose-shapes</url>
+   </task>
+   <task>
+      <title>Compose shapes</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-composing-shapes/e/compose-shapes</url>
+   </task>
+   <task>
+      <title>Halves and fourths</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/v/halves-and-fourths</url>
+   </task>
+   <task>
+      <title>Halves</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/e/halves-and-fourths</url>
+   </task>
+   <task>
+      <title>Equal parts of circles and rectangles</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/v/equal-parts-of-circles-and-rectangles</url>
+   </task>
+   <task>
+      <title>Equal parts of circles</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/e/equal-parts-of-circles</url>
+   </task>
+   <task>
+      <title>Equal parts of rectangles</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/e/equal-parts-of-circles-and-rectangles</url>
+   </task>
+   <task>
+      <title>Partitioning rectangles</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/v/partition-rectangles</url>
+   </task>
+   <task>
+      <title>Partitioning rectangles</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/e/partitioning-rectangles</url>
+   </task>
+   <task>
+      <title>Unit 8, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/quiz/cc-early-math-geometry-topic-quiz-2</url>
+   </task>
+   <task>
+      <title>Unit 8 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/cc-early-math-geometry-topic/cc-early-math-fractions-of-shapes/test/cc-early-math-geometry-topic-unit-test</url>
+   </task>
+   <task>
+      <title>Course challenge</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/early-math/test/xb5feb28c:course-challenge</url>
+   </task>
+</tasks>
+</curriculum>
