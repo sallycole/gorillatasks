@@ -1,0 +1,21 @@
+2025-02-09 04:24:33,245 - events - INFO - Client connected: J_DMf86cxmL16jB7AAAB
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /dashboard/ HTTP/1.1" 200 169726 3.783844
+(2566) accepted ('172.31.128.72', 40112)
+(2566) accepted ('172.31.128.72', 40118)
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /static/css/feather.min.css HTTP/1.1" 200 790 0.005124
+2025-02-09 04:24:37,252 - events - INFO - Client connected: J73S_2vmm5ytamvQAAAD
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /static/css/feather.min.css HTTP/1.1" 304 189 0.001305
+2025-02-09 04:24:37,296 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /static/fonts/feather.ttf HTTP/1.1" 404 174 0.000859
+2025-02-09 04:24:37,369 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.0.23,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /static/fonts/feather.woff HTTP/1.1" 404 174 0.001428
+(2566) accepted ('172.31.128.72', 40134)
+2025-02-09 04:24:37,636 - events - INFO - Client connected: vyaKrgbwtzdnX98xAAAF
+2025-02-09 04:24:37,677 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /static/fonts/feather.ttf HTTP/1.1" 404 174 0.000999
+2025-02-09 04:24:37,736 - app - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+70.112.64.202,10.81.2.114,172.31.128.72 - - [09/Feb/2025 04:24:37] "GET /static/fonts/feather.woff HTTP/1.1" 404 174 0.000986
+(2566) accepted ('172.31.128.72', 40136)
+2025-02-09 04:24:37,948 - events - INFO - Client connected: _cmaNenUznWZOAb7AAAH
+(2566) accepted ('172.31.128.72', 40138)
+2025-02-09 04:24:38,358 - events - INFO - Client connected: GhzIUQVcpZAxjZtjAAAJ
