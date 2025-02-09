@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Failed to initialize socket:', e);
         return;
     }
-    
+
     socket.on('connect', () => {
         console.log('Connected to WebSocket server');
         socket.sendBuffer = [];  // Clear any buffered events
@@ -53,14 +53,14 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Socket not connected');
         return;
     }
-    
+
     console.log(`Handling ${action} for task ${taskId}`);
     const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
     if (!actionDiv) {
         console.error('Could not find action div for task:', taskId);
         return;
     }
-    
+
     // Show loading state
     const originalContent = actionDiv.innerHTML;
     actionDiv.innerHTML = `
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </button>
         </div>
     `;
-    
+
     // Emit socket event with timeout
     const timeout = setTimeout(() => {
         console.error('Socket event timed out');
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return;
         }
-        
+
         if (response.status === 'success') {
             console.log('Task action successful:', response);
             // UI will be updated by the task_updated event handler
@@ -171,7 +171,7 @@ socket.on('task_updated', (data) => {
                 </div>
             `;
         }
-        
+
         actionDiv.innerHTML = newHtml;
         if (typeof feather !== 'undefined') {
             feather.replace();
@@ -247,6 +247,11 @@ socket.on('task_updated', (data) => {
                          aria-valuemax="100">
                         {{ completed + skipped }}/{{ total }} Tasks
                     </div>
+                    {% if percentage == 0 %}
+                    <div class="progress-bar bg-transparent text-dark" role="progressbar" style="width: 100%">
+                        0 / {{ total }} Tasks
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
