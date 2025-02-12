@@ -1,0 +1,2118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+  <name>3rd Grade Math</name>
+<link>https://www.khanacademy.org/math/cc-third-grade-math</link>
+<publisher>Khan Academy</publisher>
+  <description>Early math practice in 14 areas: intro to multiplication; 1-digit multiplication; addition, subtraction, and estimation; intro to division, understand fractions, equivalent fractions and comparing fractions, more with multiplication and division, arithmetic patterns and problem solving, quadrilaterals, area, perimeter, time, measurement; represent and interpret data.</description>
+  <grade_levels>
+<grade_level>3</grade_level>
+  </grade_levels>
+    <tasks>
+   <task>
+      <title>Equal groups</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-multiplication-intro/v/skip-counting-equal-groups</url>
+   </task>
+   <task>
+      <title>Equal groups</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-multiplication-intro/e/equal-groups</url>
+   </task>
+   <task>
+      <title>Introduction to multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-multiplication-intro/v/introduction-to-multiplication</url>
+   </task>
+   <task>
+      <title>Understand equal groups as multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-multiplication-intro/e/understand-equal-groups-as-multiplication</url>
+   </task>
+   <task>
+      <title>Multiplication as repeated addition</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-multiplication-intro/v/multiplication-as-repeated-addition</url>
+   </task>
+   <task>
+      <title>Relate repeated addition to multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-multiplication-intro/e/relate-repeated-addition-to-multiplication</url>
+   </task>
+   <task>
+      <title>Multiplication on the number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-on-thnumber-line/v/multiplication-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Represent multiplication on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-on-thnumber-line/e/number_line</url>
+   </task>
+   <task>
+      <title>Unit 1, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-on-thnumber-line/quiz/intro-to-multiplication-quiz-1</url>
+   </task>
+   <task>
+      <title>Multiplication as equal groups</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiply-with-groups-of-objects/v/multiplication-intro</url>
+   </task>
+   <task>
+      <title>Understand multiplication using groups of objects</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiply-with-groups-of-objects/e/meaning-of-multiplication</url>
+   </task>
+   <task>
+      <title>Multiply using groups of objects</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiply-with-groups-of-objects/e/multiply-using-groups-of-objects</url>
+   </task>
+   <task>
+      <title>More ways to multiply</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiply-with-groups-of-objects/v/more-on-the-concept-of-multiplication</url>
+   </task>
+   <task>
+      <title>Multiplication with arrays</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-with-arrays/v/multiplication-as-groups-of-objects</url>
+   </task>
+   <task>
+      <title>Understand multiplication with arrays</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-with-arrays/e/understand-multiplication-with-arrays</url>
+   </task>
+   <task>
+      <title>Multiply with arrays</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-with-arrays/e/multiplying-with-arrays</url>
+   </task>
+   <task>
+      <title>Multiplication in real world contexts</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-in-contexts/v/when-to-use-multiplication</url>
+   </task>
+   <task>
+      <title>Multiplication in contexts</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-in-contexts/e/multiplication-in-contexts</url>
+   </task>
+   <task>
+      <title>Unit 1, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/multiplication-in-contexts/quiz/intro-to-multiplication-quiz-2</url>
+   </task>
+   <task>
+      <title>Commutative property of multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/v/order-when-multiplying-commutative-property-of-multiplication</url>
+   </task>
+   <task>
+      <title>Represent the commutative property of multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/e/represent-the-commutative-property-of-multiplication</url>
+   </task>
+   <task>
+      <title>Understand the commutative property of multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/e/understand-the-commutative-property-of-multiplication</url>
+   </task>
+   <task>
+      <title>Commutative property of multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/e/commutative-property-of-multiplication</url>
+   </task>
+   <task>
+      <title>Intro to multiplication: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/a/intro-to-multiplication-faq</url>
+   </task>
+   <task>
+      <title>Unit 1, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/quiz/intro-to-multiplication-quiz-3</url>
+   </task>
+   <task>
+      <title>Unit 1 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/test/intro-to-multiplication-unit-test</url>
+   </task>
+   <task>
+      <title>Multiply by 0 or 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/imp-multiplication-facts/e/multiplying-by-0-or-1</url>
+   </task>
+   <task>
+      <title>Multiply by 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-2-or-4/e/multiplying-by-2</url>
+   </task>
+   <task>
+      <title>Multiply by 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-2-or-4/e/multiplying-by-4</url>
+   </task>
+   <task>
+      <title>Multiply by 2 and 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-2-or-4/e/multiply-by-2-and-4</url>
+   </task>
+   <task>
+      <title>Unit 2, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-multiplication/imp-properties-of-multiplication/a/intro-to-multiplication-faq</url>
+   </task>
+   <task>
+      <title>Multiply by 5</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-5-or-10/e/multiplying-by-5</url>
+   </task>
+   <task>
+      <title>Multiply by 10</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-5-or-10/e/multiply-by-10</url>
+   </task>
+   <task>
+      <title>Multiply by 5 and 10</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-5-or-10/e/multiply-by-5-and-10</url>
+   </task>
+   <task>
+      <title>Multiply by 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-3-or-6/e/multiplying-by-3</url>
+   </task>
+   <task>
+      <title>Multiply by 6</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-3-or-6/e/multiplying-by-6</url>
+   </task>
+   <task>
+      <title>Multiply by 3 and 6</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-3-or-6/e/multiply-by-3-and-6</url>
+   </task>
+   <task>
+      <title>Unit 2, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-3-or-6/quiz/3rd-basic-multiplication-quiz-2</url>
+   </task>
+   <task>
+      <title>Distributive property when multiplying</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/distributive-property/e/distributive-property-of-multiplication-</url>
+   </task>
+   <task>
+      <title>Properties and patterns for multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/distributive-property/v/properties-and-patterns-for-multiplication</url>
+   </task>
+   <task>
+      <title>Visualize distributive property</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/distributive-property/e/distributive-property-of-multiplication-</url>
+   </task>
+   <task>
+      <title>Distributive property</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/distributive-property/e/distributive-property-of-multiplication-</url>
+   </task>
+   <task>
+      <title>Unit 2, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/distributive-property/quiz/3rd-basic-multiplication-quiz-3</url>
+   </task>
+   <task>
+      <title>Multiply by 7</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-7-8-or-9/e/multiplying-by-7</url>
+   </task>
+   <task>
+      <title>Multiply by 8</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-7-8-or-9/e/multiplying-by-8</url>
+   </task>
+   <task>
+      <title>Multiply by 9</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-7-8-or-9/e/multiplying-by-9</url>
+   </task>
+   <task>
+      <title>Unit 2, Quiz 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/multiply-by-7-8-or-9/quiz/3rd-basic-multiplication-quiz-4</url>
+   </task>
+   <task>
+      <title>Basic multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/basic-multiplication/e/multiplication_0.5</url>
+   </task>
+   <task>
+      <title>1-digit multiplication: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/basic-multiplication/a/1-digit-multiplication-faq</url>
+   </task>
+   <task>
+      <title>Unit 2 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-basic-multiplication/basic-multiplication/test/3rd-basic-multiplication-unit-test</url>
+   </task>
+   <task>
+      <title>Rounding to the nearest 10 on the number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/v/rounding-to-the-nearest-10-number-line</url>
+   </task>
+   <task>
+      <title>Rounding to the nearest 100 on the number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/v/rounding-to-the-nearest-100-number-line</url>
+   </task>
+   <task>
+      <title>Round to nearest 10 or 100 on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/e/rounding-to-the-nearest-10-or-100-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Rounding to nearest 10 and 100</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/v/examples-rounding-to-the-nearest-10-and-100</url>
+   </task>
+   <task>
+      <title>Round to nearest 10 or 100</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/e/rounding-to-the-nearest-ten-or-hundred</url>
+   </task>
+   <task>
+      <title>Round to nearest 10 or 100 challenge</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/e/rounding-challenge</url>
+   </task>
+   <task>
+      <title>Unit 3, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-rounding/quiz/imp-addition-and-subtraction-quiz-1</url>
+   </task>
+   <task>
+      <title>Estimating when adding multi-digit numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/estimate-to-add-multi-digit-numbers/v/estimating-adding-large-numbers-by-rounding</url>
+   </task>
+   <task>
+      <title>Estimate to add multi-digit whole numbers</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/estimate-to-add-multi-digit-numbers/e/estimate-to-add-multi-digit-whole-numbers-</url>
+   </task>
+   <task>
+      <title>Breaking apart 3-digit addition problems</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/v/breaking-apart-three-digit-addition-problems</url>
+   </task>
+   <task>
+      <title>Break apart 3-digit addition problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/e/break-apart-three-dig-add</url>
+   </task>
+   <task>
+      <title>Addition using groups of 10 and 100</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/v/addition-using-groups-of-10-and-100</url>
+   </task>
+   <task>
+      <title>Add using groups of 10 and 100</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/e/making-100-and-1000</url>
+   </task>
+   <task>
+      <title>Adding and subtracting on number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/v/exercise-for-numberline-addition-and-subtraction</url>
+   </task>
+   <task>
+      <title>Add on a number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/e/adding-and-subtracting-within-1000-using-a-number-line</url>
+   </task>
+   <task>
+      <title>Select strategies for adding within 1000</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-strategies-for-adding-two-and-three-digit-numbers/e/select-strategies-for-adding-within-1000</url>
+   </task>
+   <task>
+      <title>Using place value to add 3-digit numbers: part 1</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-adding-with-regrouping-within-1000/v/carrying-when-adding-three-digit-numbers</url>
+   </task>
+   <task>
+      <title>Using place value to add 3-digit numbers: part 2</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-adding-with-regrouping-within-1000/v/why-carrying-works</url>
+   </task>
+   <task>
+      <title>Adding 3-digit numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-adding-with-regrouping-within-1000/v/example-adding-with-carrying</url>
+   </task>
+   <task>
+      <title>Add within 1000</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-adding-with-regrouping-within-1000/e/addition_4</url>
+   </task>
+   <task>
+      <title>Unit 3, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-adding-with-regrouping-within-1000/quiz/imp-addition-and-subtraction-quiz-2</url>
+   </task>
+   <task>
+      <title>Estimating when subtracting large numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/estimate-to-subtract-multi-digit-numbers/v/estimating-when-subtracting-large-numbers</url>
+   </task>
+   <task>
+      <title>Estimate to subtract multi-digit whole numbers</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/estimate-to-subtract-multi-digit-numbers/e/estimate-to-subtract-multi-digit-whole-numbers</url>
+   </task>
+   <task>
+      <title>Subtraction by breaking apart</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/v/subtraction-by-breaking-apart</url>
+   </task>
+   <task>
+      <title>Break apart 3-digit subtraction problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/e/break-apart-3-digit-subtraction-problems</url>
+   </task>
+   <task>
+      <title>Adding and subtracting on number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/v/exercise-for-numberline-addition-and-subtraction</url>
+   </task>
+   <task>
+      <title>Subtract on a number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/e/subtract-on-a-number-line</url>
+   </task>
+   <task>
+      <title>Methods for subtracting 3-digit numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/v/methods-for-subracting-3-digit-numbers</url>
+   </task>
+   <task>
+      <title>Select strategies for subtracting within 1000</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/e/select-strategies-for-subtracting-within-1000</url>
+   </task>
+   <task>
+      <title>Worked example: Subtracting 3-digit numbers (regrouping)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-subtracting-with-regrouping-within-1000/v/basic-regrouping-or-borrowing-when-subtracting-three-digit-numbers</url>
+   </task>
+   <task>
+      <title>Subtracting 3-digit numbers (regrouping)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-subtracting-with-regrouping-within-1000/v/regrouping-when-subtracting-three-digit-numbers</url>
+   </task>
+   <task>
+      <title>Worked example: Subtracting 3-digit numbers (regrouping twice)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-subtracting-with-regrouping-within-1000/v/regrouping-twice-when-subtracting-three-digit-numbers</url>
+   </task>
+   <task>
+      <title>Worked example: Subtracting 3-digit numbers (regrouping from 0)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-subtracting-with-regrouping-within-1000/v/regrouping-from-0-when-subtracting-three-digit-numbers</url>
+   </task>
+   <task>
+      <title>Subtract within 1000</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/strategies-for-subtracting-two-and-three-digit-numbers/v/subtraction-by-breaking-apart</url>
+   </task>
+   <task>
+      <title>Unit 3, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-subtracting-with-regrouping-within-1000/quiz/imp-addition-and-subtraction-quiz-3</url>
+   </task>
+   <task>
+      <title>Missing number for 3-digit addition within 1000</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-addition-and-subtraction-missing-value-problems/v/missing-number-for-addition-and-subtraction-within-1000</url>
+   </task>
+   <task>
+      <title>Missing number for 3-digit subtraction within 1000</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-addition-and-subtraction-missing-value-problems/v/missing-numbers-in-three-digit-subtraction</url>
+   </task>
+   <task>
+      <title>Find the missing number (add and subtract within 1000)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/imp-addition-and-subtraction-missing-value-problems/e/find-the-missing-number--addition-and-subtraction-within-1000-</url>
+   </task>
+   <task>
+      <title>Three digit addition word problems</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/addition-and-subtraction-word-problems/v/three-digit-addition-word-problems</url>
+   </task>
+   <task>
+      <title>Three digit subtraction word problems</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/addition-and-subtraction-word-problems/v/three-digit-subtraction-word-problems</url>
+   </task>
+   <task>
+      <title>Add and subtract within 1000 word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/addition-and-subtraction-word-problems/e/add-and-subtract-within-1000-word-problems</url>
+   </task>
+   <task>
+      <title>Addition, subtraction, and estimation: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/addition-and-subtraction-word-problems/a/addition-subtraction-and-estimation-faq</url>
+   </task>
+   <task>
+      <title>Unit 3, Quiz 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/addition-and-subtraction-word-problems/quiz/imp-addition-and-subtraction-quiz-4</url>
+   </task>
+   <task>
+      <title>Unit 3 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-addition-and-subtraction/addition-and-subtraction-word-problems/test/imp-addition-and-subtraction-unit-test</url>
+   </task>
+   <task>
+      <title>Division as equal groups</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-intro/v/division-as-equal-groupings</url>
+   </task>
+   <task>
+      <title>Division with groups of objects</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-intro/e/meaning-of-division</url>
+   </task>
+   <task>
+      <title>Visualizing division with arrays</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-intro/v/visualizing-division-with-arrays</url>
+   </task>
+   <task>
+      <title>Division with arrays</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-intro/e/division-with-arrays</url>
+   </task>
+   <task>
+      <title>Divide with visuals</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-intro/e/dividing-with-visuals</url>
+   </task>
+   <task>
+      <title>Division in context</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/division-in-contexts/v/division-in-context-examples</url>
+   </task>
+   <task>
+      <title>Division in contexts</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/division-in-contexts/e/division-in-contexts</url>
+   </task>
+   <task>
+      <title>Unit 4, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/division-in-contexts/quiz/intro-to-division-quiz-1</url>
+   </task>
+   <task>
+      <title>Relating division to multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/v/examples-relating-multiplication-to-division</url>
+   </task>
+   <task>
+      <title>Relate division to multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/e/relate-division-to-multiplication</url>
+   </task>
+   <task>
+      <title>Relate multiplication and division equations</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/e/find-missing-value-in-related-multiplication-and-division-equations</url>
+   </task>
+   <task>
+      <title>Fact families</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/e/fact-families</url>
+   </task>
+   <task>
+      <title>Multiplication word problem: parking lot</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/v/how-many-cars-can-fit-in-the-parking-lot</url>
+   </task>
+   <task>
+      <title>Division word problem: school building</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/v/average-height-of-a-building-s-floor</url>
+   </task>
+   <task>
+      <title>Relate division to multiplication word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/e/relate-division-to-multiplication-word-problems</url>
+   </task>
+   <task>
+      <title>Unit 4, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-relating-multiplication-and-division/quiz/intro-to-division-quiz-2</url>
+   </task>
+   <task>
+      <title>Divide by 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-1-2-or-4/e/dividing-by-1</url>
+   </task>
+   <task>
+      <title>Divide by 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-1-2-or-4/e/dividing-by-2</url>
+   </task>
+   <task>
+      <title>Divide by 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-1-2-or-4/e/dividing-by-4</url>
+   </task>
+   <task>
+      <title>Unit 4, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-1-2-or-4/quiz/intro-to-division-quiz-3</url>
+   </task>
+   <task>
+      <title>Divide by 5</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-5-or-10/e/dividing-by-5</url>
+   </task>
+   <task>
+      <title>Divide by 10</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-5-or-10/e/dividing-by-10</url>
+   </task>
+   <task>
+      <title>Divide by 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-3-or-6/e/dividing-by-3</url>
+   </task>
+   <task>
+      <title>Divide by 6</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-3-or-6/e/dividing-by-6</url>
+   </task>
+   <task>
+      <title>Unit 4, Quiz 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-3-or-6/quiz/intro-to-division-quiz-4</url>
+   </task>
+   <task>
+      <title>Divide by 7</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-7-8-or-9/e/dividing-by-7</url>
+   </task>
+   <task>
+      <title>Divide by 8</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-7-8-or-9/e/dividing-by-8</url>
+   </task>
+   <task>
+      <title>Divide by 9</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-7-8-or-9/e/dividing-by-9</url>
+   </task>
+   <task>
+      <title>Unit 4, Quiz 5</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/divide-by-7-8-or-9/quiz/intro-to-division-quiz-5</url>
+   </task>
+   <task>
+      <title>Basic division</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-facts/e/division_0.5</url>
+   </task>
+   <task>
+      <title>Intro to division: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-facts/a/intro-to-division-faq</url>
+   </task>
+   <task>
+      <title>Unit 4 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/intro-to-division/imp-division-facts/test/intro-to-division-unit-test</url>
+   </task>
+   <task>
+      <title>Intro to fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-intro/v/fraction-basics</url>
+   </task>
+   <task>
+      <title>Cutting shapes into equal parts</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-intro/v/cutting-shapes-into-equal-parts</url>
+   </task>
+   <task>
+      <title>Cut shapes into equal parts</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-intro/e/that-s-not-fair-</url>
+   </task>
+   <task>
+      <title>Identifying unit fractions word problem</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-intro/v/identifying-unit-fractions-word-problem-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Identify unit fractions</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-intro/e/cutting-shapes-into-equal-parts</url>
+   </task>
+   <task>
+      <title>Fractions in contexts</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/fractions-in-contexts/v/fractions-in-context</url>
+   </task>
+   <task>
+      <title>Fractions in contexts</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/fractions-in-contexts/e/fractions-in-contexts</url>
+   </task>
+   <task>
+      <title>Unit 5, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/fractions-in-contexts/quiz/imp-fractions-quiz-1</url>
+   </task>
+   <task>
+      <title>Identifying numerators and denominators</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-what-fractions-mean/v/numerator-and-denominator-of-a-fraction</url>
+   </task>
+   <task>
+      <title>Recognizing fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-what-fractions-mean/v/more-than-one-equal-section</url>
+   </task>
+   <task>
+      <title>Recognize fractions</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-what-fractions-mean/e/recognizing_fractions_0.5</url>
+   </task>
+   <task>
+      <title>Recognizing fractions greater than 1</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-what-fractions-mean/v/recognizing-fractions-greater-than-1-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Recognize fractions greater than 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-what-fractions-mean/e/fractions-greater-than-one</url>
+   </task>
+   <task>
+      <title>Unit 5, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-what-fractions-mean/quiz/imp-fractions-quiz-2</url>
+   </task>
+   <task>
+      <title>Relating number lines to fraction bars</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/v/relating-number-lines-to-fraction-bars</url>
+   </task>
+   <task>
+      <title>Relate number lines to fraction bars</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/e/relate-number-lines-to-fraction-bars</url>
+   </task>
+   <task>
+      <title>Fractions on a number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/v/fractions-on-a-number-line</url>
+   </task>
+   <task>
+      <title>Fractions on number line widget</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/v/fractions-on-number-line-widget</url>
+   </task>
+   <task>
+      <title>Unit fractions on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/e/fractions_on_the_number_line_2</url>
+   </task>
+   <task>
+      <title>Fractions on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/e/fractions_on_the_number_line_1</url>
+   </task>
+   <task>
+      <title>Finding 1 on the number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/v/finding-1-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Find 1 on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/e/finding-1-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Fractions greater than 1 on the number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/v/fractions-greater-than-1-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Fractions greater than 1 on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/e/fractions-greater-than-1-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Unit 5, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-on-the-number-line/quiz/imp-fractions-quiz-3</url>
+   </task>
+   <task>
+      <title>Representing 1 as a fraction</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/v/different-ways-to-represent-1-as-a-fraction</url>
+   </task>
+   <task>
+      <title>Relating fractions to 1</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/v/relating-fractions-to-1</url>
+   </task>
+   <task>
+      <title>Relate fractions to 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/e/relate-fractions-to-1</url>
+   </task>
+   <task>
+      <title>Whole numbers as fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/v/whole-numbers-as-fractions</url>
+   </task>
+   <task>
+      <title>Writing whole numbers as fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/v/writing-whole-numbers-as-fractions</url>
+   </task>
+   <task>
+      <title>Write whole numbers as fractions</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/e/writing-fractions-as-whole-numbers</url>
+   </task>
+   <task>
+      <title>Understand fractions: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/a/understand-fractions-faq</url>
+   </task>
+   <task>
+      <title>Unit 5, Quiz 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/quiz/imp-fractions-quiz-4</url>
+   </task>
+   <task>
+      <title>Unit 5 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-fractions/imp-fractions-and-whole-numbers/test/imp-fractions-unit-test</url>
+   </task>
+   <task>
+      <title>Comparing fractions with greater than and less than symbols</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/v/comparing-fractions-with-greater-than-and-less-than-symbols</url>
+   </task>
+   <task>
+      <title>Comparing fractions visually</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/v/comparing-fractions-visually-and-on-number-line</url>
+   </task>
+   <task>
+      <title>Compare fractions with fraction models</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/e/comparing-fractions-with-the-same-numerator-or-denominator</url>
+   </task>
+   <task>
+      <title>Compare fractions on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/e/compare-fractions-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Comparing fractions with the same denominator</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/v/comparing-fractions-with-the-same-denominator-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Compare fractions with the same denominator</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/e/comparing_fractions_with_the_same_denominator</url>
+   </task>
+   <task>
+      <title>Comparing unit fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/v/comparing-unit-fractions</url>
+   </task>
+   <task>
+      <title>Comparing fractions with the same numerator</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/v/comparing-fractions-with-same-numerator-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Compare fractions with the same numerator</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/e/comparing_fractions_with_the_same_numerator</url>
+   </task>
+   <task>
+      <title>Compare fractions with the same numerator or denominator</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions/e/comparing_fractions_1</url>
+   </task>
+   <task>
+      <title>Comparing fractions of different wholes 1</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions-of-different-wholes/v/comparing-fractions-of-different-wholes</url>
+   </task>
+   <task>
+      <title>Comparing fractions of different wholes</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions-of-different-wholes/v/comparing-fractions-different-wholes</url>
+   </task>
+   <task>
+      <title>Fractions of different wholes</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions-of-different-wholes/e/naming-the-whole</url>
+   </task>
+   <task>
+      <title>Unit 6, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-comparing-fractions-of-different-wholes/quiz/equivalent-fractions-and-comparing-fractions-quiz-1</url>
+   </task>
+   <task>
+      <title>Equivalent fractions with visuals</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/v/equivalent-fractions-with-visuals</url>
+   </task>
+   <task>
+      <title>Equivalent fraction models</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/v/equivalent-fraction-models</url>
+   </task>
+   <task>
+      <title>Equivalent fraction models</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/e/equivalent-fraction-models-1</url>
+   </task>
+   <task>
+      <title>Equivalent fraction visually</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/v/equivalent-fractions-visually-and-on-number-line</url>
+   </task>
+   <task>
+      <title>Creating equivalent fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/v/generating-equivalent-fractions</url>
+   </task>
+   <task>
+      <title>Equivalent fractions on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/e/equivalent-fraction-models</url>
+   </task>
+   <task>
+      <title>Equivalent fractions</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/e/equivalent-fraction</url>
+   </task>
+   <task>
+      <title>Equivalent fractions and comparing fractions: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/a/equivalent-fractions-and-comparing-fractions-faq</url>
+   </task>
+   <task>
+      <title>Unit 6, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/quiz/equivalent-fractions-and-comparing-fractions-quiz-2</url>
+   </task>
+   <task>
+      <title>Unit 6 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/equivalent-fractions-and-comparing-fractions/imp-equivalent-fractions/test/equivalent-fractions-and-comparing-fractions-unit-test</url>
+   </task>
+   <task>
+      <title>Unknowns with multiplication and division</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-more-with-1-digit-multiplication-and-division/v/unknowns-with-multiplication-and-division</url>
+   </task>
+   <task>
+      <title>Find missing factors (1-digit multiplication)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-more-with-1-digit-multiplication-and-division/e/finding-missing-factors--1-digit-multiplication-</url>
+   </task>
+   <task>
+      <title>Find missing divisors and dividends (1-digit division)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-more-with-1-digit-multiplication-and-division/e/division_1</url>
+   </task>
+   <task>
+      <title>Multiplication word problem: soda party</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/multiplication-and-division-word-problems/v/liters-of-soda-for-the-party</url>
+   </task>
+   <task>
+      <title>Division word problem: blueberries</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/multiplication-and-division-word-problems/v/blueberries-for-friends</url>
+   </task>
+   <task>
+      <title>Multiplication and division word problems (within 100)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/multiplication-and-division-word-problems/e/multiplication-and-division-word-problems--within-100-</url>
+   </task>
+   <task>
+      <title>Unit 7, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/multiplication-and-division-word-problems/quiz/imp-multiplication-and-division-quiz-1</url>
+   </task>
+   <task>
+      <title>Associative property of multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/v/associate-property-of-multiplication</url>
+   </task>
+   <task>
+      <title>Properties of multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/v/order-doesn-t-matter-when-purely-multiplying</url>
+   </task>
+   <task>
+      <title>Understand associative property of multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/e/understand-associative-property-of-multiplication</url>
+   </task>
+   <task>
+      <title>Associative property of multiplication</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/e/associative-property-of-multiplication-</url>
+   </task>
+   <task>
+      <title>Using associative property to simplify multiplication</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/v/using-associate-property-to-simplify-multiplication</url>
+   </task>
+   <task>
+      <title>Use associative property to multiply 2-digit numbers by 1-digit</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/e/use-associative-property-to-multiply-2-digit-numbers-by-1-digit</url>
+   </task>
+   <task>
+      <title>Unit 7, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/associative-property-of-multiplication/quiz/imp-multiplication-and-division-quiz-2</url>
+   </task>
+   <task>
+      <title>Multiplying by multiples of 10</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/v/multiplying-by-multiples-of-10</url>
+   </task>
+   <task>
+      <title>Multiply by tens</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/e/multiplication_1</url>
+   </task>
+   <task>
+      <title>Multiplying by tens word problem</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/v/multiplying-by-tens-word-problem-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Multiply by tens word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/e/multiply-by-tens-word-problems</url>
+   </task>
+   <task>
+      <title>More with multiplication and division: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/a/more-with-multiplication-and-division-faq</url>
+   </task>
+   <task>
+      <title>Unit 7, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/quiz/imp-multiplication-and-division-quiz-3</url>
+   </task>
+   <task>
+      <title>Unit 7 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-multiplication-and-division/imp-multiplying-by-tens/test/imp-multiplication-and-division-unit-test</url>
+   </task>
+   <task>
+      <title>Order of operations (2-step expressions)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/2-step-expressions/v/what-order-to-do-operations-in</url>
+   </task>
+   <task>
+      <title>2-step expressions</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/2-step-expressions/e/order-of-operations-3rd</url>
+   </task>
+   <task>
+      <title>2-step estimation word problems</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/estimation-word-problems/v/2-step-estimation-word-problems</url>
+   </task>
+   <task>
+      <title>2-step estimation word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/estimation-word-problems/e/2-step-estimation-word-problems</url>
+   </task>
+   <task>
+      <title>Setting up 2-step word problems</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/v/setting-up-2-step-expressions</url>
+   </task>
+   <task>
+      <title>Represent 2-step word problems with equations</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/e/represent-2-step-word-problems-using-equations</url>
+   </task>
+   <task>
+      <title>2-step word problem: truffles</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/v/how-many-truffle-eating-guests-attended-a-party</url>
+   </task>
+   <task>
+      <title>2-step word problem: running</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/v/running-distance-in-a-week</url>
+   </task>
+   <task>
+      <title>2-step word problem: theater</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/v/total-seats-in-a-theater</url>
+   </task>
+   <task>
+      <title>2-step word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/e/two-step-word-problems-with-addition--subtraction--multiplication--and-division</url>
+   </task>
+   <task>
+      <title>Unit 8, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-one-and-two-step-word-problems/quiz/arithmetic-patterns-and-problem-solving-quiz-1</url>
+   </task>
+   <task>
+      <title>Finding patterns in numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/v/practice-finding-patterns-in-numbers</url>
+   </task>
+   <task>
+      <title>Recognizing number patterns</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/v/recognizing-number-pattern-examples</url>
+   </task>
+   <task>
+      <title>Math patterns</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/e/patterns</url>
+   </task>
+   <task>
+      <title>Intro to even and odd numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/v/introduction-to-even-and-odd</url>
+   </task>
+   <task>
+      <title>Patterns with multiplying even and odd numbers</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/v/examples-thinking-about-multiplying-even-and-odd-numbers</url>
+   </task>
+   <task>
+      <title>Patterns with even and odd</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/e/patterns-with-even-and-odd</url>
+   </task>
+   <task>
+      <title>Patterns in hundreds chart</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/v/patterns-in-hundreds-chart</url>
+   </task>
+   <task>
+      <title>Patterns in hundreds chart</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/e/patterns-in-hundreds-chart</url>
+   </task>
+   <task>
+      <title>Patterns in multiplication tables</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/v/patterns-in-multiplication-tables-practice</url>
+   </task>
+   <task>
+      <title>Patterns in multiplication tables</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/e/patterns-in-the-addition-table-and-multiplication-table</url>
+   </task>
+   <task>
+      <title>Arithmetic patterns and problem solving: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/a/patterns-in-arithmetic-faq</url>
+   </task>
+   <task>
+      <title>Unit 8, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/quiz/arithmetic-patterns-and-problem-solving-quiz-2</url>
+   </task>
+   <task>
+      <title>Unit 8 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/arithmetic-patterns-and-problem-solving/imp-patterns-in-arithmetic/test/arithmetic-patterns-and-problem-solving-unit-test</url>
+   </task>
+   <task>
+      <title>Intro to quadrilaterals</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/v/introduction-to-types-of-quadrilaterals</url>
+   </task>
+   <task>
+      <title>Identifying quadrilaterals</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/a/identify-quadrilaterals</url>
+   </task>
+   <task>
+      <title>Right angles in shapes (informal definition)</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/a/right-angles-in-shapes</url>
+   </task>
+   <task>
+      <title>Identify quadrilaterals</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/e/identify-quadrilaterals</url>
+   </task>
+   <task>
+      <title>Analyze quadrilaterals</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/e/categorize-quadrilaterals</url>
+   </task>
+   <task>
+      <title>Classify quadrilaterals</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/e/categorize-quads</url>
+   </task>
+   <task>
+      <title>Quadrilaterals: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/a/quadrilaterals-faq</url>
+   </task>
+   <task>
+      <title>Unit 9 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/quadrilaterals-3rd/imp-quadrilaterals/test/quadrilaterals-3rd-unit-test</url>
+   </task>
+   <task>
+      <title>Understand area</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-introduction/e/understand-area</url>
+   </task>
+   <task>
+      <title>Intro to area and unit squares</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/v/introduction-to-area-and-unit-squares</url>
+   </task>
+   <task>
+      <title>Measuring rectangles with different unit squares</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/v/measuring-the-same-rectangle-with-different-unit-squares</url>
+   </task>
+   <task>
+      <title>Find area by counting unit squares</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/e/area_1</url>
+   </task>
+   <task>
+      <title>Compare area with unit squares</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/e/understanding-area</url>
+   </task>
+   <task>
+      <title>Creating rectangles with a given area 1</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/v/creating-rectangles-with-a-given-area-1-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Creating rectangles with a given area 2</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/v/creating-rectangles-with-a-given-area-2-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Create rectangles with a given area</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/e/find-area-of-rectangles-by-counting-unit-squares</url>
+   </task>
+   <task>
+      <title>Unit 10, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-count-unit-squares-to-find-area/quiz/imp-geometry-quiz-1</url>
+   </task>
+   <task>
+      <title>Counting unit squares to find area formula</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-formula-intuition/v/rectangle-area-as-product-of-dimensions-same-as-counting-unit-squares</url>
+   </task>
+   <task>
+      <title>Transitioning from unit squares to area formula</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-formula-intuition/v/transitioning-from-counting-to-multiplying-to-find-area-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Area with partial grids</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-formula-intuition/v/area-with-partial-grids</url>
+   </task>
+   <task>
+      <title>Area of rectangles with partial arrays</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-formula-intuition/e/area-of-rectangles-with-partial-arrays</url>
+   </task>
+   <task>
+      <title>Transition from unit squares to area formula</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-formula-intuition/e/finding-area-by-multiplying</url>
+   </task>
+   <task>
+      <title>Unit 10, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-formula-intuition/quiz/imp-geometry-quiz-2</url>
+   </task>
+   <task>
+      <title>Counting unit squares to find area formula</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/v/rectangle-area-as-product-of-dimensions-same-as-counting-unit-squares</url>
+   </task>
+   <task>
+      <title>Area of rectangles</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/e/area-of-squares-and-rectangles</url>
+   </task>
+   <task>
+      <title>Finding missing side when given area</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/v/finding-missing-side-when-given-area-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Find a missing side length when given area</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/e/find-a-missing-side-length-when-given-area-of-a-rectangle</url>
+   </task>
+   <task>
+      <title>Comparing areas of plots of land</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/v/comparing-areas-of-plots-of-land</url>
+   </task>
+   <task>
+      <title>Compare areas by multiplying</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/e/comparing-areas-by-multiplying</url>
+   </task>
+   <task>
+      <title>Area of rectangles review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/a/area-rectangles-review</url>
+   </task>
+   <task>
+      <title>Unit 10, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-multiply-to-find-area/quiz/imp-geometry-quiz-3</url>
+   </task>
+   <task>
+      <title>Area and the distributive property</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-and-the-distributive-property/v/area-of-rectangles-and-the-distributive-property</url>
+   </task>
+   <task>
+      <title>Area and the distributive property</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-area-and-the-distributive-property/e/area-and-the-distributive-property</url>
+   </task>
+   <task>
+      <title>Decomposing shapes to find area: grids</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/v/decomposing-shapes-to-find-area-grids-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Understand decomposing figures to find area</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/e/decompose-figures-to-find-area-1</url>
+   </task>
+   <task>
+      <title>Decomposing shapes to find area: add</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/v/decomposing-shapes-to-find-area-add-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Decomposing shapes to find area: subtract</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/v/decomposing-shapes-to-find-area-subtract-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Decompose figures to find area</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/e/decompose-shapes-to-find-area</url>
+   </task>
+   <task>
+      <title>Area: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/a/area-faq</url>
+   </task>
+   <task>
+      <title>Unit 10, Quiz 4</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/quiz/imp-geometry-quiz-4</url>
+   </task>
+   <task>
+      <title>Unit 10 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-geometry/imp-decompose-figures-to-find-area/test/imp-geometry-unit-test</url>
+   </task>
+   <task>
+      <title>Perimeter: introduction</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter/v/introduction-to-perimeter</url>
+   </task>
+   <task>
+      <title>Perimeter of a shape</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter/v/perimeter-of-a-shape</url>
+   </task>
+   <task>
+      <title>Find perimeter by counting unit squares</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter/a/find-perimeter-by-counting-unit-squares</url>
+   </task>
+   <task>
+      <title>Find perimeter by counting units</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter/e/perimeter_1</url>
+   </task>
+   <task>
+      <title>Find perimeter when given side lengths</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter/e/perimeter-2</url>
+   </task>
+   <task>
+      <title>Perimeter review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter/a/perimeter-review</url>
+   </task>
+   <task>
+      <title>Finding perimeter when a side length is missing</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/perimeter-of-polygons-with-missing-side-lengths/v/finding-perimeter-when-a-side-length-is-missing-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Find perimeter when a side length is missing</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/perimeter-of-polygons-with-missing-side-lengths/e/find-perimeter-when-a-side-length-is-missing</url>
+   </task>
+   <task>
+      <title>Finding missing side length when given perimeter</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/perimeter-of-polygons-with-missing-side-lengths/v/finding-missing-a-side-length-when-given-perimeter-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Find a missing side length when given perimeter</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/perimeter-of-polygons-with-missing-side-lengths/e/find-a-missing-side-length-when-given-perimeter</url>
+   </task>
+   <task>
+      <title>Perimeter word problem: tables</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter-word-problems/v/perimeter-word-problem-tables-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Perimeter word problem: skating rink</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter-word-problems/v/perimeter-word-problem-skating-rink-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Perimeter word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter-word-problems/e/perimeter-word-problems</url>
+   </task>
+   <task>
+      <title>Unit 11, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-perimeter-word-problems/quiz/3rd-perimeter-quiz-1</url>
+   </task>
+   <task>
+      <title>Area and perimeter situations</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/e/area-and-perimeter-scenarios</url>
+   </task>
+   <task>
+      <title>Comparing areas and perimeters of rectangles</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/v/comparing-area-and-perimeter</url>
+   </task>
+   <task>
+      <title>Compare area and perimeter</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/e/comparing-area-and-perimeter</url>
+   </task>
+   <task>
+      <title>Area and perimeter word problems</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/e/area-perimeter-word-problems</url>
+   </task>
+   <task>
+      <title>Perimeter: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/a/perimeter-faq</url>
+   </task>
+   <task>
+      <title>Unit 11, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/quiz/3rd-perimeter-quiz-2</url>
+   </task>
+   <task>
+      <title>Unit 11 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/3rd-perimeter/imp-comparing-area-and-perimeter/test/3rd-perimeter-unit-test</url>
+   </task>
+   <task>
+      <title>Telling time with number line</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/tell-time-on-number-line/v/telling-time-problems-with-number-line</url>
+   </task>
+   <task>
+      <title>Tell time on the number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/tell-time-on-number-line/e/telling-time-on-the-number-line</url>
+   </task>
+   <task>
+      <title>Time word problems with number line</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/tell-time-on-number-line/e/telling-time-word-problems-with-the-number-line</url>
+   </task>
+   <task>
+      <title>Telling time to the nearest minute (labeled clock)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/imp-time/v/telling-time-to-the-nearest-minute-labeled-clock-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Telling time to the nearest minute (unlabeled clock)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/imp-time/v/telling-time-to-the-nearest-minute-unlabeled-clock-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Tell time to the nearest minute</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/imp-time/e/telling-time-to-the-nearest-minute</url>
+   </task>
+   <task>
+      <title>Telling time review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/imp-time/a/telling-time-review</url>
+   </task>
+   <task>
+      <title>Unit 12, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/imp-time/quiz/time-quiz-1</url>
+   </task>
+   <task>
+      <title>Time differences example</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/v/times-differences-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Time differences (within 60 minutes)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/e/time-differences</url>
+   </task>
+   <task>
+      <title>Time word problem: travel time</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/v/time-to-leave-for-home</url>
+   </task>
+   <task>
+      <title>Time word problem: puzzle</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/v/time-differences-word-problem-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Telling time word problems (within the hour)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/e/telling-time-word-problems</url>
+   </task>
+   <task>
+      <title>Time FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/a/time-faq</url>
+   </task>
+   <task>
+      <title>Unit 12, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/quiz/time-quiz-2</url>
+   </task>
+   <task>
+      <title>Unit 12 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/time/elapsed-time/test/time-unit-test</url>
+   </task>
+   <task>
+      <title>Understanding mass (grams and kilograms)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-mass/v/intuition-for-grams</url>
+   </task>
+   <task>
+      <title>Estimate mass (grams and kilograms)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-mass/e/estimating-mass</url>
+   </task>
+   <task>
+      <title>Word problems with mass</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-mass/v/mass-problems</url>
+   </task>
+   <task>
+      <title>Word problems with mass</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-mass/e/measure-mass</url>
+   </task>
+   <task>
+      <title>Unit 13, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-mass/quiz/imp-measurement-and-data-quiz-1</url>
+   </task>
+   <task>
+      <title>Understanding volume (liters)</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/v/liter-intuition</url>
+   </task>
+   <task>
+      <title>Estimate volume (milliliters and liters)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/e/estimating-volume</url>
+   </task>
+   <task>
+      <title>Word problems with volume</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/v/arithmetic-word-problems-with-volume</url>
+   </task>
+   <task>
+      <title>Word problems with volume</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/e/volume-word-problems-1</url>
+   </task>
+   <task>
+      <title>Measurement: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/a/measurement-faq</url>
+   </task>
+   <task>
+      <title>Unit 13, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/quiz/imp-measurement-and-data-quiz-2</url>
+   </task>
+   <task>
+      <title>Unit 13 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/imp-measurement-and-data/imp-volume/test/imp-measurement-and-data-unit-test</url>
+   </task>
+   <task>
+      <title>Creating picture and bar graphs</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/v/creating-picture-and-bar-graphs-2-exercise-examples</url>
+   </task>
+   <task>
+      <title>Creating picture graphs</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/a/create-pic-graphs</url>
+   </task>
+   <task>
+      <title>Create picture graphs (picture more than 1)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/e/creating-picture-and-bar-graphs-2</url>
+   </task>
+   <task>
+      <title>Solving problems with picture graphs</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/v/solving-problems-with-pictographs-2</url>
+   </task>
+   <task>
+      <title>Reading picture graphs</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/a/read-pic-graphs</url>
+   </task>
+   <task>
+      <title>Read picture graphs</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/e/solving-problems-with-picture-graphs-2</url>
+   </task>
+   <task>
+      <title>Interpreting picture graphs: paint</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/v/interpreting-picture-graphs-paint-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Interpreting picture graphs: notebook</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/v/interpreting-picture-graphs-notebook-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Reading picture graphs: multi-step</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/a/read-pic-graphs-2</url>
+   </task>
+   <task>
+      <title>Read picture graphs (multi-step problems)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/e/reading_pictographs_2</url>
+   </task>
+   <task>
+      <title>Unit 14, Quiz 1</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-picture-graphs/quiz/represent-and-interpret-data-quiz-1</url>
+   </task>
+   <task>
+      <title>Creating picture and bar graphs</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/v/creating-picture-and-bar-graphs-2-exercise-examples</url>
+   </task>
+   <task>
+      <title>Creating bar graphs</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/a/create-bar-graphs</url>
+   </task>
+   <task>
+      <title>Create bar graphs</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/e/creating_bar_charts_1</url>
+   </task>
+   <task>
+      <title>Reading bar graphs: movies</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/v/more-solving-problems-with-bar-graphs</url>
+   </task>
+   <task>
+      <title>Reading bar graphs</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/a/read-bar-graphs</url>
+   </task>
+   <task>
+      <title>Read bar graphs</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/e/solving-problems-with-bar-graphs-3</url>
+   </task>
+   <task>
+      <title>Interpreting bar graphs: colors</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/v/interpreting-bar-graphs-colors-math-3rd-grade-khan-academy</url>
+   </task>
+   <task>
+      <title>Reading bar graphs: multi-step</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/a/read-bar-graphs-2</url>
+   </task>
+   <task>
+      <title>Read bar graphs (2-step problems)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/e/reading_bar_charts_2</url>
+   </task>
+   <task>
+      <title>Unit 14, Quiz 2</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-bar-graphs/quiz/represent-and-interpret-data-quiz-2</url>
+   </task>
+   <task>
+      <title>Measuring lengths to nearest 1/4 unit</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/v/measuring-lengths-to-nearest-1-4-unit</url>
+   </task>
+   <task>
+      <title>Measure lengths to nearest 1/4 unit</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/e/measure-lengths-to-nearest-1-4-unit</url>
+   </task>
+   <task>
+      <title>Graphing data on line plots</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/v/marking-data-on-line-plots</url>
+   </task>
+   <task>
+      <title>Graph data on line plots</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/e/creating-line-plots-2</url>
+   </task>
+   <task>
+      <title>Interpreting line plots with fractions</title>
+      <description></description>
+      <action>Watch</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/v/interpreting-line-plots-with-fractions</url>
+   </task>
+   <task>
+      <title>Read line plots (data with fractions)</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/e/read-line-plots</url>
+   </task>
+   <task>
+      <title>Line plots review</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/a/line-plots-review</url>
+   </task>
+   <task>
+      <title>Represent and interpret data: FAQ</title>
+      <description></description>
+      <action>Read</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/a/represent-and-interpret-data-faq</url>
+   </task>
+   <task>
+      <title>Unit 14, Quiz 3</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/quiz/represent-and-interpret-data-quiz-3</url>
+   </task>
+   <task>
+      <title>Unit 14 test</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/represent-and-interpret-data/imp-line-plots/test/represent-and-interpret-data-unit-test</url>
+   </task>
+   <task>
+      <title>Course challenge</title>
+      <description></description>
+      <action>Do</action>
+      <url>https://www.khanacademy.org/math/cc-third-grade-math/test/x95ab04602940c446:course-challenge</url>
+   </task>
+   </tasks>
+</curriculum>
