@@ -44,7 +44,13 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
-    socketio.init_app(app, cors_allowed_origins="*", async_mode='eventlet')
+    socketio.init_app(app, 
+        cors_allowed_origins="*", 
+        async_mode='eventlet',
+        ping_timeout=10,
+        ping_interval=5,
+        max_http_buffer_size=1024 * 1024
+    )
     
     # Import WebSocket events
     import events  # noqa: F401
