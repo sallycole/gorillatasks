@@ -54,7 +54,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) {
                 throw new Error(`Server returned ${response.status}: ${response.statusText}`);
             }
-            return response.json();
+            
+            // Check if the response is JSON before trying to parse it
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                // Handle non-JSON responses
+                return response.text().then(text => {
+                    try {
+                        // Try to parse as JSON anyway
+                        return JSON.parse(text);
+                    } catch (e) {
+                        // If it's not valid JSON, throw an error with the response text
+                        throw new Error(`Invalid JSON response: ${text.substring(0, 100)}`);
+                    }
+                });
+            }
         })
         .then(data => {
             console.log(`Task ${action} response:`, data);
