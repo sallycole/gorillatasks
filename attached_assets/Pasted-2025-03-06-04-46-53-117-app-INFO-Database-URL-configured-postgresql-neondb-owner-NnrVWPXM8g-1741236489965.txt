@@ -1,0 +1,140 @@
+2025-03-06 04:46:53,117 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-03-06 04:46:53,330 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive, todo
+2025-03-06 04:46:54,391 - app - INFO - Database tables created successfully
+2025-03-06 04:46:54,391 - app - INFO - Available routes:
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/login -> auth.login [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/register -> auth.register [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/account -> auth.account [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/toggle_pause -> auth.toggle_pause [POST,OPTIONS]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [POST,OPTIONS]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,391 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/new -> curriculum.new [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [POST,OPTIONS,HEAD,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /inventory/ -> inventory.index [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /inventory/task/<int:id>/start -> inventory.start_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /inventory/task/<int:id>/finish -> inventory.finish_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /inventory/task/<int:id>/skip -> inventory.skip_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /inventory/task/<int:id>/promote -> inventory.promote_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /today/ -> today.index [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /today/task/<int:id>/start -> today.start_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: /today/task/<int:id>/finish -> today.finish_task [POST,OPTIONS]
+2025-03-06 04:46:54,392 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2025-03-06 04:46:54,392 - app - INFO - Blueprints registered successfully
+2025-03-06 04:46:54,393 - app - DEBUG - Complete URL map:
+2025-03-06 04:46:54,393 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (POST, OPTIONS, HEAD, GET) -> auth.login>,
+ <Rule '/auth/register' (POST, OPTIONS, HEAD, GET) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/auth/account' (POST, OPTIONS, HEAD, GET) -> auth.account>,
+ <Rule '/auth/enrollment/<enrollment_id>/toggle_pause' (POST, OPTIONS) -> auth.toggle_pause>,
+ <Rule '/auth/unenroll/<enrollment_id>' (POST, OPTIONS) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (POST, OPTIONS, HEAD, GET) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (POST, OPTIONS, HEAD, GET) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (POST, OPTIONS) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (POST, OPTIONS) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (POST, OPTIONS, HEAD, GET) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (POST, OPTIONS) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (POST, OPTIONS) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (POST, OPTIONS) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (POST, OPTIONS, HEAD, GET) -> curriculum.enroll>,
+ <Rule '/inventory/' (HEAD, OPTIONS, GET) -> inventory.index>,
+ <Rule '/inventory/task/<id>/start' (POST, OPTIONS) -> inventory.start_task>,
+ <Rule '/inventory/task/<id>/finish' (POST, OPTIONS) -> inventory.finish_task>,
+ <Rule '/inventory/task/<id>/skip' (POST, OPTIONS) -> inventory.skip_task>,
+ <Rule '/inventory/task/<id>/promote' (POST, OPTIONS) -> inventory.promote_task>,
+ <Rule '/archive/' (HEAD, OPTIONS, GET) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, OPTIONS, GET) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/today/' (HEAD, OPTIONS, GET) -> today.index>,
+ <Rule '/today/task/<id>/start' (POST, OPTIONS) -> today.start_task>,
+ <Rule '/today/task/<id>/finish' (POST, OPTIONS) -> today.finish_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+2025-03-06 04:46:54,393 - __main__ - INFO - Starting Flask-SocketIO application on port 5000
+2025-03-06 04:46:54,405 - werkzeug - INFO -  * Restarting with stat
+2025-03-06 04:46:54,921 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-03-06 04:46:55,112 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive, todo
+2025-03-06 04:46:56,081 - app - INFO - Database tables created successfully
+2025-03-06 04:46:56,082 - app - INFO - Available routes:
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/login -> auth.login [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/register -> auth.register [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/account -> auth.account [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/toggle_pause -> auth.toggle_pause [OPTIONS,POST]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [OPTIONS,POST]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,082 - app - DEBUG - Route: /curriculum/new -> curriculum.new [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [HEAD,OPTIONS,GET,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /inventory/ -> inventory.index [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /inventory/task/<int:id>/start -> inventory.start_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /inventory/task/<int:id>/finish -> inventory.finish_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /inventory/task/<int:id>/skip -> inventory.skip_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /inventory/task/<int:id>/promote -> inventory.promote_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /today/ -> today.index [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /today/task/<int:id>/start -> today.start_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: /today/task/<int:id>/finish -> today.finish_task [OPTIONS,POST]
+2025-03-06 04:46:56,083 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2025-03-06 04:46:56,083 - app - INFO - Blueprints registered successfully
+2025-03-06 04:46:56,083 - app - DEBUG - Complete URL map:
+2025-03-06 04:46:56,083 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (HEAD, OPTIONS, GET, POST) -> auth.login>,
+ <Rule '/auth/register' (HEAD, OPTIONS, GET, POST) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/auth/account' (HEAD, OPTIONS, GET, POST) -> auth.account>,
+ <Rule '/auth/enrollment/<enrollment_id>/toggle_pause' (OPTIONS, POST) -> auth.toggle_pause>,
+ <Rule '/auth/unenroll/<enrollment_id>' (OPTIONS, POST) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (HEAD, OPTIONS, GET, POST) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (HEAD, OPTIONS, GET, POST) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (OPTIONS, POST) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (OPTIONS, POST) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (HEAD, OPTIONS, GET, POST) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (OPTIONS, POST) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (OPTIONS, POST) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (OPTIONS, POST) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (HEAD, OPTIONS, GET, POST) -> curriculum.enroll>,
+ <Rule '/inventory/' (HEAD, OPTIONS, GET) -> inventory.index>,
+ <Rule '/inventory/task/<id>/start' (OPTIONS, POST) -> inventory.start_task>,
+ <Rule '/inventory/task/<id>/finish' (OPTIONS, POST) -> inventory.finish_task>,
+ <Rule '/inventory/task/<id>/skip' (OPTIONS, POST) -> inventory.skip_task>,
+ <Rule '/inventory/task/<id>/promote' (OPTIONS, POST) -> inventory.promote_task>,
+ <Rule '/archive/' (HEAD, OPTIONS, GET) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, OPTIONS, GET) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (OPTIONS, POST) -> archive.unarchive_task>,
+ <Rule '/today/' (HEAD, OPTIONS, GET) -> today.index>,
+ <Rule '/today/task/<id>/start' (OPTIONS, POST) -> today.start_task>,
+ <Rule '/today/task/<id>/finish' (OPTIONS, POST) -> today.finish_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+2025-03-06 04:46:56,084 - __main__ - INFO - Starting Flask-SocketIO application on port 5000
+2025-03-06 04:46:56,096 - werkzeug - WARNING -  * Debugger is active!
+2025-03-06 04:46:56,098 - werkzeug - INFO -  * Debugger PIN: 213-422-536
+(2478) wsgi starting up on http://0.0.0.0:5000
+(2478) accepted ('172.31.128.9', 51212)
+2025-03-06 04:47:02,604 - events - INFO - Client connected: YKyByF7s-mWhUevzAAAB
