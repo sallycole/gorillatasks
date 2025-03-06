@@ -147,13 +147,12 @@ def unarchive_task(id):
 @todo_bp.route('/')
 @login_required
 def index():
-    # Get all promoted tasks
+    # Get all promoted tasks including completed ones
     promoted_tasks = (StudentTask.query
         .join(Task)
         .filter(
             StudentTask.student_id == current_user.id,
-            StudentTask.promoted == True,
-            StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS])
+            StudentTask.promoted == True
         )
         .order_by(Task.position)
         .all())
@@ -232,8 +231,7 @@ def finish_task(id):
 
         if student_task.can_finish:
             student_task.finish()
-            # Remove from promoted list once finished
-            student_task.promoted = False
+            # Keep promoted flag TRUE so it stays in Today's list for tracking
             db.session.commit()
             return jsonify({
                 'status': 'success',

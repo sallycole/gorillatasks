@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block content %}
@@ -66,6 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
                                 <i data-feather="check"></i> Finish
                             </button>
+                            <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                                <i data-feather="skip-forward"></i> Skip
+                            </button>
                         </div>
                     `;
                     if (data.task && data.task.link) {
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             taskRow.remove();
                         }
                     }
-                    
+
                     // Check if there are any tasks left
                     if (document.querySelectorAll('.task-row').length === 0) {
                         // Show the empty state
@@ -96,6 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
                     }
+                } else if (action === 'skip') {
+                    // Handle skip action -  Implementation needed based on requirements.  For now, just alert.
+                    alert("Task skipped!");
                 }
             } else {
                 actionDiv.innerHTML = originalContent;
@@ -171,50 +176,64 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </thead>
                                 <tbody>
                                     {% for student_task in tasks %}
-                                    <tr class="task-row" data-task-id="{{ student_task.task_id }}">
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                {% if student_task.task.action == 1 %}
-                                                <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
-                                                {% elif student_task.task.action == 2 %}
-                                                <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
-                                                {% elif student_task.task.action == 3 %}
-                                                <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
-                                                {% elif student_task.task.action == 4 %}
-                                                <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
+                            <tr data-task-id="{{ student_task.task_id }}" {% if student_task.status == STATUS_COMPLETED %}class="bg-light"{% endif %}>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {% if student_task.task.action == 1 %}
+                                        <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
+                                        {% elif student_task.task.action == 2 %}
+                                        <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
+                                        {% elif student_task.task.action == 3 %}
+                                        <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
+                                        {% elif student_task.task.action == 4 %}
+                                        <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
+                                        {% else %}
+                                        <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
+                                        {% endif %}
+                                        <div>
+                                            <div>
+                                                {% if student_task.task.link %}
+                                                <a href="{{ student_task.task.link }}" target="_blank" {% if student_task.status == STATUS_COMPLETED %}style="text-decoration: line-through"{% endif %}>{{ student_task.task.title }}</a>
                                                 {% else %}
-                                                <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
+                                                <span {% if student_task.status == STATUS_COMPLETED %}style="text-decoration: line-through"{% endif %}>{{ student_task.task.title }}</span>
                                                 {% endif %}
-                                                <div>
-                                                    <div>
-                                                        {% if student_task.task.link %}
-                                                        <a href="{{ student_task.task.link }}" target="_blank">{{ student_task.task.title }}</a>
-                                                        {% else %}
-                                                        {{ student_task.task.title }}
-                                                        {% endif %}
-                                                    </div>
-                                                    {% if student_task.task.description %}
-                                                    <small class="text-muted">{{ student_task.task.description }}</small>
-                                                    {% endif %}
-                                                </div>
                                             </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="task-actions" data-task-id="{{ student_task.task_id }}">
-                                                <div class="d-inline-flex gap-2">
-                                                {% if student_task.status == STATUS_NOT_STARTED %}
-                                                    <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
-                                                        <i data-feather="play"></i> Start
-                                                    </button>
-                                                {% elif student_task.status == STATUS_IN_PROGRESS %}
-                                                    <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
-                                                        <i data-feather="check"></i> Finish
-                                                    </button>
-                                                {% endif %}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            {% if student_task.task.description %}
+                                            <small class="text-muted">{{ student_task.task.description }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end">
+                                    <div class="task-actions" data-task-id="{{ student_task.task_id }}">
+                                        {% if student_task.status == STATUS_NOT_STARTED %}
+                                        <div class="d-inline-flex gap-2">
+                                            <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
+                                                <i data-feather="play"></i> Start
+                                            </button>
+                                            <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        </div>
+                                        {% elif student_task.status == STATUS_IN_PROGRESS %}
+                                        <div class="d-inline-flex gap-2">
+                                            <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
+                                                <i data-feather="check"></i> Finish
+                                            </button>
+                                            <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        </div>
+                                        {% elif student_task.status == STATUS_COMPLETED %}
+                                        <div class="d-inline-flex gap-2">
+                                            <button class="btn btn-sm btn-success" disabled>
+                                                <i data-feather="check-circle"></i> Completed
+                                            </button>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
