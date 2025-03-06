@@ -75,11 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (action === 'promote') {
         console.log(`Attempting to promote task ${taskId} - sending request to /inventory/task/${taskId}/promote`);
         // Use direct fetch API for promote action
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
         fetch(`/inventory/task/${taskId}/promote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken
             },
             credentials: 'same-origin'
         })
