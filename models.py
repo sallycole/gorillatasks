@@ -163,6 +163,11 @@ class StudentTask(db.Model):
         if self.started_at:
             self.finished_at = now_in_utc()
             self.status = self.STATUS_COMPLETED
+            
+            # Ensure started_at has timezone info
+            if not self.started_at.tzinfo:
+                self.started_at = pytz.UTC.localize(self.started_at)
+                
             delta = self.finished_at - self.started_at
             self.time_spent_minutes = int(delta.total_seconds() / 60)
 
