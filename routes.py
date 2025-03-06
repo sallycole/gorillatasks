@@ -37,7 +37,7 @@ def register_routes(app):
 
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
-dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
+dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/inventory')
 archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
 
 @archive_bp.route('/')
