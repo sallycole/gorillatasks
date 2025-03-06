@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log(`Task ${action} response:`, data);
 
-            if (data.status === 'success') {
+            if (data && data.status === 'success') {
                 // Update UI based on action
                 if (action === 'start') {
                     // Change to finish button
@@ -123,8 +123,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Task action error:', error);
+            // Log detailed error information for debugging
+            console.error('Error:', error);
+
+            // Restore the original action buttons
             actionDiv.innerHTML = originalContent;
-            alert(`Error: ${error.message}`);
+
+            // Show user-friendly error message
+            alert(`Error: ${error.message || 'An unknown error occurred'}`);
+
+            // Refresh Feather icons
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
@@ -256,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .then(data => {
-            if (data.status === 'success') {
+            if (data && data.status === 'success') {
                 if (action === 'start') {
                     actionDiv.innerHTML = `
                         <div class="d-inline-flex gap-2">
@@ -339,8 +347,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Task action error:', error);
+            // Log detailed error information for debugging
+            console.error('Error:', error);
+
+            // Restore the original action buttons
             actionDiv.innerHTML = originalContent;
-            alert(`Error: ${error.message}`);
+
+            // Show user-friendly error message
+            alert(`Error: ${error.message || 'An unknown error occurred'}`);
+
+            // Refresh Feather icons
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
