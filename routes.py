@@ -156,6 +156,29 @@ def index():
         )
         .order_by(Task.position)
         .all())
+    
+    # Log debugging information
+    logger.info(f"User {current_user.id} ({current_user.email}) has {len(promoted_tasks)} promoted tasks")
+    
+    # Count tasks by status
+    status_counts = {
+        "not_started": 0,
+        "in_progress": 0,
+        "completed": 0,
+        "skipped": 0
+    }
+    
+    for task in promoted_tasks:
+        if task.status == StudentTask.STATUS_NOT_STARTED:
+            status_counts["not_started"] += 1
+        elif task.status == StudentTask.STATUS_IN_PROGRESS:
+            status_counts["in_progress"] += 1
+        elif task.status == StudentTask.STATUS_COMPLETED:
+            status_counts["completed"] += 1
+        elif task.status == StudentTask.STATUS_SKIPPED:
+            status_counts["skipped"] += 1
+    
+    logger.info(f"Task status counts: {status_counts}")
 
     # Group tasks by curriculum
     tasks_by_curriculum = {}
@@ -168,8 +191,27 @@ def index():
             # Get curriculum name
             curriculum = Curriculum.query.get(curriculum_id)
             curriculum_names[curriculum_id] = curriculum.name if curriculum else "Unknown Curriculum"
+            logger.info(f"Adding curriculum {curriculum_id}: {curriculum_names[curriculum_id]}")
 
         tasks_by_curriculum[curriculum_id].append(student_task)
+    
+    # Log curriculum counts
+    for curriculum_id, tasks in tasks_by_curriculum.items():
+        logger.info(f"Curriculum {curriculum_id} has {len(tasks)} tasks")
+
+    # Check if user is phobezcole@gmail.com
+    if current_user.email == "phobezcole@gmail.com":
+        logger.info("Found user phobezcole@gmail.com - debugging task count")
+        # Direct check for all promoted tasks for this user
+        all_promoted = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            promoted=True
+        ).all()
+        logger.info(f"Direct query shows {len(all_promoted)} promoted tasks")
+        
+        # Check database for any inconsistencies
+        if len(all_promoted) != len(promoted_tasks):
+            logger.warning(f"Discrepancy in task counts: direct {len(all_promoted)} vs joined {len(promoted_tasks)}")
 
     return render_template('today/index.html',
                           tasks_by_curriculum=tasks_by_curriculum,
@@ -177,7 +219,8 @@ def index():
                           STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
                           STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
                           STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
-                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED)
+                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
+                          current_user=current_user)
 
 @todo_bp.route('/check-reset', methods=['POST'])
 @login_required

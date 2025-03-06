@@ -165,6 +165,31 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="col-12">
             <h1>To Do Today</h1>
             {% if tasks_by_curriculum %}
+                <!-- Debug information -->
+                <div class="card mb-3 mt-3 d-none d-md-block">
+                    <div class="card-header">Debug Information</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Number of curriculum sections: {{ tasks_by_curriculum|length }}</li>
+                            {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
+                                <li>Curriculum ID {{ curriculum_id }}: {{ tasks|length }} tasks</li>
+                                <ul>
+                                {% for student_task in tasks %}
+                                    <li>Task ID: {{ student_task.task_id }}, Status: {{ student_task.status }}, 
+                                        {% if student_task.status == STATUS_COMPLETED %}(Completed)
+                                        {% elif student_task.status == STATUS_IN_PROGRESS %}(In Progress)
+                                        {% elif student_task.status == STATUS_NOT_STARTED %}(Not Started)
+                                        {% elif student_task.status == STATUS_SKIPPED %}(Skipped)
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            {% endfor %}
+                            <li>Current user ID: {{ current_user.id }}</li>
+                        </ul>
+                    </div>
+                </div>
+                
                 {% set total_tasks = 0 %}
                 {% set completed_tasks = 0 %}
                 {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
@@ -178,7 +203,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card mb-3 mt-3">
                     <div class="card-body text-center">
                         <h4>Today's Goal</h4>
-                        {% if completed_tasks == 0 %}
+                        <div class="small mb-2">Total Tasks: {{ total_tasks }}, Completed: {{ completed_tasks }}</div>
+                        {% if completed_tasks == 0 and total_tasks == 0 %}
+                            <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                        {% elif completed_tasks == 0 %}
                             <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
                         {% elif completed_tasks < total_tasks %}
                             <span class="progress-partial">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
