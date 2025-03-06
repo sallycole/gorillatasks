@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Get CSRF token from meta tag
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
+
         // For start, finish, and skip actions, use fetch API to call the server
         fetch(`/today/task/${taskId}/${action}`, {
             method: 'POST',
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!response.ok) {
                 throw new Error(`Server returned ${response.status}: ${response.statusText}`);
             }
-            
+
             // Check if the response is JSON before trying to parse it
             const contentType = response.headers.get('content-type');
             if (contentType && contentType.includes('application/json')) {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             console.log(`Task ${action} response:`, data);
-            
+
             if (data.status === 'success') {
                 // Update UI based on action
                 if (action === 'start') {
@@ -90,49 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     `;
                     // Open task link in new tab if available
-                    if (data.task && data.task.link) {
-                        window.open(data.task.link, '_blank');
-                    }
-            <div class="d-inline-flex gap-2">
-                <button class="btn btn-sm btn-outline-secondary" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Loading...
-                </button>
-            </div>
-        `;
-
-        // Send request to appropriate route
-        fetch(`/today/task/${taskId}/${action}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Server returned ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Task action response:', data);
-            if (data.status === 'success') {
-                // Update UI based on action type
-                if (action === 'start') {
-                    actionDiv.innerHTML = `
-                        <div class="d-inline-flex gap-2">
-                            <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
-                                <i data-feather="check"></i> Finish
-                            </button>
-                            <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
-                                <i data-feather="skip-forward"></i> Skip
-                            </button>
-                        </div>
-                    `;
-                    // Open link if available
                     if (data.task && data.task.link) {
                         window.open(data.task.link, '_blank');
                     }
@@ -272,7 +229,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            // Check if response is ok before trying to parse JSON
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+
+            // Get content type to handle JSON properly
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                // If not JSON, get text and try to parse it
+                return response.text().then(text => {
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        throw new Error(`Invalid response format: ${text.substring(0, 50)}`);
+                    }
+                });
+            }
+        })
         .then(data => {
             if (data.status === 'success') {
                 if (action === 'start') {
@@ -323,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
                     `;
-                    
+
                     // Update the task counter after a short delay
                     setTimeout(() => {
                         window.location.reload();
@@ -337,13 +314,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
                     `;
-                    
+
                     // Update the task counter after a short delay
                     setTimeout(() => {
                         window.location.reload();
                     }, 1500);
                 }
-                
+
                 if (typeof feather !== 'undefined') {
                     feather.replace();
                 }
