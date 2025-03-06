@@ -37,6 +37,54 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+        // For start, finish, and skip actions, use fetch API to call the server
+        fetch(`/today/task/${taskId}/${action}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(`Task ${action} response:`, data);
+            
+            if (data.status === 'success') {
+                // Update UI based on action
+                if (action === 'start') {
+                    // Change to finish button
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
+                                <i data-feather="check"></i> Finish
+                            </button>
+                            <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                                <i data-feather="skip-forward"></i> Skip
+                            </button>
+                        </div>
+                    `;
+                    // Open task link in new tab if available
+                    if (data.task && data.task.link) {
+                        window.open(data.task.link, '_blank');
+                    }
+            <div class="d-inline-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+        `;
+
         // Send request to appropriate route
         fetch(`/today/task/${taskId}/${action}`, {
             method: 'POST',
@@ -250,22 +298,51 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
                     }
+                } else if (action === 'finish') {
+                    // Change to completed button
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button class="btn btn-sm btn-success" disabled>
+                                <i data-feather="check-circle"></i> Completed
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Update the task counter after a short delay
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
                 } else if (action === 'skip') {
-                    // Handle skip action -  Implementation needed based on requirements.  For now, just alert.
-                    alert("Task skipped!");
+                    // Change to skipped button
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button class="btn btn-sm btn-secondary" disabled>
+                                <i data-feather="skip-forward"></i> Skipped
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Update the task counter after a short delay
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                }
+                
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
                 }
             } else {
                 actionDiv.innerHTML = originalContent;
                 alert(`Error: ${data.message || 'Unknown error'}`);
-            }
-            if (typeof feather !== 'undefined') {
-                feather.replace();
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Task action error:', error);
             actionDiv.innerHTML = originalContent;
-            alert('An error occurred. Please try again.');
+            alert(`Error: ${error.message}`);
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
