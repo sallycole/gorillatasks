@@ -1,0 +1,69 @@
+~/workspace$ python migrate_add_promoted.py
+2025-03-06 04:38:18,176 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-03-06 04:38:18,459 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive, todo
+2025-03-06 04:38:19,520 - app - INFO - Database tables created successfully
+2025-03-06 04:38:19,520 - app - INFO - Available routes:
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /static/<path:filename> -> static [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/login -> auth.login [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/register -> auth.register [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/logout -> auth.logout [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/account -> auth.account [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/toggle_pause -> auth.toggle_pause [POST,OPTIONS]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [POST,OPTIONS]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /curriculum/ -> curriculum.list [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,520 - app - DEBUG - Route: /curriculum/new -> curriculum.new [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [POST,HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /inventory/ -> inventory.index [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /inventory/task/<int:id>/start -> inventory.start_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /inventory/task/<int:id>/finish -> inventory.finish_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /inventory/task/<int:id>/skip -> inventory.skip_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /inventory/task/<int:id>/promote -> inventory.promote_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /archive/ -> archive.index [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /today/ -> today.index [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /today/task/<int:id>/start -> today.start_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: /today/task/<int:id>/finish -> today.finish_task [POST,OPTIONS]
+2025-03-06 04:38:19,521 - app - DEBUG - Route: / -> root [HEAD,OPTIONS,GET]
+2025-03-06 04:38:19,521 - app - INFO - Blueprints registered successfully
+2025-03-06 04:38:19,521 - app - DEBUG - Complete URL map:
+2025-03-06 04:38:19,521 - app - DEBUG - Map([<Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/auth/login' (POST, HEAD, OPTIONS, GET) -> auth.login>,
+ <Rule '/auth/register' (POST, HEAD, OPTIONS, GET) -> auth.register>,
+ <Rule '/auth/logout' (HEAD, OPTIONS, GET) -> auth.logout>,
+ <Rule '/auth/account' (POST, HEAD, OPTIONS, GET) -> auth.account>,
+ <Rule '/auth/enrollment/<enrollment_id>/toggle_pause' (POST, OPTIONS) -> auth.toggle_pause>,
+ <Rule '/auth/unenroll/<enrollment_id>' (POST, OPTIONS) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (POST, HEAD, OPTIONS, GET) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (HEAD, OPTIONS, GET) -> curriculum.list>,
+ <Rule '/curriculum/new' (POST, HEAD, OPTIONS, GET) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (HEAD, OPTIONS, GET) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (POST, OPTIONS) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (POST, OPTIONS) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (POST, HEAD, OPTIONS, GET) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (POST, OPTIONS) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (POST, OPTIONS) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (POST, OPTIONS) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (POST, HEAD, OPTIONS, GET) -> curriculum.enroll>,
+ <Rule '/inventory/' (HEAD, OPTIONS, GET) -> inventory.index>,
+ <Rule '/inventory/task/<id>/start' (POST, OPTIONS) -> inventory.start_task>,
+ <Rule '/inventory/task/<id>/finish' (POST, OPTIONS) -> inventory.finish_task>,
+ <Rule '/inventory/task/<id>/skip' (POST, OPTIONS) -> inventory.skip_task>,
+ <Rule '/inventory/task/<id>/promote' (POST, OPTIONS) -> inventory.promote_task>,
+ <Rule '/archive/' (HEAD, OPTIONS, GET) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (HEAD, OPTIONS, GET) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/today/' (HEAD, OPTIONS, GET) -> today.index>,
+ <Rule '/today/task/<id>/start' (POST, OPTIONS) -> today.start_task>,
+ <Rule '/today/task/<id>/finish' (POST, OPTIONS) -> today.finish_task>,
+ <Rule '/' (HEAD, OPTIONS, GET) -> root>])
+2025-03-06 04:38:19,878 - __main__ - INFO - Adding 'promoted' column to student_tasks table...
+2025-03-06 04:38:19,878 - __main__ - ERROR - Migration failed: 'Engine' object has no attribute 'execute'
