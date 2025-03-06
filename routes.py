@@ -179,6 +179,35 @@ def index():
                           STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
                           STATUS_SKIPPED=StudentTask.STATUS_SKIPPED)
 
+@todo_bp.route('/check-reset', methods=['POST'])
+@login_required
+def check_reset():
+    """
+    Check if tasks need to be reset based on user's timezone.
+    This should be called via AJAX close to midnight.
+    """
+    from utils.timezone import to_user_timezone, now_in_utc
+    
+    # Get current time in user's timezone
+    now = now_in_utc()
+    user_now = to_user_timezone(now, current_user)
+    
+    # Check if it's just past midnight (00:00-00:05)
+    if user_now.hour == 0 and user_now.minute < 5:
+        # Reset unfinished promoted tasks
+        reset_count = StudentTask.reset_promoted_tasks(current_user.id)
+        return jsonify({
+            'reset': True,
+            'count': reset_count,
+            'message': f'Reset {reset_count} unfinished tasks'
+        })
+    
+    # Not time to reset yet
+    return jsonify({
+        'reset': False,
+        'time': user_now.strftime('%H:%M:%S')
+    })
+
 @todo_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required
 def start_task(id):

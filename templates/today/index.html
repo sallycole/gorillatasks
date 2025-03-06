@@ -1,6 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script>
+// Function to check if tasks need to be reset
+function checkForMidnightReset() {
+    const now = new Date();
+
+    // Check if within 5 minutes after midnight
+    if (now.getHours() === 0 && now.getMinutes() < 5) {
+        fetch('/today/check-reset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.reset) {
+                // If tasks were reset, refresh the page
+                location.reload();
+            }
+        })
+        .catch(err => console.error('Error checking task reset:', err));
+    }
+}
+
+// Check on page load and every minute
+document.addEventListener('DOMContentLoaded', function() {
+    checkForMidnightReset();
+    setInterval(checkForMidnightReset, 60000); // Check every minute
+});
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

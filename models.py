@@ -172,6 +172,26 @@ class StudentTask(db.Model):
         self.started_at = None
         self.finished_at = None
         self.time_spent_minutes = 0
+        
+    @classmethod
+    def reset_promoted_tasks(cls, user_id):
+        """
+        Reset all promoted but unfinished tasks at midnight
+        This will be called by a scheduler at midnight in the user's timezone
+        """
+        unfinished_tasks = cls.query.filter(
+            cls.student_id == user_id,
+            cls.promoted == True,
+            cls.status.in_([cls.STATUS_NOT_STARTED, cls.STATUS_IN_PROGRESS])
+        ).all()
+        
+        for task in unfinished_tasks:
+            task.promoted = False
+            task.status = cls.STATUS_NOT_STARTED
+            task.started_at = None
+            
+        db.session.commit()
+        return len(unfinished_tasks)
 
 class Enrollment(db.Model):
     __tablename__ = 'enrollments'
