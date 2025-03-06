@@ -177,7 +177,8 @@ def index():
                           curriculum_names=curriculum_names,
                           STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
                           STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
-                          STATUS_COMPLETED=StudentTask.STATUS_COMPLETED)
+                          STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
+                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED)
 
 @todo_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required

@@ -126,6 +126,30 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="row mb-4">
         <div class="col-12">
             <h1>To Do Today</h1>
+            {% if tasks_by_curriculum %}
+                {% set total_tasks = 0 %}
+                {% set completed_tasks = 0 %}
+                {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
+                    {% set total_tasks = total_tasks + tasks|length %}
+                    {% for student_task in tasks %}
+                        {% if student_task.status == STATUS_COMPLETED %}
+                            {% set completed_tasks = completed_tasks + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <div class="card mb-3 mt-3">
+                    <div class="card-body text-center">
+                        <h4>Today's Goal</h4>
+                        {% if completed_tasks == 0 %}
+                            <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                        {% elif completed_tasks < total_tasks %}
+                            <span class="progress-partial">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                        {% else %}
+                            <span class="progress-complete">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
