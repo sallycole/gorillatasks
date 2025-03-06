@@ -598,10 +598,13 @@ def promote_task(id):
     except Exception as e:
         logger.error(f"Error promoting task {id}: {str(e)}", exc_info=True)
         db.session.rollback()
-        return jsonify({
+        # Make sure we always return a valid JSON response even when an exception occurs
+        resp = jsonify({
             'status': 'error',
             'message': f"Failed to promote task: {str(e)}"
-        }), 500
+        })
+        resp.status_code = 500
+        return resp
 
 # Curriculum routes
 @curriculum_bp.route('/')
