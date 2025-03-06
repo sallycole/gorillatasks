@@ -33,7 +33,7 @@ inventory_bp = Blueprint('inventory', __name__)
 def register_routes(app):
     @app.route('/')
     def root():
-        return redirect(url_for('dashboard.index'))
+        return redirect(url_for('inventory.index'))
 
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
@@ -145,7 +145,7 @@ def unarchive_task(id):
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard.index'))
+        return redirect(url_for('inventory.index'))
     
     form = LoginForm()
     if form.validate_on_submit():
@@ -168,7 +168,7 @@ def login():
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard.index'))
+        return redirect(url_for('inventory.index'))
     
     form = RegisterForm()
     if form.validate_on_submit():
@@ -726,6 +726,6 @@ def enroll(id):
         db.session.commit()
         
         flash('Successfully enrolled in the curriculum!')
-        return redirect(url_for('dashboard.index'))
+        return redirect(url_for('inventory.index'))
         
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
