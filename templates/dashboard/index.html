@@ -89,16 +89,24 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Check if the response was successful
             if (!response.ok) {
-                // Try to parse as JSON first, regardless of content-type
+                // Log the entire response for debugging
+                console.log('Error response:', response);
+                
+                // Look at the content type
+                const contentType = response.headers.get('content-type') || '';
+                
                 return response.text().then(text => {
+                    console.log('Error response text:', text);
+                    
                     try {
-                        // Try to parse as JSON
+                        // Try to parse as JSON, even if not specified as JSON
                         const errorData = JSON.parse(text);
                         throw new Error(errorData.message || 'Error from server');
                     } catch (jsonError) {
                         // Not valid JSON
                         console.error('Failed to parse error response as JSON:', jsonError);
-                        throw new Error('Server returned an error: ' + response.status);
+                        // Create a more descriptive error message
+                        throw new Error(`Server returned ${response.status}: ${contentType.includes('text/html') ? 'HTML Error' : text.substring(0, 50)}`);
                     }
                 });
             }

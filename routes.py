@@ -558,10 +558,13 @@ def promote_task(id):
         task = Task.query.get(id)
         if not task:
             logger.error(f"Task {id} not found")
-            return jsonify({
+            response = jsonify({
                 'status': 'error',
                 'message': f'Task with ID {id} not found'
-            }), 404
+            })
+            response.status_code = 404
+            response.headers['Content-Type'] = 'application/json'
+            return response
 
         # Now get or create the student task
         student_task = StudentTask.query.filter_by(
