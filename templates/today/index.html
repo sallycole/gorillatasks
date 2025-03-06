@@ -52,25 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Server returned ${response.status}: ${response.statusText}`);
-            }
-
-            // Check if the response is JSON before trying to parse it
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                return response.json();
-            } else {
-                // Handle non-JSON responses
                 return response.text().then(text => {
                     try {
-                        // Try to parse as JSON anyway
-                        return JSON.parse(text);
+                        // Try to parse error as JSON
+                        const errorData = JSON.parse(text);
+                        throw new Error(errorData.message || `Server error: ${response.status}`);
                     } catch (e) {
-                        // If it's not valid JSON, throw an error with the response text
-                        throw new Error(`Invalid JSON response: ${text.substring(0, 100)}`);
+                        // If not JSON, return the error text or status
+                        throw new Error(`Server error: ${response.status} - ${text.substring(0, 100)}`);
                     }
                 });
             }
+            return response.json();
         })
         .then(data => {
             console.log(`Task ${action} response:`, data);
@@ -103,6 +96,24 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
                     `;
+
+                    // Remove the task from the display if skipped or finished
+                    if (action === 'finish' || action === 'skip') {
+                        const taskRow = actionDiv.closest('tr');
+                        if (taskRow) {
+                            taskRow.remove();
+                            // Check if there are any tasks left
+                            if (document.querySelectorAll('.task-row').length === 0) {
+                                // Show the empty state
+                                document.getElementById('tasks-container').innerHTML = `
+                                    <div class="alert alert-info">
+                                        <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+                                        <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+                                    </div>
+                                `;
+                            }
+                        }
+                    }
 
                     // Update the task counter after a short delay
                     setTimeout(() => {
@@ -245,23 +256,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             // Check if response is ok before trying to parse JSON
             if (!response.ok) {
-                throw new Error(`Server error: ${response.status}`);
-            }
-
-            // Get content type to handle JSON properly
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-                return response.json();
-            } else {
-                // If not JSON, get text and try to parse it
                 return response.text().then(text => {
                     try {
-                        return JSON.parse(text);
+                        // Try to parse error as JSON
+                        const errorData = JSON.parse(text);
+                        throw new Error(errorData.message || `Server error: ${response.status}`);
                     } catch (e) {
-                        throw new Error(`Invalid response format: ${text.substring(0, 50)}`);
+                        // If not JSON, return the error text or status
+                        throw new Error(`Server error: ${response.status} - ${text.substring(0,100)}`);
                     }
                 });
             }
+            return response.json();
         })
         .then(data => {
             if (data && data.status === 'success') {
@@ -286,9 +292,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Check if this is the last task in the section
                         const tbody = taskRow.closest('tbody');
                         if (tbody && tbody.querySelectorAll('tr').length === 1) {
-                            // Remove the whole curriculum section
-                            const card = tbody.closest('.card');
-                            card.remove();
+                            // This is the last task, reload the page
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 500);
                         } else {
                             taskRow.remove();
                         }
@@ -304,20 +311,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
                     }
-                } else if (action === 'finish') {
-                    // Change to completed button
-                    actionDiv.innerHTML = `
-                        <div class="d-inline-flex gap-2">
-                            <button class="btn btn-sm btn-success" disabled>
-                                <i data-feather="check-circle"></i> Completed
-                            </button>
-                        </div>
-                    `;
-
-                    // Update the task counter after a short delay
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1500);
                 } else if (action === 'skip') {
                     // Change to skipped button
                     actionDiv.innerHTML = `
@@ -327,6 +320,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
                     `;
+                    const taskRow = actionDiv.closest('tr');
+                    if (taskRow) {
+                        taskRow.remove();
+                        // Check if there are any tasks left
+                        if (document.querySelectorAll('.task-row').length === 0) {
+                            // Show the empty state
+                            document.getElementById('tasks-container').innerHTML = `
+                                <div class="alert alert-info">
+                                    <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+                                    <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+                                </div>
+                            `;
+                        }
+                    }
 
                     // Update the task counter after a short delay
                     setTimeout(() => {
