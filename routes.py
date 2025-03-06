@@ -262,6 +262,7 @@ def check_reset():
 @todo_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required
 def start_task(id):
+    logger.info(f"Starting task {id} for user {current_user.id} on Today page")
     try:
         # Reset any other in-progress tasks
         StudentTask.query.filter_by(
@@ -282,6 +283,8 @@ def start_task(id):
         # Start the task
         student_task.start()
         db.session.commit()
+        
+        logger.info(f"Task {id} started successfully, status: {student_task.status}")
 
         return jsonify({
             'status': 'success',
@@ -293,6 +296,7 @@ def start_task(id):
             }
         })
     except Exception as e:
+        logger.error(f"Error starting task {id}: {str(e)}")
         db.session.rollback()
         return jsonify({
             'status': 'error',

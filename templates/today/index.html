@@ -1,3 +1,123 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let socket;
+    try {
+        socket = io({
+            transports: ['websocket', 'polling'],
+            reconnection: true,
+            reconnectionAttempts: 5
+        });
+    } catch (e) {
+        console.error('Failed to initialize socket:', e);
+        return;
+    }
+
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket server on Today page');
+        socket.sendBuffer = [];  // Clear any buffered events
+    });
+
+    window.handleTaskAction = function(action, taskId) {
+        console.log(`Handling ${action} for task ${taskId} on Today page`);
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
+        if (!actionDiv) {
+            console.error('Could not find action div for task:', taskId);
+            return;
+        }
+
+        // Show loading state
+        const originalContent = actionDiv.innerHTML;
+        actionDiv.innerHTML = `
+            <div class="d-inline-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+        `;
+
+        // Send request to appropriate route
+        fetch(`/today/task/${taskId}/${action}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Task action response:', data);
+            if (data.status === 'success') {
+                // Update UI based on action type
+                if (action === 'start') {
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
+                                <i data-feather="check"></i> Finish
+                            </button>
+                            <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                                <i data-feather="skip-forward"></i> Skip
+                            </button>
+                        </div>
+                    `;
+                    // Open link if available
+                    if (data.task && data.task.link) {
+                        window.open(data.task.link, '_blank');
+                    }
+                } else if (action === 'finish' || action === 'skip') {
+                    // Add completed/skipped indicator
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button class="btn btn-sm ${action === 'finish' ? 'btn-success' : 'btn-secondary'}" disabled>
+                                <i data-feather="${action === 'finish' ? 'check-circle' : 'skip-forward'}"></i> 
+                                ${action === 'finish' ? 'Completed' : 'Skipped'}
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Update the task counter after a short delay
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                }
+                
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            } else {
+                actionDiv.innerHTML = originalContent;
+                alert(`Error: ${data.message || 'Unknown error'}`);
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Task action error:', error);
+            actionDiv.innerHTML = originalContent;
+            alert(`Error: ${error.message}`);
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+    };
+
+    // Initialize Feather icons
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+});
+</script>
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -194,7 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card mb-3 mt-3">
                     <div class="card-body text-center">
                         <h4>Today's Goal</h4>
-                        <div class="small mb-2">Total Tasks: {{ total_tasks }}, Completed: {{ completed_tasks }}</div>
                         {% if completed_tasks == 0 and total_tasks == 0 %}
                             <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
                         {% elif completed_tasks == 0 %}
