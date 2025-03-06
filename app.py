@@ -61,16 +61,16 @@ def create_app():
             import models  # noqa: F401
             
             # Register blueprints after models are imported
-            from routes import auth_bp, curriculum_bp, dashboard_bp, archive_bp
+            from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp
             app.register_blueprint(auth_bp, url_prefix='/auth')
             app.register_blueprint(curriculum_bp, url_prefix='/curriculum')
-            app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
+            app.register_blueprint(inventory_bp, url_prefix='/inventory')
             app.register_blueprint(archive_bp, url_prefix='/archive')
             
             # Register root route
             @app.route('/')
             def root():
-                return redirect(url_for('dashboard.index'))
+                return redirect(url_for('inventory.index'))
             
             logger.info("Registered blueprints: auth, curriculum, dashboard, archive")
             

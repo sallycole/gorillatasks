@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 # Blueprint registration
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__)
-dashboard_bp = Blueprint('dashboard', __name__)
+inventory_bp = Blueprint('inventory', __name__)
 
 def register_routes(app):
     @app.route('/')
@@ -241,8 +241,8 @@ def edit_enrollment(enrollment_id):
         
     return render_template('auth/edit_enrollment.html', form=form, enrollment=enrollment)
 
-# Dashboard routes
-@dashboard_bp.route('/')
+# Inventory routes
+@inventory_bp.route('/')
 @login_required
 def index():
     # Get enrollments with related data
@@ -313,7 +313,7 @@ def index():
                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
 
-@dashboard_bp.route('/task/<int:id>/start', methods=['POST'])
+@inventory_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required
 def start_task(id):
     logger = logging.getLogger(__name__)
@@ -388,7 +388,7 @@ def start_task(id):
             'message': str(e)
         }), 500
 
-@dashboard_bp.route('/task/<int:id>/finish', methods=['POST'])
+@inventory_bp.route('/task/<int:id>/finish', methods=['POST'])
 @login_required
 def finish_task(id):
     try:
@@ -415,7 +415,7 @@ def finish_task(id):
             'message': str(e)
         }), 500
 
-@dashboard_bp.route('/task/<int:id>/skip', methods=['POST'])
+@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])
 @login_required
 def skip_task(id):
     try:
