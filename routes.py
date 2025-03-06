@@ -585,29 +585,37 @@ def promote_task(id):
             student_task.promoted = True
             db.session.commit()
             logger.info(f"Task {id} promoted successfully")
-            return jsonify({
+            
+            # Make sure we return proper JSON response
+            response = jsonify({
                 'status': 'success',
                 'message': 'Task promoted to today successfully'
             })
+            response.headers['Content-Type'] = 'application/json'
+            return response
 
         logger.warning(f"Task {id} cannot be promoted due to status: {student_task.status}")
-        # Create a proper JSON response with 400 status code
-        resp = jsonify({
+        
+        # Make sure we set Content-Type header explicitly
+        response = jsonify({
             'status': 'error',
             'message': 'Only tasks that are not started or in progress can be promoted'
         })
-        resp.status_code = 400
-        return resp
+        response.status_code = 400
+        response.headers['Content-Type'] = 'application/json'
+        return response
     except Exception as e:
         logger.error(f"Error promoting task {id}: {str(e)}", exc_info=True)
         db.session.rollback()
-        # Also ensure error responses from exceptions are properly formatted as JSON
-        resp = jsonify({
+        
+        # Explicitly set Content-Type to application/json
+        response = jsonify({
             'status': 'error',
             'message': f"Failed to promote task: {str(e)}"
         })
-        resp.status_code = 500
-        return resp
+        response.status_code = 500
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
 # Curriculum routes
 @curriculum_bp.route('/')

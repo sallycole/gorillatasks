@@ -89,15 +89,18 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Check if the response was successful
             if (!response.ok) {
-                if (response.headers.get('content-type')?.includes('application/json')) {
-                    // It's JSON but with an error status
-                    return response.json().then(errorData => {
+                // Try to parse as JSON first, regardless of content-type
+                return response.text().then(text => {
+                    try {
+                        // Try to parse as JSON
+                        const errorData = JSON.parse(text);
                         throw new Error(errorData.message || 'Error from server');
-                    });
-                } else {
-                    // Not JSON, throw generic error
-                    throw new Error('Server returned an error: ' + response.status);
-                }
+                    } catch (jsonError) {
+                        // Not valid JSON
+                        console.error('Failed to parse error response as JSON:', jsonError);
+                        throw new Error('Server returned an error: ' + response.status);
+                    }
+                });
             }
             
             return response.json();
