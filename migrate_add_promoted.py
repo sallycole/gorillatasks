@@ -1,6 +1,6 @@
 
 from app import app, db
-from models import StudentTask
+from sqlalchemy import text
 import logging
 
 # Set up logging
@@ -16,7 +16,9 @@ def migrate_add_promoted():
             
             if 'promoted' not in columns:
                 logger.info("Adding 'promoted' column to student_tasks table...")
-                db.engine.execute('ALTER TABLE student_tasks ADD COLUMN promoted BOOLEAN DEFAULT FALSE')
+                with db.engine.connect() as conn:
+                    conn.execute(text('ALTER TABLE student_tasks ADD COLUMN promoted BOOLEAN DEFAULT FALSE'))
+                    conn.commit()
                 logger.info("Successfully added 'promoted' column!")
             else:
                 logger.info("'promoted' column already exists!")
