@@ -552,28 +552,55 @@ def skip_task(id):
 @inventory_bp.route('/task/<int:id>/promote', methods=['POST'])
 @login_required
 def promote_task(id):
+    logger.info(f"Promoting task {id} for user {current_user.id}")
     try:
+        # First check if the task exists
+        task = Task.query.get(id)
+        if not task:
+            logger.error(f"Task {id} not found")
+            return jsonify({
+                'status': 'error',
+                'message': f'Task with ID {id} not found'
+            }), 404
+            
+        # Now get or create the student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id
-        ).first_or_404()
+        ).first()
+        
+        if not student_task:
+            logger.info(f"Creating new student task for task {id}")
+            student_task = StudentTask(
+                student_id=current_user.id,
+                task_id=id,
+                status=StudentTask.STATUS_NOT_STARTED
+            )
+            db.session.add(student_task)
+        
+        logger.info(f"Current status of task {id}: {student_task.status}")
         
         if student_task.status in [StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]:
+            logger.info(f"Promoting task {id} to today")
             student_task.promoted = True
             db.session.commit()
+            logger.info(f"Task {id} promoted successfully")
             return jsonify({
                 'status': 'success',
                 'message': 'Task promoted to today successfully'
             })
+        
+        logger.warning(f"Task {id} cannot be promoted due to status: {student_task.status}")
         return jsonify({
             'status': 'error',
             'message': 'Only tasks that are not started or in progress can be promoted'
         }), 400
     except Exception as e:
+        logger.error(f"Error promoting task {id}: {str(e)}", exc_info=True)
         db.session.rollback()
         return jsonify({
             'status': 'error',
-            'message': str(e)
+            'message': f"Failed to promote task: {str(e)}"
         }), 500
 
 # Curriculum routes

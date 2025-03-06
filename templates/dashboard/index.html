@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
 
     if (action === 'promote') {
+        console.log(`Attempting to promote task ${taskId} - sending request to /inventory/task/${taskId}/promote`);
         // Use direct fetch API for promote action
         fetch(`/inventory/task/${taskId}/promote`, {
             method: 'POST',
@@ -82,8 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             credentials: 'same-origin'
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Promote response status:', response.status);
+            console.log('Promote response headers:', [...response.headers.entries()]);
+            return response.json();
+        })
         .then(data => {
+            console.log('Promote response data:', data);
             if (data.status === 'success') {
                 // Show success message
                 actionDiv.innerHTML = `
@@ -96,6 +102,30 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                     </div>
                 `;
+                
+                // Create a temporary notification
+                const notification = document.createElement('div');
+                notification.className = 'position-fixed top-0 end-0 p-3';
+                notification.style.zIndex = '5';
+                notification.innerHTML = `
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-success text-white">
+                            <strong class="me-auto">Success</strong>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                                   onclick="this.parentElement.parentElement.parentElement.remove()"></button>
+                        </div>
+                        <div class="toast-body">
+                            Task promoted to Today successfully!
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+                
                 if (typeof feather !== 'undefined') {
                     feather.replace();
                 }
@@ -108,9 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Promote error details:', error);
+            // Try to get more information about the error
+            console.log('Error name:', error.name);
+            console.log('Error message:', error.message);
+            console.log('Error stack:', error.stack);
+            
             actionDiv.innerHTML = originalContent;
-            alert('An error occurred. Please try again.');
+            alert('An error occurred while promoting the task. Please check the console for details.');
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
