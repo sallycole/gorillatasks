@@ -46,35 +46,35 @@ todo_bp = Blueprint('today', __name__, url_prefix='/today')
 def index():
     from datetime import datetime, timedelta
     import pytz
-    
+
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).all()
     active_enrollments = [e for e in enrollments if not e.is_completed()]
     finished_enrollments = [e for e in enrollments if e.is_completed()]
-    
+
     from utils.timezone import now_in_utc
     now = now_in_utc()
     time_metrics = {}
-    
+
     for enrollment in enrollments:
         tasks = StudentTask.query.join(Task).filter(
             StudentTask.student_id == current_user.id,
             Task.curriculum_id == enrollment.curriculum_id
         ).all()
-        
+
         weekly_time = sum(t.time_spent_minutes for t in tasks 
                          if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=7))
         monthly_time = sum(t.time_spent_minutes for t in tasks 
                           if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=30))
         yearly_time = sum(t.time_spent_minutes for t in tasks 
                          if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=365))
-        
+
         # Calculate today's time
         today_time = sum(t.time_spent_minutes for t in tasks 
                         if t.updated_at and pytz.UTC.localize(t.updated_at).date() == now.date())
-        
+
         # Calculate all time
         all_time = sum(t.time_spent_minutes for t in tasks if t.time_spent_minutes)
-        
+
         time_metrics[enrollment.id] = {
             'today': today_time,
             'weekly': weekly_time,
@@ -82,7 +82,7 @@ def index():
             'yearly': yearly_time,
             'all_time': all_time
         }
-    
+
     return render_template('archive/index.html',
                          active_enrollments=active_enrollments,
                          finished_enrollments=finished_enrollments,
@@ -96,21 +96,21 @@ def view_enrollment(id):
     enrollment = Enrollment.query.get_or_404(id)
     if enrollment.student_id != current_user.id:
         abort(403)
-    
+
     if not enrollment.curriculum:
         flash('This enrollment has no associated curriculum', 'error')
         return redirect(url_for('archive.index'))
-        
+
     completed_tasks = StudentTask.query.join(Task).filter(
         StudentTask.student_id == current_user.id,
         Task.curriculum_id == enrollment.curriculum_id,
         StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
     ).all()
-    
+
     total_tasks = len(enrollment.curriculum.tasks)
     finished_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_COMPLETED)
     skipped_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_SKIPPED)
-    
+
     stats = {
         'total_tasks': total_tasks,
         'finished_tasks': finished_tasks,
@@ -120,7 +120,7 @@ def view_enrollment(id):
         'total_time': sum(t.time_spent_minutes for t in completed_tasks),
         'avg_time': sum(t.time_spent_minutes for t in completed_tasks) / len(completed_tasks) if completed_tasks else 0
     }
-    
+
     return render_template('archive/view.html',
                          enrollment=enrollment,
                          completed_tasks=completed_tasks,
@@ -133,14 +133,14 @@ def unarchive_task(id):
         student_id=current_user.id,
         task_id=id
     ).first_or_404()
-    
+
     student_task.status = StudentTask.STATUS_NOT_STARTED
     student_task.started_at = None
     student_task.finished_at = None
     student_task.skipped_at = None
     student_task.time_spent_minutes = 0
     student_task.promoted = False
-    
+
     db.session.commit()
     return jsonify({'status': 'success'})
 
@@ -157,11 +157,11 @@ def index():
         )
         .order_by(Task.position)
         .all())
-    
+
     # Group tasks by curriculum
     tasks_by_curriculum = {}
     curriculum_names = {}
-    
+
     for student_task in promoted_tasks:
         curriculum_id = student_task.task.curriculum_id
         if curriculum_id not in tasks_by_curriculum:
@@ -169,9 +169,9 @@ def index():
             # Get curriculum name
             curriculum = Curriculum.query.get(curriculum_id)
             curriculum_names[curriculum_id] = curriculum.name if curriculum else "Unknown Curriculum"
-            
+
         tasks_by_curriculum[curriculum_id].append(student_task)
-    
+
     return render_template('today/index.html',
                           tasks_by_curriculum=tasks_by_curriculum,
                           curriculum_names=curriculum_names,
@@ -191,18 +191,18 @@ def start_task(id):
             "status": StudentTask.STATUS_NOT_STARTED,
             "started_at": None
         })
-        
+
         # Get the task to start
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id,
             promoted=True
         ).first_or_404()
-        
+
         # Start the task
         student_task.start()
         db.session.commit()
-        
+
         return jsonify({
             'status': 'success',
             'message': 'Task started successfully',
@@ -228,7 +228,7 @@ def finish_task(id):
             task_id=id,
             promoted=True
         ).first_or_404()
-        
+
         if student_task.can_finish:
             student_task.finish()
             # Remove from promoted list once finished
@@ -253,7 +253,7 @@ def finish_task(id):
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('inventory.index'))
-    
+
     form = LoginForm()
     if form.validate_on_submit():
         # Try finding user by email first, then username
@@ -276,7 +276,7 @@ def login():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('inventory.index'))
-    
+
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(
@@ -288,7 +288,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        
+
         login_user(user)
         return redirect(url_for('dashboard.index'))
     return render_template('auth/register.html', form=form)
@@ -310,7 +310,7 @@ def account():
         db.session.commit()
         flash('Your information has been updated.')
         return redirect(url_for('auth.account'))
-        
+
     enrollments = Enrollment.query.filter_by(student_id=current_user.id).join(Curriculum).all()
     return render_template('auth/account.html', enrollments=enrollments, form=form)
 
@@ -337,7 +337,7 @@ def unenroll(enrollment_id):
 def edit_enrollment(enrollment_id):
     enrollment = Enrollment.query.filter_by(id=enrollment_id, student_id=current_user.id).first_or_404()
     form = EnrollmentForm(obj=enrollment)
-    
+
     if form.validate_on_submit():
         enrollment.study_days_per_week = form.study_days_per_week.data
         enrollment.target_completion_date = form.target_completion_date.data
@@ -345,7 +345,7 @@ def edit_enrollment(enrollment_id):
         db.session.commit()
         flash('Enrollment settings updated successfully.')
         return redirect(url_for('auth.account'))
-        
+
     return render_template('auth/edit_enrollment.html', form=form, enrollment=enrollment)
 
 # Inventory routes
@@ -361,7 +361,7 @@ def index():
         )
         .filter_by(student_id=current_user.id, paused=False)
         .all())
-    
+
     # Filter out completed enrollments
     enrollments = [e for e in enrollments if not e.is_completed()]
 
@@ -408,7 +408,7 @@ def index():
                       for st in task.student_tasks if st.student_id == current_user.id)
         ][:10]  # Limit to 10 tasks
         filtered_tasks[enrollment.id] = incomplete_tasks
-    
+
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
@@ -425,17 +425,17 @@ def index():
 def start_task(id):
     logger = logging.getLogger(__name__)
     logger.info(f"Starting task {id} for user {current_user.id}")
-    
+
     try:
         # Begin transaction
         task = Task.query.get_or_404(id)
-        
+
         # Get or create student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task.id
         ).first()
-        
+
         if not student_task:
             student_task = StudentTask(
                 student_id=current_user.id,
@@ -444,7 +444,7 @@ def start_task(id):
             )
             db.session.add(student_task)
             logger.info(f"Created new student task for task {id}")
-        
+
         # Reset any other in-progress tasks
         StudentTask.query.filter_by(
             student_id=current_user.id,
@@ -453,13 +453,13 @@ def start_task(id):
             "status": StudentTask.STATUS_NOT_STARTED,
             "started_at": None
         })
-        
+
         # Start this task
         student_task.start()
-        
+
         db.session.commit()
         logger.info(f"Successfully started task {id}")
-        
+
         return jsonify({
             'status': 'success',
             'message': 'Task started successfully',
@@ -470,7 +470,7 @@ def start_task(id):
                 'link': task.link
             }
         })
-        
+
     except Exception as e:
         logger.error(f"Error starting task {id}: {str(e)}")
         db.session.rollback()
@@ -478,7 +478,7 @@ def start_task(id):
             'status': 'error',
             'message': f"Failed to start task: {str(e)}"
         }), 500
-        
+
         logger.info(f"Task {id} started successfully")
         return jsonify({
             'status': 'success',
@@ -486,7 +486,7 @@ def start_task(id):
             'task_url': task.link,
             'task_id': task.id
         })
-        
+
     except Exception as e:
         logger.error(f"Error starting task {id}: {str(e)}")
         db.session.rollback()
@@ -503,7 +503,7 @@ def finish_task(id):
             student_id=current_user.id,
             task_id=id
         ).first_or_404()
-        
+
         if student_task.can_finish:
             student_task.finish()
             db.session.commit()
@@ -530,7 +530,7 @@ def skip_task(id):
             student_id=current_user.id,
             task_id=id
         ).first_or_404()
-        
+
         if student_task.can_skip:
             student_task.skip()
             db.session.commit()
@@ -562,13 +562,13 @@ def promote_task(id):
                 'status': 'error',
                 'message': f'Task with ID {id} not found'
             }), 404
-            
+
         # Now get or create the student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id
         ).first()
-        
+
         if not student_task:
             logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
@@ -577,9 +577,9 @@ def promote_task(id):
                 status=StudentTask.STATUS_NOT_STARTED
             )
             db.session.add(student_task)
-        
+
         logger.info(f"Current status of task {id}: {student_task.status}")
-        
+
         if student_task.status in [StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]:
             logger.info(f"Promoting task {id} to today")
             student_task.promoted = True
@@ -589,9 +589,9 @@ def promote_task(id):
                 'status': 'success',
                 'message': 'Task promoted to today successfully'
             })
-        
+
         logger.warning(f"Task {id} cannot be promoted due to status: {student_task.status}")
-        # Ensure we return a properly formatted JSON response with 400 status
+        # Create a proper JSON response with 400 status code
         resp = jsonify({
             'status': 'error',
             'message': 'Only tasks that are not started or in progress can be promoted'
@@ -601,7 +601,7 @@ def promote_task(id):
     except Exception as e:
         logger.error(f"Error promoting task {id}: {str(e)}", exc_info=True)
         db.session.rollback()
-        # Make sure we always return a valid JSON response even when an exception occurs
+        # Also ensure error responses from exceptions are properly formatted as JSON
         resp = jsonify({
             'status': 'error',
             'message': f"Failed to promote task: {str(e)}"
@@ -628,16 +628,16 @@ def list():
         enrollment.curriculum_id 
         for enrollment in Enrollment.query.filter_by(student_id=current_user.id).all()
     )
-    
+
     print(f"DEBUG: Found {len(curriculums)} curriculums")
     print(f"DEBUG: User enrollments: {user_enrollments}")
     print(f"DEBUG: Current user id: {current_user.id}")
-    
+
     for curriculum in curriculums:
         print(f"DEBUG: Curriculum {curriculum.id}: {curriculum.name}")
         print(f"DEBUG: - Creator: {curriculum.creator_id}")
         print(f"DEBUG: - Is enrolled: {curriculum.id in user_enrollments}")
-        
+
     return render_template('curriculum/list.html', 
                          curriculums=curriculums,
                          user_enrollments=user_enrollments)
@@ -660,7 +660,7 @@ def new():
                                        .replace("&", "&amp;")\
                                        .replace("TEMP_AMP", "&amp;")
                 root = ET.fromstring(xml_content)
-                
+
                 # Extract curriculum data from XML
                 curriculum = Curriculum(
                     name=root.find('name').text.strip(),
@@ -673,7 +673,7 @@ def new():
                 )
                 db.session.add(curriculum)
                 db.session.flush()  # Get curriculum.id without committing
-                
+
                 # Process tasks
                 tasks_element = root.find('tasks')
                 if tasks_element is not None:
@@ -682,7 +682,7 @@ def new():
                         action_elem = task_elem.find('action')
                         action_text = action_elem.text.strip() if action_elem is not None and action_elem.text else 'Read'
                         action_value = Task.ACTION_MAP.get(action_text, Task.ACTION_READ)
-                        
+
                         task = Task(
                             curriculum_id=curriculum.id,
                             title=task_elem.find('title').text.strip() if task_elem.find('title') is not None and task_elem.find('title').text else '',
@@ -693,7 +693,7 @@ def new():
                         )
                         db.session.add(task)
                         position += 1
-                
+
                 db.session.commit()
                 flash('Curriculum and tasks created successfully from XML!')
                 return redirect(url_for('curriculum.list'))
@@ -733,7 +733,7 @@ def publish(id):
     if curriculum.creator_id != current_user.id and not current_user.is_superuser:
         flash('You can only publish your own curriculums')
         return redirect(url_for('curriculum.view', id=id))
-    
+
     curriculum.published = True
     curriculum.locked = True
     curriculum.published_at = datetime.now(pytz.UTC)
@@ -748,11 +748,11 @@ def delete(id):
     if curriculum.creator_id != current_user.id:
         flash('You can only delete your own curriculums')
         return redirect(url_for('curriculum.list'))
-    
+
     if curriculum.enrollments:
         flash('Cannot delete curriculum with active enrollments')
         return redirect(url_for('curriculum.view', id=curriculum.id))
-    
+
     try:
         # Delete associated student_tasks first
         task_ids = [task.id for task in curriculum.tasks]
@@ -766,7 +766,7 @@ def delete(id):
     except Exception as e:
         db.session.rollback()
         flash('Error deleting curriculum: ' + str(e))
-        
+
     return redirect(url_for('curriculum.list'))
 
 @curriculum_bp.route('/<int:id>/edit', methods=['GET', 'POST'])
@@ -776,7 +776,7 @@ def edit(id):
     if curriculum.creator_id != current_user.id:
         flash('You can only edit your own curriculums')
         return redirect(url_for('curriculum.list'))
-    
+
     form = CurriculumForm(obj=curriculum)
     if form.validate_on_submit():
         if not curriculum.locked:
@@ -797,11 +797,11 @@ def edit(id):
 @curriculum_bp.route('/<int:id>/tasks/add', methods=['POST'])
 @login_required
 def add_task(id):
-    curriculum = Curriculum.query.get_or_404(id)
+    curriculum = Curriculum.query.getor_404(id)
     if curriculum.creator_id != current_user.id:
         flash('You can only edit your own curriculums')
         return redirect(url_for('curriculum.list'))
-    
+
     if not curriculum.locked:
         position = len(curriculum.tasks) + 1
         task = Task(
@@ -824,7 +824,7 @@ def edit_task(curriculum_id, task_id):
     if curriculum.creator_id != current_user.id:
         flash('You can only edit your own curriculums')
         return redirect(url_for('curriculum.list'))
-    
+
     if not curriculum.locked:
         task = Task.query.get_or_404(task_id)
         task.title = request.form['title']
@@ -842,7 +842,7 @@ def delete_task(curriculum_id, task_id):
     if curriculum.creator_id != current_user.id:
         flash('You can only edit your own curriculums')
         return redirect(url_for('curriculum.list'))
-    
+
     if not curriculum.locked:
         task = Task.query.get_or_404(task_id)
         db.session.delete(task)
@@ -854,19 +854,19 @@ def delete_task(curriculum_id, task_id):
 @login_required
 def enroll(id):
     curriculum = Curriculum.query.get_or_404(id)
-    
+
     # Check if already enrolled
     existing_enrollment = Enrollment.query.filter_by(
         student_id=current_user.id,
         curriculum_id=curriculum.id
     ).first()
-    
+
     if existing_enrollment:
         flash('You are already enrolled in this curriculum.')
         return redirect(url_for('curriculum.view', id=curriculum.id))
-    
+
     form = EnrollmentForm()
-    
+
     if form.validate_on_submit():
         enrollment = Enrollment(
             student_id=current_user.id,
@@ -876,10 +876,10 @@ def enroll(id):
         )
         db.session.add(enrollment)
         db.session.flush()  # Get the enrollment ID
-        
+
         # Calculate and set the weekly goal
         enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
-        
+
         # Create StudentTask entries for each task
         for task in curriculum.tasks:
             student_task = StudentTask(
@@ -888,11 +888,11 @@ def enroll(id):
                 status=0  # Not started
             )
             db.session.add(student_task)
-            
+
         db.session.add(enrollment)
         db.session.commit()
-        
+
         flash('Successfully enrolled in the curriculum!')
         return redirect(url_for('inventory.index'))
-        
+
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
