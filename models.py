@@ -130,6 +130,7 @@ class StudentTask(db.Model):
     started_at = db.Column(db.DateTime)
     finished_at = db.Column(db.DateTime)
     skipped_at = db.Column(db.DateTime)
+    promoted = db.Column(db.Boolean, default=False)
     time_spent_minutes = db.Column(db.Integer, default=0, nullable=False)
     created_at = db.Column(db.DateTime, default=now_in_utc)
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)

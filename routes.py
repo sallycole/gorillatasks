@@ -39,6 +39,7 @@ auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
 dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/inventory')
 archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
+todo_bp = Blueprint('today', __name__, url_prefix='/today')
 
 @archive_bp.route('/')
 @login_required
@@ -138,9 +139,115 @@ def unarchive_task(id):
     student_task.finished_at = None
     student_task.skipped_at = None
     student_task.time_spent_minutes = 0
+    student_task.promoted = False
     
     db.session.commit()
     return jsonify({'status': 'success'})
+
+@todo_bp.route('/')
+@login_required
+def index():
+    # Get all promoted tasks
+    promoted_tasks = (StudentTask.query
+        .join(Task)
+        .filter(
+            StudentTask.student_id == current_user.id,
+            StudentTask.promoted == True,
+            StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS])
+        )
+        .order_by(Task.position)
+        .all())
+    
+    # Group tasks by curriculum
+    tasks_by_curriculum = {}
+    curriculum_names = {}
+    
+    for student_task in promoted_tasks:
+        curriculum_id = student_task.task.curriculum_id
+        if curriculum_id not in tasks_by_curriculum:
+            tasks_by_curriculum[curriculum_id] = []
+            # Get curriculum name
+            curriculum = Curriculum.query.get(curriculum_id)
+            curriculum_names[curriculum_id] = curriculum.name if curriculum else "Unknown Curriculum"
+            
+        tasks_by_curriculum[curriculum_id].append(student_task)
+    
+    return render_template('today/index.html',
+                          tasks_by_curriculum=tasks_by_curriculum,
+                          curriculum_names=curriculum_names,
+                          STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
+                          STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
+                          STATUS_COMPLETED=StudentTask.STATUS_COMPLETED)
+
+@todo_bp.route('/task/<int:id>/start', methods=['POST'])
+@login_required
+def start_task(id):
+    try:
+        # Reset any other in-progress tasks
+        StudentTask.query.filter_by(
+            student_id=current_user.id,
+            status=StudentTask.STATUS_IN_PROGRESS
+        ).update({
+            "status": StudentTask.STATUS_NOT_STARTED,
+            "started_at": None
+        })
+        
+        # Get the task to start
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=id,
+            promoted=True
+        ).first_or_404()
+        
+        # Start the task
+        student_task.start()
+        db.session.commit()
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Task started successfully',
+            'task': {
+                'id': id,
+                'status': student_task.status,
+                'link': student_task.task.link
+            }
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@todo_bp.route('/task/<int:id>/finish', methods=['POST'])
+@login_required
+def finish_task(id):
+    try:
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=id,
+            promoted=True
+        ).first_or_404()
+        
+        if student_task.can_finish:
+            student_task.finish()
+            # Remove from promoted list once finished
+            student_task.promoted = False
+            db.session.commit()
+            return jsonify({
+                'status': 'success',
+                'message': 'Task completed successfully'
+            })
+        return jsonify({
+            'status': 'error',
+            'message': 'Task cannot be finished'
+        }), 400
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -434,6 +541,33 @@ def skip_task(id):
         return jsonify({
             'status': 'error',
             'message': 'Task cannot be skipped'
+        }), 400
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+@inventory_bp.route('/task/<int:id>/promote', methods=['POST'])
+@login_required
+def promote_task(id):
+    try:
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=id
+        ).first_or_404()
+        
+        if student_task.status in [StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]:
+            student_task.promoted = True
+            db.session.commit()
+            return jsonify({
+                'status': 'success',
+                'message': 'Task promoted to today successfully'
+            })
+        return jsonify({
+            'status': 'error',
+            'message': 'Only tasks that are not started or in progress can be promoted'
         }), 400
     except Exception as e:
         db.session.rollback()

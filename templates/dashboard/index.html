@@ -72,7 +72,52 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     `;
 
-    // Emit socket event with timeout
+    if (action === 'promote') {
+        // Use direct fetch API for promote action
+        fetch(`/inventory/task/${taskId}/promote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Show success message
+                actionDiv.innerHTML = `
+                    <div class="d-inline-flex gap-2">
+                        <button class="btn btn-sm btn-outline-success" disabled>
+                            <i data-feather="check"></i> Promoted to Today
+                        </button>
+                        <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                            <i data-feather="skip-forward"></i> Skip
+                        </button>
+                    </div>
+                `;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            } else {
+                actionDiv.innerHTML = originalContent;
+                alert(`Error: ${data.message || 'Unknown error'}`);
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            actionDiv.innerHTML = originalContent;
+            alert('An error occurred. Please try again.');
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+        return;
+    }
+
+    // For other actions, use the socket as before
     const timeout = setTimeout(() => {
         console.error('Socket event timed out');
         actionDiv.innerHTML = originalContent;
@@ -303,8 +348,8 @@ socket.on('task_updated', (data) => {
                                     {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
                                     <div class="d-inline-flex gap-2">
                                     {% if not student_task or student_task.status == 0 %}
-                                        <button onclick="handleTaskAction('start', {{ task.id }})" class="btn btn-sm btn-outline-primary">
-                                            <i data-feather="play"></i> Start
+                                        <button onclick="handleTaskAction('promote', {{ task.id }})" class="btn btn-sm btn-outline-primary">
+                                            <i data-feather="calendar"></i> Promote
                                         </button>
                                         <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
                                             <i data-feather="skip-forward"></i> Skip

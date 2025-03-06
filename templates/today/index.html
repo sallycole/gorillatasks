@@ -1,0 +1,209 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let socket;
+    try {
+        socket = io({
+            transports: ['websocket', 'polling'],
+            reconnection: true,
+            reconnectionAttempts: 5
+        });
+    } catch (e) {
+        console.error('Failed to initialize socket:', e);
+        return;
+    }
+
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket server');
+        socket.sendBuffer = [];  // Clear any buffered events
+        document.querySelectorAll('.task-actions').forEach(div => {
+            div.classList.remove('disconnected');
+        });
+    });
+
+    window.handleTaskAction = function(action, taskId) {
+        if (!socket || !socket.connected) {
+            console.error('Socket not connected');
+            return;
+        }
+
+        console.log(`Handling ${action} for task ${taskId}`);
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
+        if (!actionDiv) {
+            console.error('Could not find action div for task:', taskId);
+            return;
+        }
+
+        // Show loading state
+        const originalContent = actionDiv.innerHTML;
+        actionDiv.innerHTML = `
+            <div class="d-inline-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
+            </div>
+        `;
+
+        // Use direct fetch API instead of socket for simplicity
+        fetch(`/today/task/${taskId}/${action}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                if (action === 'start') {
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
+                                <i data-feather="check"></i> Finish
+                            </button>
+                        </div>
+                    `;
+                    if (data.task && data.task.link) {
+                        window.open(data.task.link, '_blank');
+                    }
+                } else if (action === 'finish') {
+                    // Remove the task from the display
+                    const taskRow = actionDiv.closest('tr');
+                    if (taskRow) {
+                        // Check if this is the last task in the section
+                        const tbody = taskRow.closest('tbody');
+                        if (tbody && tbody.querySelectorAll('tr').length === 1) {
+                            // Remove the whole curriculum section
+                            const card = tbody.closest('.card');
+                            card.remove();
+                        } else {
+                            taskRow.remove();
+                        }
+                    }
+                    
+                    // Check if there are any tasks left
+                    if (document.querySelectorAll('.task-row').length === 0) {
+                        // Show the empty state
+                        document.getElementById('tasks-container').innerHTML = `
+                            <div class="alert alert-info">
+                                <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+                                <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+                            </div>
+                        `;
+                    }
+                }
+            } else {
+                actionDiv.innerHTML = originalContent;
+                alert(`Error: ${data.message || 'Unknown error'}`);
+            }
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            actionDiv.innerHTML = originalContent;
+            alert('An error occurred. Please try again.');
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+    };
+
+    // Initialize Feather icons
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+});
+</script>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>To Do Today</h1>
+        </div>
+    </div>
+
+    <div id="tasks-container">
+        {% if tasks_by_curriculum %}
+            {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
+                <div class="card mb-4">
+                    <div class="card-header p-3">
+                        <h3 class="mb-0">{{ curriculum_names[curriculum_id] }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60%">Task</th>
+                                        <th style="width: 40%" class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student_task in tasks %}
+                                    <tr class="task-row" data-task-id="{{ student_task.task_id }}">
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if student_task.task.action == 1 %}
+                                                <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
+                                                {% elif student_task.task.action == 2 %}
+                                                <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
+                                                {% elif student_task.task.action == 3 %}
+                                                <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
+                                                {% elif student_task.task.action == 4 %}
+                                                <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
+                                                {% else %}
+                                                <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
+                                                {% endif %}
+                                                <div>
+                                                    <div>
+                                                        {% if student_task.task.link %}
+                                                        <a href="{{ student_task.task.link }}" target="_blank">{{ student_task.task.title }}</a>
+                                                        {% else %}
+                                                        {{ student_task.task.title }}
+                                                        {% endif %}
+                                                    </div>
+                                                    {% if student_task.task.description %}
+                                                    <small class="text-muted">{{ student_task.task.description }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="task-actions" data-task-id="{{ student_task.task_id }}">
+                                                <div class="d-inline-flex gap-2">
+                                                {% if student_task.status == STATUS_NOT_STARTED %}
+                                                    <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
+                                                        <i data-feather="play"></i> Start
+                                                    </button>
+                                                {% elif student_task.status == STATUS_IN_PROGRESS %}
+                                                    <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
+                                                        <i data-feather="check"></i> Finish
+                                                    </button>
+                                                {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">
+                <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+                <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -22,6 +22,9 @@
                 <ul class="navbar-nav me-auto">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('today.index') }}">To Do Today</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('inventory.index') }}">Study Inventory</a>
                     </li>
                     <li class="nav-item">
