@@ -591,10 +591,13 @@ def promote_task(id):
             })
         
         logger.warning(f"Task {id} cannot be promoted due to status: {student_task.status}")
-        return jsonify({
+        # Ensure we return a properly formatted JSON response with 400 status
+        resp = jsonify({
             'status': 'error',
             'message': 'Only tasks that are not started or in progress can be promoted'
-        }), 400
+        })
+        resp.status_code = 400
+        return resp
     except Exception as e:
         logger.error(f"Error promoting task {id}: {str(e)}", exc_info=True)
         db.session.rollback()
