@@ -221,13 +221,18 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         // Use direct fetch API instead of socket for simplicity
         fetch(`/today/task/${taskId}/${action}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken
+            },
+            credentials: 'same-origin'
         })
         .then(response => {
             // Check if response is ok before trying to parse JSON
