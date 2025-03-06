@@ -199,6 +199,12 @@ def index():
     for curriculum_id, tasks in tasks_by_curriculum.items():
         logger.info(f"Curriculum {curriculum_id} has {len(tasks)} tasks")
 
+    # Calculate total and completed tasks for the goal display
+    total_tasks = len(promoted_tasks)
+    completed_tasks = status_counts["completed"]
+    
+    logger.info(f"Today's goal stats: {completed_tasks} completed out of {total_tasks} total tasks")
+
     # Check if user is phobezcole@gmail.com
     if current_user.email == "phobezcole@gmail.com":
         logger.info("Found user phobezcole@gmail.com - debugging task count")
@@ -220,6 +226,8 @@ def index():
                           STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
                           STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
                           STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
+                          completed_tasks=completed_tasks,
+                          total_tasks=total_tasks,
                           current_user=current_user)
 
 @todo_bp.route('/check-reset', methods=['POST'])

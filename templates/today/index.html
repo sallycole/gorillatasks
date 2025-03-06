@@ -190,16 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 
-                {% set total_tasks = 0 %}
-                {% set completed_tasks = 0 %}
-                {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
-                    {% set total_tasks = total_tasks + tasks|length %}
-                    {% for student_task in tasks %}
-                        {% if student_task.status == STATUS_COMPLETED %}
-                            {% set completed_tasks = completed_tasks + 1 %}
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
+                {# Total and completed tasks are now passed directly from the route #}
                 <div class="card mb-3 mt-3">
                     <div class="card-body text-center">
                         <h4>Today's Goal</h4>
