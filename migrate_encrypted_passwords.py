@@ -44,7 +44,7 @@ def migrate_encrypted_passwords():
                         logger.warning(f"Password for user {user.id} is too long ({len(encrypted_password)} chars)")
                         # Use the Werkzeug password hasher to create a proper hash that will fit
                         from werkzeug.security import generate_password_hash
-                        user.password_hash = generate_password_hash(encrypted_password[:64])
+                        user.password_hash = generate_password_hash(encrypted_password[:64], method='sha256')
                         logger.info(f"Created new hash for user {user.id} to fit in field")
                     else:
                         # Store encrypted_password as the new password_hash

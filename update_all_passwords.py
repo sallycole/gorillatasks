@@ -15,13 +15,13 @@ def update_user_password(user):
     # Check for users with plain-text passwords in password_hash field
     if user.password_hash and not user.password_hash.startswith('pbkdf2:sha256:'):
         plain_password = user.password_hash
-        user.password_hash = generate_password_hash(plain_password)
+        user.password_hash = generate_password_hash(plain_password, method='sha256')
         logger.info(f"Updated plain-text password for user {user.id} ({user.email})")
         return True
     elif hasattr(user, 'password') and user.password and not user.password_hash:
         # Legacy 'password' attribute
         plain_password = user.password
-        user.password_hash = generate_password_hash(plain_password)
+        user.password_hash = generate_password_hash(plain_password, method='sha256')
         logger.info(f"Migrated legacy password for user {user.id} ({user.email})")
         return True
     
