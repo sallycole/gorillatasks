@@ -443,33 +443,32 @@ socket.on('task_updated', (data) => {
                         {% for task in filtered_tasks[enrollment.id] %}
                         <tr data-task-id="{{ task.id }}">
                             <td>
-                                <div class="d-flex align-items-center">
-                                    {% if task.action == 1 %}
-                                    <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
-                                    {% elif task.action == 2 %}
-                                    <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
-                                    {% elif task.action == 3 %}
-                                    <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
-                                    {% elif task.action == 4 %}
-                                    <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
-                                    {% else %}
-                                    <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
-                                    {% endif %}
-                                    <div>
-                                                {% if task.link %}
-                                                <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
-                                                {% else %}
-                                                {{ task.title }}
-                                                {% endif %}
-
-                                                {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
-                                                {% if student_task and student_task.promoted %}
-                                                <span class="badge bg-info ms-2">On Today</span>
-                                                {% endif %}
-                                            </div>
-                                            {% if task.description %}
-                                            <small class="text-muted">{{ task.description }}</small>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        {% if task.action == 1 %}
+                                        <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
+                                        {% elif task.action == 2 %}
+                                        <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
+                                        {% elif task.action == 3 %}
+                                        <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
+                                        {% elif task.action == 4 %}
+                                        <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
+                                        {% else %}
+                                        <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
+                                        {% endif %}
+                                        <div>
+                                            {% if task.link %}
+                                            <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
+                                            {% else %}
+                                            {{ task.title }}
                                             {% endif %}
+                                        </div>
+                                    </div>
+                                    {% if task.description %}
+                                    <div class="ms-4 mt-1">
+                                        <small class="text-muted">{{ task.description }}</small>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td class="text-end">
