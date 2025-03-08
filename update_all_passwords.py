@@ -1,4 +1,3 @@
-
 from app import db, create_app
 from models import User
 from werkzeug.security import generate_password_hash
@@ -15,16 +14,16 @@ def update_user_password(user):
     # Check for users with plain-text passwords in password_hash field
     if user.password_hash and not user.password_hash.startswith('pbkdf2:sha256:'):
         plain_password = user.password_hash
-        user.password_hash = generate_password_hash(plain_password, method='sha256')
+        user.password_hash = generate_password_hash(plain_password, method='pbkdf2:sha256')
         logger.info(f"Updated plain-text password for user {user.id} ({user.email})")
         return True
     elif hasattr(user, 'password') and user.password and not user.password_hash:
         # Legacy 'password' attribute
         plain_password = user.password
-        user.password_hash = generate_password_hash(plain_password, method='sha256')
+        user.password_hash = generate_password_hash(plain_password, method='pbkdf2:sha256')
         logger.info(f"Migrated legacy password for user {user.id} ({user.email})")
         return True
-    
+
     return False
 
 def update_all_passwords():
@@ -32,11 +31,11 @@ def update_all_passwords():
     with app.app_context():
         users = User.query.all()
         updated_count = 0
-        
+
         for user in users:
             if update_user_password(user):
                 updated_count += 1
-        
+
         if updated_count > 0:
             db.session.commit()
             logger.info(f"Successfully updated {updated_count} user passwords")
