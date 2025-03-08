@@ -32,12 +32,31 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
         
     def check_password(self, password):
-        if self.password_hash is None or not password:
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        if self.password_hash is None:
+            logger.warning(f"No password hash found for user {self.id}")
             return False
+            
+        if not password:
+            logger.warning(f"Empty password provided for user {self.id}")
+            return False
+            
+        # Additional debugging for password hash format
+        if not self.password_hash.startswith('pbkdf2:sha256:'):
+            logger.warning(f"Password hash for user {self.id} has unexpected format: {self.password_hash[:15]}...")
+            
         try:
-            return check_password_hash(self.password_hash, password)
-        except Exception:
-            # Handle any other errors that might occur during password verification
+            result = check_password_hash(self.password_hash, password)
+            logger.info(f"Password check for user {self.id}: {'success' if result else 'failed'}")
+            return result
+        except Exception as e:
+            logger.error(f"Error in password verification for user {self.id}: {str(e)}")
+            # For debugging purposes, you might want to regenerate the hash
+            # import secrets
+            # if secrets.compare_digest(self.password_hash, password):
+            #     return True
             return False
     
     def __repr__(self):

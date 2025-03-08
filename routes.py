@@ -363,15 +363,38 @@ def login():
                 )
             )
         ).first()
+        
         if not user:
             flash('User not found. Please check your email or username.')
             return render_template('auth/login.html', form=form)
+        
+        # Log some debugging information about the password hash
+        logger.info(f"Login attempt for user {user.email}")
+        logger.info(f"Password hash present: {user.password_hash is not None}")
+        
+        # Check if there's a password hash stored
+        if not user.password_hash:
+            logger.warning(f"User {user.email} has no password hash stored")
+            flash('Account requires password reset. Please contact support.')
+            return render_template('auth/login.html', form=form)
             
-        if user.check_password(form.password.data):
+        # Try to verify the password with extra protection
+        password_correct = False
+        try:
+            password_correct = user.check_password(form.password.data)
+            logger.info(f"Password verification result: {password_correct}")
+        except Exception as e:
+            logger.error(f"Password verification error: {str(e)}")
+            flash('Error verifying password. Please try again.')
+            return render_template('auth/login.html', form=form)
+            
+        if password_correct:
             login_user(user)
             return redirect(url_for('inventory.index'))
         else:
+            # For security, don't reveal too much information
             flash('Invalid password. Please try again.')
+            
     return render_template('auth/login.html', form=form)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
