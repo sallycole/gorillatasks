@@ -397,7 +397,8 @@ socket.on('task_updated', (data) => {
                 <h5>Usage</h5>
                 <div class="progress mb-2 position-relative" style="height: 20px;">
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
-                    {% set percentage = 100 if completed > 0 else 0 %}
+                    {% set max_display = 180 %}
+                    {% set percentage = (completed / max_display * 100)|round|int if completed < max_display else 100 %}
                     <div class="progress-bar bg-info" role="progressbar" 
                          style="width: {{ percentage }}%" 
                          aria-valuenow="{{ percentage }}" 
@@ -405,13 +406,13 @@ socket.on('task_updated', (data) => {
                          aria-valuemax="100">
                         {% if percentage > 50 %}
                         <span class="position-absolute start-50 translate-middle-x text-white">
-                            {{ completed }} Task{{ 's' if completed != 1 }}
+                            {{ completed }} Task{{ 's' if completed != 1 }} {% if completed >= max_display %}(Max){% endif %}
                         </span>
                         {% endif %}
                     </div>
                     {% if percentage <= 50 %}
                     <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% + 10px);">
-                        {{ completed }} Task{{ 's' if completed != 1 }}
+                        {{ completed }} Task{{ 's' if completed != 1 }} {% if completed >= max_display %}(Max){% endif %}
                     </span>
                     {% endif %}
                 </div>
