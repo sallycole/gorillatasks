@@ -102,45 +102,38 @@ document.addEventListener('DOMContentLoaded', function() {
                         const taskRow = actionDiv.closest('tr');
                         if (taskRow) {
                             taskRow.remove();
-                            // Check if there are any tasks left
-                            if (document.querySelectorAll('.task-row').length === 0) {
-                                // Show the empty state
-                                document.getElementById('tasks-container').innerHTML = `
-                                    <div class="alert alert-info">
-                                        <h4 class="alert-heading">Welcome to your to do list for today!</h4>
-                                        <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+                            // Keep track of task container content in session storage to avoid flash of "no tasks"
+                            const taskContainer = document.querySelector('#tasks-container');
+                            if (taskContainer) {
+                                // Store current content in session storage before page reload
+                                if (document.querySelectorAll('.task-row').length > 0) {
+                                    sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+                                }
+
+                                // Replace with loading indicator
+                                taskContainer.innerHTML = `
+                                    <div class="container mt-4">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-6 text-center my-5">
+                                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <h3 class="mt-4">Updating your tasks...</h3>
+                                                <p class="text-muted">Please wait while we process your request.</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 `;
                             }
+
+                            // Delay reload slightly to allow server to process changes
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000); // Increased to 2000ms for better visibility
                         }
                     }
 
-                    // Show loading indicator instead of immediate reload
-                    const taskContainer = document.querySelector('#tasks-container');
-                    if (taskContainer) {
-                        // Save original content
-                        const originalContent = taskContainer.innerHTML;
-
-                        // Replace with loading indicator
-                        taskContainer.innerHTML = `
-                            <div class="container mt-4">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6 text-center my-5">
-                                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                            <span class="visually-hidden">Loading...</span>
-                                        </div>
-                                        <h3 class="mt-4">Updating your tasks...</h3>
-                                        <p class="text-muted">Please wait while we process your request.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-
-                    // Delay reload slightly to allow server to process changes
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000); // Increased to 2000ms for better visibility
+                    
                 }
 
                 if (typeof feather !== 'undefined') {
@@ -228,6 +221,19 @@ function resetTodayTasks() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if we have stored task content from a previous action
+    const taskContainer = document.querySelector('#tasks-container');
+    const storedContent = sessionStorage.getItem('today_tasks_content');
+
+    // If there's stored content and the current page shows "no tasks", restore the stored content
+    if (storedContent && taskContainer && taskContainer.querySelector('.alert-info')) {
+        taskContainer.innerHTML = storedContent;
+        // Clear the storage after using it
+        setTimeout(() => {
+            sessionStorage.removeItem('today_tasks_content');
+        }, 500);
+    }
+
     // No automatic reset needed with the manual button
 });
 </script>
@@ -332,11 +338,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         const tbody = taskRow.closest('tbody');
                         if (tbody && tbody.querySelectorAll('tr').length === 1) {
                             // This is the last task, reload the page
-                            // Show loading indicator instead of immediate reload
+                            // Keep track of task container content in session storage to avoid flash of "no tasks"
                             const taskContainer = document.querySelector('#tasks-container');
                             if (taskContainer) {
-                                // Save original content
-                                const originalContent = taskContainer.innerHTML;
+                                // Store current content in session storage before page reload
+                                if (document.querySelectorAll('.task-row').length > 0) {
+                                    sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+                                }
 
                                 // Replace with loading indicator
                                 taskContainer.innerHTML = `
@@ -385,44 +393,46 @@ document.addEventListener('DOMContentLoaded', function() {
                     const taskRow = actionDiv.closest('tr');
                     if (taskRow) {
                         taskRow.remove();
-                        // Check if there are any tasks left
-                        if (document.querySelectorAll('.task-row').length === 0) {
-                            // Show the empty state
-                            document.getElementById('tasks-container').innerHTML = `
-                                <div class="alert alert-info">
-                                    <h4 class="alert-heading">Welcome to your to do list for today!</h4>
-                                    <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+                        // Keep track of task container content in session storage to avoid flash of "no tasks"
+                        const taskContainer = document.querySelector('#tasks-container');
+                        if (taskContainer) {
+                            // Store current content in session storage before page reload
+                            if (document.querySelectorAll('.task-row').length > 0) {
+                                sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+                            }
+
+                            // Replace with loading indicator
+                            taskContainer.innerHTML = `
+                                <div class="container mt-4">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 text-center my-5">
+                                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            <h3 class="mt-4">Updating your tasks...</h3>
+                                            <p class="text-muted">Please wait while we process your request.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             `;
                         }
+
+                        // Delay reload slightly to allow server to process changes
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000); // Increased to 2000ms for better visibility
                     }
 
-                    // Show loading indicator instead of immediate reload
-                    const taskContainer = document.querySelector('#tasks-container');
-                    if (taskContainer) {
-                        // Save original content
-                        const originalContent = taskContainer.innerHTML;
-
-                        // Replace with loading indicator
-                        taskContainer.innerHTML = `
-                            <div class="container mt-4">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6 text-center my-5">
-                                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                            <span class="visually-hidden">Loading...</span>
-                                        </div>
-                                        <h3 class="mt-4">Updating your tasks...</h3>
-                                        <p class="text-muted">Please wait while we process your request.</p>
-                                    </div>
-                                </div>
+                    // Check if there are any tasks left
+                    if (document.querySelectorAll('.task-row').length === 0) {
+                        // Show the empty state
+                        document.getElementById('tasks-container').innerHTML = `
+                            <div class="alert alert-info">
+                                <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+                                <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
                             </div>
                         `;
                     }
-
-                    // Delay reload slightly to allow server to process changes
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000); // Increased to 2000ms for better visibility
                 }
 
                 if (typeof feather !== 'undefined') {
