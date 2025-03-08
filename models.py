@@ -40,8 +40,29 @@ class User(UserMixin, db.Model):
             return False
             
         # Handle the case where password_hash is None or doesn't exist
-        if self.password_hash is None:
+        if self.password_hash is None or not self.password_hash:
             logger.warning(f"No password hash found for user {self.id}")
+            
+            # Check the encrypted_password field (used by some legacy systems)
+            if hasattr(self, 'encrypted_password') and self.encrypted_password:
+                logger.info(f"Checking encrypted_password for user {self.id}")
+                # Try direct comparison with encrypted_password (could be plain text or already hashed)
+                if self.encrypted_password == password:
+                    logger.info(f"Direct encrypted_password match for user {self.id}")
+                    # Migrate to the new password_hash format
+                    self.set_password(password)
+                    from app import db
+                    db.session.commit()
+                    return True
+                # Also try if encrypted_password is already in hash format
+                elif self.encrypted_password.startswith('pbkdf2:sha256:') and check_password_hash(self.encrypted_password, password):
+                    logger.info(f"Hashed encrypted_password match for user {self.id}")
+                    # Move the hash to password_hash
+                    self.password_hash = self.encrypted_password
+                    from app import db
+                    db.session.commit()
+                    return True
+            
             # Legacy check: directly compare with the password for backward compatibility
             if hasattr(self, 'password') and self.password == password:
                 logger.info(f"Legacy password match for user {self.id}")
@@ -50,6 +71,7 @@ class User(UserMixin, db.Model):
                 from app import db
                 db.session.commit()
                 return True
+                
             return False
         
         # Handle plain-text passwords stored in password_hash field
