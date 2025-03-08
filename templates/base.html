@@ -11,6 +11,70 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <div id="page-loader" style="position: fixed; top: 0; left: 0; width: 100%; height: 3px; background-color: transparent; z-index: 9999;">
+        <div id="loading-bar" style="width: 0%; height: 100%; background-color: #6f42c1; transition: width 0.3s ease-out;"></div>
+    </div>
+    
+    <script>
+    // Page navigation loading indicator
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up navigation loading indicator
+        const loader = document.getElementById('loading-bar');
+        
+        // Show loading bar on link clicks
+        document.addEventListener('click', function(e) {
+            // Check if the clicked element is a link
+            let target = e.target;
+            while (target && target.tagName !== 'A') {
+                target = target.parentElement;
+            }
+            
+            // If it's a link with href attribute and not opening in a new tab
+            if (target && target.getAttribute('href') && 
+                !target.getAttribute('target') && 
+                target.getAttribute('href').charAt(0) !== '#' &&
+                !target.getAttribute('href').startsWith('javascript:')) {
+                
+                // Start loading animation
+                loader.style.width = '30%';
+                setTimeout(() => {
+                    loader.style.width = '60%';
+                }, 200);
+            }
+        });
+        
+        // Complete loading animation when page is fully loaded
+        window.addEventListener('load', function() {
+            loader.style.width = '100%';
+            setTimeout(() => {
+                loader.style.width = '0%';
+            }, 500);
+        });
+        
+        // Also listen for AJAX requests if applicable
+        if (window.XMLHttpRequest) {
+            const originalXHR = window.XMLHttpRequest;
+            function newXHR() {
+                const xhr = new originalXHR();
+                xhr.addEventListener('loadstart', function() {
+                    loader.style.width = '30%';
+                });
+                xhr.addEventListener('progress', function() {
+                    loader.style.width = '60%';
+                });
+                xhr.addEventListener('load', function() {
+                    loader.style.width = '100%';
+                    setTimeout(() => {
+                        loader.style.width = '0%';
+                    }, 500);
+                });
+                return xhr;
+            }
+            window.XMLHttpRequest = newXHR;
+        }
+    });
+    </script>
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('inventory.index') }}">Curriculum Manager</a>
