@@ -13,20 +13,20 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=True)
     password_hash = db.Column(db.String(128))
+    first_name = db.Column(db.String(50), nullable=True)
+    last_name = db.Column(db.String(50), nullable=True)
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    is_admin = db.Column(db.Boolean, default=False)
-    
-    # User preferences
-    timezone = db.Column(db.String(50), default='UTC')
-    selected_curriculum_id = db.Column(db.Integer, db.ForeignKey('curriculums.id', ondelete='SET NULL'), nullable=True)
+    is_superuser = db.Column(db.Boolean, default=False)
+    time_zone = db.Column(db.String(50), default='UTC')
     
     # Relationships
     enrollments = db.relationship('Enrollment', backref='student', lazy='dynamic', cascade="all, delete-orphan")
     tasks = db.relationship('StudentTask', backref='student', lazy='dynamic', cascade="all, delete-orphan")
+    profile = db.relationship('Profile', backref='user', uselist=False, cascade="all, delete-orphan")
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -39,9 +39,30 @@ class User(UserMixin, db.Model):
     
     def get_timezone(self):
         try:
-            return pytz.timezone(self.timezone)
+            return pytz.timezone(self.time_zone)
         except:
             return pytz.UTC
+
+class Profile(db.Model):
+    __tablename__ = 'profiles'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    school = db.Column(db.String(100), nullable=True)
+    grade_level = db.Column(db.String(20), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    
+    def __repr__(self):
+        return f'<Profile {self.user_id}>'
+
+# Grade levels for dropdown menus
+GRADE_LEVELS = [
+    'Pre-K', 'Kindergarten', 
+    '1st Grade', '2nd Grade', '3rd Grade', '4th Grade', '5th Grade',
+    '6th Grade', '7th Grade', '8th Grade', 
+    '9th Grade', '10th Grade', '11th Grade', '12th Grade',
+    'College', 'Adult'
+]
 
 class Curriculum(db.Model):
     __tablename__ = 'curriculums'
@@ -49,9 +70,15 @@ class Curriculum(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    is_public = db.Column(db.Boolean, default=False)
+    link = db.Column(db.String(2048), nullable=True)
+    public = db.Column(db.Boolean, default=False)
+    published = db.Column(db.Boolean, default=False)
+    locked = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    published_at = db.Column(db.DateTime, nullable=True)
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    publisher = db.Column(db.String(100), nullable=True)
+    grade_levels = db.Column(db.ARRAY(db.String), default=list)
     is_adaptive = db.Column(db.Boolean, default=False)
     
     # Define the relationship to User
@@ -71,7 +98,7 @@ class Curriculum(db.Model):
         return Enrollment.query.filter_by(
             curriculum_id=self.id, 
             student_id=user_id,
-            is_archived=False
+            paused=False
         ).first()
     
     def get_enrollment(self, user_id):
@@ -88,6 +115,19 @@ class Curriculum(db.Model):
 
 class Task(db.Model):
     __tablename__ = 'tasks'
+    
+    # Action type constants
+    ACTION_READ = 1
+    ACTION_WATCH = 2
+    ACTION_LISTEN = 3
+    ACTION_DO = 4
+    
+    ACTION_MAP = {
+        'Read': ACTION_READ,
+        'Watch': ACTION_WATCH,
+        'Listen': ACTION_LISTEN,
+        'Do': ACTION_DO
+    }
     
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -172,13 +212,13 @@ class Enrollment(db.Model):
     enrolled_at = db.Column(db.DateTime, default=datetime.utcnow)
     daily_goal_count = db.Column(db.Integer, default=1)
     weekly_goal_count = db.Column(db.Integer, default=5)
+    study_days_per_week = db.Column(db.Integer, default=5)
     target_completion_date = db.Column(db.Date, nullable=True)
-    is_archived = db.Column(db.Boolean, default=False)
+    paused = db.Column(db.Boolean, default=False)
     
     def __repr__(self):
         return f'<Enrollment {self.student_id}-{self.curriculum_id}>'
     
-    @property
     def is_completed(self):
         if not self.curriculum:
             return False
@@ -194,7 +234,7 @@ class Enrollment(db.Model):
             return current_date > self.target_completion_date
             
         # For regular curriculums, check if all tasks are completed
-        total_tasks = len(self.curriculum.tasks)
+        total_tasks = len(self.curriculum.tasks.all())
         if total_tasks == 0:
             return False
         
@@ -263,6 +303,40 @@ class Enrollment(db.Model):
             StudentTask.finished_at < week_end_utc
         ).count()
     
+    def calculate_weekly_goal(self):
+        """Calculate weekly goal based on target completion and remaining tasks"""
+        if not self.target_completion_date or not self.curriculum:
+            return self.weekly_goal_count
+            
+        today = date.today()
+        
+        # If target date has passed, no weekly goal
+        if today >= self.target_completion_date:
+            return 0
+            
+        # For adaptive curriculums, just use the days per week setting
+        if self.curriculum.is_adaptive:
+            return self.study_days_per_week
+            
+        # Calculate weeks remaining
+        days_remaining = (self.target_completion_date - today).days
+        weeks_remaining = max(1, days_remaining / 7)
+        
+        # Calculate tasks remaining
+        total_tasks = len(self.curriculum.tasks.all())
+        completed_tasks = self.tasks_completed()
+        tasks_remaining = max(0, total_tasks - completed_tasks)
+        
+        # If no tasks remaining, no weekly goal
+        if tasks_remaining == 0:
+            return 0
+            
+        # Calculate weekly goal
+        weekly_goal = int(tasks_remaining / weeks_remaining)
+        
+        # Ensure at least 1 task per week if there are tasks remaining
+        return max(1, weekly_goal)
+    
     def calculate_todays_goal(self):
         if not self.target_completion_date:
             return self.daily_goal_count
@@ -286,7 +360,7 @@ class Enrollment(db.Model):
             # So just use the daily goal
             return self.daily_goal_count
             
-        tasks_remaining = len(self.curriculum.tasks) - self.tasks_completed()
+        tasks_remaining = len(self.curriculum.tasks.all()) - self.tasks_completed()
         if tasks_remaining <= 0:
             return 0
             
@@ -318,7 +392,7 @@ class Enrollment(db.Model):
         today = date.today()
         days_remaining = (self.target_completion_date - today).days
         
-        if self.is_completed:
+        if self.is_completed():
             return "progress-complete"
         elif days_remaining < 0:
             return "progress-none"  # Overdue
@@ -326,6 +400,19 @@ class Enrollment(db.Model):
             return "progress-partial"  # Less than a week
         else:
             return "text-muted"  # More than a week
+
+class WeeklySnapshot(db.Model):
+    __tablename__ = 'weekly_snapshots'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'))
+    week_starting = db.Column(db.Date, nullable=False)
+    tasks_completed = db.Column(db.Integer, default=0)
+    time_spent_minutes = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<WeeklySnapshot {self.user_id}-{self.week_starting}>'
 
 # Function to generate a random UUID token
 def generate_token():
