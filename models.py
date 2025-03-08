@@ -414,6 +414,60 @@ class Enrollment(db.Model):
             return 'progress-partial'
         else:
             return 'progress-complete'
+            
+    def target_date_status(self):
+        """
+        Determines if the student is on pace to complete the curriculum by the target date.
+        Returns one of: progress-complete, progress-partial, progress-none
+        """
+        if not self.target_completion_date:
+            return 'progress-none'
+            
+        # Get total tasks and completed tasks
+        total_tasks = len(self.curriculum.tasks) if self.curriculum else 0
+        if total_tasks == 0:
+            return 'progress-complete'
+            
+        completed_count = StudentTask.query.join(Task).filter(
+            StudentTask.student_id == self.student_id,
+            Task.curriculum_id == self.curriculum_id,
+            StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
+        ).count()
+        
+        # Calculate progress percentage
+        progress_percentage = (completed_count / total_tasks) if total_tasks > 0 else 0
+        
+        # Calculate elapsed time percentage
+        from datetime import datetime
+        import pytz
+        
+        current_date = datetime.now(pytz.UTC).date()
+        
+        # If target date is in the past and not complete
+        if self.target_completion_date < current_date:
+            return 'progress-none' if progress_percentage < 1 else 'progress-complete'
+            
+        # Calculate start date (enrollment creation date)
+        start_date = self.created_at.date()
+        
+        # Calculate total days and elapsed days
+        total_days = (self.target_completion_date - start_date).days
+        elapsed_days = (current_date - start_date).days
+        
+        if total_days <= 0:
+            return 'progress-complete' if progress_percentage >= 1 else 'progress-none'
+            
+        time_percentage = elapsed_days / total_days
+        
+        # If progress percentage is ahead of time percentage, on track
+        if progress_percentage >= time_percentage:
+            return 'progress-complete'
+        # If within 20% of being on track, partially on track
+        elif progress_percentage >= time_percentage * 0.8:
+            return 'progress-partial'
+        # Otherwise behind schedule
+        else:
+            return 'progress-none'
 
 class WeeklySnapshot(db.Model):
     __tablename__ = 'weekly_snapshots'
