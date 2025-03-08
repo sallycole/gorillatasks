@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
-from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot
+from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot, GRADE_LEVELS
 from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm, UserEditForm
 from datetime import datetime, timedelta
 import pytz
@@ -16,7 +16,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
-from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot
+from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot, GRADE_LEVELS
 from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm, UserEditForm
 from datetime import datetime, timedelta
 import pytz
@@ -156,10 +156,10 @@ def index():
         )
         .order_by(Task.position)
         .all())
-    
+
     # Log debugging information
     logger.info(f"User {current_user.id} ({current_user.email}) has {len(promoted_tasks)} promoted tasks")
-    
+
     # Count tasks by status
     status_counts = {
         "not_started": 0,
@@ -167,7 +167,7 @@ def index():
         "completed": 0,
         "skipped": 0
     }
-    
+
     for task in promoted_tasks:
         if task.status == StudentTask.STATUS_NOT_STARTED:
             status_counts["not_started"] += 1
@@ -177,7 +177,7 @@ def index():
             status_counts["completed"] += 1
         elif task.status == StudentTask.STATUS_SKIPPED:
             status_counts["skipped"] += 1
-    
+
     logger.info(f"Task status counts: {status_counts}")
 
     # Group tasks by curriculum
@@ -194,7 +194,7 @@ def index():
             logger.info(f"Adding curriculum {curriculum_id}: {curriculum_names[curriculum_id]}")
 
         tasks_by_curriculum[curriculum_id].append(student_task)
-    
+
     # Log curriculum counts
     for curriculum_id, tasks in tasks_by_curriculum.items():
         logger.info(f"Curriculum {curriculum_id} has {len(tasks)} tasks")
@@ -202,7 +202,7 @@ def index():
     # Calculate total and completed tasks for the goal display
     total_tasks = len(promoted_tasks)
     completed_tasks = status_counts["completed"]
-    
+
     logger.info(f"Today's goal stats: {completed_tasks} completed out of {total_tasks} total tasks")
 
     # Check if user is phobezcole@gmail.com
@@ -214,7 +214,7 @@ def index():
             promoted=True
         ).all()
         logger.info(f"Direct query shows {len(all_promoted)} promoted tasks")
-        
+
         # Check database for any inconsistencies
         if len(all_promoted) != len(promoted_tasks):
             logger.warning(f"Discrepancy in task counts: direct {len(all_promoted)} vs joined {len(promoted_tasks)}")
@@ -243,23 +243,23 @@ def reset_today():
             student_id=current_user.id,
             promoted=True
         ).all()
-        
+
         reset_count = 0
         for task in promoted_tasks:
             # Reset promoted flag for all tasks, regardless of status
             task.promoted = False
-            
+
             # Only reset status for unfinished tasks
             if task.status in [StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]:
                 task.status = StudentTask.STATUS_NOT_STARTED
                 task.started_at = None
-            
+
             reset_count += 1
-                
+
         db.session.commit()
-        
+
         logger.info(f"User {current_user.id} manually reset {reset_count} tasks (including completed tasks)")
-        
+
         return jsonify({
             'status': 'success',
             'count': reset_count,
@@ -297,7 +297,7 @@ def start_task(id):
         # Start the task
         student_task.start()
         db.session.commit()
-        
+
         logger.info(f"Task {id} started successfully, status: {student_task.status}")
 
         return jsonify({
@@ -698,7 +698,7 @@ def promote_task(id):
             student_task.promoted = True
             db.session.commit()
             logger.info(f"Task {id} promoted successfully")
-            
+
             # Make sure we return proper JSON response
             response = jsonify({
                 'status': 'success',
@@ -708,7 +708,7 @@ def promote_task(id):
             return response
 
         logger.warning(f"Task {id} cannot be promoted due to status: {student_task.status}")
-        
+
         # Make sure we set Content-Type header explicitly
         response = jsonify({
             'status': 'error',
@@ -720,7 +720,7 @@ def promote_task(id):
     except Exception as e:
         logger.error(f"Error promoting task {id}: {str(e)}", exc_info=True)
         db.session.rollback()
-        
+
         # Explicitly set Content-Type to application/json
         response = jsonify({
             'status': 'error',
@@ -773,7 +773,7 @@ def new():
     form = CurriculumForm()
     if form.validate_on_submit():
         form_type = request.form.get('form_type', 'manual')
-        
+
         if form_type == 'xml' and form.xml_file.data:
             # Process XML file upload first
             try:
@@ -809,7 +809,7 @@ def new():
 
                         task = Task(
                             curriculum_id=curriculum.id,
-                            title=task_elem.find('title').text.strip() if task_elem.find('title') is not None and task_elem.find('title').text else '',
+                            title=task_elem.find('title').text.strip if task_elem.find('title') is not None and task_elem.find('title').text else '',
                             description=task_elem.find('description').text.strip() if task_elem.find('description') is not None and task_elem.find('description').text else '',
                             link=task_elem.find('url').text.strip() if task_elem.find('url') is not None and task_elem.find('url').text else None,
                             action=action_value,
@@ -839,7 +839,7 @@ def new():
             )
             db.session.add(curriculum)
             db.session.flush()  # Get curriculum.id without committing
-            
+
             # Create the single adaptive task
             task = Task(
                 curriculum_id=curriculum.id,
@@ -852,7 +852,7 @@ def new():
             )
             db.session.add(task)
             db.session.commit()
-            
+
             flash('Adaptive curriculum created successfully!')
             return redirect(url_for('curriculum.list'))
         else:
