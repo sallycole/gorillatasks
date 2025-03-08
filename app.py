@@ -63,11 +63,13 @@ def create_app():
 
             # Register blueprints after models are imported
             from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp, todo_bp # Added todo_bp import
+            from routes_test import test_bp #Added import for test_bp
             app.register_blueprint(auth_bp, url_prefix='/auth')
             app.register_blueprint(curriculum_bp, url_prefix='/curriculum')
             app.register_blueprint(inventory_bp, url_prefix='/inventory')
             app.register_blueprint(archive_bp, url_prefix='/archive')
             app.register_blueprint(todo_bp, url_prefix='/today') # Registered todo_bp
+            app.register_blueprint(test_bp, url_prefix='/test') #Registered test_bp
 
 
             # Register root route
