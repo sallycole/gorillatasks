@@ -56,6 +56,7 @@ class Curriculum(db.Model):
     published_at = db.Column(db.DateTime)
     created_at = db.Column(db.DateTime, default=now_in_utc)
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
+    is_adaptive = db.Column(db.Boolean, default=False)
 
     tasks = db.relationship('Task', backref='curriculum', 
                           cascade='all, delete-orphan', 
@@ -110,6 +111,7 @@ class Task(db.Model):
     link = db.Column(db.String(1000))
     action = db.Column(db.Integer)
     position = db.Column(db.Integer)
+    is_adaptive = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=now_in_utc)
     updated_at = db.Column(db.DateTime, default=now_in_utc, onupdate=now_in_utc)
 
@@ -170,6 +172,18 @@ class StudentTask(db.Model):
                 
             delta = self.finished_at - self.started_at
             self.time_spent_minutes = int(delta.total_seconds() / 60)
+            
+            # If this is an adaptive task, we don't keep it promoted
+            # For regular tasks, we keep the promoted flag as is
+            if self.task and self.task.is_adaptive:
+                # Create a new student task entry for the next adaptive session
+                new_task = StudentTask(
+                    student_id=self.student_id,
+                    task_id=self.task_id,
+                    status=self.STATUS_NOT_STARTED,
+                    promoted=True  # Keep it on the Today page for the next session
+                )
+                db.session.add(new_task)
 
     def skip(self):
         self.status = self.STATUS_SKIPPED

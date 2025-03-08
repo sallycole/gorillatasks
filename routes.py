@@ -669,7 +669,20 @@ def promote_task(id):
             task_id=id
         ).first()
 
-        if not student_task:
+        # For adaptive tasks, we need special handling
+        if task.is_adaptive:
+            # For adaptive tasks, we always create a new task instance if
+            # there isn't an active one or the existing one is completed
+            if not student_task or student_task.status == StudentTask.STATUS_COMPLETED:
+                logger.info(f"Creating new student task for adaptive task {id}")
+                student_task = StudentTask(
+                    student_id=current_user.id,
+                    task_id=id,
+                    status=StudentTask.STATUS_NOT_STARTED
+                )
+                db.session.add(student_task)
+        elif not student_task:
+            # For regular tasks, create a new task entry if none exists
             logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
                 student_id=current_user.id,
@@ -759,7 +772,9 @@ import os
 def new():
     form = CurriculumForm()
     if form.validate_on_submit():
-        if form.xml_file.data:
+        form_type = request.form.get('form_type', 'manual')
+        
+        if form_type == 'xml' and form.xml_file.data:
             # Process XML file upload first
             try:
                 xml_content = form.xml_file.data.read().decode('utf-8')
@@ -777,7 +792,8 @@ def new():
                     public=False,  # All new curriculums start as private
                     creator_id=current_user.id,
                     publisher=root.find('publisher').text.strip() if root.find('publisher') is not None else None,
-                    grade_levels=[grade.text.strip() for grade in root.findall('grade_levels/grade_level')] if root.find('grade_levels') is not None else []
+                    grade_levels=[grade.text.strip() for grade in root.findall('grade_levels/grade_level')] if root.find('grade_levels') is not None else [],
+                    is_adaptive=False
                 )
                 db.session.add(curriculum)
                 db.session.flush()  # Get curriculum.id without committing
@@ -808,7 +824,37 @@ def new():
             except Exception as e:
                 db.session.rollback()
                 flash(f'Error processing XML file: {str(e)}', 'error')
-                return render_template('curriculum/edit.html', form=form)
+                return render_template('curriculum/edit.html', form=form, grade_levels=GRADE_LEVELS)
+        elif form_type == 'adaptive':
+            # Handle adaptive curriculum creation
+            curriculum = Curriculum(
+                name=form.name.data,
+                description=form.description.data,
+                link=form.link.data,
+                public=False,  # All new curriculums start as private
+                creator_id=current_user.id,
+                publisher=form.publisher.data,
+                grade_levels=request.form.getlist('grade_levels'),
+                is_adaptive=True
+            )
+            db.session.add(curriculum)
+            db.session.flush()  # Get curriculum.id without committing
+            
+            # Create the single adaptive task
+            task = Task(
+                curriculum_id=curriculum.id,
+                title=request.form.get('adaptive_task_title', 'Practice Session'),
+                description=request.form.get('adaptive_task_description', 'Complete one session'),
+                link=form.link.data,  # Use same link as curriculum
+                action=Task.ACTION_MAP.get(request.form.get('adaptive_task_action', 'Do'), Task.ACTION_DO),
+                position=1,
+                is_adaptive=True
+            )
+            db.session.add(task)
+            db.session.commit()
+            
+            flash('Adaptive curriculum created successfully!')
+            return redirect(url_for('curriculum.list'))
         else:
             # Handle manual curriculum creation
             curriculum = Curriculum(
@@ -817,13 +863,15 @@ def new():
                 link=form.link.data,
                 public=False,  # All new curriculums start as private
                 creator_id=current_user.id,
-                publisher=form.publisher.data
+                publisher=form.publisher.data,
+                grade_levels=request.form.getlist('grade_levels'),
+                is_adaptive=False
             )
             db.session.add(curriculum)
             db.session.commit()
             flash('Curriculum created successfully!')
             return redirect(url_for('curriculum.list'))
-    return render_template('curriculum/edit.html', form=form)
+    return render_template('curriculum/edit.html', form=form, grade_levels=GRADE_LEVELS)
 
 @curriculum_bp.route('/<int:id>', methods=['GET'])
 @login_required

@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block content %}
@@ -11,13 +10,16 @@
             <div class="card-body">
                 <ul class="nav nav-tabs mb-3" id="curriculumTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="xml-tab" data-bs-toggle="tab" data-bs-target="#xml" type="button" role="tab" aria-controls="xml" aria-selected="true">Upload XML</button>
+                        <button class="nav-link active" id="xml-tab" data-bs-toggle="tab" data-bs-target="#xml" type="button" role="tab" aria-controls="xml" aria-selected="true">Upload XML Sequence</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual" type="button" role="tab" aria-controls="manual" aria-selected="false">Create Manually</button>
+                        <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual" type="button" role="tab" aria-controls="manual" aria-selected="false">Create Sequence Manually</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="adaptive-tab" data-bs-toggle="tab" data-bs-target="#adaptive" type="button" role="tab" aria-controls="adaptive" aria-selected="false">Configure Adaptive Path</button>
                     </li>
                 </ul>
-                
+
                 <div class="tab-content" id="curriculumTabsContent">
                     <!-- XML Upload Tab -->
                     <div class="tab-pane fade show active" id="xml" role="tabpanel" aria-labelledby="xml-tab">
@@ -32,7 +34,7 @@
                                 <li>Put tasks in order from first to last</li>
                                 <li>All grade level options are shown in the example. Choose only the grade levels applicable to your curriculum in your .xml file.</li>
                             </ul>
-                            
+
                             <div class="bg-light p-3 mt-3 mb-3">
                                 <pre id="xmlExample" class="mb-0" style="white-space: pre-wrap; color: #000;">
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -62,7 +64,7 @@
                                 </pre>
                             </div>
                         </div>
-                        
+
                         <form method="POST" enctype="multipart/form-data" class="xml-form">
                             {{ form.csrf_token }}
                             <div class="mb-3">
@@ -100,6 +102,60 @@
                                 <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
                             </div>
                             <button type="submit" class="btn btn-primary" name="form_type" value="manual">Create Curriculum</button>
+                        </form>
+                    </div>
+
+                    <!-- Adaptive Path Tab -->
+                    <div class="tab-pane fade" id="adaptive" role="tabpanel" aria-labelledby="adaptive-tab">
+                        <form method="POST" class="adaptive-form">
+                            {{ form.csrf_token }}
+                            <div class="mb-3">
+                                {{ form.name.label(class="form-label") }}
+                                {{ form.name(class="form-control", required=true) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.description.label(class="form-label") }}
+                                {{ form.description(class="form-control", required=true) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.link.label(class="form-label") }}
+                                {{ form.link(class="form-control", required=true) }}
+                                <div class="form-text">Link to the adaptive learning resource that will be used for each session.</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.publisher.label(class="form-label") }}
+                                {{ form.publisher(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                <label for="grade_levels" class="form-label">Grade Levels</label>
+                                <select name="grade_levels" id="grade_levels" multiple class="form-select">
+                                    {% for value, label in grade_levels %}
+                                    <option value="{{ value }}">{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="adaptive_task_title" class="form-label">Adaptive Task Title</label>
+                                <input type="text" name="adaptive_task_title" id="adaptive_task_title" class="form-control" required value="Practice Session">
+                                <div class="form-text">Title for the reusable task (e.g., "Daily Practice", "Adaptive Session")</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="adaptive_task_description" class="form-label">Adaptive Task Description</label>
+                                <textarea name="adaptive_task_description" id="adaptive_task_description" class="form-control" rows="3">Complete one session</textarea>
+                                <div class="form-text">Description of what should be accomplished in each session</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="adaptive_task_action" class="form-label">Task Action</label>
+                                <select name="adaptive_task_action" id="adaptive_task_action" class="form-select">
+                                    <option value="Do">Do</option>
+                                    <option value="Read">Read</option>
+                                    <option value="Watch">Watch</option>
+                                    <option value="Listen">Listen</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="is_adaptive" value="true">
+                            <button type="submit" class="btn btn-primary" name="form_type" value="adaptive">Create Adaptive Curriculum</button>
                         </form>
                     </div>
                 </div>

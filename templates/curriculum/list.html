@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block content %}
@@ -50,26 +49,19 @@
     <div class="col-md-4 mb-4 curriculum-card" data-grades="{{ ','.join(curriculum.grade_levels or []) }}">
         <div class="card h-100">
             <div class="card-body">
-                <h5 class="card-title">{{ curriculum.name }}</h5>
-                {% if curriculum.description %}
-                <p class="card-text">{{ curriculum.description }}</p>
-                {% endif %}
+                <h5 class="card-title">
+                    {{ curriculum.name }}
+                    {% if curriculum.is_adaptive %}
+                    <span class="badge bg-info">Adaptive</span>
+                    {% endif %}
+                </h5>
+                <p class="card-text">{{ curriculum.description | truncate(150) }}</p>
                 {% if curriculum.publisher %}
-                <p class="card-text"><small class="text-muted">Publisher: {{ curriculum.publisher }}</small></p>
+                <p class="card-text"><strong>Publisher:</strong> {{ curriculum.publisher }}</p>
                 {% endif %}
                 {% if curriculum.grade_levels %}
-                <p class="card-text"><small class="text-muted">Grade Level(s): {{ curriculum.grade_levels|join(', ') }}</small></p>
+                <p class="card-text"><strong>Grade Levels:</strong> {{ curriculum.grade_levels|join(', ') }}</p>
                 {% endif %}
-                <div class="mb-2">
-                    {% if curriculum.published %}
-                    <span class="badge bg-success">Public</span>
-                    {% else %}
-                    <span class="badge bg-secondary">Private</span>
-                    {% endif %}
-                    {% if curriculum.id in user_enrollments %}
-                    <span class="badge bg-info">Enrolled</span>
-                    {% endif %}
-                </div>
             </div>
             <div class="card-footer">
                 <div class="d-flex gap-2">
@@ -104,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const titleEl = card.querySelector('.card-title');
             const descEl = card.querySelector('.card-text');
             const publisherEl = card.querySelector('.text-muted');
-            
+
             const title = titleEl ? titleEl.textContent.toLowerCase() : '';
             const description = descEl ? descEl.textContent.toLowerCase() : '';
             const publisher = publisherEl ? publisherEl.textContent.toLowerCase() : '';
@@ -115,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 title.includes(searchTerm) || 
                 description.includes(searchTerm) || 
                 publisher.includes(searchTerm);
-                
+
             const matchesGrade = !selectedGrade || 
                 grades.split(',').some(grade => grade.trim() === selectedGrade);
-                
+
             const matchesVisibility = selectedVisibility === 'all' || 
                 (selectedVisibility === 'public' && isPublic) || 
                 (selectedVisibility === 'private' && !isPublic);
