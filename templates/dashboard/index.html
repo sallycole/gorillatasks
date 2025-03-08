@@ -139,9 +139,6 @@ function initializeSocket() {
                         <button class="btn btn-sm btn-outline-success" disabled>
                             <i data-feather="check"></i> Promoted to Today
                         </button>
-                        <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
-                            <i data-feather="skip-forward"></i> Skip
-                        </button>
                     </div>
                 `;
 
@@ -171,6 +168,11 @@ function initializeSocket() {
                 if (typeof feather !== 'undefined') {
                     feather.replace();
                 }
+                
+                // After a short delay, reload the page to ensure the UI is updated correctly
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
             } else {
                 actionDiv.innerHTML = originalContent;
                 alert(`Error: ${data.message || 'Unknown error'}`);
