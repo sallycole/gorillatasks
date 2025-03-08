@@ -35,28 +35,51 @@ class User(UserMixin, db.Model):
         import logging
         logger = logging.getLogger(__name__)
         
-        if self.password_hash is None:
-            logger.warning(f"No password hash found for user {self.id}")
-            return False
-            
         if not password:
             logger.warning(f"Empty password provided for user {self.id}")
             return False
             
-        # Additional debugging for password hash format
+        # Handle the case where password_hash is None or doesn't exist
+        if self.password_hash is None:
+            logger.warning(f"No password hash found for user {self.id}")
+            # Legacy check: directly compare with the password for backward compatibility
+            if hasattr(self, 'password') and self.password == password:
+                logger.info(f"Legacy password match for user {self.id}")
+                # Update to the new hash format if legacy match succeeds
+                self.set_password(password)
+                from app import db
+                db.session.commit()
+                return True
+            return False
+        
+        # Handle plain-text passwords stored in password_hash field
         if not self.password_hash.startswith('pbkdf2:sha256:'):
-            logger.warning(f"Password hash for user {self.id} has unexpected format: {self.password_hash[:15]}...")
+            logger.warning(f"Password in non-hashed format for user {self.id}")
+            # Check if the plain-text password matches
+            if self.password_hash == password:
+                logger.info(f"Plain-text password match for user {self.id}")
+                # Update to the new hash format if plain-text match succeeds
+                self.password_hash = generate_password_hash(password)
+                from app import db
+                db.session.commit()
+                return True
+            return False
             
+        # Normal case: verify using werkzeug's check_password_hash
         try:
             result = check_password_hash(self.password_hash, password)
             logger.info(f"Password check for user {self.id}: {'success' if result else 'failed'}")
             return result
         except Exception as e:
             logger.error(f"Error in password verification for user {self.id}: {str(e)}")
-            # For debugging purposes, you might want to regenerate the hash
-            # import secrets
-            # if secrets.compare_digest(self.password_hash, password):
-            #     return True
+            # Last resort: try direct comparison for legacy compatibility
+            if self.password_hash == password:
+                logger.info(f"Direct password match after hash check failure for user {self.id}")
+                # Update to the new hash format
+                self.password_hash = generate_password_hash(password)
+                from app import db
+                db.session.commit()
+                return True
             return False
     
     def __repr__(self):
