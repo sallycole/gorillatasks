@@ -378,6 +378,11 @@ socket.on('task_updated', function(data) {
                 </div>
             `;
         }
+        
+        actionDiv.innerHTML = newHtml;
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
 
         actionDiv.innerHTML = newHtml;
         if (typeof feather !== 'undefined') {
