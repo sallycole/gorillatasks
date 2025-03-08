@@ -363,10 +363,15 @@ def login():
                 )
             )
         ).first()
-        if user and user.check_password(form.password.data):
+        if not user:
+            flash('User not found. Please check your email or username.')
+            return render_template('auth/login.html', form=form)
+            
+        if user.check_password(form.password.data):
             login_user(user)
             return redirect(url_for('inventory.index'))
-        flash('Invalid email or password')
+        else:
+            flash('Invalid password. Please try again.')
     return render_template('auth/login.html', form=form)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])

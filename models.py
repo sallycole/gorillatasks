@@ -32,9 +32,13 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
         
     def check_password(self, password):
-        if self.password_hash is None:
+        if self.password_hash is None or not password:
             return False
-        return check_password_hash(self.password_hash, password)
+        try:
+            return check_password_hash(self.password_hash, password)
+        except Exception:
+            # Handle any other errors that might occur during password verification
+            return False
     
     def __repr__(self):
         return f'<User {self.username}>'
