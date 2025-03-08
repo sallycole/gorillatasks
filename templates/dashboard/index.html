@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block head %}
+{{ super() }}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <style>
 .progress-none {
     color: #dc3545;  /* red */
@@ -12,10 +17,9 @@
     color: #28a745;  /* green */
 }
 </style>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+{% endblock %}
+
+{% block content %}
 <script>
 // Debug helper to highlight error-prone code
 function debugCodeStructure() {
