@@ -230,34 +230,45 @@ def index():
                           total_tasks=total_tasks,
                           current_user=current_user)
 
-@todo_bp.route('/check-reset', methods=['POST'])
+@todo_bp.route('/reset', methods=['POST'])
 @login_required
-def check_reset():
+def reset_today():
     """
-    Check if tasks need to be reset based on user's timezone.
-    This should be called via AJAX close to midnight.
+    Manually reset all tasks in the Today list.
+    Finished tasks stay archived, unfinished tasks return to inventory.
     """
-    from utils.timezone import to_user_timezone, now_in_utc
-    
-    # Get current time in user's timezone
-    now = now_in_utc()
-    user_now = to_user_timezone(now, current_user)
-    
-    # Check if it's just past midnight (00:00-00:05)
-    if user_now.hour == 0 and user_now.minute < 5:
-        # Reset unfinished promoted tasks
-        reset_count = StudentTask.reset_promoted_tasks(current_user.id)
+    try:
+        # Get all promoted tasks
+        promoted_tasks = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            promoted=True
+        ).all()
+        
+        reset_count = 0
+        for task in promoted_tasks:
+            # If task is not completed or skipped, reset its promoted flag
+            if task.status in [StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]:
+                task.promoted = False
+                task.status = StudentTask.STATUS_NOT_STARTED
+                task.started_at = None
+                reset_count += 1
+                
+        db.session.commit()
+        
+        logger.info(f"User {current_user.id} manually reset {reset_count} unfinished tasks")
+        
         return jsonify({
-            'reset': True,
+            'status': 'success',
             'count': reset_count,
             'message': f'Reset {reset_count} unfinished tasks'
         })
-    
-    # Not time to reset yet
-    return jsonify({
-        'reset': False,
-        'time': user_now.strftime('%H:%M:%S')
-    })
+    except Exception as e:
+        logger.error(f"Error resetting tasks: {str(e)}")
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 @todo_bp.route('/task/<int:id>/start', methods=['POST'])
 @login_required

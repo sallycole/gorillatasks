@@ -161,13 +161,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% block content %}
 <script>
-// Function to check if tasks need to be reset
-function checkForMidnightReset() {
-    const now = new Date();
-
-    // Check if within 5 minutes after midnight
-    if (now.getHours() === 0 && now.getMinutes() < 5) {
-        fetch('/today/check-reset', {
+function resetTodayTasks() {
+    if (confirm('Are you sure you want to reset your Today list? Finished tasks will be archived and unfinished tasks will return to the study inventory.')) {
+        fetch('/today/reset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -177,19 +173,40 @@ function checkForMidnightReset() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.reset) {
-                // If tasks were reset, refresh the page
-                location.reload();
+            if (data.status === 'success') {
+                // Show success message
+                const notification = document.createElement('div');
+                notification.className = 'position-fixed top-0 end-0 p-3';
+                notification.style.zIndex = '5';
+                notification.innerHTML = `
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-success text-white">
+                            <strong class="me-auto">Success</strong>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                                  onclick="this.parentElement.parentElement.parentElement.remove()"></button>
+                        </div>
+                        <div class="toast-body">
+                            ${data.message}
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.remove();
+                    location.reload(); // Refresh the page to reflect changes
+                }, 3000);
+            } else {
+                alert('Error: ' + data.message);
             }
         })
-        .catch(err => console.error('Error checking task reset:', err));
+        .catch(err => console.error('Error resetting tasks:', err));
     }
 }
 
-// Check on page load and every minute
 document.addEventListener('DOMContentLoaded', function() {
-    checkForMidnightReset();
-    setInterval(checkForMidnightReset, 60000); // Check every minute
+    // No automatic reset needed with the manual button
 });
 </script>
 
@@ -379,8 +396,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div class="container">
     <div class="row mb-4">
-        <div class="col-12">
+        <div class="col-12 d-flex justify-content-between align-items-center">
             <h1>To Do Today</h1>
+            <button onclick="resetTodayTasks()" class="btn btn-outline-danger">
+                <i data-feather="refresh-cw"></i> Reset List
+            </button>
+        </div>
             {% if tasks_by_curriculum %}
 
                 {# Total and completed tasks are now passed directly from the route #}
