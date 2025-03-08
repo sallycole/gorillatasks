@@ -395,7 +395,7 @@ class Enrollment(db.Model):
             StudentTask.student_id == self.student_id,
             StudentTask.status == StudentTask.STATUS_COMPLETED,
             Task.curriculum_id == self.curriculum_id,
-            StudentTask.updated_at >= today_start_utc
+            StudentTask.finished_at >= today_start_utc
         ).count()
 
     def recalculate_weekly_goal(self):
