@@ -489,24 +489,36 @@ socket.on('task_updated', (data) => {
                                 <div class="task-actions" data-task-id="{{ task.id }}" data-task-url="{{ task.link }}">
                                     {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
                                     <div class="d-inline-flex gap-2">
-                                    {% if not student_task or student_task.status == 0 %}
-                                        <button onclick="handleTaskAction('promote', {{ task.id }})" class="btn btn-sm btn-outline-primary">
-                                            <i data-feather="calendar"></i> Promote
-                                        </button>
-                                        <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
-                                            <i data-feather="skip-forward"></i> Skip
-                                        </button>
-                                    {% elif student_task.status == 1 %}
-                                        <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
-                                            <i data-feather="check"></i> Finish
-                                        </button>
-                                        <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
-                                            <i data-feather="skip-forward"></i> Skip
-                                        </button>
-                                    {% elif student_task.status == 2 %}
-                                        <button class="btn btn-sm btn-success" disabled>
-                                            <i data-feather="check-circle"></i> Completed
-                                        </button>
+                                    {% if task.is_adaptive %}
+                                        {% if not student_task or student_task.status in [0, 2] %}
+                                            <button onclick="handleTaskAction('promote', {{ task.id }})" class="btn btn-sm btn-outline-primary">
+                                                <i data-feather="calendar"></i> Promote
+                                            </button>
+                                        {% elif student_task.status == 1 %}
+                                            <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
+                                                <i data-feather="check"></i> Finish
+                                            </button>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if not student_task or student_task.status == 0 %}
+                                            <button onclick="handleTaskAction('promote', {{ task.id }})" class="btn btn-sm btn-outline-primary">
+                                                <i data-feather="calendar"></i> Promote
+                                            </button>
+                                            <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        {% elif student_task.status == 1 %}
+                                            <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
+                                                <i data-feather="check"></i> Finish
+                                            </button>
+                                            <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                <i data-feather="skip-forward"></i> Skip
+                                            </button>
+                                        {% elif student_task.status == 2 %}
+                                            <button class="btn btn-sm btn-success" disabled>
+                                                <i data-feather="check-circle"></i> Completed
+                                            </button>
+                                        {% endif %}
                                     {% endif %}
                                     </div>
                                 </div>
