@@ -62,15 +62,15 @@ def index():
         ).all()
 
         weekly_time = sum(t.time_spent_minutes for t in tasks 
-                         if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=7))
+                         if t.finished_at and (t.finished_at.tzinfo is None and pytz.UTC.localize(t.finished_at) or t.finished_at) >= now - timedelta(days=7))
         monthly_time = sum(t.time_spent_minutes for t in tasks 
-                          if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=30))
+                          if t.finished_at and (t.finished_at.tzinfo is None and pytz.UTC.localize(t.finished_at) or t.finished_at) >= now - timedelta(days=30))
         yearly_time = sum(t.time_spent_minutes for t in tasks 
-                         if t.updated_at and pytz.UTC.localize(t.updated_at) >= now - timedelta(days=365))
+                         if t.finished_at and (t.finished_at.tzinfo is None and pytz.UTC.localize(t.finished_at) or t.finished_at) >= now - timedelta(days=365))
 
         # Calculate today's time
         today_time = sum(t.time_spent_minutes for t in tasks 
-                        if t.updated_at and pytz.UTC.localize(t.updated_at).date() == now.date())
+                        if t.finished_at and (t.finished_at.tzinfo is None and pytz.UTC.localize(t.finished_at) or t.finished_at).date() == now.date())
 
         # Calculate all time
         all_time = sum(t.time_spent_minutes for t in tasks if t.time_spent_minutes)
