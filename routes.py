@@ -472,6 +472,7 @@ def index():
     # Get all task stats in a single query
     task_stats_query = (db.session.query(
             Task.curriculum_id,
+            Task.is_adaptive,
             db.func.count(Task.id).label('total_tasks'),
             db.func.count(db.case(
                 (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
@@ -486,17 +487,45 @@ def index():
             Task.id == StudentTask.task_id,
             StudentTask.student_id == current_user.id
         ))
-        .group_by(Task.curriculum_id)
+        .group_by(Task.curriculum_id, Task.is_adaptive)
         .all())
 
     # Process stats
     tasks_stats = {}
     filtered_tasks = {}
-    curriculum_stats = {r[0]: {'total': r[1], 'completed': r[2], 'skipped': r[3]} for r in task_stats_query}
+    
+    # Restructure the stats with curriculum_id as key
+    curriculum_stats = {}
+    for r in task_stats_query:
+        curr_id = r[0]
+        is_adaptive = r[1]
+        
+        if is_adaptive:
+            # For adaptive curriculums, get the actual count of completed sessions
+            completed_count = StudentTask.query.join(Task).filter(
+                StudentTask.student_id == current_user.id,
+                Task.curriculum_id == curr_id,
+                Task.is_adaptive == True,
+                StudentTask.status == StudentTask.STATUS_COMPLETED
+            ).count()
+            
+            curriculum_stats[curr_id] = {
+                'total': r[2], 
+                'completed': completed_count,  # This is the usage count for adaptive curriculums
+                'skipped': r[4],
+                'is_adaptive': True
+            }
+        else:
+            curriculum_stats[curr_id] = {
+                'total': r[2], 
+                'completed': r[3], 
+                'skipped': r[4],
+                'is_adaptive': False
+            }
 
     for enrollment in enrollments:
         curr_id = enrollment.curriculum_id
-        tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0})
+        tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0, 'skipped': 0, 'is_adaptive': False})
 
         # Filter incomplete tasks in memory and sort by position
         incomplete_tasks = [

@@ -379,6 +379,31 @@ socket.on('task_updated', (data) => {
         <div class="card-body">
             <!-- Progress Section -->
             <div class="mb-4">
+                {% if enrollment.curriculum.is_adaptive %}
+                <!-- Usage Meter for Adaptive Curriculums -->
+                <h5>Usage</h5>
+                <div class="progress mb-2 position-relative" style="height: 20px;">
+                    {% set completed = tasks_stats[enrollment.id]['completed'] %}
+                    {% set percentage = 100 if completed > 0 else 0 %}
+                    <div class="progress-bar bg-info" role="progressbar" 
+                         style="width: {{ percentage }}%" 
+                         aria-valuenow="{{ percentage }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {% if percentage > 50 %}
+                        <span class="position-absolute start-50 translate-middle-x text-white">
+                            {{ completed }} Task{{ 's' if completed != 1 }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if percentage <= 50 %}
+                    <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% + 10px);">
+                        {{ completed }} Task{{ 's' if completed != 1 }}
+                    </span>
+                    {% endif %}
+                </div>
+                {% else %}
+                <!-- Completion Status for Regular Curriculums -->
                 <h5>Completion Status</h5>
                 <div class="progress mb-2 position-relative" style="height: 20px;">
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
@@ -402,6 +427,7 @@ socket.on('task_updated', (data) => {
                     </span>
                     {% endif %}
                 </div>
+                {% endif %}
             </div>
 
             <!-- Tasks Section -->
