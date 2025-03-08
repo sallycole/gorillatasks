@@ -400,7 +400,10 @@ socket.on('task_updated', (data) => {
                 <div class="progress mb-2 position-relative" style="height: 20px;">
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
                     {% set max_display = 180 %}
-                    {% set percentage = (completed / max_display * 100)|round|int if completed < max_display else 100 %}
+                    {% set percentage = 100 %}
+                    {% if completed < max_display %}
+                        {% set percentage = (completed / max_display * 100)|round|int %}
+                    {% endif %}
                     <div class="progress-bar bg-info" role="progressbar" 
                          style="width: {{ percentage }}%" 
                          aria-valuenow="{{ percentage }}" 
@@ -425,7 +428,10 @@ socket.on('task_updated', (data) => {
                     {% set completed = tasks_stats[enrollment.id]['completed'] %}
                     {% set skipped = tasks_stats[enrollment.id]['skipped'] %}
                     {% set total = tasks_stats[enrollment.id]['total'] %}
-                    {% set percentage = (completed + skipped) / total * 100 if total > 0 else 0 %}
+                    {% set percentage = 0 %}
+                    {% if total > 0 %}
+                        {% set percentage = (completed + skipped) / total * 100 %}
+                    {% endif %}
                     <div class="progress-bar" role="progressbar" 
                          style="width: {{ percentage }}%" 
                          aria-valuenow="{{ percentage }}" 
