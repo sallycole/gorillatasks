@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Use direct fetch API for promote action
         // Get CSRF token from meta tag
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
+
         fetch(`/inventory/task/${taskId}/promote`, {
             method: 'POST',
             headers: {
@@ -90,18 +90,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             console.log('Promote response status:', response.status);
             console.log('Promote response headers:', [...response.headers.entries()]);
-            
+
             // Check if the response was successful
             if (!response.ok) {
                 // Log the entire response for debugging
                 console.log('Error response:', response);
-                
+
                 // Look at the content type
                 const contentType = response.headers.get('content-type') || '';
-                
+
                 return response.text().then(text => {
                     console.log('Error response text:', text);
-                    
+
                     try {
                         // Try to parse as JSON, even if not specified as JSON
                         const errorData = JSON.parse(text);
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             }
-            
+
             return response.json();
         })
         .then(data => {
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </button>
                     </div>
                 `;
-                
+
                 // Create a temporary notification
                 const notification = document.createElement('div');
                 notification.className = 'position-fixed top-0 end-0 p-3';
@@ -149,12 +149,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
                 document.body.appendChild(notification);
-                
+
                 // Remove notification after 3 seconds
                 setTimeout(() => {
                     notification.remove();
                 }, 3000);
-                
+
                 if (typeof feather !== 'undefined') {
                     feather.replace();
                 }
@@ -172,9 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Error name:', error.name);
             console.log('Error message:', error.message);
             console.log('Error stack:', error.stack);
-            
+
             actionDiv.innerHTML = originalContent;
-            
+
             // Create a toast notification for the error
             const errorNotification = document.createElement('div');
             errorNotification.className = 'position-fixed top-0 end-0 p-3';
@@ -192,12 +192,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             document.body.appendChild(errorNotification);
-            
+
             // Remove notification after 4 seconds
             setTimeout(() => {
                 errorNotification.remove();
             }, 4000);
-            
+
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
@@ -456,17 +456,20 @@ socket.on('task_updated', (data) => {
                                     <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
                                     {% endif %}
                                     <div>
-                                        <div>
-                                            {% if task.link %}
-                                            <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
-                                            {% else %}
-                                            {{ task.title }}
+                                                {% if task.link %}
+                                                <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
+                                                {% else %}
+                                                {{ task.title }}
+                                                {% endif %}
+
+                                                {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
+                                                {% if student_task and student_task.promoted %}
+                                                <span class="badge bg-info ms-2">On Today</span>
+                                                {% endif %}
+                                            </div>
+                                            {% if task.description %}
+                                            <small class="text-muted">{{ task.description }}</small>
                                             {% endif %}
-                                        </div>
-                                        {% if task.description %}
-                                        <small class="text-muted">{{ task.description }}</small>
-                                        {% endif %}
-                                    </div>
                                 </div>
                             </td>
                             <td class="text-end">

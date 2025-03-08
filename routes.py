@@ -531,13 +531,22 @@ def index():
         curr_id = enrollment.curriculum_id
         tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0, 'skipped': 0, 'is_adaptive': False})
 
-        # Filter incomplete tasks in memory and sort by position
-        incomplete_tasks = [
-            task for task in sorted(enrollment.curriculum.tasks, key=lambda x: x.position or 0)
-            if not any(st.status in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED] 
-                      for st in task.student_tasks if st.student_id == current_user.id)
-        ][:10]  # Limit to 10 tasks
-        filtered_tasks[enrollment.id] = incomplete_tasks
+        # Filter and sort tasks by position
+        sorted_tasks = sorted(enrollment.curriculum.tasks, key=lambda x: x.position or 0)
+        
+        # For adaptive curriculums, include all tasks regardless of completion status
+        # For regular curriculums, only show incomplete tasks
+        if enrollment.curriculum.is_adaptive:
+            filtered_tasks_list = sorted_tasks[:10]  # Limit to 10 tasks
+        else:
+            # Filter incomplete tasks for regular curriculums
+            filtered_tasks_list = [
+                task for task in sorted_tasks
+                if not any(st.status in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED] 
+                          for st in task.student_tasks if st.student_id == current_user.id)
+            ][:10]  # Limit to 10 tasks
+            
+        filtered_tasks[enrollment.id] = filtered_tasks_list
 
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
