@@ -351,7 +351,7 @@ def login():
         ).first()
         if user and user.check_password(form.password.data):
             login_user(user)
-            return redirect(url_for('dashboard.index'))
+            return redirect(url_for('inventory.index'))
         flash('Invalid email or password')
     return render_template('auth/login.html', form=form)
 
