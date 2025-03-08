@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
     profile = db.relationship('Profile', backref='user', uselist=False, cascade="all, delete-orphan")
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password, method='sha256')
+        self.password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
     def check_password(self, password):
         import logging
@@ -80,7 +80,7 @@ class User(UserMixin, db.Model):
             if self.password_hash == password:
                 logger.info(f"Plain-text password match for user {self.id}")
                 # Update to the new hash format if plain-text match succeeds
-                self.password_hash = generate_password_hash(password, method='sha256')
+                self.password_hash = generate_password_hash(password, method='pbkdf2:sha256')
                 from app import db
                 db.session.commit()
                 return True
@@ -97,7 +97,7 @@ class User(UserMixin, db.Model):
             if self.password_hash == password:
                 logger.info(f"Direct password match after hash check failure for user {self.id}")
                 # Update to the new hash format
-                self.password_hash = generate_password_hash(password, method='sha256')
+                self.password_hash = generate_password_hash(password, method='pbkdf2:sha256')
                 from app import db
                 db.session.commit()
                 return True
