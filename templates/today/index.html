@@ -525,116 +525,115 @@ document.addEventListener('DOMContentLoaded', function() {
                 <i data-feather="refresh-cw"></i> Reset List
             </button>
         </div>
-            {% if tasks_by_curriculum %}
-
-                {# Total and completed tasks are now passed directly from the route #}
-                <div class="card mb-3 mt-3">
-                    <div class="card-body text-center">
-                        <h4>Today's Goal</h4>
-                        {% if completed_tasks == 0 and total_tasks == 0 %}
-                            <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                        {% elif completed_tasks == 0 %}
-                            <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                        {% elif completed_tasks < total_tasks %}
-                            <span class="progress-partial">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                        {% else %}
-                            <span class="progress-complete">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-
-    <div id="tasks-container">
         {% if tasks_by_curriculum %}
-            {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
-                <div class="card mb-4">
-                    <div class="card-header p-3">
-                        <h3 class="mb-0">{{ curriculum_names[curriculum_id] }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 60%">Task</th>
-                                        <th style="width: 40%" class="text-end">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for student_task in tasks %}
-                            <tr data-task-id="{{ student_task.task_id }}" {% if student_task.status == STATUS_COMPLETED %}class="bg-light"{% endif %}>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        {% if student_task.task.action == 1 %}
-                                        <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
-                                        {% elif student_task.task.action == 2 %}
-                                        <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
-                                        {% elif student_task.task.action == 3 %}
-                                        <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
-                                        {% elif student_task.task.action == 4 %}
-                                        <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
-                                        {% else %}
-                                        <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
-                                        {% endif %}
-                                        <div>
-                                            <div>
-                                                {% if student_task.task.link %}
-                                                <a href="{{ student_task.task.link }}" target="_blank" {% if student_task.status == STATUS_COMPLETED %}style="text-decoration: line-through"{% endif %}>{{ student_task.task.title }}</a>
-                                                {% else %}
-                                                <span {% if student_task.status == STATUS_COMPLETED %}style="text-decoration: line-through"{% endif %}>{{ student_task.task.title }}</span>
-                                                {% endif %}
-                                            </div>
-                                            {% if student_task.task.description %}
-                                            <small class="text-muted">{{ student_task.task.description }}</small>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="task-actions" data-task-id="{{ student_task.task_id }}">
-                                        {% if student_task.status == STATUS_NOT_STARTED %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
-                                                <i data-feather="play"></i> Start
-                                            </button>
-                                            <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
-                                                <i data-feather="skip-forward"></i> Skip
-                                            </button>
-                                        </div>
-                                        {% elif student_task.status == STATUS_IN_PROGRESS %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
-                                                <i data-feather="check"></i> Finish
-                                            </button>
-                                            <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
-                                                <i data-feather="skip-forward"></i> Skip
-                                            </button>
-                                        </div>
-                                        {% elif student_task.status == STATUS_COMPLETED %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button class="btn btn-sm btn-success" disabled>
-                                                <i data-feather="check-circle"></i> Completed
-                                            </button>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                            </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+            {# Total and completed tasks are now passed directly from the route #}
+            <div class="card mb-3 mt-3">
+                <div class="card-body text-center">
+                    <h4>Today's Goal</h4>
+                    {% if completed_tasks == 0 and total_tasks == 0 %}
+                        <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                    {% elif completed_tasks == 0 %}
+                        <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                    {% elif completed_tasks < total_tasks %}
+                        <span class="progress-partial">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                    {% else %}
+                        <span class="progress-complete">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                    {% endif %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <div class="alert alert-info">
-                <h4 class="alert-heading">Welcome to your to do list for today!</h4>
-                <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
             </div>
         {% endif %}
     </div>
+</div>
+
+<div id="tasks-container">
+    {% if tasks_by_curriculum %}
+        {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
+            <div class="card mb-4">
+                <div class="card-header p-3">
+                    <h3 class="mb-0">{{ curriculum_names[curriculum_id] }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60%">Task</th>
+                                    <th style="width: 40%" class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student_task in tasks %}
+                                    <tr data-task-id="{{ student_task.task_id }}" {% if student_task.status == STATUS_COMPLETED %}class="bg-light"{% endif %}>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if student_task.task.action == 1 %}
+                                                    <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
+                                                {% elif student_task.task.action == 2 %}
+                                                    <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
+                                                {% elif student_task.task.action == 3 %}
+                                                    <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
+                                                {% elif student_task.task.action == 4 %}
+                                                    <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
+                                                {% else %}
+                                                    <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
+                                                {% endif %}
+                                                <div>
+                                                    <div>
+                                                        {% if student_task.task.link %}
+                                                            <a href="{{ student_task.task.link }}" target="_blank" {% if student_task.status == STATUS_COMPLETED %}style="text-decoration: line-through"{% endif %}>{{ student_task.task.title }}</a>
+                                                        {% else %}
+                                                            <span {% if student_task.status == STATUS_COMPLETED %}style="text-decoration: line-through"{% endif %}>{{ student_task.task.title }}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                    {% if student_task.task.description %}
+                                                        <small class="text-muted">{{ student_task.task.description }}</small>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="task-actions" data-task-id="{{ student_task.task_id }}">
+                                                {% if student_task.status == STATUS_NOT_STARTED %}
+                                                    <div class="d-inline-flex gap-2">
+                                                        <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
+                                                            <i data-feather="play"></i> Start
+                                                        </button>
+                                                        <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                            <i data-feather="skip-forward"></i> Skip
+                                                        </button>
+                                                    </div>
+                                                {% elif student_task.status == STATUS_IN_PROGRESS %}
+                                                    <div class="d-inline-flex gap-2">
+                                                        <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
+                                                            <i data-feather="check"></i> Finish
+                                                        </button>
+                                                        <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                            <i data-feather="skip-forward"></i> Skip
+                                                        </button>
+                                                    </div>
+                                                {% elif student_task.status == STATUS_COMPLETED %}
+                                                    <div class="d-inline-flex gap-2">
+                                                        <button class="btn btn-sm btn-success" disabled>
+                                                            <i data-feather="check-circle"></i> Completed
+                                                        </button>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+            <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
