@@ -130,41 +130,35 @@ document.addEventListener('DOMContentLoaded', function() {
                         const taskRow = actionDiv.closest('tr');
                         if (taskRow) {
                             taskRow.remove();
-                            // Keep track of task container content in session storage to avoid flash of "no tasks"
+                            // Enhanced state management during task completion
                             const taskContainer = document.querySelector('#tasks-container');
                             if (taskContainer) {
-                                //Check if there are any tasks left before reloading
-                                if (document.querySelectorAll('.task-row').length === 0) {
-                                    // Show the empty state
-                                    document.getElementById('tasks-container').innerHTML = `
-                                        <div class="alert alert-info">
-                                            <h4 class="alert-heading">Welcome to your to do list for today!</h4>
-                                            <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
-                                        </div>
-                                    `;
-                                } else {
-                                    //Store content only if there are tasks left.
-                                    sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+                                // Always store current content in session storage before any action
+                                // This ensures we have the latest state with remaining tasks
+                                if (document.querySelectorAll('.task-row').length > 0) {
+                                    const currentContent = taskContainer.innerHTML;
+                                    sessionStorage.setItem('today_tasks_content', currentContent);
+                                    console.log("Stored task state before action");
+                                }
 
-                                    // Replace with loading indicator
-                                    taskContainer.innerHTML = `
-                                        <div class="container mt-4">
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-6 text-center my-5">
-                                                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                                        <span class="visually-hidden">Loading...</span>
-                                                    </div>
-                                                    <h3 class="mt-4">Updating your tasks...</h3>
-                                                    <p class="text-muted">Please wait while we process your request.</p>
+                                // Replace with loading indicator
+                                taskContainer.innerHTML = `
+                                    <div class="container mt-4">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-6 text-center my-5">
+                                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
                                                 </div>
+                                                <h3 class="mt-4">Updating your tasks...</h3>
+                                                <p class="text-muted">Please wait while we process your request.</p>
                                             </div>
                                         </div>
-                                    `;
-                                    // Delay reload slightly to allow server to process changes
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 2000); // Increased to 2000ms for better visibility
-                                }
+                                    </div>
+                                `;
+                                // Delay reload slightly to allow server to process changes
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000); // Increased to 2000ms for better visibility
                             }
                         }
                     }
@@ -384,12 +378,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         const tbody = taskRow.closest('tbody');
                         if (tbody && tbody.querySelectorAll('tr').length === 1) {
                             // This is the last task, reload the page
-                            // Keep track of task container content in session storage to avoid flash of "no tasks"
+                            // Enhanced state management during task completion
                             const taskContainer = document.querySelector('#tasks-container');
                             if (taskContainer) {
-                                // Store current content in session storage before page reload
+                                // Always store current content in session storage before any action
+                                // This ensures we have the latest state with remaining tasks
                                 if (document.querySelectorAll('.task-row').length > 0) {
-                                    sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+                                    const currentContent = taskContainer.innerHTML;
+                                    sessionStorage.setItem('today_tasks_content', currentContent);
+                                    console.log("Stored task state before action");
                                 }
 
                                 // Replace with loading indicator
@@ -439,12 +436,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const taskRow = actionDiv.closest('tr');
                     if (taskRow) {
                         taskRow.remove();
-                        // Keep track of task container content in session storage to avoid flash of "no tasks"
+                        // Enhanced state management during task completion
                         const taskContainer = document.querySelector('#tasks-container');
                         if (taskContainer) {
-                            // Store current content in session storage before page reload
+                            // Always store current content in session storage before any action
+                            // This ensures we have the latest state with remaining tasks
                             if (document.querySelectorAll('.task-row').length > 0) {
-                                sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+                                const currentContent = taskContainer.innerHTML;
+                                sessionStorage.setItem('today_tasks_content', currentContent);
+                                console.log("Stored task state before action");
                             }
 
                             // Replace with loading indicator
