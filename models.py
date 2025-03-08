@@ -38,6 +38,17 @@ class User(UserMixin, db.Model):
             logger.warning(f"Empty password provided for user {self.id}")
             return False
 
+        # First check if the original encrypted_password matches directly (highest priority)
+        # This will ensure the original password works, regardless of migration status
+        if hasattr(self, 'encrypted_password') and self.encrypted_password:
+            if self.encrypted_password == password:
+                logger.info(f"Direct encrypted_password match for user {self.id}")
+                # Ensure password_hash is properly set for future logins
+                self.set_password(password)
+                from app import db
+                db.session.commit()
+                return True
+
         # Handle the case where password_hash is None or doesn't exist
         if self.password_hash is None or not self.password_hash:
             logger.warning(f"No password hash found for user {self.id}")
@@ -45,16 +56,9 @@ class User(UserMixin, db.Model):
             # Check the encrypted_password field (used by some legacy systems)
             if hasattr(self, 'encrypted_password') and self.encrypted_password:
                 logger.info(f"Checking encrypted_password for user {self.id}")
-                # Try direct comparison with encrypted_password (could be plain text or already hashed)
-                if self.encrypted_password == password:
-                    logger.info(f"Direct encrypted_password match for user {self.id}")
-                    # Migrate to the new password_hash format
-                    self.set_password(password)
-                    from app import db
-                    db.session.commit()
-                    return True
-                # Also try if encrypted_password is already in hash format
-                elif self.encrypted_password.startswith('pbkdf2:sha256:') and check_password_hash(self.encrypted_password, password):
+                # Already checked direct comparison above
+                # Try if encrypted_password is already in hash format
+                if self.encrypted_password.startswith('pbkdf2:sha256:') and check_password_hash(self.encrypted_password, password):
                     logger.info(f"Hashed encrypted_password match for user {self.id}")
                     # Move the hash to password_hash
                     self.password_hash = self.encrypted_password
@@ -90,6 +94,18 @@ class User(UserMixin, db.Model):
         try:
             result = check_password_hash(self.password_hash, password)
             logger.info(f"Password check for user {self.id}: {'success' if result else 'failed'}")
+            
+            # If regular check fails, try with original encrypted_password as fallback
+            if not result and hasattr(self, 'encrypted_password') and self.encrypted_password:
+                # This is one last check for compatibility
+                if self.encrypted_password == password:
+                    logger.info(f"Fallback direct encrypted_password match for user {self.id}")
+                    # Update hash for future logins
+                    self.set_password(password)
+                    from app import db
+                    db.session.commit()
+                    return True
+                    
             return result
         except Exception as e:
             logger.error(f"Error in password verification for user {self.id}: {str(e)}")
@@ -101,6 +117,15 @@ class User(UserMixin, db.Model):
                 from app import db
                 db.session.commit()
                 return True
+                
+            # Try encrypted_password as absolute last resort
+            if hasattr(self, 'encrypted_password') and self.encrypted_password and self.encrypted_password == password:
+                logger.info(f"Emergency fallback to encrypted_password after exception for user {self.id}")
+                self.set_password(password)
+                from app import db
+                db.session.commit()
+                return True
+                
             return False
 
     def __repr__(self):
