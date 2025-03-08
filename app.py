@@ -107,5 +107,11 @@ def create_app():
 
     return app
 
+# Configure user_loader for Flask-Login
+@login_manager.user_loader
+def load_user(user_id):
+    from models import User
+    return User.query.get(int(user_id))
+
 # Create the application instance
 app = create_app()
