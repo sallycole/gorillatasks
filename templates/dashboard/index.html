@@ -13,6 +13,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
 // Defer socket initialization until page is fully loaded
@@ -253,7 +256,7 @@ function initializeSocket() {
     });
 };
 
-socket.on('task_updated', (data) => {
+socket.on('task_updated', function(data) {
         console.log('Task updated:', data);
         if (data && data.task_id) {
             if (data.status === 1 && data.link) { // IN_PROGRESS
