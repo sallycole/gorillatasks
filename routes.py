@@ -107,7 +107,7 @@ def view_enrollment(id):
         StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
     ).all()
 
-    total_tasks = len(enrollment.curriculum.tasks)
+    total_tasks = enrollment.curriculum.tasks.count()
     finished_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_COMPLETED)
     skipped_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_SKIPPED)
 
