@@ -402,6 +402,15 @@ socket.on('task_updated', function(data) {
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        initializeSocket();
+        console.log("Socket initialized from main event listener");
+    } catch (e) {
+        console.error("Error initializing socket:", e);
+    }
 });
 </script>
 
