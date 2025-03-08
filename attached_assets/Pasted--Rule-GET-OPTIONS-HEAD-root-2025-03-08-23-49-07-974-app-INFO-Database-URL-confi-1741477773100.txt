@@ -1,0 +1,75 @@
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
+2025-03-08 23:49:07,974 - app - INFO - Database URL configured: postgresql://neondb_owner:NnrVWPXM8g4U@[REDACTED]
+2025-03-08 23:49:07,988 - app - INFO - Registered blueprints: auth, curriculum, dashboard, archive, todo
+2025-03-08 23:49:09,051 - app - INFO - Database tables created successfully
+2025-03-08 23:49:09,052 - app - INFO - Available routes:
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /static/<path:filename> -> static [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/login -> auth.login [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/register -> auth.register [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/logout -> auth.logout [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/account -> auth.account [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/toggle_pause -> auth.toggle_pause [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/unenroll/<int:enrollment_id> -> auth.unenroll [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /auth/enrollment/<int:enrollment_id>/edit -> auth.edit_enrollment [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/ -> curriculum.list [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/new -> curriculum.new [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:id> -> curriculum.view [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:id>/publish -> curriculum.publish [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:id>/delete -> curriculum.delete [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:id>/edit -> curriculum.edit [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:id>/tasks/add -> curriculum.add_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/edit -> curriculum.edit_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:curriculum_id>/tasks/<int:task_id>/delete -> curriculum.delete_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /curriculum/<int:id>/enroll -> curriculum.enroll [GET,OPTIONS,HEAD,POST]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /inventory/ -> inventory.index [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /inventory/task/<int:id>/start -> inventory.start_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /inventory/task/<int:id>/finish -> inventory.finish_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /inventory/task/<int:id>/skip -> inventory.skip_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /inventory/task/<int:id>/promote -> inventory.promote_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /archive/ -> archive.index [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /archive/enrollment/<int:id> -> archive.view_enrollment [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /archive/task/<int:id>/unarchive -> archive.unarchive_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /today/ -> today.index [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /today/reset -> today.reset_today [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /today/task/<int:id>/start -> today.start_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /today/task/<int:id>/finish -> today.finish_task [POST,OPTIONS]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: /test/test_doctype -> test.test_doctype [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - DEBUG - Route: / -> root [GET,OPTIONS,HEAD]
+2025-03-08 23:49:09,052 - app - INFO - Blueprints registered successfully
+2025-03-08 23:49:09,052 - app - DEBUG - Complete URL map:
+2025-03-08 23:49:09,053 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, OPTIONS, HEAD) -> static>,
+ <Rule '/auth/login' (GET, OPTIONS, HEAD, POST) -> auth.login>,
+ <Rule '/auth/register' (GET, OPTIONS, HEAD, POST) -> auth.register>,
+ <Rule '/auth/logout' (GET, OPTIONS, HEAD) -> auth.logout>,
+ <Rule '/auth/account' (GET, OPTIONS, HEAD, POST) -> auth.account>,
+ <Rule '/auth/enrollment/<enrollment_id>/toggle_pause' (POST, OPTIONS) -> auth.toggle_pause>,
+ <Rule '/auth/unenroll/<enrollment_id>' (POST, OPTIONS) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (GET, OPTIONS, HEAD, POST) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (GET, OPTIONS, HEAD) -> curriculum.list>,
+ <Rule '/curriculum/new' (GET, OPTIONS, HEAD, POST) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, OPTIONS, HEAD) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (POST, OPTIONS) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (POST, OPTIONS) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (GET, OPTIONS, HEAD, POST) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (POST, OPTIONS) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (POST, OPTIONS) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (POST, OPTIONS) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (GET, OPTIONS, HEAD, POST) -> curriculum.enroll>,
+ <Rule '/inventory/' (GET, OPTIONS, HEAD) -> inventory.index>,
+ <Rule '/inventory/task/<id>/start' (POST, OPTIONS) -> inventory.start_task>,
+ <Rule '/inventory/task/<id>/finish' (POST, OPTIONS) -> inventory.finish_task>,
+ <Rule '/inventory/task/<id>/skip' (POST, OPTIONS) -> inventory.skip_task>,
+ <Rule '/inventory/task/<id>/promote' (POST, OPTIONS) -> inventory.promote_task>,
+ <Rule '/archive/' (GET, OPTIONS, HEAD) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (GET, OPTIONS, HEAD) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/today/' (GET, OPTIONS, HEAD) -> today.index>,
+ <Rule '/today/reset' (POST, OPTIONS) -> today.reset_today>,
+ <Rule '/today/task/<id>/start' (POST, OPTIONS) -> today.start_task>,
+ <Rule '/today/task/<id>/finish' (POST, OPTIONS) -> today.finish_task>,
+ <Rule '/test/test_doctype' (GET, OPTIONS, HEAD) -> test.test_doctype>,
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
+User ID: 1
+Has encrypted_password: False
+encrypted_password: None
+password_hash: pbkdf2:sha256:1000000$7Fq5HAm0AdvttFNG$42c15422f148e2d5b3a39ea31af61b31d882b97fa6ffcc77571561630db37381
