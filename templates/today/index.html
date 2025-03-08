@@ -118,12 +118,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Show loading indicator instead of immediate reload
                     const taskContainer = document.querySelector('#tasks-container');
                     if (taskContainer) {
+                        // Save original content
+                        const originalContent = taskContainer.innerHTML;
+
+                        // Replace with loading indicator
                         taskContainer.innerHTML = `
-                            <div class="text-center my-5">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+                            <div class="container mt-4">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 text-center my-5">
+                                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        <h3 class="mt-4">Updating your tasks...</h3>
+                                        <p class="text-muted">Please wait while we process your request.</p>
+                                    </div>
                                 </div>
-                                <p class="mt-3">Updating your tasks...</p>
                             </div>
                         `;
                     }
@@ -131,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Delay reload slightly to allow server to process changes
                     setTimeout(() => {
                         window.location.reload();
-                    }, 1500);
+                    }, 2000); // Increased to 2000ms for better visibility
                 }
 
                 if (typeof feather !== 'undefined') {
@@ -326,12 +335,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             // Show loading indicator instead of immediate reload
                             const taskContainer = document.querySelector('#tasks-container');
                             if (taskContainer) {
+                                // Save original content
+                                const originalContent = taskContainer.innerHTML;
+
+                                // Replace with loading indicator
                                 taskContainer.innerHTML = `
-                                    <div class="text-center my-5">
-                                        <div class="spinner-border text-primary" role="status">
-                                            <span class="visually-hidden">Loading...</span>
+                                    <div class="container mt-4">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-6 text-center my-5">
+                                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <h3 class="mt-4">Updating your tasks...</h3>
+                                                <p class="text-muted">Please wait while we process your request.</p>
+                                            </div>
                                         </div>
-                                        <p class="mt-3">Updating your tasks...</p>
                                     </div>
                                 `;
                             }
@@ -339,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             // Delay reload slightly to allow server to process changes
                             setTimeout(() => {
                                 window.location.reload();
-                            }, 1500);
+                            }, 2000); // Increased to 2000ms for better visibility
                         } else {
                             taskRow.remove();
                         }
@@ -382,12 +400,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Show loading indicator instead of immediate reload
                     const taskContainer = document.querySelector('#tasks-container');
                     if (taskContainer) {
+                        // Save original content
+                        const originalContent = taskContainer.innerHTML;
+
+                        // Replace with loading indicator
                         taskContainer.innerHTML = `
-                            <div class="text-center my-5">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+                            <div class="container mt-4">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 text-center my-5">
+                                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        <h3 class="mt-4">Updating your tasks...</h3>
+                                        <p class="text-muted">Please wait while we process your request.</p>
+                                    </div>
                                 </div>
-                                <p class="mt-3">Updating your tasks...</p>
                             </div>
                         `;
                     }
@@ -395,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Delay reload slightly to allow server to process changes
                     setTimeout(() => {
                         window.location.reload();
-                    }, 1500);
+                    }, 2000); // Increased to 2000ms for better visibility
                 }
 
                 if (typeof feather !== 'undefined') {
