@@ -21,7 +21,7 @@
 // Defer socket initialization until page is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize socket connection after a short delay to prioritize rendering
-    setTimeout(() => {
+    setTimeout(function() {
         initializeSocket();
     }, 100);
     
@@ -164,7 +164,7 @@ function initializeSocket() {
                 document.body.appendChild(notification);
 
                 // Remove notification after 3 seconds
-                setTimeout(() => {
+                setTimeout(function() {
                     notification.remove();
                 }, 3000);
 
@@ -173,7 +173,7 @@ function initializeSocket() {
                 }
                 
                 // After a short delay, reload the page to ensure the UI is updated correctly
-                setTimeout(() => {
+                setTimeout(function() {
                     window.location.reload();
                 }, 2000);
             } else {
@@ -212,7 +212,7 @@ function initializeSocket() {
             document.body.appendChild(errorNotification);
 
             // Remove notification after 4 seconds
-            setTimeout(() => {
+            setTimeout(function() {
                 errorNotification.remove();
             }, 4000);
 
