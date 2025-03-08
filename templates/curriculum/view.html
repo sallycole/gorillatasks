@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const editModal = document.getElementById('editTaskModal');
     const bsEditModal = new bootstrap.Modal(editModal);
-    
+
     document.querySelectorAll('.edit-task').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -13,17 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const curriculumId = this.dataset.curriculumId;
             const row = this.closest('tr');
             const cells = row.querySelectorAll('td');
-            
+
             // Populate modal fields
             editModal.querySelector('input[name="title"]').value = cells[0].textContent.trim();
             editModal.querySelector('textarea[name="description"]').value = cells[1].textContent.trim();
             editModal.querySelector('select[name="action"]').value = cells[2].textContent.trim();
             const link = cells[3].querySelector('a');
             editModal.querySelector('input[name="url"]').value = link ? link.href : '';
-            
+
             // Set form action
             editModal.querySelector('form').action = `/curriculum/${curriculumId}/tasks/${taskId}/edit`;
-            
+
             // Show modal
             bsEditModal.show();
         });
@@ -75,24 +75,24 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
             return;
         }
-        
+
         e.preventDefault();
         console.log('Edit button data:', {
             taskId: editButton.dataset.taskId,
             curriculumId: editButton.dataset.curriculumId
         });
-        
+
         const row = editButton.closest('tr');
         console.log('Found row:', row);
         const cells = row.querySelectorAll('td');
         console.log('Found cells:', cells);
-            
+
             // Save current values before switching to edit mode
             const currentTitle = cells[0].textContent.trim();
             const currentDesc = cells[1].textContent.trim();
             const currentAction = cells[2].textContent.trim();
             const currentUrl = cells[3].querySelector('a') ? cells[3].querySelector('a').href : '';
-            
+
             // Create edit form
             cells[0].innerHTML = `<input type="text" class="form-control form-control-sm" value="${currentTitle}">`;
             cells[1].innerHTML = `<textarea class="form-control form-control-sm" rows="2">${currentDesc}</textarea>`;
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </select>
             `;
             cells[3].innerHTML = `<input type="url" class="form-control form-control-sm" value="${currentUrl}">`;
-            
+
             // Replace action buttons
             const actionsCell = cells[4];
             const taskId = this.dataset.taskId;
@@ -129,20 +129,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = e.target.closest('tr');
             location.reload(); // Simplest way to restore the original state
         }
-        
+
         if (e.target.closest('.save-edit')) {
             const row = e.target.closest('tr');
             const saveBtn = e.target.closest('.save-edit');
             const taskId = saveBtn.dataset.taskId;
             const curriculumId = saveBtn.dataset.curriculumId;
-            
+
             const formData = new FormData();
             formData.append('csrf_token', document.querySelector('input[name="csrf_token"]').value);
             formData.append('title', row.cells[0].querySelector('input').value);
             formData.append('description', row.cells[1].querySelector('textarea').value);
             formData.append('action', row.cells[2].querySelector('select').value);
             formData.append('url', row.cells[3].querySelector('input').value);
-            
+
             fetch(`/curriculum/${curriculumId}/tasks/${taskId}/edit`, {
                 method: 'POST',
                 body: formData
@@ -259,16 +259,22 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <!-- Tasks Section -->
-            <div class="card">
+            <div class="card mt-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title mb-0">Tasks</h3>
-                    {% if curriculum.creator_id == current_user.id and not curriculum.locked %}
+                    <h3>Tasks</h3>
+                    {% if curriculum.creator_id == current_user.id and not curriculum.locked and not curriculum.is_adaptive %}
                     <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#addTaskPanel">
                         <i data-feather="plus"></i> Add Task
                     </button>
                     {% endif %}
                 </div>
                 <div class="card-body">
+                    {% if curriculum.is_adaptive %}
+                    <div class="alert alert-info mb-3">
+                        <p><strong>Adaptive Curriculum</strong>: This curriculum uses the same task repeatedly for continuous learning.</p>
+                    </div>
+                    {% endif %}
+
                     {% if curriculum.tasks %}
                     <table class="table">
                         <thead>
