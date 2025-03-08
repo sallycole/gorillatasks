@@ -235,7 +235,7 @@ def index():
 def reset_today():
     """
     Manually reset all tasks in the Today list.
-    Finished tasks stay archived, unfinished tasks return to inventory.
+    All tasks return to inventory - both completed and unfinished.
     """
     try:
         # Get all promoted tasks
@@ -246,16 +246,19 @@ def reset_today():
         
         reset_count = 0
         for task in promoted_tasks:
-            # If task is not completed or skipped, reset its promoted flag
+            # Reset promoted flag for all tasks, regardless of status
+            task.promoted = False
+            
+            # Only reset status for unfinished tasks
             if task.status in [StudentTask.STATUS_NOT_STARTED, StudentTask.STATUS_IN_PROGRESS]:
-                task.promoted = False
                 task.status = StudentTask.STATUS_NOT_STARTED
                 task.started_at = None
-                reset_count += 1
+            
+            reset_count += 1
                 
         db.session.commit()
         
-        logger.info(f"User {current_user.id} manually reset {reset_count} unfinished tasks")
+        logger.info(f"User {current_user.id} manually reset {reset_count} tasks (including completed tasks)")
         
         return jsonify({
             'status': 'success',

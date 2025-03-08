@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {% block content %}
 <script>
 function resetTodayTasks() {
-    if (confirm('Are you sure you want to reset your To Do Today list? Finished tasks will be archived and unfinished tasks will return to the Study Inventory page.')) {
+    if (confirm('Are you sure you want to reset your To Do Today list? All tasks will be removed and returned to the Study Inventory page.')) {
         fetch('/today/reset', {
             method: 'POST',
             headers: {
