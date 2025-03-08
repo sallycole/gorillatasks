@@ -129,6 +129,13 @@ class Task(db.Model):
         'Do': ACTION_DO
     }
     
+    ACTION_MAP_REVERSE = {
+        ACTION_READ: 'Read',
+        ACTION_WATCH: 'Watch',
+        ACTION_LISTEN: 'Listen',
+        ACTION_DO: 'Do'
+    }
+    
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     description = db.Column(db.Text, nullable=True)
