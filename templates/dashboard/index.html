@@ -388,8 +388,8 @@ socket.on('task_updated', function(data) {
                     {% if completed < max_display %}
                         {% set percentage = (completed / max_display * 100)|round|int %}
                     {% endif %}
-                    <div class="progress-bar bg-info" role="progressbar" 
-                         style="width: {{ percentage }}%" 
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ percentage }}%; background-color: #6f42c1;" 
                          aria-valuenow="{{ percentage }}" 
                          aria-valuemin="0" 
                          aria-valuemax="100">
