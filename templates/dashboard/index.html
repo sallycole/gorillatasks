@@ -18,11 +18,64 @@
 <meta http-equiv="Expires" content="0">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
+// Debug helper to highlight error-prone code
+function debugCodeStructure() {
+    console.log("****** DEBUGGING JS STRUCTURE ******");
+    try {
+        // Check all event handlers in the page
+        document.querySelectorAll('button[onclick]').forEach(btn => {
+            let onclickAttr = btn.getAttribute('onclick');
+            console.log("Checking onclick handler:", onclickAttr);
+            try {
+                // Test parse the handler code
+                new Function(onclickAttr);
+                console.log(`✓ Handler OK: ${onclickAttr}`);
+            } catch (e) {
+                console.error(`✗ Handler ERROR in: ${onclickAttr}`);
+                console.error(`  Error details: ${e.message}`);
+                // Mark the problematic button visually
+                btn.style.border = "2px solid red";
+                btn.title = `JS Error: ${e.message}`;
+            }
+        });
+    } catch (e) {
+        console.error("Error in debugCodeStructure:", e);
+    }
+}
+
+// Instrument socket.on to catch errors
+const originalSocketOn = window.io.prototype.on;
+if (originalSocketOn) {
+    window.io.prototype.on = function(event, callback) {
+        const wrappedCallback = function() {
+            try {
+                return callback.apply(this, arguments);
+            } catch (e) {
+                console.error(`Error in socket.on('${event}') handler:`, e);
+                throw e;
+            }
+        };
+        return originalSocketOn.call(this, event, wrappedCallback);
+    };
+}
+
 // Defer socket initialization until page is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM loaded - adding debugging");
+    
+    // Run debugging immediately to check all onclick handlers
+    debugCodeStructure();
+    
     // Initialize socket connection after a short delay to prioritize rendering
     setTimeout(function() {
-        initializeSocket();
+        console.log("Initializing socket with debugging...");
+        try {
+            initializeSocket();
+            console.log("Socket initialized successfully");
+        } catch (e) {
+            console.error("Failed to initialize socket:", e);
+            alert("Socket initialization error: " + e.message);
+        }
     }, 100);
     
     // Initialize Feather icons immediately for faster UI rendering
@@ -44,23 +97,25 @@ function initializeSocket() {
         return;
     }
 
-    socket.on('connect', () => {
+    socket.on('connect', function() {
         console.log('Connected to WebSocket server');
         socket.sendBuffer = [];  // Clear any buffered events
-        document.querySelectorAll('.task-actions').forEach(div => {
+        document.querySelectorAll('.task-actions').forEach(function(div) {
             div.classList.remove('disconnected');
         });
     });
 
     let reconnectAttempts = 0;
-    socket.io.on("reconnect_attempt", () => {
+    socket.io.on("reconnect_attempt", function() {
+        console.log("Reconnect attempt:", reconnectAttempts);
         if (reconnectAttempts++ > 2) {
             socket.disconnect();  // Stop reconnection after 3 attempts
             location.reload();    // Refresh the page
         }
     });
 
-    socket.io.on("reconnect", () => {
+    socket.io.on("reconnect", function() {
+        console.log("Reconnected successfully");
         reconnectAttempts = 0;  // Reset counter on successful reconnection
     });
 
@@ -232,7 +287,8 @@ function initializeSocket() {
         }
     }, 5000);
 
-    socket.emit(action + '_task', { task_id: taskId }, (response) => {
+    socket.emit(action + '_task', { task_id: taskId }, function(response) {
+        console.log("Socket response received for", action, "task", taskId);
         clearTimeout(timeout);
         if (!response) {
             console.error('No response from server');
