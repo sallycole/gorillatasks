@@ -453,8 +453,6 @@ def index():
     enrollments = (Enrollment.query
         .options(
             db.joinedload(Enrollment.curriculum)
-            .joinedload(Curriculum.tasks)
-            .joinedload(Task.student_tasks)
         )
         .filter_by(student_id=current_user.id, paused=False)
         .all())
