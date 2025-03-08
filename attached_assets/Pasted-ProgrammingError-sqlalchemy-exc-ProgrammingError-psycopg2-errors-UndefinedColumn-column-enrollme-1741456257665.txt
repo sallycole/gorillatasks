@@ -1,0 +1,134 @@
+ProgrammingError
+
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column enrollments.enrolled_at does not exist
+LINE 1: ...ments.curriculum_id AS enrollments_curriculum_id, enrollment...
+                                                             ^
+
+[SQL: SELECT enrollments.id AS enrollments_id, enrollments.student_id AS enrollments_student_id, enrollments.curriculum_id AS enrollments_curriculum_id, enrollments.enrolled_at AS enrollments_enrolled_at, enrollments.daily_goal_count AS enrollments_daily_goal_count, enrollments.weekly_goal_count AS enrollments_weekly_goal_count, enrollments.study_days_per_week AS enrollments_study_days_per_week, enrollments.target_completion_date AS enrollments_target_completion_date, enrollments.paused AS enrollments_paused, student_tasks_1.id AS student_tasks_1_id, student_tasks_1.student_id AS student_tasks_1_student_id, student_tasks_1.task_id AS student_tasks_1_task_id, student_tasks_1.status AS student_tasks_1_status, student_tasks_1.started_at AS student_tasks_1_started_at, student_tasks_1.finished_at AS student_tasks_1_finished_at, student_tasks_1.skipped_at AS student_tasks_1_skipped_at, student_tasks_1.time_spent_minutes AS student_tasks_1_time_spent_minutes, student_tasks_1.promoted AS student_tasks_1_promoted, tasks_1.id AS tasks_1_id, tasks_1.title AS tasks_1_title, tasks_1.description AS tasks_1_description, tasks_1.position AS tasks_1_position, tasks_1.link AS tasks_1_link, tasks_1.curriculum_id AS tasks_1_curriculum_id, tasks_1.action AS tasks_1_action, tasks_1.is_adaptive AS tasks_1_is_adaptive, curriculums_1.id AS curriculums_1_id, curriculums_1.name AS curriculums_1_name, curriculums_1.description AS curriculums_1_description, curriculums_1.link AS curriculums_1_link, curriculums_1.public AS curriculums_1_public, curriculums_1.published AS curriculums_1_published, curriculums_1.locked AS curriculums_1_locked, curriculums_1.created_at AS curriculums_1_created_at, curriculums_1.published_at AS curriculums_1_published_at, curriculums_1.creator_id AS curriculums_1_creator_id, curriculums_1.publisher AS curriculums_1_publisher, curriculums_1.grade_levels AS curriculums_1_grade_levels, curriculums_1.is_adaptive AS curriculums_1_is_adaptive 
+FROM enrollments LEFT OUTER JOIN curriculums AS curriculums_1 ON curriculums_1.id = enrollments.curriculum_id LEFT OUTER JOIN tasks AS tasks_1 ON curriculums_1.id = tasks_1.curriculum_id LEFT OUTER JOIN student_tasks AS student_tasks_1 ON tasks_1.id = student_tasks_1.task_id 
+WHERE enrollments.student_id = %(student_id_1)s AND enrollments.paused = false ORDER BY tasks_1.position]
+[parameters: {'student_id_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last)
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+
+    self.dialect.do_execute(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+
+    cursor.execute(statement, parameters)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The above exception was the direct cause of the following exception:
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1514, in wsgi_app
+
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/routes.py", line 460, in index
+
+    .all())
+     ^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2362, in execute
+
+    return self._execute_internal(
+           
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2247, in _execute_internal
+
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
+
+    result = conn.execute(
+             
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+
+    return meth(
+           
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+
+    return connection._execute_clauseelement(
+           
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+
+    ret = self._execute_context(
+          
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+
+    return self._exec_single_context(
+           
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+
+    self._handle_dbapi_exception(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+
+    self.dialect.do_execute(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+
+    cursor.execute(statement, parameters)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column enrollments.enrolled_at does not exist
+    LINE 1: ...ments.curriculum_id AS enrollments_curriculum_id, enrollment...
+                                                                 ^
+
+    [SQL: SELECT enrollments.id AS enrollments_id, enrollments.student_id AS enrollments_student_id, enrollments.curriculum_id AS enrollments_curriculum_id, enrollments.enrolled_at AS enrollments_enrolled_at, enrollments.daily_goal_count AS enrollments_daily_goal_count, enrollments.weekly_goal_count AS enrollments_weekly_goal_count, enrollments.study_days_per_week AS enrollments_study_days_per_week, enrollments.target_completion_date AS enrollments_target_completion_date, enrollments.paused AS enrollments_paused, student_tasks_1.id AS student_tasks_1_id, student_tasks_1.student_id AS student_tasks_1_student_id, student_tasks_1.task_id AS student_tasks_1_task_id, student_tasks_1.status AS student_tasks_1_status, student_tasks_1.started_at AS student_tasks_1_started_at, student_tasks_1.finished_at AS student_tasks_1_finished_at, student_tasks_1.skipped_at AS student_tasks_1_skipped_at, student_tasks_1.time_spent_minutes AS student_tasks_1_time_spent_minutes, student_tasks_1.promoted AS student_tasks_1_promoted, tasks_1.id AS tasks_1_id, tasks_1.title AS tasks_1_title, tasks_1.description AS tasks_1_description, tasks_1.position AS tasks_1_position, tasks_1.link AS tasks_1_link, tasks_1.curriculum_id AS tasks_1_curriculum_id, tasks_1.action AS tasks_1_action, tasks_1.is_adaptive AS tasks_1_is_adaptive, curriculums_1.id AS curriculums_1_id, curriculums_1.name AS curriculums_1_name, curriculums_1.description AS curriculums_1_description, curriculums_1.link AS curriculums_1_link, curriculums_1.public AS curriculums_1_public, curriculums_1.published AS curriculums_1_published, curriculums_1.locked AS curriculums_1_locked, curriculums_1.created_at AS curriculums_1_created_at, curriculums_1.published_at AS curriculums_1_published_at, curriculums_1.creator_id AS curriculums_1_creator_id, curriculums_1.publisher AS curriculums_1_publisher, curriculums_1.grade_levels AS curriculums_1_grade_levels, curriculums_1.is_adaptive AS curriculums_1_is_adaptive 
+    FROM enrollments LEFT OUTER JOIN curriculums AS curriculums_1 ON curriculums_1.id = enrollments.curriculum_id LEFT OUTER JOIN tasks AS tasks_1 ON curriculums_1.id = tasks_1.curriculum_id LEFT OUTER JOIN student_tasks AS student_tasks_1 ON tasks_1.id = student_tasks_1.task_id 
+    WHERE enrollments.student_id = %(student_id_1)s AND enrollments.paused = false ORDER BY tasks_1.position]
+    [parameters: {'student_id_1': 1}]
+    (Background on this error at: https://sqlalche.me/e/20/f405)
+
