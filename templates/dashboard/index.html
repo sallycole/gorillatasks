@@ -15,7 +15,20 @@
 {% block content %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
+// Defer socket initialization until page is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize socket connection after a short delay to prioritize rendering
+    setTimeout(() => {
+        initializeSocket();
+    }, 100);
+    
+    // Initialize Feather icons immediately for faster UI rendering
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+});
+
+function initializeSocket() {
     let socket;
     try {
         socket = io({

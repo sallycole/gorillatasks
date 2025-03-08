@@ -449,7 +449,12 @@ def edit_enrollment(enrollment_id):
 @inventory_bp.route('/')
 @login_required
 def index():
-    # Get enrollments with related data
+    import logging
+    logger = logging.getLogger(__name__)
+    start_time = datetime.now()
+    logger.info(f"Starting inventory page load for user {current_user.id}")
+    
+    # Get enrollments with related curriculum data in a single query
     enrollments = (Enrollment.query
         .options(
             db.joinedload(Enrollment.curriculum)
@@ -459,94 +464,133 @@ def index():
 
     # Filter out completed enrollments
     enrollments = [e for e in enrollments if not e.is_completed()]
-
-    # Recalculate weekly goals with forced commit
+    
+    # Get all curriculum IDs for efficient task queries
+    curriculum_ids = [e.curriculum_id for e in enrollments]
+    if not curriculum_ids:
+        # Return early if no enrollments
+        logger.info(f"No enrollments found for user {current_user.id}")
+        return render_template('dashboard/index.html',
+                         enrollments=[],
+                         tasks_stats={},
+                         filtered_tasks={},
+                         StudentTask=StudentTask,
+                         STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
+                         STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
+                         STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
+                         STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
+                         current_user=current_user)
+    
+    # Recalculate weekly goals with a single batch update
+    weekly_goals_updates = []
     for enrollment in enrollments:
-        enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
-        db.session.add(enrollment)
-    db.session.commit()
-    db.session.expire_all()
-
-    # Get all task stats in a single query
+        weekly_goal = enrollment.calculate_weekly_goal()
+        if weekly_goal != enrollment.weekly_goal_count:
+            enrollment.weekly_goal_count = weekly_goal
+            weekly_goals_updates.append(enrollment)
+    
+    if weekly_goals_updates:
+        db.session.bulk_save_objects(weekly_goals_updates)
+        db.session.commit()
+    
+    # Get task stats for all curriculums in one efficient query
     task_stats_query = (db.session.query(
             Task.curriculum_id,
             Task.is_adaptive,
             db.func.count(Task.id).label('total_tasks'),
-            db.func.count(db.case(
+            db.func.sum(db.case(
                 (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
-                else_=None
+                else_=0
             )).label('completed_tasks'),
-            db.func.count(db.case(
+            db.func.sum(db.case(
                 (StudentTask.status == StudentTask.STATUS_SKIPPED, 1),
-                else_=None
+                else_=0
             )).label('skipped_tasks')
         )
+        .filter(Task.curriculum_id.in_(curriculum_ids))
         .outerjoin(StudentTask, db.and_(
             Task.id == StudentTask.task_id,
             StudentTask.student_id == current_user.id
         ))
         .group_by(Task.curriculum_id, Task.is_adaptive)
         .all())
-
-    # Process stats
+    
+    # Restructure stats with curriculum_id as key
+    curriculum_stats = {}
+    for r in task_stats_query:
+        curr_id, is_adaptive = r[0], r[1]
+        curriculum_stats[curr_id] = {
+            'total': r[2], 
+            'completed': r[3] or 0,  # Handle None values 
+            'skipped': r[4] or 0,
+            'is_adaptive': is_adaptive
+        }
+    
+    # Prepare tasks stats and filtered tasks
     tasks_stats = {}
     filtered_tasks = {}
     
-    # Restructure the stats with curriculum_id as key
-    curriculum_stats = {}
-    for r in task_stats_query:
-        curr_id = r[0]
-        is_adaptive = r[1]
-        
-        if is_adaptive:
-            # For adaptive curriculums, get the actual count of completed sessions
-            completed_count = StudentTask.query.join(Task).filter(
-                StudentTask.student_id == current_user.id,
-                Task.curriculum_id == curr_id,
-                Task.is_adaptive == True,
-                StudentTask.status == StudentTask.STATUS_COMPLETED
-            ).count()
-            
-            curriculum_stats[curr_id] = {
-                'total': r[2], 
-                'completed': completed_count,  # This is the usage count for adaptive curriculums
-                'skipped': r[4],
-                'is_adaptive': True
-            }
-        else:
-            curriculum_stats[curr_id] = {
-                'total': r[2], 
-                'completed': r[3], 
-                'skipped': r[4],
-                'is_adaptive': False
-            }
-
+    # Get all tasks and student tasks in two efficient bulk queries
+    all_tasks = {}
+    all_student_tasks = {}
+    
+    # Query all tasks for these curriculums, with ordering
+    tasks_query = Task.query.filter(Task.curriculum_id.in_(curriculum_ids)).order_by(Task.position).all()
+    
+    # Group tasks by curriculum_id
+    for task in tasks_query:
+        if task.curriculum_id not in all_tasks:
+            all_tasks[task.curriculum_id] = []
+        all_tasks[task.curriculum_id].append(task)
+    
+    # Get all student tasks for this user in one query
+    student_tasks_query = (StudentTask.query
+        .join(Task)
+        .filter(
+            StudentTask.student_id == current_user.id,
+            Task.curriculum_id.in_(curriculum_ids)
+        )
+        .all())
+    
+    # Group student tasks by task_id
+    for st in student_tasks_query:
+        all_student_tasks[st.task_id] = st
+    
+    # Process each enrollment to prepare data for template
     for enrollment in enrollments:
         curr_id = enrollment.curriculum_id
         tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0, 'skipped': 0, 'is_adaptive': False})
-
-        # Filter and sort tasks by position
-        sorted_tasks = sorted(enrollment.curriculum.tasks, key=lambda x: x.position or 0)
+        
+        # Get tasks for this curriculum
+        curriculum_tasks = all_tasks.get(curr_id, [])
         
         # For adaptive curriculums, include all tasks regardless of completion status
         # For regular curriculums, only show incomplete tasks
         if enrollment.curriculum.is_adaptive:
-            filtered_tasks_list = sorted_tasks[:10]  # Limit to 10 tasks
+            filtered_tasks_list = curriculum_tasks[:10]  # Limit to 10 tasks
         else:
-            # Filter incomplete tasks for regular curriculums
-            filtered_tasks_list = [
-                task for task in sorted_tasks
-                if not any(st.status in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED] 
-                          for st in task.student_tasks if st.student_id == current_user.id)
-            ][:10]  # Limit to 10 tasks
+            # Filter incomplete tasks efficiently
+            filtered_tasks_list = []
+            for task in curriculum_tasks:
+                if len(filtered_tasks_list) >= 10:  # Limit to 10 tasks
+                    break
+                    
+                student_task = all_student_tasks.get(task.id)
+                if not student_task or student_task.status not in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED]:
+                    filtered_tasks_list.append(task)
             
         filtered_tasks[enrollment.id] = filtered_tasks_list
-
+    
+    # Log the time taken
+    end_time = datetime.now()
+    elapsed = (end_time - start_time).total_seconds()
+    logger.info(f"Inventory page prepared in {elapsed:.2f} seconds for user {current_user.id}")
+    
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
                          filtered_tasks=filtered_tasks,
-                         StudentTask=StudentTask,  # Pass the model to the template
+                         StudentTask=StudentTask,
                          STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
                          STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
                          STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
