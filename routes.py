@@ -147,12 +147,16 @@ def unarchive_task(id):
 @todo_bp.route('/')
 @login_required
 def index():
-    # Get all promoted tasks including completed ones
+    # Get all promoted tasks but exclude completed adaptive tasks
     promoted_tasks = (StudentTask.query
         .join(Task)
         .filter(
             StudentTask.student_id == current_user.id,
-            StudentTask.promoted == True
+            StudentTask.promoted == True,
+            db.or_(
+                StudentTask.status != StudentTask.STATUS_COMPLETED,
+                Task.is_adaptive == False
+            )
         )
         .order_by(Task.position)
         .all())

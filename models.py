@@ -173,15 +173,15 @@ class StudentTask(db.Model):
             delta = self.finished_at - self.started_at
             self.time_spent_minutes = int(delta.total_seconds() / 60)
             
-            # If this is an adaptive task, we don't keep it promoted
-            # For regular tasks, we keep the promoted flag as is
+            # If this is an adaptive task, create a new unpromoted session
+            # This will be available in Study Inventory but not in Today
             if self.task and self.task.is_adaptive:
                 # Create a new student task entry for the next adaptive session
                 new_task = StudentTask(
                     student_id=self.student_id,
                     task_id=self.task_id,
                     status=self.STATUS_NOT_STARTED,
-                    promoted=True  # Keep it on the Today page for the next session
+                    promoted=False  # Don't automatically add to Today page
                 )
                 db.session.add(new_task)
 
