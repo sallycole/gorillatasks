@@ -1,0 +1,61 @@
+ <Rule '/' (OPTIONS, HEAD, GET) -> root>])
+2025-03-08 23:21:50,066 - __main__ - INFO - Columns in users table: is_active, created_at, updated_at, is_superuser, id, time_zone, username, password_hash, email, encrypted_password, first_name, last_name
+2025-03-08 23:21:50,109 - __main__ - INFO - 
+User password data:
+2025-03-08 23:21:50,109 - __main__ - INFO - User 1 (phoebezcole@gmail.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO - User 2 (sallycole@gmail.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO - User 3 (stellanovacole@gmail.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO - User 4 (felixtiptoncole@gmail.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO - User 5 (emily.juergens@gmail.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO - User 6 (orion.bull@icloud.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,109 - __main__ - INFO - User 7 (macy.bull12@gmail.com):
+2025-03-08 23:21:50,109 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO - User 8 (saeus.bull@yahoo.com):
+2025-03-08 23:21:50,110 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO - User 9 (entertainment):
+2025-03-08 23:21:50,110 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO - User 10 (AyresAveryAcademy):
+2025-03-08 23:21:50,110 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO - User 11 (Heidi):
+2025-03-08 23:21:50,110 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO - User 12 (lkhaver@gmail.com):
+2025-03-08 23:21:50,110 - __main__ - INFO -   - encrypted_password: [PRESENT]
+2025-03-08 23:21:50,110 - __main__ - INFO -   - password_hash: [PRESENT]
+2025-03-08 23:21:50,306 - __main__ - INFO - User 1 (phoebezcole@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 2 (sallycole@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 3 (stellanovacole@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 4 (felixtiptoncole@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 5 (emily.juergens@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 6 (orion.bull@icloud.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 7 (macy.bull12@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 8 (saeus.bull@yahoo.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 9 (entertainment): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 10 (AyresAveryAcademy): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 11 (Heidi): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - User 12 (lkhaver@gmail.com): Password properly hashed
+2025-03-08 23:21:50,306 - __main__ - INFO - 
+Password format summary:
+2025-03-08 23:21:50,306 - __main__ - INFO -   Total users: 12
+2025-03-08 23:21:50,306 - __main__ - INFO -   Properly hashed passwords: 12 (100.0%)
+2025-03-08 23:21:50,306 - __main__ - INFO -   Plain text passwords: 0 (0.0%)
+2025-03-08 23:21:50,306 - __main__ - INFO -   Missing passwords: 0 (0.0%)
+2025-03-08 23:21:50,306 - __main__ - INFO -   Users with legacy 'password' attribute: 0
+2025-03-08 23:21:50,307 - __main__ - INFO -   Database has 'password' column: False
+2025-03-08 23:21:50,307 - __main__ - INFO -   Database has 'encrypted_password' column: True
