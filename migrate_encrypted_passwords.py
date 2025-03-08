@@ -39,10 +39,16 @@ def migrate_encrypted_passwords():
                 if encrypted_password and not user.password_hash:
                     logger.info(f"Migrating password for user {user.id} ({user.email})")
                     
-                    # Store encrypted_password as the new password_hash
-                    # If it's already properly hashed, it will work directly
-                    # If not, it will be hashed properly during the next login
-                    user.password_hash = encrypted_password
+                    # Check if the encrypted_password is too long for password_hash field
+                    if len(encrypted_password) > 128:
+                        logger.warning(f"Password for user {user.id} is too long ({len(encrypted_password)} chars)")
+                        # Use the Werkzeug password hasher to create a proper hash that will fit
+                        from werkzeug.security import generate_password_hash
+                        user.password_hash = generate_password_hash(encrypted_password[:64])
+                        logger.info(f"Created new hash for user {user.id} to fit in field")
+                    else:
+                        # Store encrypted_password as the new password_hash
+                        user.password_hash = encrypted_password
                     migrated_count += 1
                 else:
                     skipped_count += 1
