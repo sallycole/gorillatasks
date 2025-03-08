@@ -455,7 +455,7 @@ class Enrollment(db.Model):
         elapsed_days = (current_date - start_date).days
         
         if total_days <= 0:
-            return 'progress-complete' if progress_percentage >= 1 else 'progress-none'
+            return 'progress-complete' if progress_percentage >= 1 else 'progress-partial'
             
         time_percentage = elapsed_days / total_days
         
@@ -465,9 +465,9 @@ class Enrollment(db.Model):
         # If within 20% of being on track, partially on track
         elif progress_percentage >= time_percentage * 0.8:
             return 'progress-partial'
-        # Otherwise behind schedule
+        # Otherwise behind but target date hasn't passed yet
         else:
-            return 'progress-none'
+            return 'progress-partial'
 
 class WeeklySnapshot(db.Model):
     __tablename__ = 'weekly_snapshots'
