@@ -1,0 +1,62 @@
+Exception
+
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+Traceback (most recent call last)
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1514, in wsgi_app
+
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 284, in decorated_view
+
+    elif not current_user.is_authenticated:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/werkzeug/local.py", line 318, in __get__
+
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/werkzeug/local.py", line 526, in _get_current_object
+
+    return get_name(local())
+                    ^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 370, in _get_user
+
+    current_app.login_manager._load_user()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_login/login_manager.py", line 347, in _load_user
+
+    raise Exception(
+    ^
+
+    Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+
