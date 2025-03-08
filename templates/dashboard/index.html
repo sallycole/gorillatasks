@@ -21,67 +21,16 @@
 
 {% block content %}
 <script>
-// Debug helper to highlight error-prone code
-function debugCodeStructure() {
-    console.log("****** DEBUGGING JS STRUCTURE ******");
-    try {
-        // Check all event handlers in the page
-        document.querySelectorAll('button[onclick]').forEach(btn => {
-            let onclickAttr = btn.getAttribute('onclick');
-            console.log("Checking onclick handler:", onclickAttr);
-            try {
-                // Test parse the handler code
-                new Function(onclickAttr);
-                console.log(`✓ Handler OK: ${onclickAttr}`);
-            } catch (e) {
-                console.error(`✗ Handler ERROR in: ${onclickAttr}`);
-                console.error(`  Error details: ${e.message}`);
-                // Mark the problematic button visually
-                btn.style.border = "2px solid red";
-                btn.title = `JS Error: ${e.message}`;
-            }
-        });
-    } catch (e) {
-        console.error("Error in debugCodeStructure:", e);
-    }
-}
-
-// Instrument socket.on to catch errors
-const originalSocketOn = window.io.prototype.on;
-if (originalSocketOn) {
-    window.io.prototype.on = function(event, callback) {
-        const wrappedCallback = function() {
-            try {
-                return callback.apply(this, arguments);
-            } catch (e) {
-                console.error(`Error in socket.on('${event}') handler:`, e);
-                throw e;
-            }
-        };
-        return originalSocketOn.call(this, event, wrappedCallback);
-    };
-}
-
-// Defer socket initialization until page is fully loaded
+// Initialize socket connection when the page is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOM loaded - adding debugging");
+    // Initialize socket connection
+    try {
+        initializeSocket();
+    } catch (e) {
+        console.error("Failed to initialize socket:", e);
+    }
     
-    // Run debugging immediately to check all onclick handlers
-    debugCodeStructure();
-    
-    // Initialize socket connection after a short delay to prioritize rendering
-    setTimeout(function() {
-        console.log("Initializing socket with debugging...");
-        try {
-            initializeSocket();
-            console.log("Socket initialized successfully");
-        } catch (e) {
-            console.error("Failed to initialize socket:", e);
-            alert("Socket initialization error: " + e.message);
-        }
-    }, 100);
-    
-    // Initialize Feather icons immediately for faster UI rendering
+    // Initialize Feather icons for UI rendering
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
@@ -101,7 +50,6 @@ function initializeSocket() {
     }
 
     socket.on('connect', function() {
-        console.log('Connected to WebSocket server');
         socket.sendBuffer = [];  // Clear any buffered events
         document.querySelectorAll('.task-actions').forEach(function(div) {
             div.classList.remove('disconnected');
@@ -110,7 +58,6 @@ function initializeSocket() {
 
     let reconnectAttempts = 0;
     socket.io.on("reconnect_attempt", function() {
-        console.log("Reconnect attempt:", reconnectAttempts);
         if (reconnectAttempts++ > 2) {
             socket.disconnect();  // Stop reconnection after 3 attempts
             location.reload();    // Refresh the page
@@ -118,20 +65,16 @@ function initializeSocket() {
     });
 
     socket.io.on("reconnect", function() {
-        console.log("Reconnected successfully");
         reconnectAttempts = 0;  // Reset counter on successful reconnection
     });
 
     window.handleTaskAction = function(action, taskId) {
     if (!socket || !socket.connected) {
-        console.error('Socket not connected');
         return;
     }
 
-    console.log(`Handling ${action} for task ${taskId}`);
     const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
     if (!actionDiv) {
-        console.error('Could not find action div for task:', taskId);
         return;
     }
 
@@ -147,7 +90,6 @@ function initializeSocket() {
     `;
 
     if (action === 'promote') {
-        console.log(`Attempting to promote task ${taskId} - sending request to /inventory/task/${taskId}/promote`);
         // Use direct fetch API for promote action
         // Get CSRF token from meta tag
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -162,28 +104,17 @@ function initializeSocket() {
             credentials: 'same-origin'
         })
         .then(response => {
-            console.log('Promote response status:', response.status);
-            console.log('Promote response headers:', [...response.headers.entries()]);
-
             // Check if the response was successful
             if (!response.ok) {
-                // Log the entire response for debugging
-                console.log('Error response:', response);
-
-                // Look at the content type
                 const contentType = response.headers.get('content-type') || '';
 
                 return response.text().then(text => {
-                    console.log('Error response text:', text);
-
                     try {
                         // Try to parse as JSON, even if not specified as JSON
                         const errorData = JSON.parse(text);
                         throw new Error(errorData.message || 'Error from server');
                     } catch (jsonError) {
                         // Not valid JSON
-                        console.error('Failed to parse error response as JSON:', jsonError);
-                        // Create a more descriptive error message
                         throw new Error(`Server returned ${response.status}: ${contentType.includes('text/html') ? 'HTML Error' : text.substring(0, 50)}`);
                     }
                 });
@@ -192,7 +123,6 @@ function initializeSocket() {
             return response.json();
         })
         .then(data => {
-            console.log('Promote response data:', data);
             if (data.status === 'success') {
                 // Show success message
                 actionDiv.innerHTML = `
@@ -243,12 +173,6 @@ function initializeSocket() {
             }
         })
         .catch(error => {
-            console.error('Promote error details:', error);
-            // Try to get more information about the error
-            console.log('Error name:', error.name);
-            console.log('Error message:', error.message);
-            console.log('Error stack:', error.stack);
-
             actionDiv.innerHTML = originalContent;
 
             // Create a toast notification for the error
@@ -316,7 +240,6 @@ function initializeSocket() {
 };
 
 socket.on('task_updated', function(data) {
-        console.log('Task updated:', data);
         if (data && data.task_id) {
             if (data.status === 1 && data.link) { // IN_PROGRESS
                 window.open(data.link, '_blank');
@@ -347,10 +270,8 @@ socket.on('task_updated', function(data) {
     });
 
     function updateTaskUI(data) {
-        console.log('Updating UI for task:', data);
         const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
         if (!actionDiv) {
-            console.error('Could not find action div for task:', data.task_id);
             return;
         }
 
@@ -407,14 +328,6 @@ socket.on('task_updated', function(data) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    try {
-        initializeSocket();
-        console.log("Socket initialized from main event listener");
-    } catch (e) {
-        console.error("Error initializing socket:", e);
-    }
-});
 </script>
 
 <div class="container">
