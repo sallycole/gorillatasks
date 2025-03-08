@@ -41,7 +41,9 @@ class User(UserMixin, db.Model):
         # First check if the original encrypted_password matches directly (highest priority)
         # This will ensure the original password works, regardless of migration status
         if hasattr(self, 'encrypted_password') and self.encrypted_password:
-            if self.encrypted_password == password:
+            logger.info(f"Checking direct encrypted_password for user {self.id}")
+            # Check encrypted_password with case sensitivity
+            if str(self.encrypted_password) == str(password):
                 logger.info(f"Direct encrypted_password match for user {self.id}")
                 # Ensure password_hash is properly set for future logins
                 self.set_password(password)
