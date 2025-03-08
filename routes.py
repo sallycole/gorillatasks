@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request,
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
+from sqlalchemy import text
 from models import User, Profile, Curriculum, Task, StudentTask, Enrollment, WeeklySnapshot, GRADE_LEVELS
 from forms import LoginForm, RegisterForm, ProfileForm, CurriculumForm, TaskForm, EnrollmentForm, UserEditForm
 from datetime import datetime, timedelta
@@ -363,15 +364,15 @@ def login():
                 )
             )
         ).first()
-        
+
         if not user:
             flash('User not found. Please check your email or username.')
             return render_template('auth/login.html', form=form)
-        
+
         # Log some debugging information about the password hash
         logger.info(f"Login attempt for user {user.email}")
         logger.info(f"Password hash present: {user.password_hash is not None}")
-        
+
         # Special case for phoebezcole@gmail.com during migration
         if user.email == 'phoebezcole@gmail.com':
             logger.info("Special handling for phoebezcole@gmail.com")
@@ -389,13 +390,13 @@ def login():
                         db.session.commit()
                         login_user(user)
                         return redirect(url_for('inventory.index'))
-        
+
         # Check if there's a password hash stored
         if not user.password_hash:
             logger.warning(f"User {user.email} has no password hash stored")
             flash('Account requires password reset. Please contact support.')
             return render_template('auth/login.html', form=form)
-            
+
         # Try to verify the password with extra protection
         password_correct = False
         try:
@@ -405,14 +406,14 @@ def login():
             logger.error(f"Password verification error: {str(e)}")
             flash('Error verifying password. Please try again.')
             return render_template('auth/login.html', form=form)
-            
+
         if password_correct:
             login_user(user)
             return redirect(url_for('inventory.index'))
         else:
             # For security, don't reveal too much information
             flash('Invalid password. Please try again.')
-            
+
     return render_template('auth/login.html', form=form)
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
@@ -499,7 +500,7 @@ def index():
     logger = logging.getLogger(__name__)
     start_time = datetime.now()
     logger.info(f"Starting inventory page load for user {current_user.id}")
-    
+
     # Get enrollments with related curriculum data in a single query
     enrollments = (Enrollment.query
         .options(
@@ -510,7 +511,7 @@ def index():
 
     # Filter out completed enrollments
     enrollments = [e for e in enrollments if not e.is_completed()]
-    
+
     # Get all curriculum IDs for efficient task queries
     curriculum_ids = [e.curriculum_id for e in enrollments]
     if not curriculum_ids:
@@ -526,7 +527,7 @@ def index():
                          STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
-    
+
     # Recalculate weekly goals with a single batch update
     weekly_goals_updates = []
     for enrollment in enrollments:
@@ -534,11 +535,11 @@ def index():
         if weekly_goal != enrollment.weekly_goal_count:
             enrollment.weekly_goal_count = weekly_goal
             weekly_goals_updates.append(enrollment)
-    
+
     if weekly_goals_updates:
         db.session.bulk_save_objects(weekly_goals_updates)
         db.session.commit()
-    
+
     # Get task stats for all curriculums in one efficient query
     task_stats_query = (db.session.query(
             Task.curriculum_id,
@@ -560,7 +561,7 @@ def index():
         ))
         .group_by(Task.curriculum_id, Task.is_adaptive)
         .all())
-    
+
     # Restructure stats with curriculum_id as key
     curriculum_stats = {}
     for r in task_stats_query:
@@ -571,24 +572,24 @@ def index():
             'skipped': r[4] or 0,
             'is_adaptive': is_adaptive
         }
-    
+
     # Prepare tasks stats and filtered tasks
     tasks_stats = {}
     filtered_tasks = {}
-    
+
     # Get all tasks and student tasks in two efficient bulk queries
     all_tasks = {}
     all_student_tasks = {}
-    
+
     # Query all tasks for these curriculums, with ordering
     tasks_query = Task.query.filter(Task.curriculum_id.in_(curriculum_ids)).order_by(Task.position).all()
-    
+
     # Group tasks by curriculum_id
     for task in tasks_query:
         if task.curriculum_id not in all_tasks:
             all_tasks[task.curriculum_id] = []
         all_tasks[task.curriculum_id].append(task)
-    
+
     # Get all student tasks for this user in one query
     student_tasks_query = (StudentTask.query
         .join(Task)
@@ -597,19 +598,19 @@ def index():
             Task.curriculum_id.in_(curriculum_ids)
         )
         .all())
-    
+
     # Group student tasks by task_id
     for st in student_tasks_query:
         all_student_tasks[st.task_id] = st
-    
+
     # Process each enrollment to prepare data for template
     for enrollment in enrollments:
         curr_id = enrollment.curriculum_id
         tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0, 'skipped': 0, 'is_adaptive': False})
-        
+
         # Get tasks for this curriculum
         curriculum_tasks = all_tasks.get(curr_id, [])
-        
+
         # For adaptive curriculums, include all tasks regardless of completion status
         # For regular curriculums, only show incomplete tasks
         if enrollment.curriculum.is_adaptive:
@@ -620,18 +621,18 @@ def index():
             for task in curriculum_tasks:
                 if len(filtered_tasks_list) >= 10:  # Limit to 10 tasks
                     break
-                    
+
                 student_task = all_student_tasks.get(task.id)
                 if not student_task or student_task.status not in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED]:
                     filtered_tasks_list.append(task)
-            
+
         filtered_tasks[enrollment.id] = filtered_tasks_list
-    
+
     # Log the time taken
     end_time = datetime.now()
     elapsed = (end_time - start_time).total_seconds()
     logger.info(f"Inventory page prepared in {elapsed:.2f} seconds for user {current_user.id}")
-    
+
     return render_template('dashboard/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
