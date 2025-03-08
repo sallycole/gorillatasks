@@ -1,5 +1,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
+// When page loads, check for stored task content
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're returning from a redirect with stored content
+    const storedContent = sessionStorage.getItem('today_tasks_content');
+    if (storedContent) {
+        console.log("Restoring saved task content");
+        const taskContainer = document.getElementById('tasks-container');
+        if (taskContainer) {
+            taskContainer.innerHTML = storedContent;
+            // Initialize any JS components in the restored content
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }
+        // Clear the stored content to prevent it from being used again
+        sessionStorage.removeItem('today_tasks_content');
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     let socket;
     try {
@@ -24,6 +43,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!actionDiv) {
             console.error('Could not find action div for task:', taskId);
             return;
+        }
+
+        // Store the current task list HTML before we modify it
+        const taskContainer = document.getElementById('tasks-container');
+        if (taskContainer) {
+            // Only store content if we have tasks (prevents storing empty state)
+            if (document.querySelectorAll('.task-row').length > 0) {
+                sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+            }
         }
 
         // Show loading state
@@ -105,35 +133,43 @@ document.addEventListener('DOMContentLoaded', function() {
                             // Keep track of task container content in session storage to avoid flash of "no tasks"
                             const taskContainer = document.querySelector('#tasks-container');
                             if (taskContainer) {
-                                // Store current content in session storage before page reload
-                                if (document.querySelectorAll('.task-row').length > 0) {
+                                //Check if there are any tasks left before reloading
+                                if (document.querySelectorAll('.task-row').length === 0) {
+                                    // Show the empty state
+                                    document.getElementById('tasks-container').innerHTML = `
+                                        <div class="alert alert-info">
+                                            <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+                                            <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+                                        </div>
+                                    `;
+                                } else {
+                                    //Store content only if there are tasks left.
                                     sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
-                                }
 
-                                // Replace with loading indicator
-                                taskContainer.innerHTML = `
-                                    <div class="container mt-4">
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-6 text-center my-5">
-                                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
+                                    // Replace with loading indicator
+                                    taskContainer.innerHTML = `
+                                        <div class="container mt-4">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-6 text-center my-5">
+                                                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                    <h3 class="mt-4">Updating your tasks...</h3>
+                                                    <p class="text-muted">Please wait while we process your request.</p>
                                                 </div>
-                                                <h3 class="mt-4">Updating your tasks...</h3>
-                                                <p class="text-muted">Please wait while we process your request.</p>
                                             </div>
                                         </div>
-                                    </div>
-                                `;
+                                    `;
+                                    // Delay reload slightly to allow server to process changes
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000); // Increased to 2000ms for better visibility
+                                }
                             }
-
-                            // Delay reload slightly to allow server to process changes
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000); // Increased to 2000ms for better visibility
                         }
                     }
 
-                    
+
                 }
 
                 if (typeof feather !== 'undefined') {
@@ -273,6 +309,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Could not find action div for task:', taskId);
             return;
         }
+
+        // Store the current task list HTML before we modify it
+        const taskContainer = document.getElementById('tasks-container');
+        if (taskContainer) {
+            // Only store content if we have tasks (prevents storing empty state)
+            if (document.querySelectorAll('.task-row').length > 0) {
+                sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+            }
+        }
+
 
         // Show loading state
         const originalContent = actionDiv.innerHTML;
