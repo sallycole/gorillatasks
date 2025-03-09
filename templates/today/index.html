@@ -411,8 +411,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Change to skipped button
                     actionDiv.innerHTML = `
                         <div class="d-inline-flex gap-2">
-                            <button class="btn btn-sm btn-secondary" disabled>
-                                <i data-feather="skip-forward"></i> Skipped
+                            <button class="btn btn-sm btn-success" disabled>
+                                <i data-feather="check-circle"></i> Completed
                             </button>
                         </div>
                     `;
@@ -582,17 +582,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                                         <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
                                                             <i data-feather="play"></i> Start
                                                         </button>
-                                                        <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
-                                                            <i data-feather="skip-forward"></i> Skip
-                                                        </button>
                                                     </div>
                                                 {% elif student_task.status == STATUS_IN_PROGRESS %}
                                                     <div class="d-inline-flex gap-2">
                                                         <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
                                                             <i data-feather="check"></i> Finish
-                                                        </button>
-                                                        <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
-                                                            <i data-feather="skip-forward"></i> Skip
                                                         </button>
                                                     </div>
                                                 {% elif student_task.status == STATUS_COMPLETED %}
