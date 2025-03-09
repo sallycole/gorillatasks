@@ -549,17 +549,29 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             }
 
-                            // Update the average time display
-                            const goalElement = document.querySelector('.card-body h4:contains("Today\'s Goal")').closest('.card-body');
-                            const avgTimeElement = goalElement.querySelector('small');
-                            if (completedTasks > 0) {
-                                if (!avgTimeElement) {
-                                    const newAvgElement = document.createElement('small');
-                                    newAvgElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
-                                    goalElement.appendChild(document.createElement('br'));
-                                    goalElement.appendChild(newAvgElement);
-                                } else {
-                                    avgTimeElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
+                            // Update the average time display using standard JS selectors
+                            // Find the Today's Goal heading and get its parent card body
+                            const goalHeadings = document.querySelectorAll('.card-body h4');
+                            let goalElement = null;
+                            
+                            for (const heading of goalHeadings) {
+                                if (heading.textContent === "Today's Goal") {
+                                    goalElement = heading.closest('.card-body');
+                                    break;
+                                }
+                            }
+                            
+                            if (goalElement) {
+                                const avgTimeElement = goalElement.querySelector('small');
+                                if (completedTasks > 0) {
+                                    if (!avgTimeElement) {
+                                        const newAvgElement = document.createElement('small');
+                                        newAvgElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
+                                        goalElement.appendChild(document.createElement('br'));
+                                        goalElement.appendChild(newAvgElement);
+                                    } else {
+                                        avgTimeElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
+                                    }
                                 }
                             }
 
@@ -804,7 +816,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 {% elif student_task.status == STATUS_COMPLETED %}
                                                     <div class="d-inline-flex gap-2">
                                                         <button class="btn btn-sm btn-success" disabled>
-                                                            <i data-feather="check-circle">i> Completed
+                                                            <i data-feather="check-circle"></i> Completed
                                                         </button>
                                                     </div>
                                                 {% endif %}
