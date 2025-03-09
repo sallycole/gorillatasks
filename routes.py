@@ -354,6 +354,7 @@ def finish_task(id):
         ).first_or_404()
         query_time = time.time() - query_start
         logger.info(f"Task query took {query_time:.3f} seconds")
+        logger.info(f"Task {id} finish requested at {datetime.now(pytz.UTC)}")
 
         # Ensure task can be finished
         if student_task.status != StudentTask.STATUS_IN_PROGRESS:

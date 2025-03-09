@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
 // When page loads, check for stored task content
@@ -147,8 +148,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             feather.replace();
                         }
 
-                        // Update task count in the UI
+                        // Update task count in the UI and total time spent
                         updateTaskCount();
+                        updateTimeSpent();
                     }
 
                     // We'll keep everything on the same page without clearing
@@ -547,95 +549,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         // Update task count in the UI
                         updateTaskCount();
+                        updateTimeSpent(); // Call updateTimeSpent after updating individual task
                     }
 
                     // We'll keep everything on the same page without clearing
-                    function updateTaskCount() {
-                        // Get the current counts
-                        const totalTasks = document.querySelectorAll('.task-row').length;
-                        const completedTasks = document.querySelectorAll('.task-row.completed-task').length;
 
-                        // Update the goal display if it exists
-                        const goalDisplay = document.querySelector('.card-body span');
-                        if (goalDisplay) {
-                            let totalTimeSpentMinutes = 0;
-                            document.querySelectorAll('.task-row.completed-task').forEach(row => {
-                                const timeSpent = row.querySelector('.time-spent');
-                                if (timeSpent) {
-                                    const timeParts = timeSpent.textContent.match(/(\d+)h? (\d+)m/);
-                                    if (timeParts) {
-                                        totalTimeSpentMinutes += parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
-                                    }
-                                }
-                            });
-
-                            const totalTimeSpentHours = Math.floor(totalTimeSpentMinutes / 60);
-                            const totalTimeSpentMinutesRemainder = totalTimeSpentMinutes % 60;
-                            const averageTimePerTask = completedTasks > 0 ? Math.round(totalTimeSpentMinutes / completedTasks) : 0;
-
-                            // Format the time spent string
-                            let timeSpentString = '';
-                            if (totalTimeSpentHours > 0) {
-                                timeSpentString += totalTimeSpentHours + ' hours';
-                                if (totalTimeSpentMinutesRemainder > 0) {
-                                    timeSpentString += ' and ';
-                                }
-                            }
-                            if (totalTimeSpentMinutesRemainder > 0 || totalTimeSpentHours === 0) {
-                                timeSpentString += totalTimeSpentMinutesRemainder + ' minutes';
-                            }
-
-                            // Find the time spent element and update it
-                            // Use standard JS selectors instead of jQuery-style :contains
-                            const timeSpentHeadings = document.querySelectorAll('.card-body h4');
-                            let timeSpentElement = null;
-
-                            // Find the right heading and get its parent card body
-                            for (const heading of timeSpentHeadings) {
-                                if (heading.textContent === "Today's Time Spent") {
-                                    timeSpentElement = heading.closest('.card-body').querySelector('span');
-                                    break;
-                                }
-                            }
-
-                            if (timeSpentElement) {
-                                if (totalTimeSpentMinutes === 0) {
-                                    timeSpentElement.textContent = 'No time recorded';
-                                    timeSpentElement.className = 'progress-none';
-                                } else {
-                                    timeSpentElement.textContent = timeSpentString;
-                                    timeSpentElement.className = completedTasks === totalTasks ? 'progress-complete' : 'progress-partial';
-                                }
-                            }
-
-                            // Update the average time display using standard JS selectors
-                            // Find the Today's Goal heading and get its parent card body
-                            const goalHeadings = document.querySelectorAll('.card-body h4');
-                            let goalElement = null;
-
-                            for (const heading of goalHeadings) {
-                                if (heading.textContent === "Today's Goal") {
-                                    goalElement = heading.closest('.card-body');
-                                    break;
-                                }
-                            }
-
-
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done`;
-
-                            // Update the class based on completion status
-                            goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
-                                                  completedTasks < totalTasks ? 'progress-partial' : 
-                                                  'progress-complete';
-                        }
-                    }
-                    updateTimeSpent(); // Recalculate total time spent after task completion
                 } else if (action === 'skip') {
                     // Change to skipped button
                     actionDiv.innerHTML = `
                         <div class="d-inline-flex gap-2">
-                            <button class="btn btn-sm btn-success" disabled>
-                                <i data-feather="check-circle"></i> Completed
+                            <button class="btn btn-sm btn-secondary" disabled>
+                                <i data-feather="skip-forward"></i> Skipped
                             </button>
                         </div>
                     `;
@@ -679,6 +603,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
                     }
+                    updateTimeSpent(); // Update time spent after skip
                 }
 
                 if (typeof feather !== 'undefined') {
