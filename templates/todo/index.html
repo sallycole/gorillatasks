@@ -177,26 +177,24 @@ function resetTodayTasks() {
                     <div class="card mb-3 mt-3">
                         <div class="card-body">
                             <h4>Today's Progress</h4>
-                            <div class="progress mb-3" style="height: 30px;">
+                            <h2 class="display-5">
+                                {% if total_tasks > 0 %}
+                                {{ completed_tasks }} / {{ total_tasks }} tasks
+                                {% else %}
+                                0 / 0 tasks
+                                {% endif %}
+                            </h2>
+                            <div class="progress mt-2" style="height: 10px;">
                                 {% if total_tasks > 0 %}
                                 <div class="progress-bar bg-primary" role="progressbar" 
                                      style="width: {{ (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0 }}%" 
                                      aria-valuenow="{{ completed_tasks }}" aria-valuemin="0" aria-valuemax="{{ total_tasks }}">
-                                    {{ completed_tasks }} / {{ total_tasks }} tasks
                                 </div>
                                 {% else %}
                                 <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%">
-                                    No tasks
                                 </div>
                                 {% endif %}
                             </div>
-                            <p class="card-text">
-                                {% if total_tasks > 0 %}
-                                You've completed <strong>{{ completed_tasks }}</strong> out of <strong>{{ total_tasks }}</strong> tasks.
-                                {% else %}
-                                You don't have any tasks for today.
-                                {% endif %}
-                            </p>
                         </div>
                     </div>
                 </div>
