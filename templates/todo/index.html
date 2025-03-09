@@ -339,7 +339,7 @@ function resetTodayTasks() {
                                         <td class="text-end">
                                             <div class="task-actions" data-task-id="{{ student_task.task.id }}">
                                                 {% if student_task.status == STATUS_NOT_STARTED %}
-                                                    <button onclick="handleTaskAction('start', {{ student_task.task.id }}); openTaskLink('{{ student_task.task.link }}')" class="btn btn-sm btn-outline-primary">
+                                                    <button onclick="handleTaskAction('start', {{ student_task.task.id }}){% if student_task.task.link %}; openTaskLink('{{ student_task.task.link }}'){% endif %}" class="btn btn-sm btn-outline-primary">
                                                         <i data-feather="play"></i> Start
                                                     </button>
                                                 {% elif student_task.status == STATUS_IN_PROGRESS %}
