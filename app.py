@@ -60,12 +60,12 @@ def create_app():
         return models.User.query.get(int(user_id))
 
     # Register blueprints
-    from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp, today_bp
+    from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp, todo_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(curriculum_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(archive_bp)
-    app.register_blueprint(today_bp)
+    app.register_blueprint(todo_bp)
 
     # Register test blueprint if available
     try:
