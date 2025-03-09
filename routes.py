@@ -783,7 +783,7 @@ def finish_task(id):
             'message': str(e)
         }), 500
 
-@inventory_bpbp.route('/task/<int:id>/skip', methods=['POST'])
+@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])
 @login_required
 def skip_task(id):
     try:
