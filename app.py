@@ -1,3 +1,4 @@
+
 import os
 import logging
 from flask import Flask, redirect, url_for, flash, request
@@ -5,16 +6,14 @@ from flask_login import LoginManager, current_user
 from flask_socketio import SocketIO
 from flask_talisman import Talisman
 from sqlalchemy.exc import OperationalError
-import models
-from models import db, User
-import routes
-import events
+from flask_sqlalchemy import SQLAlchemy
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger('app')
 
-# Initialize Flask-SocketIO
+# Initialize extensions
+db = SQLAlchemy()
 socketio = SocketIO(cors_allowed_origins="*")
 
 def create_app():
@@ -45,6 +44,9 @@ def create_app():
     db.init_app(app)
     socketio.init_app(app)
 
+    # Import models after initializing db to avoid circular imports
+    import models
+
     # Security headers with Talisman (commented out for development)
     # talisman = Talisman(app, content_security_policy=None)
 
@@ -55,7 +57,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        return models.User.query.get(int(user_id))
 
     # Register blueprints
     from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp, today_bp
@@ -98,3 +100,6 @@ def create_app():
     logger.debug(f"Complete URL map:\n{app.url_map}")
 
     return app
+
+# Create the application instance
+app = create_app()
