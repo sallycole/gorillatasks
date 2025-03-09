@@ -1,10 +1,9 @@
-
 {% extends "base.html" %}
 
 {% block content %}
 <div class="container">
     <h1 class="mb-4">{{ enrollment.curriculum.name }}</h1>
-    
+
     <div class="card mb-4">
         <div class="card-body">
             <div class="row mb-4">
@@ -33,7 +32,7 @@
                     <p class="mb-0">{{ stats.skipped_tasks }}/{{ stats.total_tasks }} ({{ "%.1f"|format(stats.skipped_percent) }}%)</p>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-6">
                     <h5>Total Time Spent</h5>
@@ -89,9 +88,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <button onclick="unarchiveTask({{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
-                            <i data-feather="refresh-cw"></i> Unarchive
-                        </button>
+                        <button class="btn btn-sm btn-outline-primary unarchive-btn" 
+                                   data-task-id="{{ student_task.task_id }}" 
+                                   data-url="{{ url_for('archive.unarchive_task', id=student_task.task_id, enrollment_id=enrollment.id) }}">
+                                <i data-feather="rotate-ccw"></i> Unarchive
+                            </button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -113,17 +114,29 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Connected to WebSocket server');
     });
 
-    window.unarchiveTask = function(taskId) {
-        socket.emit('unarchive_task', { task_id: taskId }, (response) => {
-            if (response.status === 'success') {
-                // Remove the task row from the table
-                const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
-                if (taskRow) {
-                    taskRow.remove();
-                }
-            }
+    // Unarchive task button click handler
+    document.querySelectorAll('.unarchive-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const taskId = this.dataset.taskId;
+            const url = this.dataset.url;
+
+            // Create a form to submit as POST
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = url;
+
+            // Add CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrf_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            document.body.appendChild(form);
+            form.submit();
         });
-    }
+    });
 });
 </script>
 {% endblock %}

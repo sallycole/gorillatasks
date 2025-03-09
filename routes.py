@@ -121,20 +121,35 @@ def view_enrollment(id):
 @archive_bp.route('/task/<int:id>/unarchive', methods=['POST'])
 @login_required
 def unarchive_task(id):
-    student_task = StudentTask.query.filter_by(
-        student_id=current_user.id,
-        task_id=id
-    ).first_or_404()
+    try:
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=id
+        ).first_or_404()
 
-    student_task.status = StudentTask.STATUS_NOT_STARTED
-    student_task.started_at = None
-    student_task.finished_at = None
-    student_task.skipped_at = None
-    student_task.time_spent_minutes = 0
-    student_task.promoted = False
+        student_task.status = StudentTask.STATUS_NOT_STARTED
+        student_task.started_at = None
+        student_task.finished_at = None
+        student_task.skipped_at = None
+        student_task.time_spent_minutes = 0
+        student_task.promoted = False
 
-    db.session.commit()
-    return jsonify({'status': 'success'})
+        db.session.commit()
+        
+        # If it's an AJAX request, return JSON
+        if request.is_xhr or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({'status': 'success'})
+        
+        # Otherwise, redirect back to the enrollment view
+        flash('Task successfully unarchived!', 'success')
+        return redirect(url_for('archive.view_enrollment', id=request.args.get('enrollment_id')))
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Error unarchiving task: {str(e)}")
+        if request.is_xhr or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({'status': 'error', 'message': str(e)})
+        flash(f'Error unarchiving task: {str(e)}', 'danger')
+        return redirect(url_for('archive.index'))
 
 @todo_bp.route('/')
 @login_required
