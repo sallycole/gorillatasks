@@ -554,7 +554,7 @@ def index():
     if not curriculum_ids:
         # Return early if no enrollments
         logger.info(f"No enrollments found for user {current_user.id}")
-        return render_template('dashboard/index.html',
+        return render_template('inventory/index.html',
                          enrollments=[],
                          tasks_stats={},
                          filtered_tasks={},
@@ -670,7 +670,7 @@ def index():
     elapsed = (end_time - start_time).total_seconds()
     logger.info(f"Inventory page prepared in {elapsed:.2f} seconds for user {current_user.id}")
 
-    return render_template('dashboard/index.html',
+    return render_template('inventory/index.html',
                          enrollments=enrollments,
                          tasks_stats=tasks_stats,
                          filtered_tasks=filtered_tasks,
@@ -783,7 +783,7 @@ def finish_task(id):
             'message': str(e)
         }), 500
 
-@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])
+@inventory_bpbp.route('/task/<int:id>/skip', methods=['POST'])
 @login_required
 def skip_task(id):
     try:

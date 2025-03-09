@@ -76,7 +76,7 @@ def create_app():
     except ImportError:
         pass
 
-    logger.info(f"Registered blueprints: auth, curriculum, dashboard, archive, todo")
+    logger.info(f"Registered blueprints: auth, curriculum, inventory, archive, todo")
 
     @app.route('/')
     def root():
