@@ -471,7 +471,7 @@ def register():
         db.session.commit()
 
         login_user(user)
-        return redirect(url_for('dashboard.index'))
+        return redirect(url_for('inventory.index'))
     return render_template('auth/register.html', form=form)
 
 @auth_bp.route('/logout')
