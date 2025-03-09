@@ -32,8 +32,8 @@ def reset_phoebezcole_password():
             encrypted_password = row[0]
             logger.info(f"Found encrypted_password: {encrypted_password}")
             
-            # Set the password back to password123 using the original direct approach
-            logger.info("Setting password_hash to work with original password")
+            # Set the password using the original encrypted_password
+            logger.info("Setting password_hash to original encrypted_password")
             
             # Update the user object
             user.password_hash = encrypted_password

@@ -391,11 +391,7 @@ def login():
                     login_user(user)
                     return redirect(url_for('inventory.index'))
                 
-                # For phoebezcole@gmail.com, allow password123 as well
-                if user.email == 'phoebezcole@gmail.com' and form.password.data == 'password123':
-                    logger.info("Special password match for phoebezcole@gmail.com")
-                    login_user(user)
-                    return redirect(url_for('inventory.index'))
+                # No special cases for phoebezcole@gmail.com anymore
 
         # Check if there's a password hash stored
         if not user.password_hash:
