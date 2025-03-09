@@ -369,52 +369,36 @@ def login():
             flash('User not found. Please check your email or username.')
             return render_template('auth/login.html', form=form)
 
-        # Log some debugging information about the password hash
+        # Log some debugging information
         logger.info(f"Login attempt for user {user.email}")
-        logger.info(f"Password hash present: {user.password_hash is not None}")
 
-        # Check for legacy encrypted_password for all users
+        # PRIORITY 1: Always check encrypted_password field directly first
         with db.engine.connect() as conn:
             from sqlalchemy import text
             result = conn.execute(text(f"SELECT encrypted_password FROM users WHERE id = {user.id}"))
             row = result.fetchone()
             if row and row[0]:
                 encrypted_password = row[0]
-                logger.info(f"Direct DB encrypted_password for user {user.id}: {encrypted_password}")
+                logger.info(f"Found encrypted_password for user {user.id}")
                 
-                # Try direct password match first
+                # Try direct password match with encrypted_password
                 if form.password.data == encrypted_password:
                     logger.info(f"Direct encrypted_password match for user {user.id}")
-                    # Update the password hash for future logins
-                    user.set_password(form.password.data)
-                    db.session.commit()
                     login_user(user)
                     return redirect(url_for('inventory.index'))
-                
-                # No special cases for phoebezcole@gmail.com anymore
 
-        # Check if there's a password hash stored
-        if not user.password_hash:
-            logger.warning(f"User {user.email} has no password hash stored")
-            flash('Account requires password reset. Please contact support.')
-            return render_template('auth/login.html', form=form)
-
-        # Try to verify the password with extra protection
-        password_correct = False
-        try:
-            password_correct = user.check_password(form.password.data)
-            logger.info(f"Password verification result: {password_correct}")
-        except Exception as e:
-            logger.error(f"Password verification error: {str(e)}")
-            flash('Error verifying password. Please try again.')
-            return render_template('auth/login.html', form=form)
-
-        if password_correct:
-            login_user(user)
-            return redirect(url_for('inventory.index'))
-        else:
-            # For security, don't reveal too much information
-            flash('Invalid password. Please try again.')
+        # PRIORITY 2: Fall back to password_hash only if encrypted_password didn't work
+        if user.password_hash:
+            try:
+                if check_password_hash(user.password_hash, form.password.data):
+                    logger.info(f"Password hash match for user {user.id}")
+                    login_user(user)
+                    return redirect(url_for('inventory.index'))
+            except Exception as e:
+                logger.error(f"Error checking password hash: {str(e)}")
+        
+        # If we get here, authentication failed
+        flash('Invalid password. Please try again.')
 
     return render_template('auth/login.html', form=form)
 
