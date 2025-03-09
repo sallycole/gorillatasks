@@ -708,27 +708,31 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         {% if tasks_by_curriculum %}
 
-            {# Total and completed tasks are now passed directly from the route #}
-            <div class="card mb-3 mt-3">
-                <div class="card-body text-center">
-                    <h4>Today's Goal</h4>
-                    {% if completed_tasks == 0 and total_tasks == 0 %}
-                        <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                    {% elif completed_tasks == 0 %}
-                        <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                    {% elif completed_tasks < total_tasks %}
-                        <span class="progress-partial">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                    {% else %}
-                        <span class="progress-complete">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
-                    {% endif %}
-                    <br>
-                    <small>Average: 0 minutes per task</small>
+            {# Total and completed tasks are now displayed in a two-column layout #}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 mt-3">
+                        <div class="card-body text-center">
+                            <h4>Today's Goal</h4>
+                            {% if completed_tasks == 0 and total_tasks == 0 %}
+                                <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                            {% elif completed_tasks == 0 %}
+                                <span class="progress-none">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                            {% elif completed_tasks < total_tasks %}
+                                <span class="progress-partial">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                            {% else %}
+                                <span class="progress-complete">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card mb-3 mt-3">
-                <div class="card-body text-center">
-                    <h4>Today's Time Spent</h4>
-                    <span class="progress-none">No time recorded</span>
+                <div class="col-md-6">
+                    <div class="card mb-3 mt-3">
+                        <div class="card-body text-center">
+                            <h4>Today's Time Spent</h4>
+                            <span class="progress-none">No time recorded</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}
