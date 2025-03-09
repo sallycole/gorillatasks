@@ -1,4 +1,3 @@
-
 import os
 import logging
 from flask import Flask, redirect, url_for, flash, request
@@ -7,6 +6,7 @@ from flask_socketio import SocketIO
 from flask_talisman import Talisman
 from sqlalchemy.exc import OperationalError
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect #Added import for CSRFProtect
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -15,6 +15,7 @@ logger = logging.getLogger('app')
 # Initialize extensions
 db = SQLAlchemy()
 socketio = SocketIO(cors_allowed_origins="*")
+csrf = CSRFProtect() # Initialize CSRFProtect
 
 def create_app():
     app = Flask(__name__)
@@ -43,6 +44,7 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     socketio.init_app(app)
+    csrf.init_app(app) # Initialize CSRFProtect
 
     # Import models after initializing db to avoid circular imports
     import models
