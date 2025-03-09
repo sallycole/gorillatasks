@@ -70,6 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.status === 'success') {
                     // Always reload page for proper state updates
+                    // For finish action, we'll get time_spent data back
+                    if (action === 'finish' && data.time_spent) {
+                        console.log(`Task completed in ${data.time_spent} minutes`);
+                    }
                     window.location.reload();
                 } else {
                     console.error('Task action failed:', data.message);
@@ -214,7 +218,8 @@ function resetTodayTasks() {
                             <thead>
                                 <tr>
                                     <th>Task</th>
-                                    <th class="text-end" style="width: 120px">Status</th>
+                                    <th class="text-center" style="width: 120px">Time Spent</th>
+                                    <th class="text-end" style="width: 120px">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -230,10 +235,12 @@ function resetTodayTasks() {
                                                 {% endif %}
                                             </div>
                                             <div class="text-muted small">{{ student_task.task.description }}</div>
+                                            </td>
+                                        <td class="text-center">
                                             {% if student_task.time_spent_minutes %}
-                                            <div class="text-muted small">
-                                                Time spent: {{ student_task.time_spent_minutes }} min
-                                            </div>
+                                                {{ student_task.time_spent_minutes }} min
+                                            {% else %}
+                                                -
                                             {% endif %}
                                         </td>
                                         <td class="text-end">

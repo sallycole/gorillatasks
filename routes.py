@@ -372,11 +372,13 @@ def finish_task(id):
         logger.info(f"Set task {id} status to COMPLETED and finished_at to {student_task.finished_at}")
 
         # Calculate time spent if task was started
+        time_spent_minutes = 0
         if student_task.started_at:
             # Ensure started_at is in UTC
             started_at_utc = pytz.UTC.localize(student_task.started_at) if student_task.started_at.tzinfo is None else student_task.started_at.astimezone(pytz.UTC)
             delta = student_task.finished_at - started_at_utc
             student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+            time_spent_minutes = student_task.time_spent_minutes
             logger.info(f"Task {id} time spent: {student_task.time_spent_minutes} minutes (started at: {started_at_utc})")
         else:
             logger.warning(f"Task {id} finished but has no start timestamp")
@@ -394,7 +396,7 @@ def finish_task(id):
         return jsonify({
             'status': 'success',
             'message': 'Task completed successfully',
-            'time_spent': student_task.time_spent_minutes
+            'time_spent': time_spent_minutes
         })
     except Exception as e:
         logger.error(f"Error finishing task {id}: {str(e)}")
