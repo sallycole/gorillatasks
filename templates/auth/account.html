@@ -56,7 +56,7 @@
                     <div class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="mb-1">{{ enrollment.curriculum.name }}</h5>
-                            <small class="text-muted">Enrolled on {{ enrollment.created_at.strftime('%Y-%m-%d') }}</small>
+                            <small class="text-muted">Enrolled on {{ enrollment.enrolled_at.strftime('%Y-%m-%d') }}</small>
                             <div class="mt-1">
                                 <small class="text-muted">Study Days: {{ enrollment.study_days_per_week }}/week | Target: {{ enrollment.target_completion_date.strftime('%Y-%m-%d') }}</small>
                             </div>
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editToggle = document.getElementById('editToggle');
     const form = document.getElementById('accountForm');
     const inputs = form.querySelectorAll('input, select');
-    
+
     editToggle.addEventListener('click', function() {
         const isEditing = form.classList.toggle('editing');
         editToggle.textContent = isEditing ? 'Cancel Editing' : 'Edit Account Info';
