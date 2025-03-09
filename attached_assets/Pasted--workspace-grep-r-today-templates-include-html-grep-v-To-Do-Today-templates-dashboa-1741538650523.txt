@@ -1,0 +1,20 @@
+~/workspace$ grep -r "today" templates/ --include="*.html" | grep -v "To Do Today"
+templates/dashboard/index.html:                        <span class="{{ enrollment.progress_status(enrollment.tasks_completed_today(), enrollment.calculate_todays_goal()) }}">
+templates/dashboard/index.html:                            {{ enrollment.tasks_completed_today() }} / {{ enrollment.calculate_todays_goal() }} tasks
+templates/archive/index.html:                        <div>Today: {{ time_metrics[enrollment.id]['today'] }} minutes</div>
+templates/archive/index.html:                        <div>Today: {{ time_metrics[enrollment.id]['today'] }} minutes</div>
+templates/today/index.html:    const storedContent = sessionStorage.getItem('today_tasks_content');
+templates/today/index.html:        sessionStorage.removeItem('today_tasks_content');
+templates/today/index.html:                sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+templates/today/index.html:        fetch(`/today/task/${taskId}/${action}`, {
+templates/today/index.html:        fetch('/today/reset', {
+templates/today/index.html:    const storedContent = sessionStorage.getItem('today_tasks_content');
+templates/today/index.html:            sessionStorage.removeItem('today_tasks_content');
+templates/today/index.html:                sessionStorage.setItem('today_tasks_content', taskContainer.innerHTML);
+templates/today/index.html:        fetch(`/today/task/${taskId}/${action}`, {
+templates/today/index.html:                                sessionStorage.setItem('today_tasks_content', currentContent);
+templates/today/index.html:                            if (sessionStorage.getItem('today_tasks_content')) {
+templates/today/index.html:                                <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+templates/today/index.html:                                <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+templates/today/index.html:        <div class="alert alert-info">        <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+templates/today/index.html:            <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
