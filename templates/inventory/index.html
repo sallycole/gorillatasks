@@ -1,6 +1,537 @@
+
 <!DOCTYPE html>
 {% extends "base.html" %}
 
+{% block head %}
+{{ super() }}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<style>
+.progress-none {
+    color: #dc3545;  /* red */
+}
+.progress-partial {
+    color: #ffc107;  /* yellow */
+}
+.progress-complete {
+    color: #28a745;  /* green */
+}
+</style>
+{% endblock %}
+
 {% block content %}
-  <!-- Your template content here -->
+<script>
+// Initialize socket connection when the page is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize socket connection
+    try {
+        initializeSocket();
+    } catch (e) {
+        console.error("Failed to initialize socket:", e);
+    }
+
+    // Initialize Feather icons for UI rendering
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+});
+
+function initializeSocket() {
+    let socket;
+    try {
+        socket = io({
+            transports: ['websocket', 'polling'],
+            reconnection: true,
+            reconnectionAttempts: 5
+        });
+    } catch (e) {
+        console.error('Failed to initialize socket:', e);
+        return;
+    }
+
+    socket.on('connect', function() {
+        socket.sendBuffer = [];  // Clear any buffered events
+        document.querySelectorAll('.task-actions').forEach(function(div) {
+            div.classList.remove('disconnected');
+        });
+    });
+
+    let reconnectAttempts = 0;
+    socket.io.on("reconnect_attempt", function() {
+        if (reconnectAttempts++ > 2) {
+            socket.disconnect();  // Stop reconnection after 3 attempts
+            location.reload();    // Refresh the page
+        }
+    });
+
+    socket.io.on("reconnect", function() {
+        reconnectAttempts = 0;  // Reset counter on successful reconnection
+    });
+
+    window.handleTaskAction = function(action, taskId) {
+    if (!socket || !socket.connected) {
+        return;
+    }
+
+    const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
+    if (!actionDiv) {
+        return;
+    }
+
+    // Show loading state
+    const originalContent = actionDiv.innerHTML;
+    actionDiv.innerHTML = `
+        <div class="d-inline-flex gap-2">
+            <button class="btn btn-sm btn-outline-secondary" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+        </div>
+    `;
+
+    if (action === 'promote') {
+        // Use direct fetch API for promote action
+        // Get CSRF token from meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch(`/inventory/task/${taskId}/promote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': csrfToken
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            // Check if the response was successful
+            if (!response.ok) {
+                const contentType = response.headers.get('content-type') || '';
+
+                return response.text().then(text => {
+                    try {
+                        // Try to parse as JSON, even if not specified as JSON
+                        const errorData = JSON.parse(text);
+                        throw new Error(errorData.message || 'Error from server');
+                    } catch (jsonError) {
+                        // Not valid JSON
+                        throw new Error(`Server returned ${response.status}: ${contentType.includes('text/html') ? 'HTML Error' : text.substring(0, 50)}`);
+                    }
+                });
+            }
+
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                // Replace the action button with a success message
+                actionDiv.innerHTML = `
+                    <div class="d-inline-flex gap-2">
+                        <button class="btn btn-sm btn-outline-success" disabled>
+                            <i data-feather="check"></i> Promoted to Today
+                        </button>
+                    </div>
+                `;
+
+                // Create a temporary notification
+                const notification = document.createElement('div');
+                notification.className = 'position-fixed top-0 end-0 p-3';
+                notification.style.zIndex = '5';
+                notification.innerHTML = `
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-success text-white">
+                            <strong class="me-auto">Success</strong>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                                   onclick="this.parentElement.parentElement.parentElement.remove()"></button>
+                        </div>
+                        <div class="toast-body">
+                            Task promoted to Today successfully!
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+
+                // Remove notification after 3 seconds
+                setTimeout(function() {
+                    notification.remove();
+                }, 3000);
+
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+
+            } else {
+                actionDiv.innerHTML = originalContent;
+                alert(`Error: ${data.message || 'Unknown error'}`);
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            }
+        })
+        .catch(error => {
+            actionDiv.innerHTML = originalContent;
+
+            // Create a toast notification for the error
+            const errorNotification = document.createElement('div');
+            errorNotification.className = 'position-fixed top-0 end-0 p-3';
+            errorNotification.style.zIndex = '5';
+            errorNotification.innerHTML = `
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-danger text-white">
+                        <strong class="me-auto">Error</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                               onclick="this.parentElement.parentElement.parentElement.remove()"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${error.message || 'An error occurred while promoting the task.'}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(errorNotification);
+
+            // Remove notification after 4 seconds
+            setTimeout(function() {
+                errorNotification.remove();
+            }, 4000);
+
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        });
+        return;
+    }
+
+    // For other actions, use the socket as before
+    const timeout = setTimeout(() => {
+        console.error('Socket event timed out');
+        actionDiv.innerHTML = originalContent;
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    }, 5000);
+
+    socket.emit(action + '_task', { task_id: taskId }, function(response) {
+        console.log("Socket response received for", action, "task", taskId);
+        clearTimeout(timeout);
+        if (!response) {
+            console.error('No response from server');
+            actionDiv.innerHTML = originalContent;
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+            return;
+        }
+
+        if (response.status === 'success') {
+            console.log('Task action successful:', response);
+            // UI will be updated by the task_updated event handler
+        } else {
+            console.error('Task action failed:', response.message);
+            actionDiv.innerHTML = originalContent;
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }
+    });
+};
+
+socket.on('task_updated', function(data) {
+        if (data && data.task_id) {
+            if (data.status === 1 && data.link) { // IN_PROGRESS
+                window.open(data.link, '_blank');
+            }
+            if (data.status === 2 || data.status === 3) { // COMPLETED or SKIPPED
+                window.location.reload(); // Refresh to show new task list
+            } else {
+                const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
+                if (actionDiv) {
+                    if (data.status === 1) { // IN_PROGRESS
+                        actionDiv.innerHTML = `
+                            <div class="d-inline-flex gap-2">
+                                <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
+                                    <i data-feather="check"></i> Finish
+                                </button>
+                                <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                                    <i data-feather="skip-forward"></i> Skip
+                                </button>
+                            </div>
+                        `;
+                    }
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                }
+            }
+        }
+    });
+
+    function updateTaskUI(data) {
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
+        if (!actionDiv) {
+            return;
+        }
+
+        let newHtml;
+        if (data.status === {{ STATUS_IN_PROGRESS }}) {
+            newHtml = `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
+                        <i data-feather="check"></i> Finish
+                    </button>
+                    <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                </div>
+            `;
+            if (data.link) {
+                window.open(data.link, '_blank');
+            }
+        } else {
+            newHtml = `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('start', ${data.task_id})" class="btn btn-sm btn-outline-primary">
+                        <i data-feather="play"></i> Start
+                    </button>
+                    <button onclick="handleTaskAction('skip', ${data.task_id})" class="btn btn-sm btn-outline-secondary">
+                        <i data-feather="skip-forward"></i> Skip
+                    </button>
+                </div>
+            `;
+        }
+
+        actionDiv.innerHTML = newHtml;
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    }
+
+    function showError(actionDiv, taskId, action) {
+        actionDiv.innerHTML = `
+            <div class="d-inline-flex gap-2">
+                <button onclick="handleTaskAction('${action}', ${taskId})" class="btn btn-sm btn-outline-danger">
+                    <i data-feather="alert-triangle"></i> Retry
+                </button>
+            </div>
+        `;
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
+    }
+
+    // Initialize Feather icons
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+    }
+}
+
+</script>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>Study Inventory</h1>
+        </div>
+    </div>
+
+    {% if enrollments %}
+    {% for enrollment in enrollments %}
+    <div class="card mb-4">
+        <div class="card-header p-0">
+            <div class="p-3">
+                <h3 class="mb-0 text-center">{{ enrollment.curriculum.name }}</h3>
+            </div>
+            <div class="row g-0 border-top">
+                <div class="col-4 p-3 border-end">
+                    <div class="text-center">
+                        <strong>Daily Goal:</strong><br>
+                        <span class="{{ enrollment.progress_status(enrollment.tasks_completed_today(), enrollment.calculate_todays_goal()) }}">
+                            {{ enrollment.tasks_completed_today() }} / {{ enrollment.calculate_todays_goal() }} tasks
+                        </span>
+                    </div>
+                </div>
+                <div class="col-4 p-3 border-end">
+                    <div class="text-center">
+                        <strong>Weekly Goal:</strong><br>
+                        <span class="{{ enrollment.progress_status(enrollment.tasks_completed_this_week(), enrollment.weekly_goal_count) }}">
+                            {{ enrollment.tasks_completed_this_week() }} / {{ enrollment.weekly_goal_count }} tasks
+                        </span>
+                    </div>
+                </div>
+                <div class="col-4 p-3">
+                    <div class="text-center">
+                        <strong>Target Completion:</strong><br>
+                        {% if enrollment.target_completion_date %}
+                        <span class="{{ enrollment.target_date_status() }}">
+                            {{ enrollment.target_completion_date.strftime('%b %d, %Y') }}
+                        </span>
+                        {% else %}
+                        <span class="text-muted">Not set</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- Progress Section -->
+            <div class="mb-4">
+                {% if enrollment.curriculum.is_adaptive %}
+                <!-- Usage Meter for Adaptive Curriculums -->
+                <h5>Usage</h5>
+                <div class="progress mb-2 position-relative" style="height: 20px;">
+                    {% set completed = tasks_stats[enrollment.id]['completed'] %}
+                    {% set max_display = 180 %}
+                    {% set percentage = 100 %}
+                    {% if completed < max_display %}
+                        {% set percentage = (completed / max_display * 100)|round|int %}
+                    {% endif %}
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ percentage }}%; background-color: #6f42c1;" 
+                         aria-valuenow="{{ percentage }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {% if percentage > 50 %}
+                        <span class="position-absolute start-50 translate-middle-x text-white">
+                            {{ completed }} Task{{ 's' if completed != 1 }} {% if completed >= max_display %}(Max){% endif %}
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if percentage <= 50 %}
+                    <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% + 10px);">
+                        {{ completed }} Task{{ 's' if completed != 1 }} {% if completed >= max_display %}(Max){% endif %}
+                    </span>
+                    {% endif %}
+                </div>
+                {% else %}
+                <!-- Completion Status for Regular Curriculums -->
+                <h5>Completion Status</h5>
+                <div class="progress mb-2 position-relative" style="height: 20px;">
+                    {% set completed = tasks_stats[enrollment.id]['completed'] %}
+                    {% set skipped = tasks_stats[enrollment.id]['skipped'] %}
+                    {% set total = tasks_stats[enrollment.id]['total'] %}
+                    {% set percentage = 0 %}
+                    {% if total > 0 %}
+                        {% set percentage = (completed + skipped) / total * 100 %}
+                    {% endif %}
+                    <div class="progress-bar" role="progressbar" 
+                         style="width: {{ percentage }}%" 
+                         aria-valuenow="{{ percentage }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {% if percentage > 50 %}
+                        <span class="position-absolute start-50 translate-middle-x text-white">
+                            {{ completed + skipped }} / {{ total }} Tasks
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% if percentage <= 50 %}
+                    <span class="position-absolute translate-middle-y" style="top: 50%; left: calc({{ percentage }}% + 10px);">
+                        {{ completed + skipped }} / {{ total }} Tasks
+                    </span>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Tasks Section -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60%">Task</th>
+                            <th style="width: 40%" class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in filtered_tasks[enrollment.id] %}
+                        <tr data-task-id="{{ task.id }}">
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        {% if task.action == 1 %}
+                                        <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
+                                        {% elif task.action == 2 %}
+                                        <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
+                                        {% elif task.action == 3 %}
+                                        <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
+                                        {% elif task.action == 4 %}
+                                        <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
+                                        {% else %}
+                                        <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
+                                        {% endif %}
+                                        <div>
+                                            {% if task.link %}
+                                            <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
+                                            {% else %}
+                                            {{ task.title }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% if task.description %}
+                                    <div class="ms-4 mt-1">
+                                        <small class="text-muted">{{ task.description }}</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <div class="task-actions" data-task-id="{{ task.id }}" data-task-url="{{ task.link }}">
+                                    {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
+                                    <div class="d-inline-flex gap-2">
+                                        {% if student_task and student_task.promoted %}
+                                            <button class="btn btn-sm btn-outline-success" disabled>
+                                                <i data-feather="check"></i> Promoted to Today
+                                            </button>
+                                        {% else %}
+                                            {% if task.is_adaptive %}
+                                                {% if not student_task or student_task.status in [0, 2] %}
+                                                    <button onclick="handleTaskAction('promote', {{ task.id }})" class="btn btn-sm btn-outline-primary">
+                                                        <i data-feather="calendar"></i> Promote
+                                                    </button>
+                                                {% elif student_task.status == 1 %}
+                                                    <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
+                                                        <i data-feather="check"></i> Finish
+                                                    </button>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if not student_task or student_task.status == 0 %}
+                                                    <button onclick="handleTaskAction('promote', {{ task.id }})" class="btn btn-sm btn-outline-primary">
+                                                        <i data-feather="calendar"></i> Promote
+                                                    </button>
+                                                    <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                        <i data-feather="skip-forward"></i> Skip
+                                                    </button>
+                                                {% elif student_task.status == 1 %}
+                                                    <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
+                                                        <i data-feather="check"></i> Finish
+                                                    </button>
+                                                    <button onclick="handleTaskAction('skip', {{ task.id }})" class="btn btn-sm btn-outline-secondary">
+                                                        <i data-feather="skip-forward"></i> Skip
+                                                    </button>
+                                                {% elif student_task.status == 2 %}
+                                                    <button class="btn btn-sm btn-success" disabled>
+                                                        <i data-feather="check-circle"></i> Completed
+                                                    </button>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Welcome to your Study Inventory!</h4>
+        <p>You haven't enrolled in any curriculums yet. Visit the <a href="{{ url_for('curriculum.list') }}" class="alert-link">Curriculum List</a> to find and enroll in curriculums or <a href="{{ url_for('curriculum.new') }}" class="alert-link">Create a New Curriculum</a> and enroll in it to fully personalize your learning inventory. (You may create and enroll in as many curriculums as you like.)</p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
