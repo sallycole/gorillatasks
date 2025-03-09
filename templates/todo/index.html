@@ -76,82 +76,66 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table m-0">
+                    <table class="table table-hover mb-0">
                         <thead>
                             <tr>
-                                <th style="width: 55%;">Task</th>
-                                <th style="width: 15%;" class="text-center">Time Spent</th>
-                                <th style="width: 15%;" class="text-center">Status</th>
-                                <th style="width: 15%;" class="text-end">Actions</th>
+                                <th style="width: 70%">Task</th>
+                                <th style="width: 15%">Time Spent</th>
+                                <th style="width: 15%" class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for student_task in tasks %}
-                            <tr data-task-id="{{ student_task.task_id }}">
+                            {% for task in tasks %}
+                            <tr class="{% if task.status == 2 %}table-success{% elif task.status == 1 %}table-warning{% endif %}">
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        {% if student_task.task.action == 1 %}
-                                        <i data-feather="book-open" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Read"></i>
-                                        {% elif student_task.task.action == 2 %}
-                                        <i data-feather="video" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Watch"></i>
-                                        {% elif student_task.task.action == 3 %}
-                                        <i data-feather="headphones" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Listen"></i>
-                                        {% elif student_task.task.action == 4 %}
-                                        <i data-feather="edit-3" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Do"></i>
-                                        {% else %}
-                                        <i data-feather="circle" class="feather-sm me-2 text-purple" style="color: #6f42c1" title="Task"></i>
-                                        {% endif %}
-                                        <div>
-                                            {% if student_task.task.link %}
-                                            <a href="{{ student_task.task.link }}" target="_blank">{{ student_task.task.title }}</a>
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center">
+                                            {% if task.action == 1 %}
+                                            <i data-feather="book-open" class="feather-sm me-2 text-primary"></i>
+                                            {% elif task.action == 2 %}
+                                            <i data-feather="video" class="feather-sm me-2 text-primary"></i>
+                                            {% elif task.action == 3 %}
+                                            <i data-feather="headphones" class="feather-sm me-2 text-primary"></i>
+                                            {% elif task.action == 4 %}
+                                            <i data-feather="edit-3" class="feather-sm me-2 text-primary"></i>
                                             {% else %}
-                                            {{ student_task.task.title }}
+                                            <i data-feather="circle" class="feather-sm me-2 text-primary"></i>
                                             {% endif %}
-                                            {% if student_task.task.description %}
-                                            <div class="small text-muted">{{ student_task.task.description }}</div>
-                                            {% endif %}
+                                            <div>
+                                                {% if task.link %}
+                                                <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
+                                                {% else %}
+                                                {{ task.title }}
+                                                {% endif %}
+                                            </div>
                                         </div>
+                                        {% if task.description %}
+                                        <div class="ms-4 mt-1">
+                                            <small class="text-muted">{{ task.description }}</small>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </td>
-                                <td class="text-center">
-                                    {% if student_task.time_spent_minutes %}
-                                        {{ student_task.time_spent_minutes }} min
-                                    {% else %}
-                                        -
-                                    {% endif %}
-                                </td>
-                                <td class="text-center">
-                                    {% if student_task.status == STATUS_NOT_STARTED %}
-                                    <span class="badge bg-secondary">Not Started</span>
-                                    {% elif student_task.status == STATUS_IN_PROGRESS %}
-                                    <span class="badge bg-warning">In Progress</span>
-                                    {% elif student_task.status == STATUS_COMPLETED %}
-                                    <span class="badge bg-success">Completed</span>
-                                    {% elif student_task.status == STATUS_SKIPPED %}
-                                    <span class="badge bg-light text-dark">Skipped</span>
-                                    {% endif %}
+                                <td>
+                                    {{ task.time_spent_minutes|default(0) }} min
                                 </td>
                                 <td class="text-end">
-                                    <div class="task-actions" data-task-id="{{ student_task.task_id }}">
-                                        {% if student_task.status == STATUS_NOT_STARTED %}
+                                    <div class="task-actions" data-task-id="{{ task.id }}" data-task-url="{{ task.link }}">
                                         <div class="d-inline-flex gap-2">
-                                            <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
-                                                <i data-feather="play"></i> Start
-                                            </button>
+                                            {% if task.status == 0 %}
+                                                <button onclick="handleTaskAction('start', {{ task.id }})" class="btn btn-sm btn-outline-primary">
+                                                    <i data-feather="play"></i> Start
+                                                </button>
+                                            {% elif task.status == 1 %}
+                                                <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
+                                                    <i data-feather="check"></i> Finish
+                                                </button>
+                                            {% elif task.status == 2 %}
+                                                <button class="btn btn-sm btn-outline-success" disabled>
+                                                    <i data-feather="check-circle"></i> Done
+                                                </button>
+                                            {% endif %}
                                         </div>
-                                        {% elif student_task.status == STATUS_IN_PROGRESS %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
-                                                <i data-feather="check"></i> Finish
-                                            </button>
-                                        </div>
-                                        {% elif student_task.status == STATUS_COMPLETED %}
-                                        <div class="d-inline-flex gap-2">
-                                            <button class="btn btn-sm btn-success" disabled>
-                                                <i data-feather="check-circle"></i> Completed
-                                            </button>
-                                        </div>
-                                        {% endif %}
                                     </div>
                                 </td>
                             </tr>
@@ -163,37 +147,51 @@
         </div>
     {% else %}
         <div class="alert alert-info">
-            <h4 class="alert-heading">No tasks for today!</h4>
-            <p>You haven't promoted any tasks to your Today list yet. Visit the <a href="{{ url_for('inventory.index') }}" class="alert-link">Inventory</a> to promote tasks to Today.</p>
+            <i data-feather="info" class="me-2"></i>
+            <span>No tasks scheduled for today. Visit your <a href="{{ url_for('inventory.index') }}">Inventory</a> to promote tasks for today.</span>
         </div>
     {% endfor %}
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Connected to WebSocket server on Today page");
-    
-    // Initialize socket connection
-    try {
-        initializeSocket();
-    } catch (e) {
-        console.error("Failed to initialize socket:", e);
-    }
-    
-    // Reset Today button functionality
-    document.getElementById('resetTodayBtn').addEventListener('click', function() {
-        if (confirm('Are you sure you want to reset all tasks in Today? This will return all tasks to inventory.')) {
-            resetToday();
-        }
-    });
-    
-    // Initialize Feather icons
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
+    
+    const resetButton = document.getElementById('resetTodayBtn');
+    if (resetButton) {
+        resetButton.addEventListener('click', function() {
+            if (confirm('This will reset all tasks for today. Are you sure?')) {
+                fetch('/todo/reset', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        });
+    }
+    
+    // Initialize socket connection for real-time updates
+    initTodoSocket();
 });
 
-function initializeSocket() {
+function initTodoSocket() {
     let socket;
     try {
         socket = io({
@@ -201,15 +199,12 @@ function initializeSocket() {
             reconnection: true,
             reconnectionAttempts: 5
         });
+        console.log("Connected to WebSocket server on Today page");
     } catch (e) {
-        console.error('Failed to initialize socket:', e);
+        console.error("Failed to initialize socket:", e);
         return;
     }
-
-    socket.on('connect', function() {
-        console.log("Connected to WebSocket server");
-    });
-
+    
     window.handleTaskAction = function(action, taskId) {
         console.log("Handling " + action + " for task " + taskId);
         
@@ -217,15 +212,17 @@ function initializeSocket() {
             alert("Not connected to server. Please refresh the page.");
             return;
         }
-
+        
         const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
         if (!actionDiv) {
-            console.error("Cannot find action div for task " + taskId);
+            console.error("Could not find action div for task " + taskId);
             return;
         }
-
-        // Show loading state
+        
+        // Save original content to restore on error
         const originalContent = actionDiv.innerHTML;
+        
+        // Show loading state
         actionDiv.innerHTML = `
             <div class="d-inline-flex gap-2">
                 <button class="btn btn-sm btn-outline-secondary" disabled>
@@ -234,25 +231,39 @@ function initializeSocket() {
                 </button>
             </div>
         `;
-
-        // Send the action to the server
-        const url = `/todo/task/${taskId}/${action}`;
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                if (action === 'start' && data.task && data.task.link) {
-                    window.open(data.task.link, '_blank');
-                    
-                    // Update UI to show Finish button
+        
+        // Set timeout in case socket doesn't respond
+        const timeout = setTimeout(() => {
+            console.log("Server request timed out");
+            console.log("Restoring saved task content");
+            actionDiv.innerHTML = originalContent;
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+            alert("Request timed out. Please try again.");
+        }, 10000);
+        
+        // Send action to server
+        socket.emit(action + '_task', { task_id: taskId }, function(response) {
+            clearTimeout(timeout);
+            
+            if (!response) {
+                console.error("No response from server");
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                alert("No response from server. Please try again.");
+                return;
+            }
+            
+            if (response.status === 'success') {
+                // Success: UI will be updated by task_updated event or we'll reload the page
+                if (action === 'finish') {
+                    // Reload the page to show updated task list
+                    window.location.reload();
+                } else if (action === 'start') {
+                    // Update the UI to show finish button
                     actionDiv.innerHTML = `
                         <div class="d-inline-flex gap-2">
                             <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
@@ -260,130 +271,84 @@ function initializeSocket() {
                             </button>
                         </div>
                     `;
-                    
-                    // Update status cell
-                    const statusCell = actionDiv.closest('tr').querySelector('td:nth-child(3)');
-                    if (statusCell) {
-                        statusCell.innerHTML = '<span class="badge bg-warning">In Progress</span>';
-                    }
-                } else if (action === 'finish') {
-                    // Update UI to show completed
-                    actionDiv.innerHTML = `
-                        <div class="d-inline-flex gap-2">
-                            <button class="btn btn-sm btn-success" disabled>
-                                <i data-feather="check-circle"></i> Completed
-                            </button>
-                        </div>
-                    `;
-                    
-                    // Update status cell
-                    const statusCell = actionDiv.closest('tr').querySelector('td:nth-child(3)');
-                    if (statusCell) {
-                        statusCell.innerHTML = '<span class="badge bg-success">Completed</span>';
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
                     }
                     
-                    // Update time spent if returned
-                    if (data.time_spent) {
-                        const timeCell = actionDiv.closest('tr').querySelector('td:nth-child(2)');
-                        if (timeCell) {
-                            timeCell.textContent = data.time_spent + ' min';
-                        }
+                    // If there's a link, open it
+                    const taskUrl = actionDiv.getAttribute('data-task-url');
+                    if (taskUrl && taskUrl !== 'None') {
+                        window.open(taskUrl, '_blank');
                     }
-                    
-                    // Update progress stats - refresh the page
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
-                }
-                
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
                 }
             } else {
-                console.error("Task action error:", data);
+                // Error
+                console.error("Task action error:", response);
                 actionDiv.innerHTML = originalContent;
-                alert("Error: " + (data.message || "Unknown error occurred"));
-                
                 if (typeof feather !== 'undefined') {
                     feather.replace();
                 }
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            actionDiv.innerHTML = originalContent;
-            alert("Error: Unable to complete action. Please try again.");
-            
-            if (typeof feather !== 'undefined') {
-                feather.replace();
+                alert("Error: " + (response.message || "Unknown error"));
             }
         });
     };
-
+    
+    // Listen for task updates from server
     socket.on('task_updated', function(data) {
-        console.log("Received task update:", data);
+        if (!data || !data.task_id) {
+            return;
+        }
         
-        if (data && data.task_id) {
-            const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
-            if (!actionDiv) return;
-            
-            if (data.status === {{ STATUS_IN_PROGRESS }}) {
-                actionDiv.innerHTML = `
-                    <div class="d-inline-flex gap-2">
-                        <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
-                            <i data-feather="check"></i> Finish
-                        </button>
-                    </div>
-                `;
-                
-                // Open task link in new tab if provided
-                if (data.link) {
-                    window.open(data.link, '_blank');
-                }
-            } else if (data.status === {{ STATUS_COMPLETED }}) {
-                actionDiv.innerHTML = `
-                    <div class="d-inline-flex gap-2">
-                        <button class="btn btn-sm btn-success" disabled>
-                            <i data-feather="check-circle"></i> Completed
-                        </button>
-                    </div>
-                `;
-                
-                // Refresh page after a delay to update progress stats
-                setTimeout(function() {
-                    window.location.reload();
-                }, 1000);
-            }
-            
-            if (typeof feather !== 'undefined') {
-                feather.replace();
+        // Find the task row
+        const taskRow = document.querySelector(`tr[data-task-id="${data.task_id}"]`);
+        if (taskRow) {
+            // Update the row class based on the task status
+            if (data.status === 1) { // IN_PROGRESS
+                taskRow.className = 'table-warning';
+            } else if (data.status === 2) { // COMPLETED
+                taskRow.className = 'table-success';
+            } else {
+                taskRow.className = '';
             }
         }
-    });
-}
-
-function resetToday() {
-    fetch('/todo/reset', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            window.location.reload();
-        } else {
-            alert("Error: " + (data.message || "Failed to reset tasks"));
+        
+        // Find the action div
+        const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
+        if (!actionDiv) {
+            return;
         }
-    })
-    .catch(error => {
-        alert("Error: Unable to reset tasks. Please try again.");
+        
+        // Update the action buttons based on the task status
+        if (data.status === 1) { // IN_PROGRESS
+            actionDiv.innerHTML = `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
+                        <i data-feather="check"></i> Finish
+                    </button>
+                </div>
+            `;
+        } else if (data.status === 2) { // COMPLETED
+            actionDiv.innerHTML = `
+                <div class="d-inline-flex gap-2">
+                    <button class="btn btn-sm btn-outline-success" disabled>
+                        <i data-feather="check-circle"></i> Done
+                    </button>
+                </div>
+            `;
+        } else { // NOT_STARTED
+            actionDiv.innerHTML = `
+                <div class="d-inline-flex gap-2">
+                    <button onclick="handleTaskAction('start', ${data.task_id})" class="btn btn-sm btn-outline-primary">
+                        <i data-feather="play"></i> Start
+                    </button>
+                </div>
+            `;
+        }
+        
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
     });
 }
 </script>
-
 {% endblock %}
