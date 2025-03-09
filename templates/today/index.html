@@ -125,41 +125,36 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     `;
 
-                    // Remove the task from the display if skipped or finished
-                    if (action === 'finish' || action === 'skip') {
-                        const taskRow = actionDiv.closest('tr');
-                        if (taskRow) {
-                            taskRow.remove();
-                            // Enhanced state management during task completion
-                            const taskContainer = document.querySelector('#tasks-container');
-                            if (taskContainer) {
-                                // Always store current content in session storage before any action
-                                // This ensures we have the latest state with remaining tasks
-                                if (document.querySelectorAll('.task-row').length > 0) {
-                                    const currentContent = taskContainer.innerHTML;
-                                    sessionStorage.setItem('today_tasks_content', currentContent);
-                                    console.log("Stored task state before action");
-                                }
+                    // Update the task row appearance without removing it
+                    const taskRow = actionDiv.closest('tr');
+                    if (taskRow) {
+                        // Add a completed class to visually indicate completion
+                        taskRow.classList.add('completed-task');
 
-                                // Replace with loading indicator
-                                taskContainer.innerHTML = `
-                                    <div class="container mt-4">
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-6 text-center my-5">
-                                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                                <h3 class="mt-4">Updating your tasks...</h3>
-                                                <p class="text-muted">Please wait while we process your request.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                                // Delay reload slightly to allow server to process changes
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000); // Increased to 2000ms for better visibility
-                            }
+                        // Reinitialize feather icons to show the checkmark properly
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
+                        }
+
+                        // Update task count in the UI
+                        updateTaskCount();
+                    }
+
+                    // We'll keep everything on the same page without clearing
+                    function updateTaskCount() {
+                        // Get the current counts
+                        const totalTasks = document.querySelectorAll('.task-row').length;
+                        const completedTasks = document.querySelectorAll('.task-row.completed-task').length;
+
+                        // Update the goal display if it exists
+                        const goalDisplay = document.querySelector('.card-body span');
+                        if (goalDisplay) {
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks`;
+
+                            // Update the class based on completion status
+                            goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
+                                                  completedTasks < totalTasks ? 'progress-partial' : 
+                                                  'progress-complete';
                         }
                     }
 
@@ -371,58 +366,46 @@ document.addEventListener('DOMContentLoaded', function() {
                         window.open(data.task.link, '_blank');
                     }
                 } else if (action === 'finish') {
-                    // Remove the task from the display
+                    // Change to completed button
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button class="btn btn-sm btn-success" disabled>
+                                <i data-feather="check-circle"></i> Completed
+                            </button>
+                        </div>
+                    `;
+
+                    // Update the task row appearance without removing it
                     const taskRow = actionDiv.closest('tr');
                     if (taskRow) {
-                        // Check if this is the last task in the section
-                        const tbody = taskRow.closest('tbody');
-                        if (tbody && tbody.querySelectorAll('tr').length === 1) {
-                            // This is the last task, reload the page
-                            // Enhanced state management during task completion
-                            const taskContainer = document.querySelector('#tasks-container');
-                            if (taskContainer) {
-                                // Always store current content in session storage before any action
-                                // This ensures we have the latest state with remaining tasks
-                                if (document.querySelectorAll('.task-row').length > 0) {
-                                    const currentContent = taskContainer.innerHTML;
-                                    sessionStorage.setItem('today_tasks_content', currentContent);
-                                    console.log("Stored task state before action");
-                                }
+                        // Add a completed class to visually indicate completion
+                        taskRow.classList.add('completed-task');
 
-                                // Replace with loading indicator
-                                taskContainer.innerHTML = `
-                                    <div class="container mt-4">
-                                        <div class="row justify-content-center">
-                                            <div class="col-md-6 text-center my-5">
-                                                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                                <h3 class="mt-4">Updating your tasks...</h3>
-                                                <p class="text-muted">Please wait while we process your request.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                            }
-
-                            // Delay reload slightly to allow server to process changes
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000); // Increased to 2000ms for better visibility
-                        } else {
-                            taskRow.remove();
+                        // Reinitialize feather icons to show the checkmark properly
+                        if (typeof feather !== 'undefined') {
+                            feather.replace();
                         }
+
+                        // Update task count in the UI
+                        updateTaskCount();
                     }
 
-                    // Check if there are any tasks left
-                    if (document.querySelectorAll('.task-row').length === 0) {
-                        // Show the empty state
-                        document.getElementById('tasks-container').innerHTML = `
-                            <div class="alert alert-info">
-                                <h4 class="alert-heading">Welcome to your to do list for today!</h4>
-                                <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
-                            </div>
-                        `;
+                    // We'll keep everything on the same page without clearing
+                    function updateTaskCount() {
+                        // Get the current counts
+                        const totalTasks = document.querySelectorAll('.task-row').length;
+                        const completedTasks = document.querySelectorAll('.task-row.completed-task').length;
+
+                        // Update the goal display if it exists
+                        const goalDisplay = document.querySelector('.card-body span');
+                        if (goalDisplay) {
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks`;
+
+                            // Update the class based on completion status
+                            goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
+                                                  completedTasks < totalTasks ? 'progress-partial' : 
+                                                  'progress-complete';
+                        }
                     }
                 } else if (action === 'skip') {
                     // Change to skipped button
@@ -564,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </thead>
                             <tbody>
                                 {% for student_task in tasks %}
-                                    <tr data-task-id="{{ student_task.task_id }}" {% if student_task.status == STATUS_COMPLETED %}class="bg-light"{% endif %}>
+                                    <tr data-task-id="{{ student_task.task_id }}" class="task-row" {% if student_task.status == STATUS_COMPLETED %}class="bg-light"{% endif %}>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 {% if student_task.task.action == 1 %}
