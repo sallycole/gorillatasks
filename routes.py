@@ -137,7 +137,7 @@ def unarchive_task(id):
         db.session.commit()
         
         # If it's an AJAX request, return JSON
-        if request.is_xhr or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return jsonify({'status': 'success'})
         
         # Otherwise, redirect back to the enrollment view
@@ -146,7 +146,7 @@ def unarchive_task(id):
     except Exception as e:
         db.session.rollback()
         logger.error(f"Error unarchiving task: {str(e)}")
-        if request.is_xhr or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return jsonify({'status': 'error', 'message': str(e)})
         flash(f'Error unarchiving task: {str(e)}', 'danger')
         return redirect(url_for('archive.index'))
