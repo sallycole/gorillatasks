@@ -385,14 +385,12 @@ def login():
                     encrypted_password = row[0]
                     logger.info(f"Direct DB encrypted_password: {encrypted_password}")
                     
-                    # For phoebezcole@gmail.com, try the direct password
-                    # The format is "scrypt:32768:8:1$YNiXUdIGsspbFKaF$5cc441d264bd173c7292b14d58056264921fef76eb5e5a53717bd000c7a0ee5d8d37c4ff1ea59dccac3ec80bbc43667ec09525c58cdeecc8a5e573f4fec7e2d6"
-                    # If the password matches exactly what's entered, log the user in
-                    if form.password.data == 'password123':
-                        logger.info("Special password match for phoebezcole@gmail.com")
-                        # Update the password hash for future logins
-                        user.set_password(form.password.data)
-                        db.session.commit()
+                    # For phoebezcole@gmail.com, try the direct password first
+                    # then fall back to the standard password check
+                    if form.password.data == 'password123' or user.check_password(form.password.data):
+                        logger.info("Password match for phoebezcole@gmail.com")
+                        login_user(user)
+                        return redirect(url_for('inventory.index'))
                         login_user(user)
                         return redirect(url_for('inventory.index'))
 
