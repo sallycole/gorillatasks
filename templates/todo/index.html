@@ -184,17 +184,6 @@ function resetTodayTasks() {
                                 0 / 0 tasks
                                 {% endif %}
                             </h2>
-                            <div class="progress mt-2" style="height: 10px;">
-                                {% if total_tasks > 0 %}
-                                <div class="progress-bar bg-primary" role="progressbar" 
-                                     style="width: {{ (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0 }}%" 
-                                     aria-valuenow="{{ completed_tasks }}" aria-valuemin="0" aria-valuemax="{{ total_tasks }}">
-                                </div>
-                                {% else %}
-                                <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%">
-                                </div>
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,13 +198,6 @@ function resetTodayTasks() {
                                 0h 0m
                                 {% endif %}
                             </h2>
-                            <p class="card-text">
-                                {% if completed_tasks > 0 %}
-                                Average: <strong>{{ avg_time_per_task|round|int }}</strong> minutes per completed task
-                                {% else %}
-                                No completed tasks yet
-                                {% endif %}
-                            </p>
                         </div>
                     </div>
                 </div>
