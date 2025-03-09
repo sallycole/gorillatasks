@@ -188,7 +188,18 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
 
                             // Find the time spent element and update it
-                            const timeSpentElement = document.querySelector('.card-body h4:contains("Today\'s Time Spent")').closest('.card-body').querySelector('span');
+                            // Use standard JS selectors instead of jQuery-style :contains
+                            const timeSpentHeadings = document.querySelectorAll('.card-body h4');
+                            let timeSpentElement = null;
+
+                            // Find the right heading and get its parent card body
+                            for (const heading of timeSpentHeadings) {
+                                if (heading.textContent === "Today's Time Spent") {
+                                    timeSpentElement = heading.closest('.card-body').querySelector('span');
+                                    break;
+                                }
+                            }
+
                             if (timeSpentElement) {
                                 if (totalTimeSpentMinutes === 0) {
                                     timeSpentElement.textContent = 'No time recorded';
@@ -516,7 +527,18 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
 
                             // Find the time spent element and update it
-                            const timeSpentElement = document.querySelector('.card-body h4:contains("Today\'s Time Spent")').closest('.card-body').querySelector('span');
+                            // Use standard JS selectors instead of jQuery-style :contains
+                            const timeSpentHeadings = document.querySelectorAll('.card-body h4');
+                            let timeSpentElement = null;
+
+                            // Find the right heading and get its parent card body
+                            for (const heading of timeSpentHeadings) {
+                                if (heading.textContent === "Today's Time Spent") {
+                                    timeSpentElement = heading.closest('.card-body').querySelector('span');
+                                    break;
+                                }
+                            }
+
                             if (timeSpentElement) {
                                 if (totalTimeSpentMinutes === 0) {
                                     timeSpentElement.textContent = 'No time recorded';
@@ -782,7 +804,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 {% elif student_task.status == STATUS_COMPLETED %}
                                                     <div class="d-inline-flex gap-2">
                                                         <button class="btn btn-sm btn-success" disabled>
-                                                            <i data-feather="check-circle"></i> Completed
+                                                            <i data-feather="check-circle">i> Completed
                                                         </button>
                                                     </div>
                                                 {% endif %}
