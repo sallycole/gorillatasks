@@ -340,12 +340,20 @@ def start_task(id):
 @todo_bp.route('/task/<int:id>/finish', methods=['POST'])
 @login_required
 def finish_task(id):
+    import time
+    start_time = time.time()
+    logger.info(f"Starting finish_task for task {id}")
+    
     try:
+        # Find the student task
+        query_start = time.time()
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id,
             promoted=True
         ).first_or_404()
+        query_time = time.time() - query_start
+        logger.info(f"Task query took {query_time:.3f} seconds")
 
         # Ensure task can be finished
         if student_task.status != StudentTask.STATUS_IN_PROGRESS:
@@ -354,6 +362,7 @@ def finish_task(id):
         # Finish the task properly
         student_task.status = StudentTask.STATUS_COMPLETED
         student_task.finished_at = datetime.now(pytz.UTC)
+        logger.info(f"Set task {id} status to COMPLETED and finished_at to {student_task.finished_at}")
         
         # Calculate time spent if task was started
         if student_task.started_at:
@@ -361,12 +370,20 @@ def finish_task(id):
             started_at_utc = pytz.UTC.localize(student_task.started_at) if student_task.started_at.tzinfo is None else student_task.started_at.astimezone(pytz.UTC)
             delta = student_task.finished_at - started_at_utc
             student_task.time_spent_minutes = int(delta.total_seconds() / 60)
-            logger.info(f"Task {id} time spent: {student_task.time_spent_minutes} minutes")
+            logger.info(f"Task {id} time spent: {student_task.time_spent_minutes} minutes (started at: {started_at_utc})")
         else:
             logger.warning(f"Task {id} finished but has no start timestamp")
             
         # Keep promoted flag TRUE so it stays in Today's list for tracking
+        commit_start = time.time()
         db.session.commit()
+        commit_time = time.time() - commit_start
+        logger.info(f"Database commit took {commit_time:.3f} seconds")
+        
+        total_time = time.time() - start_time
+        logger.info(f"Total finish_task processing time: {total_time:.3f} seconds")
+        
+        # Return success response with time spent data
         return jsonify({
             'status': 'success',
             'message': 'Task completed successfully',

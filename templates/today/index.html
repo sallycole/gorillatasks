@@ -236,19 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Task action error:', error);
-            // Log detailed error information for debugging
-            console.error('Error:', error);
-
-            // Restore the original action buttons
+            console.log(`Error response:`, error.response ? error.response : 'No response data');
+            console.log(`Failed ${action} action for task ${taskId}`);
             actionDiv.innerHTML = originalContent;
-
-            // Show user-friendly error message
-            alert(`Error: ${error.message || 'An unknown error occurred'}`);
-
-            // Refresh Feather icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
         });
     };
 
