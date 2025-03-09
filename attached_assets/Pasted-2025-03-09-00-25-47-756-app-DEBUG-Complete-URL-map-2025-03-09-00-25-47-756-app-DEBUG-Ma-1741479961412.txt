@@ -1,0 +1,37 @@
+2025-03-09 00:25:47,756 - app - DEBUG - Complete URL map:
+2025-03-09 00:25:47,756 - app - DEBUG - Map([<Rule '/static/<filename>' (GET, OPTIONS, HEAD) -> static>,
+ <Rule '/auth/login' (POST, GET, OPTIONS, HEAD) -> auth.login>,
+ <Rule '/auth/register' (POST, GET, OPTIONS, HEAD) -> auth.register>,
+ <Rule '/auth/logout' (GET, OPTIONS, HEAD) -> auth.logout>,
+ <Rule '/auth/account' (POST, GET, OPTIONS, HEAD) -> auth.account>,
+ <Rule '/auth/enrollment/<enrollment_id>/toggle_pause' (POST, OPTIONS) -> auth.toggle_pause>,
+ <Rule '/auth/unenroll/<enrollment_id>' (POST, OPTIONS) -> auth.unenroll>,
+ <Rule '/auth/enrollment/<enrollment_id>/edit' (POST, GET, OPTIONS, HEAD) -> auth.edit_enrollment>,
+ <Rule '/curriculum/' (GET, OPTIONS, HEAD) -> curriculum.list>,
+ <Rule '/curriculum/new' (POST, GET, OPTIONS, HEAD) -> curriculum.new>,
+ <Rule '/curriculum/<id>' (GET, OPTIONS, HEAD) -> curriculum.view>,
+ <Rule '/curriculum/<id>/publish' (POST, OPTIONS) -> curriculum.publish>,
+ <Rule '/curriculum/<id>/delete' (POST, OPTIONS) -> curriculum.delete>,
+ <Rule '/curriculum/<id>/edit' (POST, GET, OPTIONS, HEAD) -> curriculum.edit>,
+ <Rule '/curriculum/<id>/tasks/add' (POST, OPTIONS) -> curriculum.add_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/edit' (POST, OPTIONS) -> curriculum.edit_task>,
+ <Rule '/curriculum/<curriculum_id>/tasks/<task_id>/delete' (POST, OPTIONS) -> curriculum.delete_task>,
+ <Rule '/curriculum/<id>/enroll' (POST, GET, OPTIONS, HEAD) -> curriculum.enroll>,
+ <Rule '/inventory/' (GET, OPTIONS, HEAD) -> inventory.index>,
+ <Rule '/inventory/task/<id>/start' (POST, OPTIONS) -> inventory.start_task>,
+ <Rule '/inventory/task/<id>/finish' (POST, OPTIONS) -> inventory.finish_task>,
+ <Rule '/inventory/task/<id>/skip' (POST, OPTIONS) -> inventory.skip_task>,
+ <Rule '/inventory/task/<id>/promote' (POST, OPTIONS) -> inventory.promote_task>,
+ <Rule '/archive/' (GET, OPTIONS, HEAD) -> archive.index>,
+ <Rule '/archive/enrollment/<id>' (GET, OPTIONS, HEAD) -> archive.view_enrollment>,
+ <Rule '/archive/task/<id>/unarchive' (POST, OPTIONS) -> archive.unarchive_task>,
+ <Rule '/today/' (GET, OPTIONS, HEAD) -> today.index>,
+ <Rule '/today/reset' (POST, OPTIONS) -> today.reset_today>,
+ <Rule '/today/task/<id>/start' (POST, OPTIONS) -> today.start_task>,
+ <Rule '/today/task/<id>/finish' (POST, OPTIONS) -> today.finish_task>,
+ <Rule '/test/test_doctype' (GET, OPTIONS, HEAD) -> test.test_doctype>,
+ <Rule '/' (GET, OPTIONS, HEAD) -> root>])
+2025-03-09 00:25:47,939 - __main__ - INFO - Ensured encrypted_password column exists
+2025-03-09 00:25:48,025 - __main__ - INFO - Found 12 users to process
+2025-03-09 00:25:48,068 - __main__ - INFO - Found phoebezcole@gmail.com (ID: 1) with encrypted_password: scrypt:32768:8:1$YNiXUdIGsspbFKaF$5cc441d264bd173c7292b14d58056264921fef76eb5e5a53717bd000c7a0ee5d8d37c4ff1ea59dccac3ec80bbc43667ec09525c58cdeecc8a5e573f4fec7e2d6
+2025-03-09 00:25:48,111 - __main__ - INFO - Password fix completed successfully
