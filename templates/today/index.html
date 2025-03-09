@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
 
 
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done. Your average time per task today is ${averageTimePerTask} minutes.`;
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done`;
 
                             // Update the class based on completion status
                             goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
@@ -553,29 +553,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             // Find the Today's Goal heading and get its parent card body
                             const goalHeadings = document.querySelectorAll('.card-body h4');
                             let goalElement = null;
-                            
+
                             for (const heading of goalHeadings) {
                                 if (heading.textContent === "Today's Goal") {
                                     goalElement = heading.closest('.card-body');
                                     break;
                                 }
                             }
-                            
-                            if (goalElement) {
-                                const avgTimeElement = goalElement.querySelector('small');
-                                if (completedTasks > 0) {
-                                    if (!avgTimeElement) {
-                                        const newAvgElement = document.createElement('small');
-                                        newAvgElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
-                                        goalElement.appendChild(document.createElement('br'));
-                                        goalElement.appendChild(newAvgElement);
-                                    } else {
-                                        avgTimeElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
-                                    }
-                                }
-                            }
 
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done. Your average time per task today is ${averageTimePerTask} minutes.`;
+
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done`;
 
                             // Update the class based on completion status
                             goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
@@ -835,8 +822,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         {% endfor %}
     {% else %}
-        <div class="alert alert-info">
-            <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+        <div class="alert alert-info">        <h4 class="alert-heading">Welcome to your to do list for today!</h4>
             <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
         </div>
     {% endif %}
