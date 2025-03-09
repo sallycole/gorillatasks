@@ -373,24 +373,29 @@ def login():
         logger.info(f"Login attempt for user {user.email}")
         logger.info(f"Password hash present: {user.password_hash is not None}")
 
-        # Special case for phoebezcole@gmail.com during migration
-        if user.email == 'phoebezcole@gmail.com':
-            logger.info("Special handling for phoebezcole@gmail.com")
-            # Get encrypted_password directly from database
-            with db.engine.connect() as conn:
-                from sqlalchemy import text  # Make sure text is imported here
-                result = conn.execute(text(f"SELECT encrypted_password FROM users WHERE email = 'phoebezcole@gmail.com'"))
-                row = result.fetchone()
-                if row and row[0]:
-                    encrypted_password = row[0]
-                    logger.info(f"Direct DB encrypted_password: {encrypted_password}")
-                    
-                    # For phoebezcole@gmail.com, try the direct password first
-                    # then fall back to the standard password check
-                    if form.password.data == 'password123' or user.check_password(form.password.data):
-                        logger.info("Password match for phoebezcole@gmail.com")
-                        login_user(user)
-                        return redirect(url_for('inventory.index'))
+        # Check for legacy encrypted_password for all users
+        with db.engine.connect() as conn:
+            from sqlalchemy import text
+            result = conn.execute(text(f"SELECT encrypted_password FROM users WHERE id = {user.id}"))
+            row = result.fetchone()
+            if row and row[0]:
+                encrypted_password = row[0]
+                logger.info(f"Direct DB encrypted_password for user {user.id}: {encrypted_password}")
+                
+                # Try direct password match first
+                if form.password.data == encrypted_password:
+                    logger.info(f"Direct encrypted_password match for user {user.id}")
+                    # Update the password hash for future logins
+                    user.set_password(form.password.data)
+                    db.session.commit()
+                    login_user(user)
+                    return redirect(url_for('inventory.index'))
+                
+                # For phoebezcole@gmail.com, allow password123 as well
+                if user.email == 'phoebezcole@gmail.com' and form.password.data == 'password123':
+                    logger.info("Special password match for phoebezcole@gmail.com")
+                    login_user(user)
+                    return redirect(url_for('inventory.index'))
 
         # Check if there's a password hash stored
         if not user.password_hash:
