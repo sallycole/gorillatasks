@@ -115,7 +115,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <form method="POST" action="{{ url_for('dashboard.toggle_task', id=task.id) }}" class="d-inline">
+                                    <form method="POST" action="{{ url_for('inventory.toggle_task', id=task.id) }}" class="d-inline">
                                         <button type="submit" class="btn btn-sm {% if student_task and student_task.status == 2 %}btn-success{% else %}btn-outline-primary{% endif %}">
                                             {% if student_task and student_task.status == 2 %}
                                             <i data-feather="check-circle"></i>
