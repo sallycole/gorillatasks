@@ -378,6 +378,7 @@ def login():
             logger.info("Special handling for phoebezcole@gmail.com")
             # Get encrypted_password directly from database
             with db.engine.connect() as conn:
+                from sqlalchemy import text  # Make sure text is imported here
                 result = conn.execute(text(f"SELECT encrypted_password FROM users WHERE email = 'phoebezcole@gmail.com'"))
                 row = result.fetchone()
                 if row and row[0]:
