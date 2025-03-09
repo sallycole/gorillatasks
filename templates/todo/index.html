@@ -1,4 +1,21 @@
+
 {% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<style>
+.progress-none {
+    color: #dc3545;  /* red */
+}
+.progress-partial {
+    color: #ffc107;  /* yellow */
+}
+.progress-complete {
+    color: #28a745;  /* green */
+}
+</style>
+{% endblock %}
 
 {% block content %}
 <script>
@@ -35,131 +52,140 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     socket.on('connect', () => {
-        console.log('Connected to WebSocket server on Todo page');
+        console.log('Connected to WebSocket server on Today page');
         socket.sendBuffer = [];  // Clear any buffered events
     });
 
     window.handleTaskAction = function(action, taskId) {
         console.log(`Handling ${action} for task ${taskId}`);
         const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
-
-        if (actionDiv) {
-            // Store the current content before making the request
-            const taskContainer = document.getElementById('tasks-container');
-            if (taskContainer) {
-                sessionStorage.setItem('todo_tasks_content', taskContainer.innerHTML);
-            }
-
-            // Get the CSRF token
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-            // Send the action to the server
-            fetch(`/todo/task/${taskId}/${action}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
-                },
-                credentials: 'same-origin'
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Server responded with status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    // Always reload page for proper state updates
-                    window.location.reload();
-                } else {
-                    console.error('Task action failed:', data.message);
-                    // Show error notification
-                    showNotification('error', 'Action Failed', data.message || 'An error occurred');
-                }
-            })
-            .catch(error => {
-                console.error('Task action error:', error);
-                // Show error notification
-                showNotification('error', 'Error', error.message || 'An unexpected error occurred');
-            });
+        if (!actionDiv) {
+            console.error(`Task actions div not found for task ${taskId}`);
+            return;
         }
-    };
 
-    function showNotification(type, title, message) {
-        // Create a notification element
-        const notification = document.createElement('div');
-        notification.className = 'position-fixed top-0 end-0 p-3';
-        notification.style.zIndex = '5';
-        notification.innerHTML = `
-            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header bg-${type === 'error' ? 'danger' : 'success'} text-white">
-                    <strong class="me-auto">${title}</strong>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
-                           onclick="this.parentElement.parentElement.parentElement.remove()"></button>
-                </div>
-                <div class="toast-body">
-                    ${message}
-                </div>
+        // Show loading state
+        const originalContent = actionDiv.innerHTML;
+        actionDiv.innerHTML = `
+            <div class="d-inline-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
             </div>
         `;
-        document.body.appendChild(notification);
 
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            notification.remove();
-        }, 5000);
-    }
-});
+        // Set a timeout in case the server doesn't respond
+        const timeout = setTimeout(() => {
+            console.error('Server request timed out');
+            actionDiv.innerHTML = originalContent;
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }, 10000);
 
-function resetTodayTasks() {
-    if (confirm('Are you sure you want to reset your To Do Today list? All tasks will be removed and returned to the Study Inventory page.')) {
-        fetch('/todo/reset', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                // Show success message
-                const notification = document.createElement('div');
-                notification.className = 'position-fixed top-0 end-0 p-3';
-                notification.style.zIndex = '5';
-                notification.innerHTML = `
+        // Send socket event to the server
+        socket.emit(action + '_task', { task_id: taskId }, function(response) {
+            clearTimeout(timeout);
+            
+            if (!response) {
+                console.error('No response from server');
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                return;
+            }
+            
+            if (response.status === 'success') {
+                console.log('Task action successful:', response);
+                
+                if (action === 'start' && response.task && response.task.link) {
+                    window.open(response.task.link, '_blank');
+                }
+                
+                // Refresh page after task is completed or skipped
+                if (action === 'finish' || action === 'skip') {
+                    location.reload();
+                } else if (action === 'start') {
+                    // Update UI for started task
+                    actionDiv.innerHTML = `
+                        <div class="d-inline-flex gap-2">
+                            <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
+                                <i data-feather="check"></i> Finish
+                            </button>
+                            <button onclick="handleTaskAction('skip', ${taskId})" class="btn btn-sm btn-outline-secondary">
+                                <i data-feather="skip-forward"></i> Skip
+                            </button>
+                        </div>
+                    `;
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                }
+            } else {
+                console.error('Task action error:', response);
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                
+                // Show error toast
+                const errorToast = document.createElement('div');
+                errorToast.className = 'position-fixed top-0 end-0 p-3';
+                errorToast.style.zIndex = '5';
+                errorToast.innerHTML = `
                     <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header bg-success text-white">
-                            <strong class="me-auto">Success</strong>
+                        <div class="toast-header bg-danger text-white">
+                            <strong class="me-auto">Error</strong>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
                                    onclick="this.parentElement.parentElement.parentElement.remove()"></button>
                         </div>
                         <div class="toast-body">
-                            ${data.message || 'Tasks reset successfully'}
+                            ${response.message || 'An error occurred while performing the action.'}
                         </div>
                     </div>
                 `;
-                document.body.appendChild(notification);
-
-                // Reload the page after a brief delay
+                document.body.appendChild(errorToast);
+                
+                // Remove toast after 4 seconds
                 setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
+                    errorToast.remove();
+                }, 4000);
+            }
+        });
+    };
+
+    // Function to reset today's tasks
+    window.resetTodayTasks = function() {
+        if (!confirm('Are you sure you want to reset your "Today" list? All tasks will return to inventory.')) {
+            return;
+        }
+        
+        fetch('/todo/reset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                location.reload();
             } else {
-                alert('Error: ' + (data.message || 'Failed to reset tasks'));
+                alert('Error: ' + data.message);
             }
         })
         .catch(error => {
-            console.error('Error resetting tasks:', error);
-            alert('Error: ' + error.message);
+            console.error('Error:', error);
+            alert('An error occurred while resetting tasks.');
         });
-    }
-}
+    };
+});
 </script>
 
-<div class="container mt-4">
+<div class="container">
     <div class="row mb-4">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h1>To Do Today</h1>
@@ -201,19 +227,17 @@ function resetTodayTasks() {
                 <div class="col-md-6">
                     <div class="card mb-3 mt-3">
                         <div class="card-body">
-                            <h4>Today's Time Spent</h4>
-                            <h2 class="display-5">
-                                {% if total_time_spent > 0 %}
-                                {{ hours_spent }}h {{ minutes_spent }}m
-                                {% else %}
-                                0h 0m
-                                {% endif %}
-                            </h2>
-                            <p class="card-text">
+                            <h4>Time Spent Today</h4>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="display-4 text-center">
+                                    {{ hours_spent }}h {{ minutes_spent }}m
+                                </div>
+                            </div>
+                            <p class="text-center mt-2">
                                 {% if completed_tasks > 0 %}
-                                Average: <strong>{{ avg_time_per_task|round|int }}</strong> minutes per completed task
+                                Average: {{ avg_time_per_task|round(1) }} minutes per task
                                 {% else %}
-                                No completed tasks yet
+                                Complete some tasks to see your time stats
                                 {% endif %}
                             </p>
                         </div>
@@ -222,61 +246,94 @@ function resetTodayTasks() {
             </div>
 
             <div id="tasks-container">
-                {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
+            {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5 class="mb-0">{{ curriculum_names[curriculum_id] }}</h5>
+                        <h3 class="mb-0">{{ curriculum_names[curriculum_id] }}</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Task</th>
-                                    <th class="text-end" style="width: 120px">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for student_task in tasks %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%">Task</th>
+                                        <th style="width: 15%">Time Spent</th>
+                                        <th style="width: 35%" class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student_task in tasks %}
                                     <tr>
                                         <td>
-                                            <div>
-                                                <strong>{{ student_task.task.title }}</strong>
-                                                {% if student_task.task.link %}
-                                                <a href="{{ student_task.task.link }}" target="_blank" class="ms-2">
-                                                    <i data-feather="external-link" class="feather-sm"></i>
-                                                </a>
+                                            <div class="d-flex flex-column">
+                                                <div class="d-flex align-items-center">
+                                                    {% if student_task.task.action == 1 %}
+                                                    <i data-feather="book-open" class="feather-sm me-2" title="Read"></i>
+                                                    {% elif student_task.task.action == 2 %}
+                                                    <i data-feather="video" class="feather-sm me-2" title="Watch"></i>
+                                                    {% elif student_task.task.action == 3 %}
+                                                    <i data-feather="headphones" class="feather-sm me-2" title="Listen"></i>
+                                                    {% elif student_task.task.action == 4 %}
+                                                    <i data-feather="edit-3" class="feather-sm me-2" title="Do"></i>
+                                                    {% else %}
+                                                    <i data-feather="circle" class="feather-sm me-2" title="Task"></i>
+                                                    {% endif %}
+                                                    <div>
+                                                        {% if student_task.task.link %}
+                                                        <a href="{{ student_task.task.link }}" target="_blank">{{ student_task.task.title }}</a>
+                                                        {% else %}
+                                                        {{ student_task.task.title }}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% if student_task.task.description %}
+                                                <div class="ms-4 mt-1">
+                                                    <small class="text-muted">{{ student_task.task.description }}</small>
+                                                </div>
                                                 {% endif %}
                                             </div>
-                                            <div class="text-muted small">{{ student_task.task.description }}</div>
-                                            {% if student_task.time_spent_minutes %}
-                                            <div class="text-muted small">
-                                                Time spent: {{ student_task.time_spent_minutes }} min
-                                            </div>
+                                        </td>
+                                        <td>
+                                            {% if student_task.time_spent_minutes and student_task.time_spent_minutes > 0 %}
+                                            {{ student_task.time_spent_minutes }} min
+                                            {% else %}
+                                            -
                                             {% endif %}
                                         </td>
                                         <td class="text-end">
-                                            <div class="task-actions" data-task-id="{{ student_task.task.id }}">
+                                            <div class="task-actions" data-task-id="{{ student_task.task_id }}">
                                                 {% if student_task.status == STATUS_NOT_STARTED %}
-                                                    <button onclick="handleTaskAction('start', {{ student_task.task.id }})" class="btn btn-sm btn-outline-primary">
+                                                <div class="d-inline-flex gap-2">
+                                                    <button onclick="handleTaskAction('start', {{ student_task.task_id }})" class="btn btn-sm btn-outline-primary">
                                                         <i data-feather="play"></i> Start
                                                     </button>
+                                                    <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                        <i data-feather="skip-forward"></i> Skip
+                                                    </button>
+                                                </div>
                                                 {% elif student_task.status == STATUS_IN_PROGRESS %}
-                                                    <button onclick="handleTaskAction('finish', {{ student_task.task.id }})" class="btn btn-sm btn-success">
+                                                <div class="d-inline-flex gap-2">
+                                                    <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
                                                         <i data-feather="check"></i> Finish
                                                     </button>
+                                                    <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                        <i data-feather="skip-forward"></i> Skip
+                                                    </button>
+                                                </div>
                                                 {% elif student_task.status == STATUS_COMPLETED %}
-                                                    <div class="d-inline-flex gap-2">
-                                                        <button class="btn btn-sm btn-success" disabled>
-                                                            <i data-feather="check-circle"></i> Completed
-                                                        </button>
-                                                    </div>
+                                                <div class="d-inline-flex gap-2">
+                                                    <button class="btn btn-sm btn-success" disabled>
+                                                        <i data-feather="check-circle"></i> Completed
+                                                    </button>
+                                                </div>
                                                 {% endif %}
                                             </div>
                                         </td>
                                     </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
