@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
-// When page loads, check for stored task content
+// On page load, ensure we're showing the correct task status from the database
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're returning from a redirect with stored content
-    const storedContent = sessionStorage.getItem('todo_tasks_content');
-    if (storedContent) {
-        console.log("Restoring saved task content");
-        const taskContainer = document.getElementById('tasks-container');
-        if (taskContainer) {
-            taskContainer.innerHTML = storedContent;
-            // Initialize any JS components in the restored content
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
-        // Clear the stored content to prevent it from being used again
-        sessionStorage.removeItem('todo_tasks_content');
+    // We no longer rely on sessionStorage to restore content
+    // Instead, the server provides the correct state of each task
+    
+    // Re-initialize feather icons
+    if (typeof feather !== 'undefined') {
+        feather.replace();
     }
+    
+    // Ensure task counters are up to date
+    updateTaskCounters();
 });
 
 // Define updateTaskCounters as a global function
@@ -76,11 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
 
         if (actionDiv) {
-            // Store the current content before making the request
-            const taskContainer = document.getElementById('tasks-container');
-            if (taskContainer) {
-                sessionStorage.setItem('todo_tasks_content', taskContainer.innerHTML);
-            }
+            // We don't need to store the content anymore as we'll get fresh data on reload
 
             // Get the CSRF token
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -123,11 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             timeSpentCell.textContent = `${data.time_spent} min`;
                         }
                         
-                        // Ensure the task status is updated in the session storage
-                        // This will help maintain state even if page is refreshed
-                        student_task_id = actionDiv.dataset.taskId;
-                        sessionStorage.setItem(`task_${student_task_id}_status`, 'completed');
-                        sessionStorage.setItem(`task_${student_task_id}_time_spent`, data.time_spent);
+                        // We no longer store task status in session storage
+                        // The server will provide the correct state when the page is refreshed
                     } else if (action === 'start') {
                         // Update the UI to show finish button
                         actionDiv.innerHTML = `
@@ -151,6 +139,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Update task counters and progress
                     updateTaskCounters();
+                    
+                    // For completed tasks, reload the page after a short delay
+                    // This ensures we get fresh data from the server
+                    if (action === 'finish') {
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500); // Give time to see the completion animation and message
+                    }
                 } else {
                     console.error('Task action failed:', data.message);
                     // Show error notification
