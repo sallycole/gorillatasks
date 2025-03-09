@@ -1,197 +1,26 @@
-
-{% extends "base.html" %}
-
-{% block head %}
-{{ super() }}
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<!DOCTYPE html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-<style>
-.progress-none {
-    color: #dc3545;  /* red */
-}
-.progress-partial {
-    color: #ffc107;  /* yellow */
-}
-.progress-complete {
-    color: #28a745;  /* green */
-}
-</style>
-{% endblock %}
-
-{% block content %}
-<div class="container mb-5">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1>To Do Today</h1>
-            <p class="lead">Complete your daily learning tasks</p>
-        </div>
-    </div>
-
-    <!-- Daily Progress Card -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h4 class="mb-0">Today's Progress</h4>
-        </div>
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="progress" style="height: 25px;">
-                        {% set progress = 0 %}
-                        {% if total_tasks > 0 %}
-                            {% set progress = (completed_tasks / total_tasks * 100)|round|int %}
-                        {% endif %}
-                        <div class="progress-bar" role="progressbar" 
-                             style="width: {{ progress }}%;" 
-                             aria-valuenow="{{ progress }}" 
-                             aria-valuemin="0" 
-                             aria-valuemax="100">
-                            {{ completed_tasks }} / {{ total_tasks }} Tasks
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                    <div class="d-flex justify-content-md-end align-items-center">
-                        <div class="me-4">
-                            <strong>Time spent:</strong> 
-                            <span>{{ hours_spent }}h {{ minutes_spent }}m</span>
-                        </div>
-                        <div>
-                            <button id="resetTodayBtn" class="btn btn-sm btn-outline-secondary">
-                                <i data-feather="refresh-cw"></i> Reset All
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tasks by Curriculum -->
-    {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4 class="mb-0">{{ curriculum_names[curriculum_id] }}</h4>
-            </div>
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th style="width: 70%">Task</th>
-                                <th style="width: 15%">Time Spent</th>
-                                <th style="width: 15%" class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for task in tasks %}
-                            <tr class="{% if task.status == 2 %}table-success{% elif task.status == 1 %}table-warning{% endif %}">
-                                <td>
-                                    <div class="d-flex flex-column">
-                                        <div class="d-flex align-items-center">
-                                            {% if task.action == 1 %}
-                                            <i data-feather="book-open" class="feather-sm me-2 text-primary"></i>
-                                            {% elif task.action == 2 %}
-                                            <i data-feather="video" class="feather-sm me-2 text-primary"></i>
-                                            {% elif task.action == 3 %}
-                                            <i data-feather="headphones" class="feather-sm me-2 text-primary"></i>
-                                            {% elif task.action == 4 %}
-                                            <i data-feather="edit-3" class="feather-sm me-2 text-primary"></i>
-                                            {% else %}
-                                            <i data-feather="circle" class="feather-sm me-2 text-primary"></i>
-                                            {% endif %}
-                                            <div>
-                                                {% if task.link %}
-                                                <a href="{{ task.link }}" target="_blank">{{ task.title }}</a>
-                                                {% else %}
-                                                {{ task.title }}
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        {% if task.description %}
-                                        <div class="ms-4 mt-1">
-                                            <small class="text-muted">{{ task.description }}</small>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </td>
-                                <td>
-                                    {{ task.time_spent_minutes|default(0) }} min
-                                </td>
-                                <td class="text-end">
-                                    <div class="task-actions" data-task-id="{{ task.id }}" data-task-url="{{ task.link }}">
-                                        <div class="d-inline-flex gap-2">
-                                            {% if task.status == 0 %}
-                                                <button onclick="handleTaskAction('start', {{ task.id }})" class="btn btn-sm btn-outline-primary">
-                                                    <i data-feather="play"></i> Start
-                                                </button>
-                                            {% elif task.status == 1 %}
-                                                <button onclick="handleTaskAction('finish', {{ task.id }})" class="btn btn-sm btn-success">
-                                                    <i data-feather="check"></i> Finish
-                                                </button>
-                                            {% elif task.status == 2 %}
-                                                <button class="btn btn-sm btn-outline-success" disabled>
-                                                    <i data-feather="check-circle"></i> Done
-                                                </button>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="alert alert-info">
-            <i data-feather="info" class="me-2"></i>
-            <span>No tasks scheduled for today. Visit your <a href="{{ url_for('inventory.index') }}">Inventory</a> to promote tasks for today.</span>
-        </div>
-    {% endfor %}
-</div>
-
 <script>
+// When page loads, check for stored task content
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof feather !== 'undefined') {
-        feather.replace();
-    }
-    
-    const resetButton = document.getElementById('resetTodayBtn');
-    if (resetButton) {
-        resetButton.addEventListener('click', function() {
-            if (confirm('This will reset all tasks for today. Are you sure?')) {
-                fetch('/todo/reset', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        window.location.reload();
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                });
+    // Check if we're returning from a redirect with stored content
+    const storedContent = sessionStorage.getItem('todo_tasks_content');
+    if (storedContent) {
+        console.log("Restoring saved task content");
+        const taskContainer = document.getElementById('tasks-container');
+        if (taskContainer) {
+            taskContainer.innerHTML = storedContent;
+            // Initialize any JS components in the restored content
+            if (typeof feather !== 'undefined') {
+                feather.replace();
             }
-        });
+        }
+        // Clear the stored content to prevent it from being used again
+        sessionStorage.removeItem('todo_tasks_content');
     }
-    
-    // Initialize socket connection for real-time updates
-    initTodoSocket();
 });
 
-function initTodoSocket() {
+document.addEventListener('DOMContentLoaded', function() {
     let socket;
     try {
         socket = io({
@@ -199,156 +28,266 @@ function initTodoSocket() {
             reconnection: true,
             reconnectionAttempts: 5
         });
-        console.log("Connected to WebSocket server on Today page");
     } catch (e) {
-        console.error("Failed to initialize socket:", e);
+        console.error('Failed to initialize socket:', e);
         return;
     }
-    
+
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket server on Today page');
+        socket.sendBuffer = [];  // Clear any buffered events
+    });
+
     window.handleTaskAction = function(action, taskId) {
-        console.log("Handling " + action + " for task " + taskId);
-        
-        if (!socket || !socket.connected) {
-            alert("Not connected to server. Please refresh the page.");
-            return;
-        }
-        
+        console.log(`Handling ${action} for task ${taskId}`);
         const actionDiv = document.querySelector(`.task-actions[data-task-id="${taskId}"]`);
-        if (!actionDiv) {
-            console.error("Could not find action div for task " + taskId);
-            return;
+
+        if (actionDiv) {
+            // Store the current content before making the request
+            const taskContainer = document.getElementById('tasks-container');
+            if (taskContainer) {
+                sessionStorage.setItem('todo_tasks_content', taskContainer.innerHTML);
+            }
+
+            // Get the CSRF token
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            // Send the action to the server
+            fetch(`/todo/task/${taskId}/${action}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    // Always reload page for proper state updates
+                    window.location.reload();
+                } else {
+                    console.error('Task action failed:', data.message);
+                    // Show error notification
+                    showNotification('error', 'Action Failed', data.message || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Task action error:', error);
+                // Show error notification
+                showNotification('error', 'Error', error.message || 'An unexpected error occurred');
+            });
         }
-        
-        // Save original content to restore on error
-        const originalContent = actionDiv.innerHTML;
-        
-        // Show loading state
-        actionDiv.innerHTML = `
-            <div class="d-inline-flex gap-2">
-                <button class="btn btn-sm btn-outline-secondary" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Loading...
-                </button>
+    };
+
+    function showNotification(type, title, message) {
+        // Create a notification element
+        const notification = document.createElement('div');
+        notification.className = 'position-fixed top-0 end-0 p-3';
+        notification.style.zIndex = '5';
+        notification.innerHTML = `
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-${type === 'error' ? 'danger' : 'success'} text-white">
+                    <strong class="me-auto">${title}</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                           onclick="this.parentElement.parentElement.parentElement.remove()"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
             </div>
         `;
-        
-        // Set timeout in case socket doesn't respond
-        const timeout = setTimeout(() => {
-            console.log("Server request timed out");
-            console.log("Restoring saved task content");
-            actionDiv.innerHTML = originalContent;
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-            alert("Request timed out. Please try again.");
-        }, 10000);
-        
-        // Send action to server
-        socket.emit(action + '_task', { task_id: taskId }, function(response) {
-            clearTimeout(timeout);
-            
-            if (!response) {
-                console.error("No response from server");
-                actionDiv.innerHTML = originalContent;
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-                alert("No response from server. Please try again.");
-                return;
-            }
-            
-            if (response.status === 'success') {
-                // Success: UI will be updated by task_updated event or we'll reload the page
-                if (action === 'finish') {
-                    // Reload the page to show updated task list
-                    window.location.reload();
-                } else if (action === 'start') {
-                    // Update the UI to show finish button
-                    actionDiv.innerHTML = `
-                        <div class="d-inline-flex gap-2">
-                            <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
-                                <i data-feather="check"></i> Finish
-                            </button>
+        document.body.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+});
+
+function resetTodayTasks() {
+    if (confirm('Are you sure you want to reset your To Do Today list? All tasks will be removed and returned to the Study Inventory page.')) {
+        fetch('/todo/reset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Show success message
+                const notification = document.createElement('div');
+                notification.className = 'position-fixed top-0 end-0 p-3';
+                notification.style.zIndex = '5';
+                notification.innerHTML = `
+                    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-success text-white">
+                            <strong class="me-auto">Success</strong>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                                   onclick="this.parentElement.parentElement.parentElement.remove()"></button>
                         </div>
-                    `;
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
-                    
-                    // If there's a link, open it
-                    const taskUrl = actionDiv.getAttribute('data-task-url');
-                    if (taskUrl && taskUrl !== 'None') {
-                        window.open(taskUrl, '_blank');
-                    }
-                }
+                        <div class="toast-body">
+                            ${data.message || 'Tasks reset successfully'}
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+
+                // Reload the page after a brief delay
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
-                // Error
-                console.error("Task action error:", response);
-                actionDiv.innerHTML = originalContent;
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-                alert("Error: " + (response.message || "Unknown error"));
+                alert('Error: ' + (data.message || 'Failed to reset tasks'));
             }
+        })
+        .catch(error => {
+            console.error('Error resetting tasks:', error);
+            alert('Error: ' + error.message);
         });
-    };
-    
-    // Listen for task updates from server
-    socket.on('task_updated', function(data) {
-        if (!data || !data.task_id) {
-            return;
-        }
-        
-        // Find the task row
-        const taskRow = document.querySelector(`tr[data-task-id="${data.task_id}"]`);
-        if (taskRow) {
-            // Update the row class based on the task status
-            if (data.status === 1) { // IN_PROGRESS
-                taskRow.className = 'table-warning';
-            } else if (data.status === 2) { // COMPLETED
-                taskRow.className = 'table-success';
-            } else {
-                taskRow.className = '';
-            }
-        }
-        
-        // Find the action div
-        const actionDiv = document.querySelector(`.task-actions[data-task-id="${data.task_id}"]`);
-        if (!actionDiv) {
-            return;
-        }
-        
-        // Update the action buttons based on the task status
-        if (data.status === 1) { // IN_PROGRESS
-            actionDiv.innerHTML = `
-                <div class="d-inline-flex gap-2">
-                    <button onclick="handleTaskAction('finish', ${data.task_id})" class="btn btn-sm btn-success">
-                        <i data-feather="check"></i> Finish
-                    </button>
-                </div>
-            `;
-        } else if (data.status === 2) { // COMPLETED
-            actionDiv.innerHTML = `
-                <div class="d-inline-flex gap-2">
-                    <button class="btn btn-sm btn-outline-success" disabled>
-                        <i data-feather="check-circle"></i> Done
-                    </button>
-                </div>
-            `;
-        } else { // NOT_STARTED
-            actionDiv.innerHTML = `
-                <div class="d-inline-flex gap-2">
-                    <button onclick="handleTaskAction('start', ${data.task_id})" class="btn btn-sm btn-outline-primary">
-                        <i data-feather="play"></i> Start
-                    </button>
-                </div>
-            `;
-        }
-        
-        if (typeof feather !== 'undefined') {
-            feather.replace();
-        }
-    });
+    }
 }
 </script>
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h1>To Do Today</h1>
+            <button onclick="resetTodayTasks()" class="btn btn-outline-danger">
+                <i data-feather="refresh-cw"></i> Reset List
+            </button>
+        </div>
+        {% if tasks_by_curriculum %}
+
+            {# Total and completed tasks are now displayed in a two-column layout #}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3 mt-3">
+                        <div class="card-body">
+                            <h4>Today's Progress</h4>
+                            <div class="progress mb-3" style="height: 30px;">
+                                {% if total_tasks > 0 %}
+                                <div class="progress-bar bg-primary" role="progressbar" 
+                                     style="width: {{ (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0 }}%" 
+                                     aria-valuenow="{{ completed_tasks }}" aria-valuemin="0" aria-valuemax="{{ total_tasks }}">
+                                    {{ completed_tasks }} / {{ total_tasks }} tasks
+                                </div>
+                                {% else %}
+                                <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%">
+                                    No tasks
+                                </div>
+                                {% endif %}
+                            </div>
+                            <p class="card-text">
+                                {% if total_tasks > 0 %}
+                                You've completed <strong>{{ completed_tasks }}</strong> out of <strong>{{ total_tasks }}</strong> tasks.
+                                {% else %}
+                                You don't have any tasks for today.
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3 mt-3">
+                        <div class="card-body">
+                            <h4>Today's Time Spent</h4>
+                            <h2 class="display-5">
+                                {% if total_time_spent > 0 %}
+                                {{ hours_spent }}h {{ minutes_spent }}m
+                                {% else %}
+                                0h 0m
+                                {% endif %}
+                            </h2>
+                            <p class="card-text">
+                                {% if completed_tasks > 0 %}
+                                Average: <strong>{{ avg_time_per_task|round|int }}</strong> minutes per completed task
+                                {% else %}
+                                No completed tasks yet
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tasks-container">
+                {% for curriculum_id, tasks in tasks_by_curriculum.items() %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ curriculum_names[curriculum_id] }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th class="text-end" style="width: 120px">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student_task in tasks %}
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <strong>{{ student_task.task.title }}</strong>
+                                                {% if student_task.task.link %}
+                                                <a href="{{ student_task.task.link }}" target="_blank" class="ms-2">
+                                                    <i data-feather="external-link" class="feather-sm"></i>
+                                                </a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="text-muted small">{{ student_task.task.description }}</div>
+                                            {% if student_task.time_spent_minutes %}
+                                            <div class="text-muted small">
+                                                Time spent: {{ student_task.time_spent_minutes }} min
+                                            </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="task-actions" data-task-id="{{ student_task.task.id }}">
+                                                {% if student_task.status == STATUS_NOT_STARTED %}
+                                                    <button onclick="handleTaskAction('start', {{ student_task.task.id }})" class="btn btn-sm btn-outline-primary">
+                                                        <i data-feather="play"></i> Start
+                                                    </button>
+                                                {% elif student_task.status == STATUS_IN_PROGRESS %}
+                                                    <button onclick="handleTaskAction('finish', {{ student_task.task.id }})" class="btn btn-sm btn-success">
+                                                        <i data-feather="check"></i> Finish
+                                                    </button>
+                                                {% elif student_task.status == STATUS_COMPLETED %}
+                                                    <div class="d-inline-flex gap-2">
+                                                        <button class="btn btn-sm btn-success" disabled>
+                                                            <i data-feather="check-circle"></i> Completed
+                                                        </button>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+    {% else %}
+        <div class="alert alert-info">
+            <h4 class="alert-heading">Welcome to your to do list for today!</h4>
+            <p>You haven't promoted any tasks to your to do list yet. Visit your <a href="{{ url_for('inventory.index') }}" class="alert-link">Study Inventory</a> and promote the tasks you are certain you can accomplish today.</p>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
