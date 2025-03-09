@@ -391,8 +391,6 @@ def login():
                         logger.info("Password match for phoebezcole@gmail.com")
                         login_user(user)
                         return redirect(url_for('inventory.index'))
-                        login_user(user)
-                        return redirect(url_for('inventory.index'))
 
         # Check if there's a password hash stored
         if not user.password_hash:
