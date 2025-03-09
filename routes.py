@@ -347,18 +347,23 @@ def finish_task(id):
             promoted=True
         ).first_or_404()
 
-        if student_task.can_finish:
-            student_task.finish()
-            # Keep promoted flag TRUE so it stays in Today's list for tracking
-            db.session.commit()
-            return jsonify({
-                'status': 'success',
-                'message': 'Task completed successfully'
-            })
+        # Allow finishing tasks regardless of current status
+        # This fixes issues when UI and database get out of sync
+        student_task.status = StudentTask.STATUS_COMPLETED
+        student_task.finished_at = datetime.now(pytz.UTC)
+        
+        # Calculate time spent if task was started
+        if student_task.started_at:
+            started_at_utc = pytz.UTC.localize(student_task.started_at) if student_task.started_at.tzinfo is None else student_task.started_at.astimezone(pytz.UTC)
+            delta = student_task.finished_at - started_at_utc
+            student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+            
+        # Keep promoted flag TRUE so it stays in Today's list for tracking
+        db.session.commit()
         return jsonify({
-            'status': 'error',
-            'message': 'Task cannot be finished'
-        }), 400
+            'status': 'success',
+            'message': 'Task completed successfully'
+        })
     except Exception as e:
         db.session.rollback()
         return jsonify({
