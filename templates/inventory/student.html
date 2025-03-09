@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Progress Summary -->
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Study Progress</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for snapshot in snapshots %}
+                    <div class="col-md-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Week Ending {{ snapshot.week_ending.strftime('%Y-%m-%d') }}</h5>
+                                <div class="progress mb-2">
+                                    {% set progress = (snapshot.tasks_completed / snapshot.weekly_goal * 100) if snapshot.weekly_goal > 0 else 0 %}
+                                    <div class="progress-bar {% if progress >= 100 %}bg-success{% elif progress >= 50 %}bg-info{% else %}bg-warning{% endif %}" 
+                                         role="progressbar" 
+                                         style="width: {{ progress }}%" 
+                                         aria-valuenow="{{ progress }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                        {{ "%.1f"|format(progress) }}%
+                                    </div>
+                                </div>
+                                <p class="card-text">
+                                    Completed: {{ snapshot.tasks_completed }} / {{ snapshot.weekly_goal }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrolled Curriculums -->
+    <div class="col-md-12">
+        <h3 class="mb-4">My Enrollments</h3>
+        {% for enrollment in enrollments %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">{{ enrollment.curriculum.name }}</h4>
+                <div>
+                    <span class="badge bg-primary">Goal: {{ enrollment.weekly_goal_count }} tasks/week</span>
+                    {% if enrollment.target_completion_date %}
+                    <span class="badge bg-info">
+                        Target: {{ enrollment.target_completion_date.strftime('%Y-%m-%d') }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h5>Current Progress</h5>
+                    {% set completed_tasks = enrollment.curriculum.tasks|selectattr("completed")|list|length %}
+                    {% set total_tasks = enrollment.curriculum.tasks|length %}
+                    <div class="progress">
+                        {% set task_progress = (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0 %}
+                        <div class="progress-bar" 
+                             role="progressbar" 
+                             style="width: {{ task_progress }}%"
+                             aria-valuenow="{{ task_progress }}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                            {{ completed_tasks }} / {{ total_tasks }} Tasks
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Status</th>
+                                <th>Time Spent</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in enrollment.curriculum.tasks %}
+                            {% set student_task = task.student_tasks|selectattr("student_id", "equalto", current_user.id)|first %}
+                            <tr>
+                                <td>
+                                    {{ task.title }}
+                                    {% if task.link %}
+                                    <a href="{{ task.link }}" target="_blank" class="ms-2">
+                                        <i data-feather="external-link" class="feather-sm"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if student_task %}
+                                        {% if student_task.status == 0 %}
+                                        <span class="badge bg-secondary">Not Started</span>
+                                        {% elif student_task.status == 1 %}
+                                        <span class="badge bg-warning">In Progress</span>
+                                        {% else %}
+                                        <span class="badge bg-success">Completed</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge bg-secondary">Not Started</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if student_task and student_task.time_spent_minutes > 0 %}
+                                        {{ student_task.time_spent_minutes }} minutes
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <form method="POST" action="{{ url_for('inventory.toggle_task', id=task.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-sm {% if student_task and student_task.status == 2 %}btn-success{% else %}btn-outline-primary{% endif %}">
+                                            {% if student_task and student_task.status == 2 %}
+                                            <i data-feather="check-circle"></i>
+                                            {% else %}
+                                            <i data-feather="circle"></i>
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <i data-feather="info"></i>
+            You haven't enrolled in any curriculums yet. 
+            <a href="{{ url_for('curriculum.list') }}" class="alert-link">Browse available curriculums</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.feather-sm {
+    width: 16px;
+    height: 16px;
+}
+</style>
+{% endblock %}
