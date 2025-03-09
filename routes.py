@@ -40,7 +40,7 @@ auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
 dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/inventory')
 archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
-todo_bp = Blueprint('today', __name__, url_prefix='/today')
+todo_bp = Blueprint('todo', __name__, url_prefix='/todo') #Corrected Blueprint name
 
 @archive_bp.route('/')
 @login_required
@@ -171,7 +171,7 @@ def index():
 
     # Calculate total time spent on completed tasks
     total_time_spent = 0
-    
+
     for task in promoted_tasks:
         if task.status == StudentTask.STATUS_NOT_STARTED:
             status_counts["not_started"] += 1
@@ -208,12 +208,12 @@ def index():
     # Calculate total and completed tasks for the goal display
     total_tasks = len(promoted_tasks)
     completed_tasks = status_counts["completed"]
-    
+
     # Calculate average time per task
     avg_time_per_task = 0
     if completed_tasks > 0:
         avg_time_per_task = total_time_spent / completed_tasks
-        
+
     # Convert total time to hours and minutes
     hours_spent = total_time_spent // 60
     minutes_spent = total_time_spent % 60
@@ -235,7 +235,7 @@ def index():
         if len(all_promoted) != len(promoted_tasks):
             logger.warning(f"Discrepancy in task counts: direct {len(all_promoted)} vs joined {len(promoted_tasks)}")
 
-    return render_template('today/index.html',
+    return render_template('todo/index.html', #Corrected template name
                           tasks_by_curriculum=tasks_by_curriculum,
                           curriculum_names=curriculum_names,
                           STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
@@ -343,7 +343,7 @@ def finish_task(id):
     import time
     start_time = time.time()
     logger.info(f"Starting finish_task for task {id}")
-    
+
     try:
         # Find the student task
         query_start = time.time()
@@ -359,12 +359,12 @@ def finish_task(id):
         # Ensure task can be finished
         if student_task.status != StudentTask.STATUS_IN_PROGRESS:
             logger.warning(f"Attempting to finish task {id} that isn't in progress. Current status: {student_task.status}")
-            
+
         # Finish the task properly
         student_task.status = StudentTask.STATUS_COMPLETED
         student_task.finished_at = datetime.now(pytz.UTC)
         logger.info(f"Set task {id} status to COMPLETED and finished_at to {student_task.finished_at}")
-        
+
         # Calculate time spent if task was started
         if student_task.started_at:
             # Ensure started_at is in UTC
@@ -374,16 +374,16 @@ def finish_task(id):
             logger.info(f"Task {id} time spent: {student_task.time_spent_minutes} minutes (started at: {started_at_utc})")
         else:
             logger.warning(f"Task {id} finished but has no start timestamp")
-            
+
         # Keep promoted flag TRUE so it stays in Today's list for tracking
         commit_start = time.time()
         db.session.commit()
         commit_time = time.time() - commit_start
         logger.info(f"Database commit took {commit_time:.3f} seconds")
-        
+
         total_time = time.time() - start_time
         logger.info(f"Total finish_task processing time: {total_time:.3f} seconds")
-        
+
         # Return success response with time spent data
         return jsonify({
             'status': 'success',
@@ -431,7 +431,7 @@ def login():
             if row and row[0]:
                 encrypted_password = row[0]
                 logger.info(f"Found encrypted_password for user {user.id}")
-                
+
                 # Try direct password match with encrypted_password
                 if form.password.data == encrypted_password:
                     logger.info(f"Direct encrypted_password match for user {user.id}")
@@ -447,7 +447,7 @@ def login():
                     return redirect(url_for('inventory.index'))
             except Exception as e:
                 logger.error(f"Error checking password hash: {str(e)}")
-        
+
         # If we get here, authentication failed
         flash('Invalid password. Please try again.')
 
@@ -783,8 +783,7 @@ def finish_task(id):
             'message': str(e)
         }), 500
 
-@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])
-@login_required
+@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])@login_required
 def skip_task(id):
     try:
         student_task = StudentTask.query.filter_by(
