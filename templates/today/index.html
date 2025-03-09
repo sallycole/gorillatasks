@@ -175,7 +175,32 @@ document.addEventListener('DOMContentLoaded', function() {
                             const totalTimeSpentMinutesRemainder = totalTimeSpentMinutes % 60;
                             const averageTimePerTask = completedTasks > 0 ? Math.round(totalTimeSpentMinutes / completedTasks) : 0;
 
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done in ${totalTimeSpentHours} hours and ${totalTimeSpentMinutesRemainder} minutes today. Your average time per task today is ${averageTimePerTask} minutes.`;
+                            // Format the time spent string
+                            let timeSpentString = '';
+                            if (totalTimeSpentHours > 0) {
+                                timeSpentString += totalTimeSpentHours + ' hours';
+                                if (totalTimeSpentMinutesRemainder > 0) {
+                                    timeSpentString += ' and ';
+                                }
+                            }
+                            if (totalTimeSpentMinutesRemainder > 0 || totalTimeSpentHours === 0) {
+                                timeSpentString += totalTimeSpentMinutesRemainder + ' minutes';
+                            }
+
+                            // Find the time spent element and update it
+                            const timeSpentElement = document.querySelector('.card-body h4:contains("Today\'s Time Spent")').closest('.card-body').querySelector('span');
+                            if (timeSpentElement) {
+                                if (totalTimeSpentMinutes === 0) {
+                                    timeSpentElement.textContent = 'No time recorded';
+                                    timeSpentElement.className = 'progress-none';
+                                } else {
+                                    timeSpentElement.textContent = timeSpentString;
+                                    timeSpentElement.className = completedTasks === totalTasks ? 'progress-complete' : 'progress-partial';
+                                }
+                            }
+
+
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done. Your average time per task today is ${averageTimePerTask} minutes.`;
 
                             // Update the class based on completion status
                             goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
@@ -478,7 +503,45 @@ document.addEventListener('DOMContentLoaded', function() {
                             const totalTimeSpentMinutesRemainder = totalTimeSpentMinutes % 60;
                             const averageTimePerTask = completedTasks > 0 ? Math.round(totalTimeSpentMinutes / completedTasks) : 0;
 
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done in ${totalTimeSpentHours} hours and ${totalTimeSpentMinutesRemainder} minutes today. Your average time per task today is ${averageTimePerTask} minutes.`;
+                            // Format the time spent string
+                            let timeSpentString = '';
+                            if (totalTimeSpentHours > 0) {
+                                timeSpentString += totalTimeSpentHours + ' hours';
+                                if (totalTimeSpentMinutesRemainder > 0) {
+                                    timeSpentString += ' and ';
+                                }
+                            }
+                            if (totalTimeSpentMinutesRemainder > 0 || totalTimeSpentHours === 0) {
+                                timeSpentString += totalTimeSpentMinutesRemainder + ' minutes';
+                            }
+
+                            // Find the time spent element and update it
+                            const timeSpentElement = document.querySelector('.card-body h4:contains("Today\'s Time Spent")').closest('.card-body').querySelector('span');
+                            if (timeSpentElement) {
+                                if (totalTimeSpentMinutes === 0) {
+                                    timeSpentElement.textContent = 'No time recorded';
+                                    timeSpentElement.className = 'progress-none';
+                                } else {
+                                    timeSpentElement.textContent = timeSpentString;
+                                    timeSpentElement.className = completedTasks === totalTasks ? 'progress-complete' : 'progress-partial';
+                                }
+                            }
+
+                            // Update the average time display
+                            const goalElement = document.querySelector('.card-body h4:contains("Today\'s Goal")').closest('.card-body');
+                            const avgTimeElement = goalElement.querySelector('small');
+                            if (completedTasks > 0) {
+                                if (!avgTimeElement) {
+                                    const newAvgElement = document.createElement('small');
+                                    newAvgElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
+                                    goalElement.appendChild(document.createElement('br'));
+                                    goalElement.appendChild(newAvgElement);
+                                } else {
+                                    avgTimeElement.textContent = `Average: ${averageTimePerTask} minutes per task`;
+                                }
+                            }
+
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done. Your average time per task today is ${averageTimePerTask} minutes.`;
 
                             // Update the class based on completion status
                             goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
@@ -624,6 +687,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     {% else %}
                         <span class="progress-complete">{{ completed_tasks }} / {{ total_tasks }} tasks</span>
                     {% endif %}
+                    <br>
+                    <small>Average: 0 minutes per task</small>
+                </div>
+            </div>
+            <div class="card mb-3 mt-3">
+                <div class="card-body text-center">
+                    <h4>Today's Time Spent</h4>
+                    <span class="progress-none">No time recorded</span>
                 </div>
             </div>
         {% endif %}
@@ -678,14 +749,17 @@ document.addEventListener('DOMContentLoaded', function() {
                                             </div>
                                         </td>
                                         <td class="time-spent" data-task-id="{{ student_task.task_id }}">
-                                            {% if student_task.status == STATUS_COMPLETED and student_task.time_spent_minutes > 0 %}
+                                            {% if student_task.status == STATUS_COMPLETED and student_task.time_spent_minutes %}
                                                 {% set hours = (student_task.time_spent_minutes // 60) %}
-                                                {% set minutes = (student_task.time_spent_minutes % 60) %}
-                                                {% if hours > 0 %}{{ hours }}h {% endif %}{{ minutes }}m
+                                                {% set mins = (student_task.time_spent_minutes % 60) %}
+                                                {% if hours > 0 %}{{ hours }} hours{% if mins > 0 %} and {% endif %}{% endif %}
+                                                {% if mins > 0 or hours == 0 %}{{ mins }} minutes{% endif %}
+                                            {% elif student_task.status == STATUS_COMPLETED %}
+                                                0 minutes
                                             {% elif student_task.status == STATUS_IN_PROGRESS %}
                                                 <span class="in-progress-time" data-started="{{ student_task.started_at }}">In progress</span>
                                             {% else %}
-                                                <span class="text-muted">-</span>
+                                                -
                                             {% endif %}
                                         </td>
                                         <td class="text-end">
@@ -700,6 +774,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                                     <div class="d-inline-flex gap-2">
                                                         <button onclick="handleTaskAction('finish', {{ student_task.task_id }})" class="btn btn-sm btn-success">
                                                             <i data-feather="check"></i> Finish
+                                                        </button>
+                                                        <button onclick="handleTaskAction('skip', {{ student_task.task_id }})" class="btn btn-sm btn-outline-secondary">
+                                                            <i data-feather="skip-forward"></i> Skip
                                                         </button>
                                                     </div>
                                                 {% elif student_task.status == STATUS_COMPLETED %}
