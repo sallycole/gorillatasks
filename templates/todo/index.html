@@ -131,6 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </button>
                             </div>
                         `;
+                        
+                        // Open task link if available
+                        if (data.task && data.task.link) {
+                            openTaskLink(data.task.link);
+                        }
                     }
                     
                     // Re-initialize feather icons
@@ -179,6 +184,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 });
+
+function openTaskLink(link) {
+    if (link) {
+        window.open(link, '_blank');
+    }
+}
 
 function resetTodayTasks() {
     if (confirm('Are you sure you want to reset your To Do Today list? All tasks will be removed and returned to the Study Inventory page.')) {
@@ -291,16 +302,31 @@ function resetTodayTasks() {
                                 {% for student_task in tasks %}
                                     <tr>
                                         <td>
-                                            <div>
-                                                <strong>{{ student_task.task.title }}</strong>
-                                                {% if student_task.task.link %}
-                                                <a href="{{ student_task.task.link }}" target="_blank" class="ms-2">
-                                                    <i data-feather="external-link" class="feather-sm"></i>
-                                                </a>
-                                                {% endif %}
+                                            <div class="d-flex align-items-start">
+                                                <div class="task-icon me-2">
+                                                    {% if student_task.task.action == 1 %}
+                                                    <i data-feather="book" class="text-primary"></i>
+                                                    {% elif student_task.task.action == 2 %}
+                                                    <i data-feather="video" class="text-success"></i>
+                                                    {% elif student_task.task.action == 3 %}
+                                                    <i data-feather="headphones" class="text-info"></i>
+                                                    {% elif student_task.task.action == 4 %}
+                                                    <i data-feather="edit-3" class="text-warning"></i>
+                                                    {% else %}
+                                                    <i data-feather="clipboard" class="text-secondary"></i>
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    <strong>{{ student_task.task.title }}</strong>
+                                                    {% if student_task.task.link %}
+                                                    <a href="{{ student_task.task.link }}" target="_blank" class="ms-2 text-decoration-none">
+                                                        <i data-feather="external-link" class="feather-sm"></i>
+                                                    </a>
+                                                    {% endif %}
+                                                    <div class="text-muted small">{{ student_task.task.description }}</div>
+                                                </div>
                                             </div>
-                                            <div class="text-muted small">{{ student_task.task.description }}</div>
-                                            </td>
+                                        </td>
                                         <td class="text-center">
                                             {% if student_task.time_spent_minutes %}
                                                 {{ student_task.time_spent_minutes }} min
@@ -311,7 +337,7 @@ function resetTodayTasks() {
                                         <td class="text-end">
                                             <div class="task-actions" data-task-id="{{ student_task.task.id }}">
                                                 {% if student_task.status == STATUS_NOT_STARTED %}
-                                                    <button onclick="handleTaskAction('start', {{ student_task.task.id }})" class="btn btn-sm btn-outline-primary">
+                                                    <button onclick="handleTaskAction('start', {{ student_task.task.id }}); openTaskLink('{{ student_task.task.link }}')" class="btn btn-sm btn-outline-primary">
                                                         <i data-feather="play"></i> Start
                                                     </button>
                                                 {% elif student_task.status == STATUS_IN_PROGRESS %}
