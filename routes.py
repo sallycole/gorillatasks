@@ -396,7 +396,8 @@ def finish_task(id):
         return jsonify({
             'status': 'success',
             'message': 'Task completed successfully',
-            'time_spent': time_spent_minutes
+            'time_spent': time_spent_minutes,
+            'task_id': id
         })
     except Exception as e:
         logger.error(f"Error finishing task {id}: {str(e)}")

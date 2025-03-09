@@ -62,6 +62,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 credentials: 'same-origin'
             })
             .then(response => {
+
+function updateTaskCounters() {
+    // Get all tasks
+    const completedTasks = document.querySelectorAll('.task-actions button:disabled').length;
+    const totalTasks = document.querySelectorAll('.task-actions').length;
+    
+    // Update the counters display
+    const progressCounter = document.querySelector('.display-5');
+    if (progressCounter) {
+        progressCounter.textContent = `${completedTasks} / ${totalTasks} tasks`;
+    }
+    
+    // Calculate time spent
+    let totalMinutes = 0;
+    document.querySelectorAll('td:nth-child(2)').forEach(cell => {
+        const text = cell.textContent.trim();
+        if (text !== '-') {
+            const minutes = parseInt(text);
+            if (!isNaN(minutes)) {
+                totalMinutes += minutes;
+            }
+        }
+    });
+    
+    // Update time spent display
+    const timeDisplay = document.querySelectorAll('.display-5')[1];
+    if (timeDisplay) {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        timeDisplay.textContent = `${hours}h ${minutes}m`;
+    }
+}
+
                 if (!response.ok) {
                     throw new Error(`Server responded with status: ${response.status}`);
                 }
@@ -69,12 +102,43 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 if (data.status === 'success') {
-                    // Always reload page for proper state updates
                     // For finish action, we'll get time_spent data back
                     if (action === 'finish' && data.time_spent) {
                         console.log(`Task completed in ${data.time_spent} minutes`);
+                        
+                        // Update the UI to show completed status
+                        actionDiv.innerHTML = `
+                            <div class="d-inline-flex gap-2">
+                                <button class="btn btn-sm btn-success" disabled>
+                                    <i data-feather="check-circle"></i> Completed
+                                </button>
+                            </div>
+                        `;
+                        
+                        // Update time spent cell
+                        const row = actionDiv.closest('tr');
+                        const timeSpentCell = row.querySelector('td:nth-child(2)');
+                        if (timeSpentCell) {
+                            timeSpentCell.textContent = `${data.time_spent} min`;
+                        }
+                    } else if (action === 'start') {
+                        // Update the UI to show finish button
+                        actionDiv.innerHTML = `
+                            <div class="d-inline-flex gap-2">
+                                <button onclick="handleTaskAction('finish', ${taskId})" class="btn btn-sm btn-success">
+                                    <i data-feather="check"></i> Finish
+                                </button>
+                            </div>
+                        `;
                     }
-                    window.location.reload();
+                    
+                    // Re-initialize feather icons
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                    
+                    // Update task counters and progress
+                    updateTaskCounters();
                 } else {
                     console.error('Task action failed:', data.message);
                     // Show error notification
