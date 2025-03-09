@@ -149,7 +149,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Update the goal display if it exists
                         const goalDisplay = document.querySelector('.card-body span');
                         if (goalDisplay) {
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks`;
+                            let totalTimeSpentMinutes = 0;
+                            document.querySelectorAll('.task-row.completed-task').forEach(row => {
+                                const timeSpent = row.querySelector('.time-spent');
+                                if (timeSpent) {
+                                    const timeParts = timeSpent.textContent.match(/(\d+)h? (\d+)m/);
+                                    if (timeParts) {
+                                        totalTimeSpentMinutes += parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
+                                    }
+                                }
+                            });
+
+                            const totalTimeSpentHours = Math.floor(totalTimeSpentMinutes / 60);
+                            const totalTimeSpentMinutesRemainder = totalTimeSpentMinutes % 60;
+                            const averageTimePerTask = completedTasks > 0 ? Math.round(totalTimeSpentMinutes / completedTasks) : 0;
+
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done in ${totalTimeSpentHours} hours and ${totalTimeSpentMinutesRemainder} minutes today. Your average time per task today is ${averageTimePerTask} minutes.`;
 
                             // Update the class based on completion status
                             goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
@@ -399,7 +414,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Update the goal display if it exists
                         const goalDisplay = document.querySelector('.card-body span');
                         if (goalDisplay) {
-                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks`;
+                            let totalTimeSpentMinutes = 0;
+                            document.querySelectorAll('.task-row.completed-task').forEach(row => {
+                                const timeSpent = row.querySelector('.time-spent');
+                                if (timeSpent) {
+                                    const timeParts = timeSpent.textContent.match(/(\d+)h? (\d+)m/);
+                                    if (timeParts) {
+                                        totalTimeSpentMinutes += parseInt(timeParts[1]) * 60 + parseInt(timeParts[2]);
+                                    }
+                                }
+                            });
+
+                            const totalTimeSpentHours = Math.floor(totalTimeSpentMinutes / 60);
+                            const totalTimeSpentMinutesRemainder = totalTimeSpentMinutes % 60;
+                            const averageTimePerTask = completedTasks > 0 ? Math.round(totalTimeSpentMinutes / completedTasks) : 0;
+
+                            goalDisplay.textContent = `${completedTasks} / ${totalTasks} tasks done in ${totalTimeSpentHours} hours and ${totalTimeSpentMinutesRemainder} minutes today. Your average time per task today is ${averageTimePerTask} minutes.`;
 
                             // Update the class based on completion status
                             goalDisplay.className = completedTasks === 0 ? 'progress-none' : 
@@ -541,8 +571,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th style="width: 60%">Task</th>
-                                    <th style="width: 40%" class="text-end">Actions</th>
+                                    <th style="width: 50%">Task</th>
+                                    <th style="width: 20%">Time Spent</th>
+                                    <th style="width: 30%" class="text-end">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -574,6 +605,17 @@ document.addEventListener('DOMContentLoaded', function() {
                                                     {% endif %}
                                                 </div>
                                             </div>
+                                        </td>
+                                        <td class="time-spent">
+                                            {% if student_task.status == STATUS_COMPLETED and student_task.time_spent_minutes > 0 %}
+                                                {% set hours = (student_task.time_spent_minutes // 60) %}
+                                                {% set minutes = (student_task.time_spent_minutes % 60) %}
+                                                {% if hours > 0 %}{{ hours }}h {% endif %}{{ minutes }}m
+                                            {% elif student_task.status == STATUS_IN_PROGRESS %}
+                                                <span class="text-muted">In progress</span>
+                                            {% else %}
+                                                <span class="text-muted">-</span>
+                                            {% endif %}
                                         </td>
                                         <td class="text-end">
                                             <div class="task-actions" data-task-id="{{ student_task.task_id }}">

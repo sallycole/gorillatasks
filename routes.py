@@ -169,6 +169,9 @@ def index():
         "skipped": 0
     }
 
+    # Calculate total time spent on completed tasks
+    total_time_spent = 0
+    
     for task in promoted_tasks:
         if task.status == StudentTask.STATUS_NOT_STARTED:
             status_counts["not_started"] += 1
@@ -176,10 +179,12 @@ def index():
             status_counts["in_progress"] += 1
         elif task.status == StudentTask.STATUS_COMPLETED:
             status_counts["completed"] += 1
+            total_time_spent += task.time_spent_minutes
         elif task.status == StudentTask.STATUS_SKIPPED:
             status_counts["skipped"] += 1
 
     logger.info(f"Task status counts: {status_counts}")
+    logger.info(f"Total time spent: {total_time_spent} minutes")
 
     # Group tasks by curriculum
     tasks_by_curriculum = {}
@@ -203,8 +208,18 @@ def index():
     # Calculate total and completed tasks for the goal display
     total_tasks = len(promoted_tasks)
     completed_tasks = status_counts["completed"]
+    
+    # Calculate average time per task
+    avg_time_per_task = 0
+    if completed_tasks > 0:
+        avg_time_per_task = total_time_spent / completed_tasks
+        
+    # Convert total time to hours and minutes
+    hours_spent = total_time_spent // 60
+    minutes_spent = total_time_spent % 60
 
     logger.info(f"Today's goal stats: {completed_tasks} completed out of {total_tasks} total tasks")
+    logger.info(f"Time spent: {hours_spent}h {minutes_spent}m, average: {avg_time_per_task:.1f}m per task")
 
     # Check if user is phobezcole@gmail.com
     if current_user.email == "phobezcole@gmail.com":
@@ -229,6 +244,10 @@ def index():
                           STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                           completed_tasks=completed_tasks,
                           total_tasks=total_tasks,
+                          total_time_spent=total_time_spent,
+                          hours_spent=hours_spent,
+                          minutes_spent=minutes_spent,
+                          avg_time_per_task=avg_time_per_task,
                           current_user=current_user)
 
 @todo_bp.route('/reset', methods=['POST'])
