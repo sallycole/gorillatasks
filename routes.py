@@ -28,19 +28,10 @@ logger = logging.getLogger(__name__)
 
 # Blueprint registration
 auth_bp = Blueprint('auth', __name__)
-curriculum_bp = Blueprint('curriculum', __name__)
-inventory_bp = Blueprint('inventory', __name__)
-
-def register_routes(app):
-    @app.route('/')
-    def root():
-        return redirect(url_for('inventory.index'))
-
-auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
-dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/inventory')
+inventory_bp = Blueprint('inventory', __name__, url_prefix='/inventory')
 archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
-todo_bp = Blueprint('todo', __name__, url_prefix='/todo') #Corrected Blueprint name
+todo_bp = Blueprint('todo', __name__, url_prefix='/todo')
 
 @archive_bp.route('/')
 @login_required
