@@ -10,7 +10,7 @@ deploymentTarget = "cloudrun"
 build = ["sh", "-c", "pip install -r requirements.txt"]
 
 [workflows]
-runButton = "Project"
+runButton = "Flask App"
 
 [[workflows.workflow]]
 name = "Project"
