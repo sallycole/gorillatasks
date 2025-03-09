@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.status === 'success') {
                     // For finish action, we'll get time_spent data back
-                    if (action === 'finish' && data.time_spent) {
+                    if (action === 'finish' && data.time_spent !== undefined) {
                         console.log(`Task completed in ${data.time_spent} minutes`);
                         
                         // Update the UI to show completed status
@@ -122,6 +122,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (timeSpentCell) {
                             timeSpentCell.textContent = `${data.time_spent} min`;
                         }
+                        
+                        // Ensure the task status is updated in the session storage
+                        // This will help maintain state even if page is refreshed
+                        student_task_id = actionDiv.dataset.taskId;
+                        sessionStorage.setItem(`task_${student_task_id}_status`, 'completed');
+                        sessionStorage.setItem(`task_${student_task_id}_time_spent`, data.time_spent);
                     } else if (action === 'start') {
                         // Update the UI to show finish button
                         actionDiv.innerHTML = `

@@ -365,6 +365,14 @@ def finish_task(id):
         # Ensure task can be finished
         if student_task.status != StudentTask.STATUS_IN_PROGRESS:
             logger.warning(f"Attempting to finish task {id} that isn't in progress. Current status: {student_task.status}")
+            # If task is already completed, just return success
+            if student_task.status == StudentTask.STATUS_COMPLETED:
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Task was already completed',
+                    'time_spent': student_task.time_spent_minutes,
+                    'task_id': id
+                })
 
         # Finish the task properly
         student_task.status = StudentTask.STATUS_COMPLETED
