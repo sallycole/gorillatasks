@@ -783,7 +783,8 @@ def finish_task(id):
             'message': str(e)
         }), 500
 
-@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])@login_required
+@inventory_bp.route('/task/<int:id>/skip', methods=['POST'])
+@login_required
 def skip_task(id):
     try:
         student_task = StudentTask.query.filter_by(
@@ -1116,7 +1117,7 @@ def edit(id):
 @curriculum_bp.route('/<int:id>/tasks/add', methods=['POST'])
 @login_required
 def add_task(id):
-    curriculum = Curriculum.query.getor_404(id)
+    curriculum = Curriculum.query.get_or_404(id)
     if curriculum.creator_id != current_user.id:
         flash('You can only edit your own curriculums')
         return redirect(url_for('curriculum.list'))
