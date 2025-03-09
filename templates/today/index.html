@@ -355,6 +355,75 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script>
+// Function to calculate and update total time spent
+function updateTimeSpent() {
+    // Get all time spent cells
+    const timeSpentCells = document.querySelectorAll('.time-spent');
+    let totalMinutes = 0;
+
+    // Sum up all time spent values from completed tasks
+    timeSpentCells.forEach(cell => {
+        // Only process cells that have time data (completed tasks)
+        const text = cell.textContent.trim();
+        if (text && !text.includes('In progress') && !text.includes('-')) {
+            // Parse hours and minutes from the text
+            let minutes = 0;
+            if (text.includes('hours')) {
+                const hoursMatch = text.match(/(\d+)\s+hours/);
+                if (hoursMatch) {
+                    minutes += parseInt(hoursMatch[1]) * 60;
+                }
+            }
+
+            if (text.includes('minutes')) {
+                const minutesMatch = text.match(/(\d+)\s+minutes/);
+                if (minutesMatch) {
+                    minutes += parseInt(minutesMatch[1]);
+                }
+            }
+
+            totalMinutes += minutes;
+        }
+    });
+
+    // Format the time spent string
+    const hours = Math.floor(totalMinutes / 60);
+    const remainingMinutes = totalMinutes % 60;
+    let timeSpentString = '';
+
+    if (hours > 0) {
+        timeSpentString += hours + ' hours';
+        if (remainingMinutes > 0) {
+            timeSpentString += ' and ';
+        }
+    }
+
+    if (remainingMinutes > 0 || hours === 0) {
+        timeSpentString += remainingMinutes + ' minutes';
+    }
+
+    // Find and update the time spent display
+    const timeSpentHeadings = document.querySelectorAll('.card-body h4');
+    let timeSpentElement = null;
+
+    for (const heading of timeSpentHeadings) {
+        if (heading.textContent === "Today's Time Spent") {
+            timeSpentElement = heading.closest('.card-body').querySelector('span');
+            break;
+        }
+    }
+
+    if (timeSpentElement) {
+        if (totalMinutes === 0) {
+            timeSpentElement.textContent = 'No time recorded';
+            timeSpentElement.className = 'progress-none';
+        } else {
+            timeSpentElement.textContent = timeSpentString;
+            timeSpentElement.className = 'progress-partial';
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     let socket;
     try {
@@ -570,6 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                   'progress-complete';
                         }
                     }
+                    updateTimeSpent(); // Recalculate total time spent after task completion
                 } else if (action === 'skip') {
                     // Change to skipped button
                     actionDiv.innerHTML = `
@@ -679,6 +749,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial update
     updateInProgressTimers();
+    updateTimeSpent(); // Initial call to update time spent on page load
 
     // Update every minute
     setInterval(updateInProgressTimers, 60000);
