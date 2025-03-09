@@ -131,6 +131,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Add a completed class to visually indicate completion
                         taskRow.classList.add('completed-task');
 
+                        // Update the time spent in the time-spent column if returned
+                        if (data.time_spent) {
+                            const hours = Math.floor(data.time_spent / 60);
+                            const minutes = data.time_spent % 60;
+                            const timeSpentCell = document.querySelector(`.time-spent[data-task-id="${taskId}"]`);
+                            if (timeSpentCell) {
+                                timeSpentCell.innerHTML = `${hours > 0 ? hours + 'h ' : ''}${minutes}m`;
+                            }
+                        }
+
+
                         // Reinitialize feather icons to show the checkmark properly
                         if (typeof feather !== 'undefined') {
                             feather.replace();
@@ -209,6 +220,34 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
+
+    // Setup timer for in-progress tasks
+    function updateInProgressTimers() {
+        const inProgressElements = document.querySelectorAll('.in-progress-time');
+        const now = new Date();
+
+        inProgressElements.forEach(el => {
+            const startedStr = el.getAttribute('data-started');
+            if (startedStr) {
+                const started = new Date(startedStr);
+                const elapsedMinutes = Math.floor((now - started) / (1000 * 60));
+                const hours = Math.floor(elapsedMinutes / 60);
+                const minutes = elapsedMinutes % 60;
+
+                if (hours > 0) {
+                    el.textContent = `In progress (${hours}h ${minutes}m)`;
+                } else {
+                    el.textContent = `In progress (${minutes}m)`;
+                }
+            }
+        });
+    }
+
+    // Initial update
+    updateInProgressTimers();
+
+    // Update every minute
+    setInterval(updateInProgressTimers, 60000);
 });
 </script>
 
@@ -390,6 +429,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     `;
 
+                    // Update the time spent in the time-spent column if returned
+                    if (data.time_spent) {
+                        const hours = Math.floor(data.time_spent / 60);
+                        const minutes = data.time_spent % 60;
+                        const timeSpentCell = document.querySelector(`.time-spent[data-task-id="${taskId}"]`);
+                        if (timeSpentCell) {
+                            timeSpentCell.innerHTML = `${hours > 0 ? hours + 'h ' : ''}${minutes}m`;
+                        }
+                    }
+
                     // Update the task row appearance without removing it
                     const taskRow = actionDiv.closest('tr');
                     if (taskRow) {
@@ -521,6 +570,34 @@ document.addEventListener('DOMContentLoaded', function() {
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
+
+    // Setup timer for in-progress tasks
+    function updateInProgressTimers() {
+        const inProgressElements = document.querySelectorAll('.in-progress-time');
+        const now = new Date();
+
+        inProgressElements.forEach(el => {
+            const startedStr = el.getAttribute('data-started');
+            if (startedStr) {
+                const started = new Date(startedStr);
+                const elapsedMinutes = Math.floor((now - started) / (1000 * 60));
+                const hours = Math.floor(elapsedMinutes / 60);
+                const minutes = elapsedMinutes % 60;
+
+                if (hours > 0) {
+                    el.textContent = `In progress (${hours}h ${minutes}m)`;
+                } else {
+                    el.textContent = `In progress (${minutes}m)`;
+                }
+            }
+        });
+    }
+
+    // Initial update
+    updateInProgressTimers();
+
+    // Update every minute
+    setInterval(updateInProgressTimers, 60000);
 });
 </script>
 
@@ -600,13 +677,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="time-spent">
+                                        <td class="time-spent" data-task-id="{{ student_task.task_id }}">
                                             {% if student_task.status == STATUS_COMPLETED and student_task.time_spent_minutes > 0 %}
                                                 {% set hours = (student_task.time_spent_minutes // 60) %}
                                                 {% set minutes = (student_task.time_spent_minutes % 60) %}
                                                 {% if hours > 0 %}{{ hours }}h {% endif %}{{ minutes }}m
                                             {% elif student_task.status == STATUS_IN_PROGRESS %}
-                                                <span class="text-muted">In progress</span>
+                                                <span class="in-progress-time" data-started="{{ student_task.started_at }}">In progress</span>
                                             {% else %}
                                                 <span class="text-muted">-</span>
                                             {% endif %}

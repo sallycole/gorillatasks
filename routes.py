@@ -347,29 +347,38 @@ def finish_task(id):
             promoted=True
         ).first_or_404()
 
-        # Allow finishing tasks regardless of current status
-        # This fixes issues when UI and database get out of sync
+        # Ensure task can be finished
+        if student_task.status != StudentTask.STATUS_IN_PROGRESS:
+            logger.warning(f"Attempting to finish task {id} that isn't in progress. Current status: {student_task.status}")
+            
+        # Finish the task properly
         student_task.status = StudentTask.STATUS_COMPLETED
         student_task.finished_at = datetime.now(pytz.UTC)
         
         # Calculate time spent if task was started
         if student_task.started_at:
+            # Ensure started_at is in UTC
             started_at_utc = pytz.UTC.localize(student_task.started_at) if student_task.started_at.tzinfo is None else student_task.started_at.astimezone(pytz.UTC)
             delta = student_task.finished_at - started_at_utc
             student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+            logger.info(f"Task {id} time spent: {student_task.time_spent_minutes} minutes")
+        else:
+            logger.warning(f"Task {id} finished but has no start timestamp")
             
         # Keep promoted flag TRUE so it stays in Today's list for tracking
         db.session.commit()
         return jsonify({
             'status': 'success',
-            'message': 'Task completed successfully'
+            'message': 'Task completed successfully',
+            'time_spent': student_task.time_spent_minutes
         })
     except Exception as e:
+        logger.error(f"Error finishing task {id}: {str(e)}")
         db.session.rollback()
         return jsonify({
             'status': 'error',
-            'message': str(e)
-        }), 500
+            'message': f"Task cannot be finished: {str(e)}"
+        }), 400
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
