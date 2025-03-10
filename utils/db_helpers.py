@@ -1,33 +1,27 @@
-
-from sqlalchemy.exc import OperationalError
+from utils.timezone import now_in_utc, to_user_timezone, from_user_timezone
 import logging
+from functools import wraps
+from sqlalchemy.exc import OperationalError
 import time
 
 logger = logging.getLogger(__name__)
 
 def with_db_retry(func):
-    """
-    Decorator to retry database operations if they fail with connection errors.
-    """
-    def wrapper(*args, **kwargs):
+    """Decorator to retry database operations if they fail due to connection issues"""
+    @wraps(func)
+    def wrapper_function(*args, **kwargs):
         max_retries = 3
-        retry_delay = 0.5  # start with 0.5 seconds
-        
-        for attempt in range(max_retries):
+        retry_count = 0
+
+        while retry_count < max_retries:
             try:
                 return func(*args, **kwargs)
             except OperationalError as e:
-                # Check if it's a connection error
-                if "SSL connection has been closed" in str(e) or "connection has been closed" in str(e):
-                    if attempt < max_retries - 1:  # Don't log on the last attempt
-                        logger.warning(f"Database connection error, retrying ({attempt+1}/{max_retries}): {str(e)}")
-                        time.sleep(retry_delay)
-                        retry_delay *= 2  # Exponential backoff
-                    else:
-                        logger.error(f"Failed to connect to database after {max_retries} attempts: {str(e)}")
-                        raise
-                else:
-                    # If it's not a connection error, don't retry
+                retry_count += 1
+                if retry_count >= max_retries:
+                    logger.error(f"Failed after {max_retries} retries: {str(e)}")
                     raise
-    
-    return wrapper
+                logger.warning(f"Database operation failed, retrying ({retry_count}/{max_retries}): {str(e)}")
+                time.sleep(1)  # Wait before retrying
+
+    return wrapper_function
