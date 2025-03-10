@@ -68,6 +68,20 @@
                         <form method="POST" enctype="multipart/form-data" class="xml-form">
                             {{ form.csrf_token }}
                             <div class="mb-3">
+                                {{ form.grade_levels.label(class="form-label") }}
+                                <select class="form-select" name="grade_levels" multiple size="8">
+                                    {% for value, label in [('K', 'Kindergarten'),
+                                        ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
+                                        ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
+                                        ('7', '7th Grade'), ('8', '8th Grade'), ('9', '9th Grade'),
+                                        ('10', '10th Grade'), ('11', '11th Grade'), ('12', '12th Grade'),
+                                        ('College', 'College')] %}
+                                        <option value="{{ value }}">{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
+                            </div>
+                            <div class="mb-3">
                                 {{ form.xml_file.label(class="form-label") }}
                                 {{ form.xml_file(class="form-control") }}
                                 <div class="form-text">Upload an XML file to create a curriculum with tasks.</div>
@@ -136,10 +150,15 @@
                                 {{ form.publisher(class="form-control") }}
                             </div>
                             <div class="mb-3">
-                                <label for="grade_levels" class="form-label">Grade Levels</label>
-                                <select name="grade_levels" id="grade_levels" multiple class="form-select">
-                                    {% for value, label in grade_levels %}
-                                    <option value="{{ value }}">{{ label }}</option>
+                                {{ form.grade_levels.label(class="form-label") }}
+                                <select class="form-select" name="grade_levels" multiple size="8">
+                                    {% for value, label in [('K', 'Kindergarten'),
+                                        ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
+                                        ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
+                                        ('7', '7th Grade'), ('8', '8th Grade'), ('9', '9th Grade'),
+                                        ('10', '10th Grade'), ('11', '11th Grade'), ('12', '12th Grade'),
+                                        ('College', 'College')] %}
+                                        <option value="{{ value }}">{{ label }}</option>
                                     {% endfor %}
                                 </select>
                                 <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
