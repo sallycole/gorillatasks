@@ -198,4 +198,26 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+    // Keep the current tab active after form errors
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the form_type from the URL query parameter if it exists
+        const urlParams = new URLSearchParams(window.location.search);
+        const formType = urlParams.get('form_type');
+        
+        if (formType === 'adaptive') {
+            // Activate the adaptive tab
+            const adaptiveTab = document.getElementById('adaptive-tab');
+            if (adaptiveTab) {
+                adaptiveTab.click();
+            }
+        } else if (formType === 'manual') {
+            // Activate the manual tab
+            const manualTab = document.getElementById('manual-tab');
+            if (manualTab) {
+                manualTab.click();
+            }
+        }
+    });
+</script>
 {% endblock %}
