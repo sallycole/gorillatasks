@@ -1,5 +1,5 @@
-
 import logging
+from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask import request
 from flask_login import current_user
 from app import socketio, db
@@ -11,80 +11,26 @@ logger = logging.getLogger(__name__)
 
 @socketio.on('connect')
 def handle_connect():
-    if not current_user.is_authenticated:
-        return False
-    logger.info(f'Client connected: {request.sid}')
-    return True
+    logger.info(f"Client connected: {request.sid}")
+    if current_user.is_authenticated:
+        logger.info(f"Authenticated user connected: {current_user.id} ({current_user.email})")
 
 @socketio.on('disconnect')
 def handle_disconnect():
-    logger.info(f'Client disconnected: {request.sid}')
-
-@socketio.on('unarchive_task')
-def handle_unarchive_task(data):
-    if not current_user.is_authenticated:
-        return {'status': 'error', 'message': 'Authentication required'}
-    
-    task_id = data.get('task_id')
-    if not task_id:
-        return {'status': 'error', 'message': 'Task ID is required'}
-    
-    try:
-        from models import StudentTask
-        
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first()
-        
-        if not student_task:
-            return {'status': 'error', 'message': 'Task not found'}
-        
-        student_task.status = StudentTask.STATUS_NOT_STARTED
-        student_task.started_at = None
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        student_task.time_spent_minutes = 0
-        
-        db.session.commit()
-        
-        return {'status': 'success', 'message': 'Task unarchived successfully'}
-    except Exception as e:
-        logger.error(f"Error unarchiving task {task_id}: {str(e)}")
-        db.session.rollback()
-        return {'status': 'error', 'message': str(e)}
+    logger.info(f"Client disconnected: {request.sid}")
 
 @socketio.on('start_task')
 def handle_start_task(data):
     if not current_user.is_authenticated:
         return {'status': 'error', 'message': 'Authentication required'}
-    
+
     task_id = data.get('task_id')
     if not task_id:
         return {'status': 'error', 'message': 'Task ID is required'}
-    
+
     try:
-        from models import Task, StudentTask
-        
-        # Get the task
-        task = Task.query.get(task_id)
-        if not task:
-            return {'status': 'error', 'message': 'Task not found'}
-        
-        # Get or create student task
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first()
-        
-        if not student_task:
-            student_task = StudentTask(
-                student_id=current_user.id,
-                task_id=task_id,
-                status=StudentTask.STATUS_NOT_STARTED
-            )
-            db.session.add(student_task)
-        
+        from models import StudentTask
+
         # Reset any other in-progress tasks
         StudentTask.query.filter_by(
             student_id=current_user.id,
@@ -93,59 +39,28 @@ def handle_start_task(data):
             "status": StudentTask.STATUS_NOT_STARTED,
             "started_at": None
         })
-        
-        # Start the task
-        student_task.start()
-        db.session.commit()
-        
-        # Emit an event to update the UI
-        socketio.emit('task_updated', {
-            'task_id': task_id,
-            'status': student_task.status,
-            'link': task.link
-        }, room=request.sid)
-        
-        return {'status': 'success', 'message': 'Task started successfully'}
-    except Exception as e:
-        logger.error(f"Error starting task {task_id}: {str(e)}")
-        db.session.rollback()
-        return {'status': 'error', 'message': str(e)}
 
-@socketio.on('finish_task')
-def handle_finish_task(data):
-    if not current_user.is_authenticated:
-        return {'status': 'error', 'message': 'Authentication required'}
-    
-    task_id = data.get('task_id')
-    if not task_id:
-        return {'status': 'error', 'message': 'Task ID is required'}
-    
-    try:
-        from models import StudentTask
-        
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
         ).first()
-        
+
         if not student_task:
             return {'status': 'error', 'message': 'Task not found'}
-        
-        if student_task.can_finish:
-            student_task.finish()
-            db.session.commit()
-            
-            # Emit an event to update the UI
-            socketio.emit('task_updated', {
-                'task_id': task_id,
-                'status': student_task.status
-            }, room=request.sid)
-            
-            return {'status': 'success', 'message': 'Task finished successfully'}
-        else:
-            return {'status': 'error', 'message': 'Task cannot be finished'}
+
+        student_task.start()
+        db.session.commit()
+
+        # Emit an event to update the UI
+        socketio.emit('task_updated', {
+            'task_id': task_id,
+            'status': student_task.status,
+            'link': student_task.task.link
+        }, room=request.sid)
+
+        return {'status': 'success', 'message': 'Task started successfully'}
     except Exception as e:
-        logger.error(f"Error finishing task {task_id}: {str(e)}")
+        logger.error(f"Error starting task {task_id}: {str(e)}")
         db.session.rollback()
         return {'status': 'error', 'message': str(e)}
 
@@ -153,32 +68,32 @@ def handle_finish_task(data):
 def handle_skip_task(data):
     if not current_user.is_authenticated:
         return {'status': 'error', 'message': 'Authentication required'}
-    
+
     task_id = data.get('task_id')
     if not task_id:
         return {'status': 'error', 'message': 'Task ID is required'}
-    
+
     try:
         from models import StudentTask
-        
+
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
         ).first()
-        
+
         if not student_task:
             return {'status': 'error', 'message': 'Task not found'}
-        
+
         if student_task.can_skip:
             student_task.skip()
             db.session.commit()
-            
+
             # Emit an event to update the UI
             socketio.emit('task_updated', {
                 'task_id': task_id,
                 'status': student_task.status
             }, room=request.sid)
-            
+
             return {'status': 'success', 'message': 'Task skipped successfully'}
         else:
             return {'status': 'error', 'message': 'Task cannot be skipped'}
@@ -186,113 +101,19 @@ def handle_skip_task(data):
         logger.error(f"Error skipping task {task_id}: {str(e)}")
         db.session.rollback()
         return {'status': 'error', 'message': str(e)}
-def handle_unarchive_task(data):
-    if not current_user.is_authenticated:
-        return {'status': 'error', 'message': 'Authentication required'}
-        
-    try:
-        task_id = data.get('task_id')
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first_or_404()
-        
-        student_task.status = StudentTask.STATUS_NOT_STARTED
-        student_task.started_at = None
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        student_task.time_spent_minutes = 0
-        
-        db.session.commit()
-        
-        socketio.emit('task_updated', {
-            'task_id': task_id,
-            'status': StudentTask.STATUS_NOT_STARTED
-        }, room=request.sid)
-        
-        return {'status': 'success', 'message': 'Task unarchived successfully'}
-        
-    except Exception as e:
-        db.session.rollback()
-        logger.error(f'Error unarchiving task: {str(e)}')
-        return {'status': 'error', 'message': str(e)}
-
-@socketio.on('start_task')
-def handle_start_task(data):
-    if not current_user.is_authenticated:
-        return {'status': 'error', 'message': 'Authentication required'}
-
-    try:
-        # Check if user has any in-progress tasks across all curriculums
-        in_progress = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            status=StudentTask.STATUS_IN_PROGRESS
-        ).first()
-        
-        if in_progress:
-            return {'status': 'error', 'message': 'Please finish or skip your in-progress task first'}
-            
-        task_id = data.get('task_id')
-        task = Task.query.get(task_id)
-        if not task:
-            return {'status': 'error', 'message': 'Task not found'}
-            
-        # Get or create student task
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first()
-        
-        if not student_task:
-            student_task = StudentTask(
-                student_id=current_user.id,
-                task_id=task_id,
-                status=StudentTask.STATUS_NOT_STARTED
-            )
-            db.session.add(student_task)
-            
-        # Start the task with UTC timestamp
-        now = datetime.now(pytz.UTC)
-        student_task.status = StudentTask.STATUS_IN_PROGRESS
-        student_task.started_at = now
-        student_task.finished_at = None
-        student_task.skipped_at = None
-        
-        # Start this task
-        student_task.start()  # Uses the model's start() method
-        db.session.commit()
-        
-        # Send update with task URL to client
-        socketio.emit('task_updated', {
-            'task_id': task_id,
-            'status': StudentTask.STATUS_IN_PROGRESS,
-            'link': task.link
-        }, room=request.sid)
-        
-        # Send update to client
-        socketio.emit('task_updated', {
-            'task_id': task_id,
-            'status': StudentTask.STATUS_IN_PROGRESS,
-            'link': task.link
-        }, room=request.sid)
-        
-        return {'status': 'success', 'message': 'Task started successfully'}
-        
-    except Exception as e:
-        db.session.rollback()
-        return {'status': 'error', 'message': str(e)}
 
 @socketio.on('finish_task')
 def handle_finish_task(data):
     if not current_user.is_authenticated:
         return {'status': 'error', 'message': 'Authentication required'}
 
+    task_id = data.get('task_id')
+    if not task_id:
+        return {'status': 'error', 'message': 'Task ID is required'}
+
     try:
-        task_id = data.get('task_id')
-        task = Task.query.get(task_id)
-        if not task:
-            return {'status': 'error', 'message': 'Task not found'}
-            
+        from models import StudentTask
+
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
@@ -300,106 +121,21 @@ def handle_finish_task(data):
 
         if not student_task:
             return {'status': 'error', 'message': 'Task not found'}
-            
-        if student_task.status == StudentTask.STATUS_IN_PROGRESS:
-            student_task.status = StudentTask.STATUS_COMPLETED
-            student_task.finished_at = datetime.now(pytz.UTC)
-            if student_task.started_at:
-                # Convert started_at to UTC if it's naive
-                started_at_utc = pytz.UTC.localize(student_task.started_at) if student_task.started_at.tzinfo is None else student_task.started_at.astimezone(pytz.UTC)
-                delta = student_task.finished_at - started_at_utc
-                student_task.time_spent_minutes = int(delta.total_seconds() / 60)
+
+        if student_task.can_finish:
+            student_task.finish()
             db.session.commit()
 
-            # Get next 10 incomplete tasks
-            next_tasks = Task.query.outerjoin(
-                StudentTask,
-                (Task.id == StudentTask.task_id) & 
-                (StudentTask.student_id == current_user.id)
-            ).filter(
-                Task.curriculum_id == task.curriculum_id,
-                (StudentTask.status.is_(None)) |
-                (StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED]))
-            ).order_by(Task.position).limit(10).all()
-            
-            # Format tasks for response
-            tasks_data = [{
-                'id': task.id,
-                'title': task.title,
-                'description': task.description,
-                'link': task.link
-            } for task in next_tasks]
-            
+            # Emit an event to update the UI
             socketio.emit('task_updated', {
                 'task_id': task_id,
-                'status': StudentTask.STATUS_COMPLETED,
-                'next_tasks': tasks_data
+                'status': student_task.status
             }, room=request.sid)
-            
-            return {'status': 'success', 'message': 'Task completed successfully'}
-            
-        return {'status': 'error', 'message': 'Task must be in progress to finish'}
-        
-    except Exception as e:
-        logger.error(f'Error finishing task: {str(e)}')
-        db.session.rollback()
-        return {'status': 'error', 'message': str(e)}
 
-@socketio.on('skip_task')
-def handle_skip_task(data):
-    if not current_user.is_authenticated:
-        return {'status': 'error', 'message': 'Authentication required'}
-
-    try:
-        task_id = data.get('task_id')
-        # Use join to reduce queries
-        student_task = StudentTask.query.join(Task).filter(
-            StudentTask.student_id == current_user.id,
-            StudentTask.task_id == task_id
-        ).first()
-        
-        if not student_task:
-            return {'status': 'error', 'message': 'Task not found'}
-        
-        if student_task.status != StudentTask.STATUS_COMPLETED:
-            student_task.status = StudentTask.STATUS_SKIPPED
-            student_task.skipped_at = datetime.now(pytz.UTC)
-            student_task.started_at = None
-            student_task.finished_at = None
-            
-            db.session.commit()
-            
-            # Get next incomplete tasks after skipping
-            task = Task.query.get(task_id)
-            next_tasks = Task.query.outerjoin(
-                StudentTask,
-                (Task.id == StudentTask.task_id) & 
-                (StudentTask.student_id == current_user.id)
-            ).filter(
-                Task.curriculum_id == task.curriculum_id,
-                (StudentTask.status.is_(None)) |
-                (StudentTask.status.in_([StudentTask.STATUS_NOT_STARTED]))
-            ).order_by(Task.position).limit(10).all()
-            
-            # Format tasks for response
-            tasks_data = [{
-                'id': task.id,
-                'title': task.title,
-                'description': task.description,
-                'link': task.link
-            } for task in next_tasks]
-            
-            socketio.emit('task_updated', {
-                'task_id': task_id,
-                'status': StudentTask.STATUS_SKIPPED,
-                'next_tasks': tasks_data
-            }, room=request.sid)
-            
-            return {'status': 'success', 'message': 'Task skipped successfully'}
-            
-        return {'status': 'error', 'message': 'Completed tasks cannot be skipped'}
-        
+            return {'status': 'success', 'message': 'Task finished successfully'}
+        else:
+            return {'status': 'error', 'message': 'Task cannot be finished'}
     except Exception as e:
-        logger.error(f'Error skipping task: {str(e)}')
+        logger.error(f"Error finishing task {task_id}: {str(e)}")
         db.session.rollback()
         return {'status': 'error', 'message': str(e)}
