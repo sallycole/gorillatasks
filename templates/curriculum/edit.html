@@ -12,7 +12,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+
         <!-- Debug information section -->
         {% if form.errors %}
             <div class="alert alert-danger mb-3">
@@ -24,7 +24,7 @@
                 </ul>
             </div>
         {% endif %}
-        
+
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Create New Curriculum</h3>
@@ -91,16 +91,7 @@
                             {{ form.csrf_token }}
                             <div class="mb-3">
                                 {{ form.grade_levels.label(class="form-label") }}
-                                <select class="form-select" name="grade_levels" multiple size="8">
-                                    {% for value, label in [('K', 'Kindergarten'),
-                                        ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
-                                        ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
-                                        ('7', '7th Grade'), ('8', '8th Grade'), ('9', '9th Grade'),
-                                        ('10', '10th Grade'), ('11', '11th Grade'), ('12', '12th Grade'),
-                                        ('College', 'College')] %}
-                                        <option value="{{ value }}">{{ label }}</option>
-                                    {% endfor %}
-                                </select>
+                                {{ form.grade_levels(class="form-select", multiple=true, size=8) }}
                                 <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
                             </div>
                             <div class="mb-3">
@@ -134,16 +125,7 @@
                             </div>
                             <div class="mb-3">
                                 {{ form.grade_levels.label(class="form-label") }}
-                                <select class="form-select" name="grade_levels" multiple size="8">
-                                    {% for value, label in [('K', 'Kindergarten'),
-                                        ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
-                                        ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
-                                        ('7', '7th Grade'), ('8', '8th Grade'), ('9', '9th Grade'),
-                                        ('10', '10th Grade'), ('11', '11th Grade'), ('12', '12th Grade'),
-                                        ('College', 'College')] %}
-                                        <option value="{{ value }}">{{ label }}</option>
-                                    {% endfor %}
-                                </select>
+                                {{ form.grade_levels(class="form-select", multiple=true, size=8) }}
                                 <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
                             </div>
                             <button type="submit" class="btn btn-primary" name="form_type" value="manual">Create Curriculum</button>
@@ -170,16 +152,7 @@
                             </div>
                             <div class="mb-3">
                                 {{ form.grade_levels.label(class="form-label") }}
-                                <select class="form-select" name="grade_levels" multiple size="8" required>
-                                    {% for value, label in [('K', 'Kindergarten'),
-                                        ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
-                                        ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
-                                        ('7', '7th Grade'), ('8', '8th Grade'), ('9', '9th Grade'),
-                                        ('10', '10th Grade'), ('11', '11th Grade'), ('12', '12th Grade'),
-                                        ('College', 'College')] %}
-                                        <option value="{{ value }}">{{ label }}</option>
-                                    {% endfor %}
-                                </select>
+                                {{ form.grade_levels(class="form-select", multiple=true, size=8, required=true) }}
                                 <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
                             </div>
                             <div class="mb-3">
@@ -207,7 +180,7 @@
                             </div>
                             <input type="hidden" name="is_adaptive" value="true">
                             <button type="submit" class="btn btn-primary">Create Adaptive Curriculum</button>
-                            
+
                             <!-- Debug section -->
                             <div class="mt-3 pt-3 border-top">
                                 <details>
@@ -240,7 +213,7 @@
         // Get the form_type from the URL query parameter if it exists
         const urlParams = new URLSearchParams(window.location.search);
         const formType = urlParams.get('form_type');
-        
+
         if (formType === 'adaptive') {
             // Activate the adaptive tab
             const adaptiveTab = document.getElementById('adaptive-tab');
@@ -267,7 +240,7 @@
                     method: form.method,
                     formData: new FormData(form)
                 });
-                
+
                 // Debug form fields
                 const formFields = {};
                 Array.from(form.elements).forEach(element => {

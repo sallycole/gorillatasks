@@ -75,7 +75,7 @@ class CurriculumForm(FlaskForm):
         ('11', '11th Grade'), 
         ('12', '12th Grade'),
         ('College', 'College')
-    ])
+    ], coerce=str)
 
 class TaskForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
