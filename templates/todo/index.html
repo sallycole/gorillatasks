@@ -5,12 +5,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // We no longer rely on sessionStorage to restore content
     // Instead, the server provides the correct state of each task
-    
+
     // Re-initialize feather icons
     if (typeof feather !== 'undefined') {
         feather.replace();
     }
-    
+
     // Ensure task counters are up to date
     updateTaskCounters();
 });
@@ -20,13 +20,13 @@ function updateTaskCounters() {
     // Get all tasks
     const completedTasks = document.querySelectorAll('.task-actions button:disabled').length;
     const totalTasks = document.querySelectorAll('.task-actions').length;
-    
+
     // Update the counters display
     const progressCounter = document.querySelector('.display-5');
     if (progressCounter) {
         progressCounter.textContent = `${completedTasks} / ${totalTasks} tasks`;
     }
-    
+
     // Calculate time spent
     let totalMinutes = 0;
     document.querySelectorAll('td:nth-child(2)').forEach(cell => {
@@ -38,7 +38,7 @@ function updateTaskCounters() {
             }
         }
     });
-    
+
     // Update time spent display
     const timeDisplay = document.querySelectorAll('.display-5')[1];
     if (timeDisplay) {
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // For finish action, we'll get time_spent data back
                     if (action === 'finish' && data.time_spent !== undefined) {
                         console.log(`Task completed in ${data.time_spent} minutes`);
-                        
+
                         // Update the UI to show completed status
                         actionDiv.innerHTML = `
                             <div class="d-inline-flex gap-2">
@@ -106,14 +106,14 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </button>
                             </div>
                         `;
-                        
+
                         // Update time spent cell
                         const row = actionDiv.closest('tr');
                         const timeSpentCell = row.querySelector('td:nth-child(2)');
                         if (timeSpentCell) {
                             timeSpentCell.textContent = `${data.time_spent} min`;
                         }
-                        
+
                         // We no longer store task status in session storage
                         // The server will provide the correct state when the page is refreshed
                     } else if (action === 'start') {
@@ -125,21 +125,21 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </button>
                             </div>
                         `;
-                        
+
                         // Open task link if available
                         if (data.task && data.task.link) {
                             openTaskLink(data.task.link);
                         }
                     }
-                    
+
                     // Re-initialize feather icons
                     if (typeof feather !== 'undefined') {
                         feather.replace();
                     }
-                    
+
                     // Update task counters and progress
                     updateTaskCounters();
-                    
+
                     // For completed tasks, reload the page after a short delay
                     // This ensures we get fresh data from the server
                     if (action === 'finish') {
@@ -194,7 +194,7 @@ function openTaskLink(link) {
 }
 
 function resetTodayTasks() {
-    if (confirm('Are you sure you want to reset your To Do Today list? All tasks will be removed and returned to the Study Inventory page.')) {
+    if (confirm('Are you sure you want to reset your To Do Today list? All tasks will be removed. Unfinished tasks will return to the Study Inventory page. Completed tasks will move to the Archive.')) {
         fetch('/todo/reset', {
             method: 'POST',
             headers: {
