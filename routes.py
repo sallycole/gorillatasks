@@ -415,7 +415,10 @@ def finish_task(id):
             'message': f"Task cannot be finished: {str(e)}"
         }), 400
 
+from utils.db_helpers import with_db_retry
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
+@with_db_retry
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('inventory.index'))
@@ -493,6 +496,7 @@ def register():
 
 @auth_bp.route('/logout')
 @login_required
+@with_db_retry
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))

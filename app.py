@@ -32,6 +32,14 @@ def create_app():
         if database_url.startswith("postgres://"):
             database_url = database_url.replace("postgres://", "postgresql://", 1)
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+        # Add connection pool settings for better stability
+        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+            'pool_size': 10,
+            'pool_recycle': 280,  # Recycle connections before Neon's 5-minute timeout
+            'pool_pre_ping': True,  # Check connection validity before using it
+            'pool_timeout': 30,
+            'max_overflow': 15
+        }
         logger.info(f"Database URL configured: {database_url.split('@')[0]}@[REDACTED]")
     else:
         # Default to SQLite for development
