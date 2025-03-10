@@ -1031,19 +1031,8 @@ def new():
                 db.session.add(task)
                 db.session.commit()
                 logger.info(f"Adaptive curriculum created successfully with ID: {curriculum.id}")
-
-                # Enroll the creator in the curriculum automatically
-                enrollment = Enrollment(
-                    student_id=current_user.id,
-                    curriculum_id=curriculum.id,
-                    study_days_per_week=5,  # Default to 5 days per week
-                    target_completion_date=datetime.now(pytz.UTC) + timedelta(days=30)  # Default to 30 days
-                )
-                enrollment.weekly_goal_count = enrollment.calculate_weekly_goal()
-                db.session.add(enrollment)
-                db.session.commit()
                 
-                flash('Adaptive curriculum created and enrolled successfully!')
+                flash('Adaptive curriculum created successfully. You can now enroll in it from the curriculums page.')
                 return redirect(url_for('curriculum.list'))
             except Exception as e:
                 db.session.rollback()
