@@ -3,6 +3,28 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'message' else 'info' }} mb-3">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Debug information section -->
+        {% if form.errors %}
+            <div class="alert alert-danger mb-3">
+                <h4>Form Validation Errors:</h4>
+                <ul>
+                    {% for field, errors in form.errors.items() %}
+                        <li><strong>{{ field }}:</strong> {{ ', '.join(errors) }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Create New Curriculum</h3>
@@ -185,6 +207,19 @@
                             </div>
                             <input type="hidden" name="is_adaptive" value="true">
                             <button type="submit" class="btn btn-primary">Create Adaptive Curriculum</button>
+                            
+                            <!-- Debug section -->
+                            <div class="mt-3 pt-3 border-top">
+                                <details>
+                                    <summary>Debug Information</summary>
+                                    <div class="bg-light p-3 mt-2">
+                                        <p><strong>Form Action:</strong> {{ url_for('curriculum.new') }}</p>
+                                        <p><strong>Form Method:</strong> POST</p>
+                                        <p><strong>Form Type:</strong> adaptive</p>
+                                        <p><strong>Required Fields:</strong> name, description, link, grade_levels, adaptive_task_title, adaptive_task_action</p>
+                                    </div>
+                                </details>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -219,6 +254,34 @@
                 manualTab.click();
             }
         }
+
+        // Add form submission debugging
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                console.log('Form submission attempted:', {
+                    formId: form.className,
+                    formType: form.querySelector('input[name="form_type"]') ? 
+                             form.querySelector('input[name="form_type"]').value : 'unknown',
+                    action: form.action,
+                    method: form.method,
+                    formData: new FormData(form)
+                });
+                
+                // Debug form fields
+                const formFields = {};
+                Array.from(form.elements).forEach(element => {
+                    if (element.name) {
+                        if (element.type === 'select-multiple') {
+                            formFields[element.name] = Array.from(element.selectedOptions).map(opt => opt.value);
+                        } else {
+                            formFields[element.name] = element.value;
+                        }
+                    }
+                });
+                console.log('Form fields:', formFields);
+            });
+        });
     });
 </script>
 {% endblock %}
