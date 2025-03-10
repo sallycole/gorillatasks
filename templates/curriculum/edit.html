@@ -130,7 +130,7 @@
 
                     <!-- Adaptive Path Tab -->
                     <div class="tab-pane fade" id="adaptive" role="tabpanel" aria-labelledby="adaptive-tab">
-                        <form method="POST" class="adaptive-form">
+                        <form method="POST" class="adaptive-form" action="{{ url_for('curriculum.new') }}">
                             {{ form.csrf_token }}
                             <div class="mb-3">
                                 {{ form.name.label(class="form-label") }}
@@ -144,6 +144,20 @@
                                 {{ form.link.label(class="form-label") }}
                                 {{ form.link(class="form-control", required=true) }}
                                 <div class="form-text">Link to the adaptive learning resource that will be used for each session.</div>
+                            </div>
+                            <div class="mb-3">
+                                {{ form.grade_levels.label(class="form-label") }}
+                                <select class="form-select" name="grade_levels" multiple size="8">
+                                    {% for value, label in [('K', 'Kindergarten'),
+                                        ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
+                                        ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
+                                        ('7', '7th Grade'), ('8', '8th Grade'), ('9', '9th Grade'),
+                                        ('10', '10th Grade'), ('11', '11th Grade'), ('12', '12th Grade'),
+                                        ('College', 'College')] %}
+                                        <option value="{{ value }}">{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple grade levels</div>
                             </div>
                             <div class="mb-3">
                                 {{ form.publisher.label(class="form-label") }}
