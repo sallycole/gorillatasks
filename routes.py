@@ -944,6 +944,8 @@ def new():
     form = CurriculumForm()
     if form.validate_on_submit():
         form_type = request.form.get('form_type', 'manual')
+        
+        logger.info(f"Processing curriculum form with type: {form_type}")
 
         if form_type == 'xml' and form.xml_file.data:
             # Process XML file upload first
@@ -980,7 +982,7 @@ def new():
 
                         task = Task(
                             curriculum_id=curriculum.id,
-                            title=task_elem.find('title').text.strip if task_elem.find('title') is not None and task_elem.find('title').text else '',
+                            title=task_elem.find('title').text.strip() if task_elem.find('title') is not None and task_elem.find('title').text else '',
                             description=task_elem.find('description').text.strip() if task_elem.find('description') is not None and task_elem.find('description').text else '',
                             link=task_elem.find('url').text.strip() if task_elem.find('url') is not None and task_elem.find('url').text else None,
                             action=action_value,
@@ -994,38 +996,49 @@ def new():
                 return redirect(url_for('curriculum.list'))
             except Exception as e:
                 db.session.rollback()
+                logger.error(f"Error processing XML file: {str(e)}")
                 flash(f'Error processing XML file: {str(e)}', 'error')
                 return render_template('curriculum/edit.html', form=form, grade_levels=GRADE_LEVELS)
         elif form_type == 'adaptive':
             # Handle adaptive curriculum creation
-            curriculum = Curriculum(
-                name=form.name.data,
-                description=form.description.data,
-                link=form.link.data,
-                public=False,  # All new curriculums start as private
-                creator_id=current_user.id,
-                publisher=form.publisher.data,
-                grade_levels=request.form.getlist('grade_levels'),
-                is_adaptive=True
-            )
-            db.session.add(curriculum)
-            db.session.flush()  # Get curriculum.id without committing
+            try:
+                logger.info(f"Creating adaptive curriculum: {form.name.data}")
+                logger.info(f"Grade levels: {request.form.getlist('grade_levels')}")
+                
+                curriculum = Curriculum(
+                    name=form.name.data,
+                    description=form.description.data,
+                    link=form.link.data,
+                    public=False,  # All new curriculums start as private
+                    creator_id=current_user.id,
+                    publisher=form.publisher.data,
+                    grade_levels=request.form.getlist('grade_levels'),
+                    is_adaptive=True
+                )
+                db.session.add(curriculum)
+                db.session.flush()  # Get curriculum.id without committing
 
-            # Create the single adaptive task
-            task = Task(
-                curriculum_id=curriculum.id,
-                title=request.form.get('adaptive_task_title', 'Practice Session'),
-                description=request.form.get('adaptive_task_description', 'Complete one session'),
-                link=form.link.data,  # Use same link as curriculum
-                action=Task.ACTION_MAP.get(request.form.get('adaptive_task_action', 'Do'), Task.ACTION_DO),
-                position=1,
-                is_adaptive=True
-            )
-            db.session.add(task)
-            db.session.commit()
+                # Create the single adaptive task
+                task = Task(
+                    curriculum_id=curriculum.id,
+                    title=request.form.get('adaptive_task_title', 'Practice Session'),
+                    description=request.form.get('adaptive_task_description', 'Complete one session'),
+                    link=form.link.data,  # Use same link as curriculum
+                    action=Task.ACTION_MAP.get(request.form.get('adaptive_task_action', 'Do'), Task.ACTION_DO),
+                    position=1,
+                    is_adaptive=True
+                )
+                db.session.add(task)
+                db.session.commit()
+                logger.info(f"Adaptive curriculum created successfully with ID: {curriculum.id}")
 
-            flash('Adaptive curriculum created successfully!')
-            return redirect(url_for('curriculum.list'))
+                flash('Adaptive curriculum created successfully!')
+                return redirect(url_for('curriculum.list'))
+            except Exception as e:
+                db.session.rollback()
+                logger.error(f"Error creating adaptive curriculum: {str(e)}")
+                flash(f'Error creating adaptive curriculum: {str(e)}', 'error')
+                return render_template('curriculum/edit.html', form=form, grade_levels=GRADE_LEVELS, form_type='adaptive')
         else:
             # Handle manual curriculum creation
             curriculum = Curriculum(

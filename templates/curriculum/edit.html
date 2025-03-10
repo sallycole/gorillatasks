@@ -130,8 +130,9 @@
 
                     <!-- Adaptive Path Tab -->
                     <div class="tab-pane fade" id="adaptive" role="tabpanel" aria-labelledby="adaptive-tab">
-                        <form method="POST" class="adaptive-form" action="{{ url_for('curriculum.new') }}">
+                        <form method="POST" class="adaptive-form">
                             {{ form.csrf_token }}
+                            <input type="hidden" name="form_type" value="adaptive">
                             <div class="mb-3">
                                 {{ form.name.label(class="form-label") }}
                                 {{ form.name(class="form-control", required=true) }}
@@ -147,7 +148,7 @@
                             </div>
                             <div class="mb-3">
                                 {{ form.grade_levels.label(class="form-label") }}
-                                <select class="form-select" name="grade_levels" multiple size="8">
+                                <select class="form-select" name="grade_levels" multiple size="8" required>
                                     {% for value, label in [('K', 'Kindergarten'),
                                         ('1', '1st Grade'), ('2', '2nd Grade'), ('3', '3rd Grade'),
                                         ('4', '4th Grade'), ('5', '5th Grade'), ('6', '6th Grade'),
@@ -197,7 +198,7 @@
                                 </select>
                             </div>
                             <input type="hidden" name="is_adaptive" value="true">
-                            <button type="submit" class="btn btn-primary" name="form_type" value="adaptive">Create Adaptive Curriculum</button>
+                            <button type="submit" class="btn btn-primary">Create Adaptive Curriculum</button>
                         </form>
                     </div>
                 </div>
