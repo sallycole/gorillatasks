@@ -540,6 +540,9 @@ def edit_enrollment(enrollment_id):
 @inventory_bp.route('/')
 @login_required
 def index():
+    from datetime import datetime
+    start_time = datetime.now()
+    
     # Get enrollments with curriculum data
     enrollments = (Enrollment.query
         .join(Curriculum)
