@@ -540,7 +540,7 @@ def edit_enrollment(enrollment_id):
 @inventory_bp.route('/')
 @login_required
 def index():
-    # Single efficient query to get enrollments with curriculum data
+    # Get enrollments with curriculum data
     enrollments = (Enrollment.query
         .join(Curriculum)
         .filter(
@@ -549,9 +549,13 @@ def index():
         )
         .options(
             db.joinedload(Enrollment.curriculum)
-            .joinedload(Curriculum.tasks)
         )
         .all())
+    
+    # Load tasks separately if needed
+    for enrollment in enrollments:
+        if enrollment.curriculum:
+            tasks = enrollment.curriculum.tasks.all()
 
     # Early return for no enrollments
     if not enrollments:
