@@ -540,27 +540,21 @@ def edit_enrollment(enrollment_id):
 @inventory_bp.route('/')
 @login_required
 def index():
-    import logging
-    logger = logging.getLogger(__name__)
-    start_time = datetime.now()
-    logger.info(f"Starting inventory page load for user {current_user.id}")
-
-    # Get enrollments with related curriculum data in a single query
+    # Single efficient query to get enrollments with curriculum data
     enrollments = (Enrollment.query
+        .join(Curriculum)
+        .filter(
+            Enrollment.student_id == current_user.id,
+            Enrollment.paused == False
+        )
         .options(
             db.joinedload(Enrollment.curriculum)
+            .joinedload(Curriculum.tasks)
         )
-        .filter_by(student_id=current_user.id, paused=False)
         .all())
 
-    # Filter out completed enrollments
-    enrollments = [e for e in enrollments if not e.is_completed()]
-
-    # Get all curriculum IDs for efficient task queries
-    curriculum_ids = [e.curriculum_id for e in enrollments]
-    if not curriculum_ids:
-        # Return early if no enrollments
-        logger.info(f"No enrollments found for user {current_user.id}")
+    # Early return for no enrollments
+    if not enrollments:
         return render_template('inventory/index.html',
                          enrollments=[],
                          tasks_stats={},
@@ -572,39 +566,23 @@ def index():
                          STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
                          current_user=current_user)
 
-    # Recalculate weekly goals with a single batch update
-    weekly_goals_updates = []
-    for enrollment in enrollments:
-        weekly_goal = enrollment.calculate_weekly_goal()
-        if weekly_goal != enrollment.weekly_goal_count:
-            enrollment.weekly_goal_count = weekly_goal
-            weekly_goals_updates.append(enrollment)
-
-    if weekly_goals_updates:
-        db.session.bulk_save_objects(weekly_goals_updates)
-        db.session.commit()
-
-    # Get task stats for all curriculums in one efficient query
-    task_stats_query = (db.session.query(
-            Task.curriculum_id,
-            Task.is_adaptive,
-            db.func.count(Task.id).label('total_tasks'),
-            db.func.sum(db.case(
-                (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
-                else_=0
-            )).label('completed_tasks'),
-            db.func.sum(db.case(
-                (StudentTask.status == StudentTask.STATUS_SKIPPED, 1),
-                else_=0
-            )).label('skipped_tasks')
+    # Get all curriculum IDs
+    curriculum_ids = [e.curriculum_id for e in enrollments]
+    
+    # Bulk fetch all student tasks for these curriculums
+    student_tasks = (StudentTask.query
+        .join(Task)
+        .filter(
+            StudentTask.student_id == current_user.id,
+            Task.curriculum_id.in_(curriculum_ids)
         )
-        .filter(Task.curriculum_id.in_(curriculum_ids))
-        .outerjoin(StudentTask, db.and_(
-            Task.id == StudentTask.task_id,
-            StudentTask.student_id == current_user.id
-        ))
-        .group_by(Task.curriculum_id, Task.is_adaptive)
         .all())
+    
+    # Create lookup dictionary for student tasks
+    student_task_map = {}
+    for st in student_tasks:
+        if st.task_id not in student_task_map:
+            student_task_map[st.task_id] = st
 
     # Restructure stats with curriculum_id as key
     curriculum_stats = {}
