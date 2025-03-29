@@ -1,0 +1,130 @@
+InvalidRequestError
+
+sqlalchemy.exc.InvalidRequestError: 'Curriculum.tasks' does not support object population - eager loading cannot be applied.
+Traceback (most recent call last)
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1514, in wsgi_app
+
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/routes.py", line 554, in index
+
+    .all())
+     ^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
+
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
+
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2362, in execute
+
+    return self._execute_internal(
+           
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2247, in _execute_internal
+
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 308, in orm_execute_statement
+
+    return cls.orm_setup_cursor_result(
+           
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 600, in orm_setup_cursor_result
+
+    return loading.instances(result, querycontext)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 132, in instances
+
+    with util.safe_reraise():
+    ^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+
+    raise exc_value.with_traceback(exc_tb)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 113, in instances
+
+    *[
+     
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 114, in <listcomp>
+
+    query_entity.row_processor(context, cursor)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 2723, in row_processor
+
+    _instance = loading._instance_processor(
+                
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 958, in _instance_processor
+
+    prop.create_row_processor(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 1077, in create_row_processor
+
+    strat.create_row_processor(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/strategies.py", line 2828, in create_row_processor
+
+    _instance = loading._instance_processor(
+                
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 958, in _instance_processor
+
+    prop.create_row_processor(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/interfaces.py", line 1077, in create_row_processor
+
+    strat.create_row_processor(
+    ^
+
+    File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/strategies.py", line 2811, in create_row_processor
+
+    raise sa_exc.InvalidRequestError(
+    ^
+
+    sqlalchemy.exc.InvalidRequestError: 'Curriculum.tasks' does not support object population - eager loading cannot be applied.
+
+The debugger caught an exception in your WSGI application. You can now look at the traceback which led to the error.
+
+To switch between the interactive traceback and the plaintext one, you can click on the "Traceback" headline. From the text traceback you can also create a paste of it.
