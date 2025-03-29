@@ -551,11 +551,28 @@ def index():
             db.joinedload(Enrollment.curriculum)
         )
         .all())
-    
-    # Load tasks separately if needed
-    for enrollment in enrollments:
-        if enrollment.curriculum:
-            tasks = enrollment.curriculum.tasks.all()
+
+    # Get task stats for each curriculum
+    task_stats_query = db.session.query(
+        Task.curriculum_id,
+        Curriculum.is_adaptive,
+        db.func.count(Task.id).label('total_tasks'),
+        db.func.sum(
+            db.case(
+                (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
+                else_=0
+            )
+        ).label('completed_tasks'),
+        db.func.sum(
+            db.case(
+                (StudentTask.status == StudentTask.STATUS_SKIPPED, 1),
+                else_=0
+            )
+        ).label('skipped_tasks')
+    ).outerjoin(StudentTask, db.and_(
+        StudentTask.task_id == Task.id,
+        StudentTask.student_id == current_user.id
+    )).join(Curriculum).group_by(Task.curriculum_id, Curriculum.is_adaptive)
 
     # Early return for no enrollments
     if not enrollments:
