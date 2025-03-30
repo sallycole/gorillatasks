@@ -814,10 +814,7 @@ def skip_task(id):
             task_id=id
         ).first()
 
-        logger.info(f"Found existing student task: {student_task is not None}")
-
         if not student_task:
-            logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
                 student_id=current_user.id,
                 task_id=id,
@@ -825,23 +822,26 @@ def skip_task(id):
             )
             db.session.add(student_task)
 
-        # Skip the task
-        logger.info(f"Current task status: {student_task.status}")
-        student_task.status = StudentTask.STATUS_SKIPPED
-        student_task.skipped_at = datetime.now(pytz.UTC)
-        
-        logger.info(f"Committing skip for task {id}")
-        db.session.commit()
-        logger.info(f"Skip committed successfully for task {id}")
-        
-        return jsonify({
-            'status': 'success',
-            'message': 'Task skipped successfully',
-            'task': {
-                'id': id,
-                'status': student_task.status
-            }
-        })
+        # Skip the task if not already completed
+        if student_task.status != StudentTask.STATUS_COMPLETED:
+            student_task.skip()
+            db.session.commit()
+            logger.info(f"Task {id} skipped successfully")
+            
+            return jsonify({
+                'status': 'success',
+                'message': 'Task skipped successfully',
+                'task': {
+                    'id': id,
+                    'status': student_task.status
+                }
+            })
+        else:
+            return jsonify({
+                'status': 'error',
+                'message': 'Cannot skip completed task'
+            }), 400
+
     except Exception as e:
         db.session.rollback()
         logger.error(f"Error skipping task {id}: {str(e)}")

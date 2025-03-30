@@ -64,58 +64,7 @@ def handle_start_task(data):
         db.session.rollback()
         return {'status': 'error', 'message': str(e)}
 
-@socketio.on('skip_task')
-def handle_skip_task(data):
-    logger.info(f"Socket skip_task event received: {data}")
-    
-    if not current_user.is_authenticated:
-        logger.warning("Skip task attempted without authentication")
-        return {'status': 'error', 'message': 'Authentication required'}
 
-    task_id = data.get('task_id')
-    if not task_id:
-        logger.warning("Skip task attempted without task_id")
-        return {'status': 'error', 'message': 'Task ID is required'}
-
-    try:
-        from models import StudentTask
-        logger.info(f"Looking for student task {task_id} for user {current_user.id}")
-
-        # Get or create student task
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first()
-
-        if not student_task:
-            student_task = StudentTask(
-                student_id=current_user.id,
-                task_id=task_id,
-                status=StudentTask.STATUS_NOT_STARTED
-            )
-            db.session.add(student_task)
-
-        logger.info(f"Processing skip for task with status: {student_task.status}")
-
-        # Skip the task and set timestamp
-        student_task.status = StudentTask.STATUS_SKIPPED
-        student_task.skipped_at = datetime.now(pytz.UTC)
-        
-        db.session.commit()
-        logger.info(f"Task {task_id} skipped successfully")
-
-        # Emit an event to update the UI
-        socketio.emit('task_updated', {
-            'task_id': task_id,
-            'status': StudentTask.STATUS_SKIPPED
-        }, room=request.sid)
-
-        return {'status': 'success', 'message': 'Task skipped successfully'}
-
-    except Exception as e:
-        logger.error(f"Error skipping task {task_id}: {str(e)}")
-        db.session.rollback()
-        return {'status': 'error', 'message': str(e)}
 
 @socketio.on('finish_task')
 def handle_finish_task(data):

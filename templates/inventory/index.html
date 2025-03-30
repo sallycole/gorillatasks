@@ -229,29 +229,63 @@ function initializeSocket() {
         setTimeout(() => errorNotification.remove(), 4000);
     }, 10000); // Increased to 10 seconds
 
-    socket.emit(action + '_task', { task_id: taskId }, function(response) {
-        console.log("Socket response received for", action, "task", taskId);
-        clearTimeout(timeout);
-        if (!response) {
-            console.error('No response from server');
+    if (action === 'skip') {
+        // Use HTTP for skip operation
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        fetch(`/inventory/task/${taskId}/skip`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                window.location.reload();
+            } else {
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                throw new Error(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error skipping task:', error);
             actionDiv.innerHTML = originalContent;
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
-            return;
-        }
+        });
+    } else {
+        // Use WebSocket for other operations
+        socket.emit(action + '_task', { task_id: taskId }, function(response) {
+            console.log("Socket response received for", action, "task", taskId);
+            clearTimeout(timeout);
+            if (!response) {
+                console.error('No response from server');
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+                return;
+            }
 
-        if (response.status === 'success') {
-            console.log('Task action successful:', response);
-            // UI will be updated by the task_updated event handler
-        } else {
-            console.error('Task action failed:', response.message);
-            actionDiv.innerHTML = originalContent;
-            if (typeof feather !== 'undefined') {
-                feather.replace();
+            if (response.status === 'success') {
+                console.log('Task action successful:', response);
+                // UI will be updated by the task_updated event handler
+            } else {
+                console.error('Task action failed:', response.message);
+                actionDiv.innerHTML = originalContent;
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
             }
-        }
-    });
+        });
+    }
 };
 
 socket.on('task_updated', function(data) {
