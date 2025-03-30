@@ -801,13 +801,18 @@ def finish_task(id):
 @login_required
 def skip_task(id):
     try:
+        logger.info(f"Skip task request received for task {id} from user {current_user.id}")
+        
         # Get or create student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id
         ).first()
 
+        logger.info(f"Found existing student task: {student_task is not None}")
+
         if not student_task:
+            logger.info(f"Creating new student task for task {id}")
             student_task = StudentTask(
                 student_id=current_user.id,
                 task_id=id,
@@ -816,10 +821,13 @@ def skip_task(id):
             db.session.add(student_task)
 
         # Skip the task
+        logger.info(f"Current task status: {student_task.status}")
         student_task.status = StudentTask.STATUS_SKIPPED
         student_task.skipped_at = datetime.now(pytz.UTC)
         
+        logger.info(f"Committing skip for task {id}")
         db.session.commit()
+        logger.info(f"Skip committed successfully for task {id}")
         
         return jsonify({
             'status': 'success',

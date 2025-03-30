@@ -66,15 +66,20 @@ def handle_start_task(data):
 
 @socketio.on('skip_task')
 def handle_skip_task(data):
+    logger.info(f"Socket skip_task event received: {data}")
+    
     if not current_user.is_authenticated:
+        logger.warning("Skip task attempted without authentication")
         return {'status': 'error', 'message': 'Authentication required'}
 
     task_id = data.get('task_id')
     if not task_id:
+        logger.warning("Skip task attempted without task_id")
         return {'status': 'error', 'message': 'Task ID is required'}
 
     try:
         from models import StudentTask
+        logger.info(f"Looking for student task {task_id} for user {current_user.id}")
 
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
@@ -82,7 +87,10 @@ def handle_skip_task(data):
         ).first()
 
         if not student_task:
+            logger.warning(f"No student task found for task_id {task_id}")
             return {'status': 'error', 'message': 'Task not found'}
+            
+        logger.info(f"Found student task with status: {student_task.status}")
 
         if student_task.can_skip:
             student_task.skip()
