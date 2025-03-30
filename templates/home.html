@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6">
+            <h1 class="display-4 mb-4">Access your personalized learning dashboard.</h1>
+            {% if not current_user.is_authenticated %}
+            <div class="d-grid gap-3 d-md-flex">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary btn-lg">Register</a>
+            </div>
+            {% else %}
+            <div class="d-grid gap-3 d-md-flex">
+                <a href="{{ url_for('inventory.index') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='images/hero-image.svg') }}" alt="Learning Dashboard" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container py-5">
+        <h2 class="text-center mb-5">Why Study Here?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i data-feather="book-open" class="text-primary mb-3"></i>
+                        <h3 class="h5">Study Multiple Curriculums</h3>
+                        <p>Consolidate your learning to one dashboard as you study with the best curriculums online or offline.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i data-feather="layers" class="text-primary mb-3"></i>
+                        <h3 class="h5">Tackle Any Learning Sequence</h3>
+                        <p>Import the tasks (i.e. what to read, watch, listen to, or do) from any curriculum and track your progress.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i data-feather="filter" class="text-primary mb-3"></i>
+                        <h3 class="h5">Skip Meaningless Tasks</h3>
+                        <p>Remove tasks from your learning dashboard that are too easy, too hard, or too boring to skip them.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

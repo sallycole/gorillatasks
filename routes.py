@@ -121,11 +121,11 @@ def unarchive_task(id):
         student_task.promoted = False
 
         db.session.commit()
-        
+
         # If it's an AJAX request, return JSON
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return jsonify({'status': 'success'})
-        
+
         # Otherwise, redirect back to the enrollment view
         flash('Task successfully unarchived!', 'success')
         return redirect(url_for('archive.view_enrollment', id=request.args.get('enrollment_id')))
@@ -542,7 +542,7 @@ def edit_enrollment(enrollment_id):
 def index():
     from datetime import datetime
     start_time = datetime.now()
-    
+
     # Get enrollments with curriculum data
     enrollments = (Enrollment.query
         .join(Curriculum)
@@ -592,7 +592,7 @@ def index():
 
     # Get all curriculum IDs
     curriculum_ids = [e.curriculum_id for e in enrollments]
-    
+
     # Bulk fetch all student tasks for these curriculums
     student_tasks = (StudentTask.query
         .join(Task)
@@ -601,7 +601,7 @@ def index():
             Task.curriculum_id.in_(curriculum_ids)
         )
         .all())
-    
+
     # Create lookup dictionary for student tasks
     student_task_map = {}
     for st in student_tasks:
@@ -946,7 +946,7 @@ def new():
     form = CurriculumForm()
     if form.validate_on_submit():
         form_type = request.form.get('form_type', 'manual')
-        
+
         logger.info(f"Processing curriculum form with type: {form_type}")
 
         if form_type == 'xml' and form.xml_file.data:
@@ -1006,7 +1006,7 @@ def new():
             try:
                 logger.info(f"Creating adaptive curriculum: {form.name.data}")
                 logger.info(f"Grade levels: {request.form.getlist('grade_levels')}")
-                
+
                 curriculum = Curriculum(
                     name=form.name.data,
                     description=form.description.data,
@@ -1033,7 +1033,7 @@ def new():
                 db.session.add(task)
                 db.session.commit()
                 logger.info(f"Adaptive curriculum created successfully with ID: {curriculum.id}")
-                
+
                 flash('Adaptive curriculum created successfully. You can now enroll in it from the curriculums page.')
                 return redirect(url_for('curriculum.list'))
             except Exception as e:
@@ -1238,3 +1238,9 @@ def enroll(id):
         return redirect(url_for('inventory.index'))
 
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
+
+from app import app
+
+@app.route('/')
+def root():
+    return render_template('home.html')
