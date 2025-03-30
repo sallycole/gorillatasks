@@ -456,13 +456,21 @@ def login():
             if next_page:
                 return redirect(next_page)
             
-            # Check if coming from homepage or login page
+            # Log referrer info for debugging
             referrer = request.referrer or ''
-            is_from_homepage = (referrer.endswith('/') and not any(x in referrer for x in ['/login', '/todo', '/inventory']))
-            is_login_from_homepage = ('/login' in referrer and 'next=' + url_for('root') in request.url)
+            logger.info(f"Login referrer: {referrer}")
+            logger.info(f"Login URL: {request.url}")
             
-            if is_from_homepage or is_login_from_homepage:
-                logger.info(f"Redirecting to homepage after login from: {referrer}")
+            # Check if came from homepage through login page
+            if referrer and '/login' in referrer:
+                original_page = request.args.get('next', '')
+                logger.info(f"Next parameter: {original_page}")
+                if original_page == '/' or original_page == url_for('root'):
+                    logger.info("Redirecting back to homepage")
+                    return redirect(url_for('root'))
+            # Direct login from homepage
+            elif referrer and referrer.endswith('/') and '/login' not in referrer:
+                logger.info("Direct homepage login, redirecting back to homepage")
                 return redirect(url_for('root'))
             
             # Default redirect
