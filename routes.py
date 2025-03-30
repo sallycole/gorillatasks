@@ -1223,8 +1223,7 @@ def enroll(id):
 
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
 
-from app import app
-
-@app.route('/')
-def root():
-    return render_template('home.html')
+def init_routes(app):
+    @app.route('/')
+    def root():
+        return render_template('home.html')
