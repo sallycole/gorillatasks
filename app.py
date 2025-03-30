@@ -83,9 +83,7 @@ def create_app():
 
     @app.route('/')
     def root():
-        if current_user.is_authenticated:
-            return redirect(url_for('inventory.index'))
-        return redirect(url_for('auth.login'))
+        return render_template('home.html')
 
     # Create database tables
     with app.app_context():
