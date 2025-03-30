@@ -595,8 +595,8 @@ def index():
             Task.curriculum_id,
             Curriculum.is_adaptive,
             db.func.count(Task.id).label('total_tasks'),
-            db.func.count(db.case([(StudentTask.status == StudentTask.STATUS_COMPLETED, 1)])).label('completed_tasks'),
-            db.func.count(db.case([(StudentTask.status == StudentTask.STATUS_SKIPPED, 1)])).label('skipped_tasks')
+            db.func.count(db.case((StudentTask.status == StudentTask.STATUS_COMPLETED, 1))).label('completed_tasks'),
+            db.func.count(db.case((StudentTask.status == StudentTask.STATUS_SKIPPED, 1))).label('skipped_tasks')
         )
         .select_from(Task)
         .join(Curriculum)
