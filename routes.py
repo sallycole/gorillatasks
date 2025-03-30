@@ -801,24 +801,37 @@ def finish_task(id):
 @login_required
 def skip_task(id):
     try:
-        student_task= StudentTask.query.filter_by(
+        # Get or create student task
+        student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id
-        ).first_or_404()
+        ).first()
 
-        if student_task.can_skip:
-            student_task.skip()
-            db.session.commit()
-            return jsonify({
-                'status': 'success',
-                'message': 'Task skipped successfully'
-            })
+        if not student_task:
+            student_task = StudentTask(
+                student_id=current_user.id,
+                task_id=id,
+                status=StudentTask.STATUS_NOT_STARTED
+            )
+            db.session.add(student_task)
+
+        # Skip the task
+        student_task.status = StudentTask.STATUS_SKIPPED
+        student_task.skipped_at = datetime.now(pytz.UTC)
+        
+        db.session.commit()
+        
         return jsonify({
-            'status': 'error',
-            'message': 'Task cannot be skipped'
-        }), 400
+            'status': 'success',
+            'message': 'Task skipped successfully',
+            'task': {
+                'id': id,
+                'status': student_task.status
+            }
+        })
     except Exception as e:
         db.session.rollback()
+        logger.error(f"Error skipping task {id}: {str(e)}")
         return jsonify({
             'status': 'error',
             'message': str(e)
