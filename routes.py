@@ -407,7 +407,7 @@ from utils.db_helpers import with_db_retry
 @with_db_retry
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('inventory.index'))
+        return redirect(url_for('root'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -442,7 +442,10 @@ def login():
                 if form.password.data == encrypted_password:
                     logger.info(f"Direct encrypted_password match for user {user.id}")
                     login_user(user)
-                    return redirect(url_for('inventory.index'))
+                    # Check if login was from homepage
+                    if request.referrer and '/login' not in request.referrer and request.referrer.endswith('/'):
+                        return redirect(url_for('root'))
+                    return redirect(url_for('todo.index'))
 
         # PRIORITY 2: Fall back to password_hash only if encrypted_password didn't work
         if user.password_hash:
@@ -450,7 +453,10 @@ def login():
                 if check_password_hash(user.password_hash, form.password.data):
                     logger.info(f"Password hash match for user {user.id}")
                     login_user(user)
-                    return redirect(url_for('inventory.index'))
+                    # Check if login was from homepage
+                    if request.referrer and '/login' not in request.referrer and request.referrer.endswith('/'):
+                        return redirect(url_for('root'))
+                    return redirect(url_for('todo.index'))
             except Exception as e:
                 logger.error(f"Error checking password hash: {str(e)}")
 
