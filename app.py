@@ -1,7 +1,7 @@
 
 import os
 import logging
-from flask import Flask, redirect, url_for, flash, request
+from flask import Flask, redirect, url_for, flash, request, render_template
 from flask_login import LoginManager, current_user
 from flask_socketio import SocketIO
 from flask_talisman import Talisman
