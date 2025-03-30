@@ -598,8 +598,7 @@ def index():
             db.func.count(db.case((StudentTask.status == StudentTask.STATUS_COMPLETED, 1))).label('completed_tasks'),
             db.func.count(db.case((StudentTask.status == StudentTask.STATUS_SKIPPED, 1))).label('skipped_tasks')
         )
-        .select_from(Task)
-        .join(Curriculum)
+        .join(Curriculum, Task.curriculum_id == Curriculum.id)
         .outerjoin(StudentTask, db.and_(
             StudentTask.task_id == Task.id,
             StudentTask.student_id == current_user.id
