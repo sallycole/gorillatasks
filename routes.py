@@ -687,21 +687,18 @@ def index():
 
         curriculum = enrollment.curriculum
         if curriculum.is_adaptive:
-            # For adaptive curriculums, take first 10 tasks directly
-            filtered_tasks[enrollment.id] = curriculum.tasks.limit(10).all()
+            # For adaptive curriculums, use preloaded tasks
+            filtered_tasks[enrollment.id] = all_tasks.get(curr_id, [])[:10]
         else:
-            # For regular curriculums, use EXISTS subquery for incomplete tasks
-            incomplete_tasks = (Task.query
-                .filter(Task.curriculum_id == curr_id)
-                .outerjoin(StudentTask, db.and_(
-                    StudentTask.task_id == Task.id,
-                    StudentTask.student_id == current_user.id,
-                    StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
-                ))
-                .filter(StudentTask.id.is_(None))
-                .order_by(Task.position)
-                .limit(10)
-                .all())
+            # For regular curriculums, filter incomplete tasks from preloaded data
+            tasks_for_curr = all_tasks.get(curr_id, [])
+            incomplete_tasks = []
+            for task in tasks_for_curr:
+                student_task = all_student_tasks.get(task.id)
+                if not student_task or student_task.status not in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED]:
+                    incomplete_tasks.append(task)
+                    if len(incomplete_tasks) >= 10:
+                        break
             filtered_tasks[enrollment.id] = incomplete_tasks
 
     # Log the time taken
