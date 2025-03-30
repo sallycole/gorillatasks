@@ -5,12 +5,17 @@
 <div class="container py-5">
     <!-- Hero Section -->
     <div class="text-center mb-5">
-        <h1 class="display-4 mb-3">Welcome Back!</h1>
-        <p class="lead mb-4">Access your personalized learning dashboard.</p>
         {% if current_user.is_authenticated %}
+            <h1 class="display-4 mb-3">Welcome Back!</h1>
+            <p class="lead mb-4">Access your personalized learning dashboard.</p>
             <a href="{{ url_for('inventory.index') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
         {% else %}
-            <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+            <h1 class="display-4 mb-3">Welcome!</h1>
+            <p class="lead mb-4">Get ready to access your personalized learning dashboard.</p>
+            <div class="d-grid gap-3 d-md-flex justify-content-center">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary btn-lg">Register</a>
+            </div>
         {% endif %}
     </div>
 
