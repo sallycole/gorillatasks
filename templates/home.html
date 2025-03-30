@@ -13,7 +13,10 @@
             <h1 class="display-4 mb-3">Welcome!</h1>
             <p class="lead mb-4">Get ready to access your personalized learning dashboard.</p>
             <div class="d-grid gap-3 d-md-flex justify-content-center">
-                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Login</a>
+                <form action="{{ url_for('auth.login') }}" method="GET" class="d-inline">
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </form>
                 <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary btn-lg">Register</a>
             </div>
         {% endif %}
