@@ -1224,6 +1224,5 @@ def enroll(id):
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
 
 def init_routes(app):
-    @app.route('/')
-    def root():
-        return render_template('home.html')
+    # Initialize additional routes if needed
+    pass
