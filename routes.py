@@ -456,9 +456,12 @@ def login():
             if next_page:
                 return redirect(next_page)
             
-            # Check if coming from homepage
+            # Check if coming from homepage or login page
             referrer = request.referrer or ''
-            if referrer.endswith('/') and '/login' not in referrer:
+            is_from_homepage = (referrer.endswith('/') and not any(x in referrer for x in ['/login', '/todo', '/inventory']))
+            is_login_from_homepage = ('/login' in referrer and 'next=' + url_for('root') in request.url)
+            
+            if is_from_homepage or is_login_from_homepage:
                 logger.info(f"Redirecting to homepage after login from: {referrer}")
                 return redirect(url_for('root'))
             
