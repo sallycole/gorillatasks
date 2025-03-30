@@ -564,19 +564,7 @@ def index():
     from datetime import datetime
     start_time = datetime.now()
 
-    # Get enrollments and related data in a single query
-    enrollments = (Enrollment.query
-        .join(Curriculum)
-        .filter(
-            Enrollment.student_id == current_user.id,
-            Enrollment.paused == False
-        )
-        .options(
-            db.joinedload(Enrollment.curriculum)
-        )
-        .all())
-
-    # Get enrollments first with efficient join
+    # Get enrollments and related data in a single optimized query
     enrollments = (Enrollment.query
         .options(db.joinedload(Enrollment.curriculum))
         .filter(
@@ -601,36 +589,23 @@ def index():
     # Get curriculum IDs
     curriculum_ids = [e.curriculum_id for e in enrollments]
 
-    # More efficient task stats query with subqueries
-    task_stats_subq = (
+    # Single optimized query for task stats
+    task_stats = (
         db.session.query(
             Task.curriculum_id,
-            db.func.count(StudentTask.id).filter(StudentTask.status == StudentTask.STATUS_COMPLETED).label('completed'),
-            db.func.count(StudentTask.id).filter(StudentTask.status == StudentTask.STATUS_SKIPPED).label('skipped')
+            Curriculum.is_adaptive,
+            db.func.count(Task.id).label('total_tasks'),
+            db.func.count(db.case([(StudentTask.status == StudentTask.STATUS_COMPLETED, 1)])).label('completed_tasks'),
+            db.func.count(db.case([(StudentTask.status == StudentTask.STATUS_SKIPPED, 1)])).label('skipped_tasks')
         )
         .select_from(Task)
+        .join(Curriculum)
         .outerjoin(StudentTask, db.and_(
             StudentTask.task_id == Task.id,
             StudentTask.student_id == current_user.id
         ))
         .filter(Task.curriculum_id.in_(curriculum_ids))
-        .group_by(Task.curriculum_id)
-        .subquery()
-    )
-
-    task_stats_query = (
-        db.session.query(
-            Task.curriculum_id,
-            Curriculum.is_adaptive,
-            db.func.count(Task.id).label('total_tasks'),
-            db.func.coalesce(task_stats_subq.c.completed, 0).label('completed_tasks'),
-            db.func.coalesce(task_stats_subq.c.skipped, 0).label('skipped_tasks')
-        )
-        .select_from(Task)
-        .join(Curriculum)
-        .outerjoin(task_stats_subq, task_stats_subq.c.curriculum_id == Task.curriculum_id)
-        .group_by(Task.curriculum_id, Curriculum.is_adaptive, task_stats_subq.c.completed, task_stats_subq.c.skipped)
-        .filter(Task.curriculum_id.in_(curriculum_ids))
+        .group_by(Task.curriculum_id, Curriculum.is_adaptive)
     )
 
     # Early return for no enrollments
