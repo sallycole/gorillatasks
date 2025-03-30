@@ -426,46 +426,45 @@ def login():
             flash('User not found. Please check your email or username.')
             return render_template('auth/login.html', form=form)
 
-        # Log some debugging information
         logger.info(f"Login attempt for user {user.email}")
 
-        # PRIORITY 1: Always check encrypted_password field directly first
-        with db.engine.connect() as conn:
-            from sqlalchemy import text
-            result = conn.execute(text(f"SELECT encrypted_password FROM users WHERE id = {user.id}"))
-            row = result.fetchone()
-            if row and row[0]:
-                encrypted_password = row[0]
-                logger.info(f"Found encrypted_password for user {user.id}")
+        # Check if password is valid using either method
+        is_valid = False
+        
+        # Try encrypted_password first
+        if hasattr(user, 'encrypted_password') and user.encrypted_password:
+            if form.password.data == user.encrypted_password:
+                logger.info(f"Direct encrypted_password match for user {user.id}")
+                is_valid = True
+                # Update to new hash format for future
+                user.set_password(form.password.data)
 
-                # Try direct password match with encrypted_password
-                if form.password.data == encrypted_password:
-                    logger.info(f"Direct encrypted_password match for user {user.id}")
-                    login_user(user)
-                    # Check if login was from homepage
-                    if request.referrer and '/login' not in request.referrer and request.referrer.endswith('/'):
-                        return redirect(url_for('root'))
-                    return redirect(url_for('todo.index'))
-
-        # PRIORITY 2: Fall back to password_hash only if encrypted_password didn't work
-        if user.password_hash:
+        # Try password_hash if not already validated
+        if not is_valid and user.password_hash:
             try:
                 if check_password_hash(user.password_hash, form.password.data):
                     logger.info(f"Password hash match for user {user.id}")
-                    login_user(user)
-                    # If coming from login page directly, check the next parameter
-                    next_page = request.args.get('next')
-                    if next_page:
-                        return redirect(next_page)
-                    # If request came from homepage, return to homepage
-                    elif request.referrer and request.referrer.endswith('/'):
-                        return redirect(url_for('root'))
-                    # Default to todo page
-                    return redirect(url_for('todo.index'))
+                    is_valid = True
             except Exception as e:
                 logger.error(f"Error checking password hash: {str(e)}")
 
-        # If we get here, authentication failed
+        if is_valid:
+            login_user(user)
+            
+            # Handle redirect logic
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            
+            # Check if coming from homepage
+            referrer = request.referrer or ''
+            if referrer.endswith('/') and '/login' not in referrer:
+                logger.info(f"Redirecting to homepage after login from: {referrer}")
+                return redirect(url_for('root'))
+            
+            # Default redirect
+            return redirect(url_for('todo.index'))
+
         flash('Invalid password. Please try again.')
 
     return render_template('auth/login.html', form=form)
