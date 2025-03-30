@@ -564,7 +564,7 @@ def index():
     from datetime import datetime
     start_time = datetime.now()
 
-    # Get enrollments with curriculum data
+    # Get enrollments and related data in a single query
     enrollments = (Enrollment.query
         .join(Curriculum)
         .filter(
@@ -572,31 +572,38 @@ def index():
             Enrollment.paused == False
         )
         .options(
-            db.joinedload(Enrollment.curriculum)
+            db.joinedload(Enrollment.curriculum).joinedload(Curriculum.tasks),
+            db.joinedload(Enrollment.curriculum).joinedload(Curriculum.tasks).joinedload(Task.student_tasks)
         )
         .all())
 
-    # Get task stats for each curriculum
-    task_stats_query = db.session.query(
-        Task.curriculum_id,
-        Curriculum.is_adaptive,
-        db.func.count(Task.id).label('total_tasks'),
-        db.func.sum(
-            db.case(
-                (StudentTask.status == StudentTask.STATUS_COMPLETED, 1),
-                else_=0
-            )
-        ).label('completed_tasks'),
-        db.func.sum(
-            db.case(
-                (StudentTask.status == StudentTask.STATUS_SKIPPED, 1),
-                else_=0
-            )
-        ).label('skipped_tasks')
-    ).outerjoin(StudentTask, db.and_(
-        StudentTask.task_id == Task.id,
-        StudentTask.student_id == current_user.id
-    )).join(Curriculum).group_by(Task.curriculum_id, Curriculum.is_adaptive)
+    # More efficient task stats query with subqueries
+    task_stats_subq = (
+        db.session.query(
+            Task.curriculum_id,
+            db.func.count(StudentTask.id).filter(StudentTask.status == StudentTask.STATUS_COMPLETED).label('completed'),
+            db.func.count(StudentTask.id).filter(StudentTask.status == StudentTask.STATUS_SKIPPED).label('skipped')
+        )
+        .outerjoin(StudentTask, db.and_(
+            StudentTask.task_id == Task.id,
+            StudentTask.student_id == current_user.id
+        ))
+        .group_by(Task.curriculum_id)
+        .subquery()
+    )
+
+    task_stats_query = (
+        db.session.query(
+            Task.curriculum_id,
+            Curriculum.is_adaptive,
+            db.func.count(Task.id).label('total_tasks'),
+            db.func.coalesce(task_stats_subq.c.completed, 0).label('completed_tasks'),
+            db.func.coalesce(task_stats_subq.c.skipped, 0).label('skipped_tasks')
+        )
+        .join(Curriculum)
+        .outerjoin(task_stats_subq, task_stats_subq.c.curriculum_id == Task.curriculum_id)
+        .group_by(Task.curriculum_id, Curriculum.is_adaptive, task_stats_subq.c.completed, task_stats_subq.c.skipped)
+    )
 
     # Early return for no enrollments
     if not enrollments:
@@ -670,30 +677,29 @@ def index():
     for st in student_tasks_query:
         all_student_tasks[st.task_id] = st
 
-    # Process each enrollment to prepare data for template
+    # Process enrollments more efficiently using preloaded data
     for enrollment in enrollments:
         curr_id = enrollment.curriculum_id
         tasks_stats[enrollment.id] = curriculum_stats.get(curr_id, {'total': 0, 'completed': 0, 'skipped': 0, 'is_adaptive': False})
 
-        # Get tasks for this curriculum
-        curriculum_tasks = all_tasks.get(curr_id, [])
-
-        # For adaptive curriculums, include all tasks regardless of completion status
-        # For regular curriculums, only show incomplete tasks
-        if enrollment.curriculum.is_adaptive:
-            filtered_tasks_list = curriculum_tasks[:10]  # Limit to 10 tasks
+        curriculum = enrollment.curriculum
+        if curriculum.is_adaptive:
+            # For adaptive curriculums, take first 10 tasks directly
+            filtered_tasks[enrollment.id] = curriculum.tasks.limit(10).all()
         else:
-            # Filter incomplete tasks efficiently
-            filtered_tasks_list = []
-            for task in curriculum_tasks:
-                if len(filtered_tasks_list) >= 10:  # Limit to 10 tasks
-                    break
-
-                student_task = all_student_tasks.get(task.id)
-                if not student_task or student_task.status not in [StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED]:
-                    filtered_tasks_list.append(task)
-
-        filtered_tasks[enrollment.id] = filtered_tasks_list
+            # For regular curriculums, use EXISTS subquery for incomplete tasks
+            incomplete_tasks = (Task.query
+                .filter(Task.curriculum_id == curr_id)
+                .outerjoin(StudentTask, db.and_(
+                    StudentTask.task_id == Task.id,
+                    StudentTask.student_id == current_user.id,
+                    StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
+                ))
+                .filter(StudentTask.id.is_(None))
+                .order_by(Task.position)
+                .limit(10)
+                .all())
+            filtered_tasks[enrollment.id] = incomplete_tasks
 
     # Log the time taken
     end_time = datetime.now()
