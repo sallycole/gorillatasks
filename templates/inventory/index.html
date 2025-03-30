@@ -209,7 +209,25 @@ function initializeSocket() {
         if (typeof feather !== 'undefined') {
             feather.replace();
         }
-    }, 5000);
+        // Show error toast
+        const errorNotification = document.createElement('div');
+        errorNotification.className = 'position-fixed top-0 end-0 p-3';
+        errorNotification.style.zIndex = '5';
+        errorNotification.innerHTML = `
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-danger text-white">
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close" 
+                           onclick="this.parentElement.parentElement.parentElement.remove()"></button>
+                </div>
+                <div class="toast-body">
+                    Request timed out. Please try again.
+                </div>
+            </div>
+        `;
+        document.body.appendChild(errorNotification);
+        setTimeout(() => errorNotification.remove(), 4000);
+    }, 10000); // Increased to 10 seconds
 
     socket.emit(action + '_task', { task_id: taskId }, function(response) {
         console.log("Socket response received for", action, "task", taskId);
