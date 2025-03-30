@@ -599,9 +599,11 @@ def index():
             db.func.coalesce(task_stats_subq.c.completed, 0).label('completed_tasks'),
             db.func.coalesce(task_stats_subq.c.skipped, 0).label('skipped_tasks')
         )
-        .join(Curriculum)
+        .select_from(Task)
+        .join(Curriculum, Task.curriculum_id == Curriculum.id)
         .outerjoin(task_stats_subq, task_stats_subq.c.curriculum_id == Task.curriculum_id)
         .group_by(Task.curriculum_id, Curriculum.is_adaptive, task_stats_subq.c.completed, task_stats_subq.c.skipped)
+        .filter(Task.curriculum_id.in_(curriculum_ids))
     )
 
     # Early return for no enrollments
