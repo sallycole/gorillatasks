@@ -576,6 +576,31 @@ def index():
         )
         .all())
 
+    # Get enrollments first with efficient join
+    enrollments = (Enrollment.query
+        .options(db.joinedload(Enrollment.curriculum))
+        .filter(
+            Enrollment.student_id == current_user.id,
+            Enrollment.paused == False
+        )
+        .all())
+
+    # Early return for no enrollments
+    if not enrollments:
+        return render_template('inventory/index.html',
+                         enrollments=[],
+                         tasks_stats={},
+                         filtered_tasks={},
+                         StudentTask=StudentTask,
+                         STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
+                         STATUS_IN_PROGRESS=StudentTask.STATUS_IN_PROGRESS,
+                         STATUS_COMPLETED=StudentTask.STATUS_COMPLETED,
+                         STATUS_SKIPPED=StudentTask.STATUS_SKIPPED,
+                         current_user=current_user)
+
+    # Get curriculum IDs
+    curriculum_ids = [e.curriculum_id for e in enrollments]
+
     # More efficient task stats query with subqueries
     task_stats_subq = (
         db.session.query(
@@ -583,10 +608,12 @@ def index():
             db.func.count(StudentTask.id).filter(StudentTask.status == StudentTask.STATUS_COMPLETED).label('completed'),
             db.func.count(StudentTask.id).filter(StudentTask.status == StudentTask.STATUS_SKIPPED).label('skipped')
         )
+        .select_from(Task)
         .outerjoin(StudentTask, db.and_(
             StudentTask.task_id == Task.id,
             StudentTask.student_id == current_user.id
         ))
+        .filter(Task.curriculum_id.in_(curriculum_ids))
         .group_by(Task.curriculum_id)
         .subquery()
     )
@@ -599,6 +626,7 @@ def index():
             db.func.coalesce(task_stats_subq.c.completed, 0).label('completed_tasks'),
             db.func.coalesce(task_stats_subq.c.skipped, 0).label('skipped_tasks')
         )
+        .select_from(Task)
         .select_from(Task)
         .join(Curriculum, Task.curriculum_id == Curriculum.id)
         .outerjoin(task_stats_subq, task_stats_subq.c.curriculum_id == Task.curriculum_id)

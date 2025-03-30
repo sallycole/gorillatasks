@@ -250,6 +250,10 @@ class Task(db.Model):
 
 class StudentTask(db.Model):
     __tablename__ = 'student_tasks'
+    __table_args__ = (
+        db.Index('idx_student_tasks_composite', 'student_id', 'task_id', 'status'),
+        db.Index('idx_student_tasks_status', 'status', 'student_id', 'finished_at'),
+    )
 
     # Status constants
     STATUS_NOT_STARTED = 0
