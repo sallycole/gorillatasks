@@ -81,30 +81,37 @@ def handle_skip_task(data):
         from models import StudentTask
         logger.info(f"Looking for student task {task_id} for user {current_user.id}")
 
+        # Get or create student task
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
         ).first()
 
         if not student_task:
-            logger.warning(f"No student task found for task_id {task_id}")
-            return {'status': 'error', 'message': 'Task not found'}
-            
-        logger.info(f"Found student task with status: {student_task.status}")
+            student_task = StudentTask(
+                student_id=current_user.id,
+                task_id=task_id,
+                status=StudentTask.STATUS_NOT_STARTED
+            )
+            db.session.add(student_task)
 
-        if student_task.can_skip:
-            student_task.skip()
-            db.session.commit()
+        logger.info(f"Processing skip for task with status: {student_task.status}")
 
-            # Emit an event to update the UI
-            socketio.emit('task_updated', {
-                'task_id': task_id,
-                'status': student_task.status
-            }, room=request.sid)
+        # Skip the task and set timestamp
+        student_task.status = StudentTask.STATUS_SKIPPED
+        student_task.skipped_at = datetime.now(pytz.UTC)
+        
+        db.session.commit()
+        logger.info(f"Task {task_id} skipped successfully")
 
-            return {'status': 'success', 'message': 'Task skipped successfully'}
-        else:
-            return {'status': 'error', 'message': 'Task cannot be skipped'}
+        # Emit an event to update the UI
+        socketio.emit('task_updated', {
+            'task_id': task_id,
+            'status': StudentTask.STATUS_SKIPPED
+        }, room=request.sid)
+
+        return {'status': 'success', 'message': 'Task skipped successfully'}
+
     except Exception as e:
         logger.error(f"Error skipping task {task_id}: {str(e)}")
         db.session.rollback()
