@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
@@ -227,7 +227,7 @@ def index():
         if len(all_promoted) != len(promoted_tasks):
             logger.warning(f"Discrepancy in task counts: direct {len(all_promoted)} vs joined {len(promoted_tasks)}")
 
-    return render_template('todo/index.html', #Corrected template name
+    return render_template('todo/index.html',
                           tasks_by_curriculum=tasks_by_curriculum,
                           curriculum_names=curriculum_names,
                           STATUS_NOT_STARTED=StudentTask.STATUS_NOT_STARTED,
@@ -749,22 +749,6 @@ def start_task(id):
             'message': f"Failed to start task: {str(e)}"
         }), 500
 
-        logger.info(f"Task {id} started successfully")
-        return jsonify({
-            'status': 'success',
-            'message': 'Task started successfully',
-            'task_url': task.link,
-            'task_id': task.id
-        })
-
-    except Exception as e:
-        logger.error(f"Error starting task {id}: {str(e)}")
-        db.session.rollback()
-        return jsonify({
-            'status': 'error',
-            'message': str(e)
-        }), 500
-
 @inventory_bp.route('/task/<int:id>/finish', methods=['POST'])
 @login_required
 def finish_task(id):
@@ -796,7 +780,7 @@ def finish_task(id):
 @login_required
 def skip_task(id):
     try:
-        student_task = StudentTask.query.filter_by(
+        student_task= StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=id
         ).first_or_404()

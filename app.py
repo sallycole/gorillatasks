@@ -1,3 +1,4 @@
+
 import os
 import logging
 from flask import Flask, redirect, url_for, flash, request
@@ -6,7 +7,7 @@ from flask_socketio import SocketIO
 from flask_talisman import Talisman
 from sqlalchemy.exc import OperationalError
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import CSRFProtect #Added import for CSRFProtect
+from flask_wtf import CSRFProtect
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -15,7 +16,7 @@ logger = logging.getLogger('app')
 # Initialize extensions
 db = SQLAlchemy()
 socketio = SocketIO(cors_allowed_origins="*")
-csrf = CSRFProtect() # Initialize CSRFProtect
+csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__)
@@ -28,21 +29,18 @@ def create_app():
     database_url = os.environ.get('DATABASE_URL')
 
     if database_url:
-        # For deployment on platforms like Heroku
         if database_url.startswith("postgres://"):
             database_url = database_url.replace("postgres://", "postgresql://", 1)
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
-        # Add connection pool settings for better stability
         app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
             'pool_size': 10,
-            'pool_recycle': 280,  # Recycle connections before Neon's 5-minute timeout
-            'pool_pre_ping': True,  # Check connection validity before using it
+            'pool_recycle': 280,
+            'pool_pre_ping': True,
             'pool_timeout': 30,
             'max_overflow': 15
         }
         logger.info(f"Database URL configured: {database_url.split('@')[0]}@[REDACTED]")
     else:
-        # Default to SQLite for development
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///curriculum.db'
         logger.info("Using SQLite database")
 
@@ -52,13 +50,10 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     socketio.init_app(app)
-    csrf.init_app(app) # Initialize CSRFProtect
+    csrf.init_app(app)
 
     # Import models after initializing db to avoid circular imports
     import models
-
-    # Security headers with Talisman (commented out for development)
-    # talisman = Talisman(app, content_security_policy=None)
 
     # Set up login manager
     login_manager = LoginManager()
@@ -90,8 +85,7 @@ def create_app():
     def root():
         if current_user.is_authenticated:
             return redirect(url_for('inventory.index'))
-        else:
-            return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login'))
 
     # Create database tables
     with app.app_context():
