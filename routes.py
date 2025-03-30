@@ -572,8 +572,7 @@ def index():
             Enrollment.paused == False
         )
         .options(
-            db.joinedload(Enrollment.curriculum).joinedload(Curriculum.tasks),
-            db.joinedload(Enrollment.curriculum).joinedload(Curriculum.tasks).joinedload(Task.student_tasks)
+            db.joinedload(Enrollment.curriculum)
         )
         .all())
 
