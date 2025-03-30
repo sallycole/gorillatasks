@@ -453,9 +453,14 @@ def login():
                 if check_password_hash(user.password_hash, form.password.data):
                     logger.info(f"Password hash match for user {user.id}")
                     login_user(user)
-                    # Check if login was from homepage
-                    if request.referrer and '/login' not in request.referrer and request.referrer.endswith('/'):
+                    # If coming from login page directly, check the next parameter
+                    next_page = request.args.get('next')
+                    if next_page:
+                        return redirect(next_page)
+                    # If request came from homepage, return to homepage
+                    elif request.referrer and request.referrer.endswith('/'):
                         return redirect(url_for('root'))
+                    # Default to todo page
                     return redirect(url_for('todo.index'))
             except Exception as e:
                 logger.error(f"Error checking password hash: {str(e)}")
