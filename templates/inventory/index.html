@@ -230,36 +230,102 @@ function initializeSocket() {
     }, 10000); // Increased to 10 seconds
 
     if (action === 'skip') {
-        // Use HTTP for skip operation
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        fetch(`/inventory/task/${taskId}/skip`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                window.location.reload();
-            } else {
-                actionDiv.innerHTML = originalContent;
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
+        const maxRetries = 3;
+        let retryCount = 0;
+
+        const performSkip = async () => {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            try {
+                const response = await fetch(`/inventory/task/${taskId}/skip`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    credentials: 'same-origin'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                throw new Error(data.message);
+
+                const data = await response.json();
+                if (data.status === 'success') {
+                    // Show success notification
+                    const notification = document.createElement('div');
+                    notification.className = 'position-fixed top-0 end-0 p-3';
+                    notification.style.zIndex = '5';
+                    notification.innerHTML = `
+                        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header bg-success text-white">
+                                <strong class="me-auto">Success</strong>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Task skipped successfully!
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(notification);
+                    setTimeout(() => notification.remove(), 3000);
+                    window.location.reload();
+                } else {
+                    throw new Error(data.message || 'Failed to skip task');
+                }
+            } catch (error) {
+                console.error('Error skipping task:', error);
+                if (retryCount < maxRetries) {
+                    retryCount++;
+                    // Show retry notification
+                    const retryNotification = document.createElement('div');
+                    retryNotification.className = 'position-fixed top-0 end-0 p-3';
+                    retryNotification.style.zIndex = '5';
+                    retryNotification.innerHTML = `
+                        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header bg-warning text-dark">
+                                <strong class="me-auto">Retrying</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Retrying skip operation (attempt ${retryCount} of ${maxRetries})...
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(retryNotification);
+                    setTimeout(() => retryNotification.remove(), 2000);
+
+                    // Wait 1 second before retrying
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    return performSkip();
+                } else {
+                    // Show error notification
+                    const errorNotification = document.createElement('div');
+                    errorNotification.className = 'position-fixed top-0 end-0 p-3';
+                    errorNotification.style.zIndex = '5';
+                    errorNotification.innerHTML = `
+                        <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header bg-danger text-white">
+                                <strong class="me-auto">Error</strong>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Failed to skip task after ${maxRetries} attempts. Please try again later.
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(errorNotification);
+                    setTimeout(() => errorNotification.remove(), 5000);
+
+                    actionDiv.innerHTML = originalContent;
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                }
             }
-        })
-        .catch(error => {
-            console.error('Error skipping task:', error);
-            actionDiv.innerHTML = originalContent;
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        });
+        };
+
+        performSkip();
     } else {
         // Use WebSocket for other operations
         socket.emit(action + '_task', { task_id: taskId }, function(response) {

@@ -805,25 +805,50 @@ def finish_task(id):
 @inventory_bp.route('/task/<int:id>/skip', methods=['POST'])
 @login_required
 def skip_task(id):
-    try:
-        logger.info(f"Skip task request received for task {id} from user {current_user.id}")
-        
-        # Get or create student task
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=id
-        ).first()
+    max_retries = 3
+    retry_count = 0
+    
+    while retry_count < max_retries:
+        try:
+            logger.info(f"Skip task request received for task {id} from user {current_user.id} (attempt {retry_count + 1})")
+            
+            # Verify task exists
+            task = Task.query.get(id)
+            if not task:
+                logger.error(f"Task {id} not found")
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Task not found'
+                }), 404
 
-        if not student_task:
-            student_task = StudentTask(
-                student_id=current_user.id,
-                task_id=id,
-                status=StudentTask.STATUS_NOT_STARTED
-            )
-            db.session.add(student_task)
+            # Get or create student task with retry logic
+            for _ in range(3):
+                try:
+                    student_task = StudentTask.query.filter_by(
+                        student_id=current_user.id,
+                        task_id=id
+                    ).with_for_update().first()
+                    
+                    if not student_task:
+                        student_task = StudentTask(
+                            student_id=current_user.id,
+                            task_id=id,
+                            status=StudentTask.STATUS_NOT_STARTED
+                        )
+                        db.session.add(student_task)
+                    break
+                except Exception as e:
+                    logger.warning(f"Retrying student task query: {str(e)}")
+                    db.session.rollback()
+                    continue
 
-        # Skip the task if not already completed
-        if student_task.status != StudentTask.STATUS_COMPLETED:
+            # Skip the task if not already completed
+            if student_task.status == StudentTask.STATUS_COMPLETED:
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Cannot skip completed task'
+                }), 400
+
             student_task.skip()
             db.session.commit()
             logger.info(f"Task {id} skipped successfully")
@@ -836,19 +861,20 @@ def skip_task(id):
                     'status': student_task.status
                 }
             })
-        else:
-            return jsonify({
-                'status': 'error',
-                'message': 'Cannot skip completed task'
-            }), 400
 
-    except Exception as e:
-        db.session.rollback()
-        logger.error(f"Error skipping task {id}: {str(e)}")
-        return jsonify({
-            'status': 'error',
-            'message': str(e)
-        }), 500
+        except Exception as e:
+            db.session.rollback()
+            retry_count += 1
+            if retry_count >= max_retries:
+                logger.error(f"Final error skipping task {id} after {max_retries} attempts: {str(e)}")
+                return jsonify({
+                    'status': 'error',
+                    'message': f"Failed to skip task after {max_retries} attempts: {str(e)}"
+                }), 500
+            else:
+                logger.warning(f"Retrying skip operation for task {id} after error: {str(e)}")
+                import time
+                time.sleep(1)  # Wait 1 second before retrying
 
 @inventory_bp.route('/task/<int:id>/promote', methods=['POST'])
 @login_required
