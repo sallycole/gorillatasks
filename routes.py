@@ -641,7 +641,7 @@ def index():
 
     # Restructure stats with curriculum_id as key
     curriculum_stats = {}
-    for r in task_stats_query:
+    for r in task_stats:
         curr_id, is_adaptive = r[0], r[1]
         curriculum_stats[curr_id] = {
             'total': r[2], 
