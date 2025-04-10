@@ -1202,7 +1202,7 @@ def add_task(id):
         return redirect(url_for('curriculum.list'))
 
     if not curriculum.locked:
-        position = len(curriculum.tasks) + 1
+        position = curriculum.tasks.count() + 1
         task = Task(
             curriculum_id=curriculum.id,
             title=request.form['title'],
