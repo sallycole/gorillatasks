@@ -1202,7 +1202,9 @@ def add_task(id):
         return redirect(url_for('curriculum.list'))
 
     if not curriculum.locked:
-        position = curriculum.tasks.count() + 1
+        # Get the highest current position and add 1
+        max_position = db.session.query(db.func.max(Task.position)).filter(Task.curriculum_id == curriculum.id).scalar() or 0
+        position = max_position + 1
         task = Task(
             curriculum_id=curriculum.id,
             title=request.form['title'],
