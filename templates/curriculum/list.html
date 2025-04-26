@@ -56,7 +56,7 @@
                     <span class="badge bg-info">Adaptive</span>
                     {% endif %}
                 </h5>
-                <p class="card-text">{{ curriculum.description | default('No description available') | truncate(150) }}</p>
+                <p class="card-text">{{ (curriculum.description or 'No description available') | truncate(150) }}</p>
                 {% if curriculum.publisher %}
                 <p class="card-text"><strong>Publisher:</strong> {{ curriculum.publisher }}</p>
                 {% endif %}
