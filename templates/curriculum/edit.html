@@ -93,7 +93,17 @@
                                 {{ form.xml_file(class="form-control") }}
                                 <div class="form-text">Upload an XML file to create a curriculum with tasks.</div>
                             </div>
-                            <button type="submit" class="btn btn-primary" name="form_type" value="xml">Create from XML</button>
+                            <button type="submit" class="btn btn-primary" name="form_type" value="xml" onclick="return validateXmlForm()">Create from XML</button>
+                            <script>
+                            function validateXmlForm() {
+                                const fileInput = document.querySelector('input[type="file"]');
+                                if (!fileInput.files.length) {
+                                    alert('Please select an XML file first');
+                                    return false;
+                                }
+                                return true;
+                            }
+                            </script>
                         </form>
                     </div>
 
