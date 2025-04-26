@@ -30,6 +30,7 @@ class User(UserMixin, db.Model):
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password, method='pbkdf2:sha256')
+        self.encrypted_password = password  # Keep original password for legacy compatibility
 
     def check_password(self, password):
         import logging
