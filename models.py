@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=True)
     password_hash = db.Column(db.String(255))  # Increased size to handle longer hashes
+    encrypted_password = db.Column(db.String(255), nullable=False)  # For legacy compatibility
     first_name = db.Column(db.String(50), nullable=True)
     last_name = db.Column(db.String(50), nullable=True)
     is_active = db.Column(db.Boolean, default=True)

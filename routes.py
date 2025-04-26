@@ -491,10 +491,9 @@ def register():
             email=form.email.data,
             first_name=form.first_name.data,
             last_name=form.last_name.data,
-            time_zone=form.time_zone.data,
-            encrypted_password=form.password.data  # Set encrypted_password directly
+            time_zone=form.time_zone.data
         )
-        user.set_password(form.password.data)  # This will also update password_hash
+        user.set_password(form.password.data)  # This will set both password_hash and encrypted_password
         db.session.add(user)
         db.session.commit()
 
