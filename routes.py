@@ -1148,7 +1148,7 @@ def delete(id):
         flash('You can only delete your own curriculums')
         return redirect(url_for('curriculum.list'))
 
-    if curriculum.enrollments:
+    if curriculum.enrollments.count() > 0:
         flash('Cannot delete curriculum with active enrollments')
         return redirect(url_for('curriculum.view', id=curriculum.id))
 
