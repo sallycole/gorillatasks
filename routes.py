@@ -83,7 +83,7 @@ def view_enrollment(id):
         StudentTask.student_id == current_user.id,
         Task.curriculum_id == enrollment.curriculum_id,
         StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED])
-    ).all()
+    ).order_by(StudentTask.finished_at.desc().nulls_last(), StudentTask.skipped_at.desc().nulls_last()).all()
 
     total_tasks = enrollment.curriculum.tasks.count()
     finished_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_COMPLETED)

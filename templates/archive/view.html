@@ -14,18 +14,22 @@
                 <div class="col-6">
                     <h5>Finish Date</h5>
                     <p class="mb-0">
-                        {% if enrollment.is_completed() %}
-                            {% set latest_date = None %}
-                            {% for student_task in completed_tasks %}
-                                {% if student_task.finished_at or student_task.skipped_at %}
-                                    {% set task_date = student_task.finished_at or student_task.skipped_at %}
-                                    {% if not latest_date or task_date > latest_date %}
-                                        {% set latest_date = task_date %}
+                        {% if enrollment.is_completed() and completed_tasks %}
+                            {% set latest_task = completed_tasks|selectattr('finished_at')|list + completed_tasks|selectattr('skipped_at')|list %}
+                            {% if latest_task %}
+                                {% set latest_dates = [] %}
+                                {% for task in latest_task %}
+                                    {% if task.finished_at %}
+                                        {% set _ = latest_dates.append(task.finished_at) %}
+                                    {% elif task.skipped_at %}
+                                        {% set _ = latest_dates.append(task.skipped_at) %}
                                     {% endif %}
+                                {% endfor %}
+                                {% if latest_dates %}
+                                    {{ latest_dates|max|strftime('%Y-%m-%d') }}
+                                {% else %}
+                                    --
                                 {% endif %}
-                            {% endfor %}
-                            {% if latest_date %}
-                                {{ latest_date.strftime('%Y-%m-%d') }}
                             {% else %}
                                 --
                             {% endif %}
