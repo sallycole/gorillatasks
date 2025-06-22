@@ -254,6 +254,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 timeDisplay.textContent = newTime > 0 ? `${newTime} min` : '0 min';
                 timeDisplay.dataset.currentTime = newTime;
                 
+                // Update the total time for this day
+                updateDayTotalTime(taskId, newTime);
+                
                 // Show success feedback
                 timeDisplay.style.backgroundColor = '#d4edda';
                 setTimeout(() => {
@@ -276,6 +279,43 @@ document.addEventListener('DOMContentLoaded', function() {
             input.style.display = 'none';
             timeDisplay.style.display = 'inline-block';
         });
+    }
+    
+    function updateDayTotalTime(taskId, newTime) {
+        // Find the accordion item containing this task
+        const taskRow = document.querySelector(`[data-task-id="${taskId}"]`).closest('tr');
+        const accordionBody = taskRow.closest('.accordion-body');
+        const accordionItem = accordionBody.closest('.accordion-item');
+        
+        // Calculate new total time for this day
+        let totalTime = 0;
+        const timeDisplays = accordionBody.querySelectorAll('.time-display');
+        timeDisplays.forEach(display => {
+            const timeText = display.textContent.trim();
+            if (timeText !== '0 min') {
+                const minutes = parseInt(timeText.replace(' min', ''));
+                if (!isNaN(minutes)) {
+                    totalTime += minutes;
+                }
+            }
+        });
+        
+        // Update the day's total time display in the accordion header
+        const timeDisplayElement = accordionItem.querySelector('.text-info');
+        if (timeDisplayElement) {
+            if (totalTime >= 60) {
+                const hours = Math.floor(totalTime / 60);
+                const minutes = totalTime % 60;
+                timeDisplayElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${hours}h ${minutes}m`;
+            } else {
+                timeDisplayElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${totalTime}m`;
+            }
+            
+            // Re-initialize feather icons for the updated element
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }
     }
 });
 </script>
