@@ -443,7 +443,7 @@ function handleTimeDisplayClick(e) {
                 console.log(`Late initialization of input for task ${taskId}`);
             }
 
-            // Reset time display styling
+            // Reset time display styling but keep it visible initially
             timeDisplay.style.backgroundColor = '';
             timeDisplay.style.color = '';
             
@@ -452,10 +452,7 @@ function handleTimeDisplayClick(e) {
             input.setAttribute('data-original-value', currentTime);
             input.dataset.taskId = taskId; // Ensure task ID is set
 
-            // Hide time display
-            timeDisplay.style.display = 'none';
-            
-            // Show and configure input with minimal styling
+            // Show and configure input with minimal styling first
             input.style.display = 'inline-block';
             input.style.width = '100px';
             input.style.border = '1px solid #007bff';
@@ -465,6 +462,9 @@ function handleTimeDisplayClick(e) {
             // Force reflow to ensure styles are applied
             input.offsetHeight;
             
+            // Now hide time display after input is shown
+            timeDisplay.style.display = 'none';
+            
             // Force focus after a short delay to ensure visibility
             setTimeout(() => {
                 try {
@@ -473,6 +473,12 @@ function handleTimeDisplayClick(e) {
                     console.log(`Input focused and selected for task ${taskId}`);
                 } catch (error) {
                     console.error(`Error focusing input for task ${taskId}:`, error);
+                    
+                    // If focusing failed, restore the time display
+                    timeDisplay.style.display = 'inline';
+                    input.style.display = 'none';
+                    input.style.boxShadow = '';
+                    input.style.border = '1px solid #ced4da';
                 }
             }, 100);
         } else {
@@ -566,12 +572,14 @@ function saveTimeChange(input) {
     .finally(() => {
         // Reset input state
         input.disabled = false;
+        input.style.opacity = '1';
         input.style.display = 'none';
         input.style.boxShadow = '';
         input.style.border = '1px solid #ced4da';
         
-        // Show time display
+        // Ensure time display is properly shown
         timeDisplay.style.display = 'inline';
+        timeDisplay.style.opacity = '1';
         
         console.log(`UI reset: input hidden, time display shown for task ${taskId}`);
     });
@@ -581,17 +589,24 @@ function cancelTimeEdit(input) {
     const taskId = input.dataset.taskId;
     const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
 
-    input.value = timeDisplay.dataset.currentTime;
-    timeDisplay.style.backgroundColor = '';
-    timeDisplay.style.color = '';
-    
-    // Reset input
-    input.style.display = 'none';
-    input.style.boxShadow = '';
-    input.style.border = '1px solid #ced4da';
-    
-    // Show time display
-    timeDisplay.style.display = 'inline';
+    if (timeDisplay) {
+        input.value = timeDisplay.dataset.currentTime;
+        timeDisplay.style.backgroundColor = '';
+        timeDisplay.style.color = '';
+        
+        // Reset input
+        input.style.display = 'none';
+        input.style.boxShadow = '';
+        input.style.border = '1px solid #ced4da';
+        
+        // Ensure time display is properly shown
+        timeDisplay.style.display = 'inline';
+        timeDisplay.style.opacity = '1';
+        
+        console.log(`Edit cancelled: time display restored for task ${taskId}`);
+    } else {
+        console.error(`Could not find time display for task ${taskId} to cancel edit`);
+    }
 }
 
 function updateDailyTotal(taskId, oldTime, newTime) {
