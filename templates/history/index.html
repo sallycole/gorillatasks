@@ -2,6 +2,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+.time-display:hover {
+    background-color: #f8f9fa;
+    border: 1px dashed #dee2e6;
+}
+.time-edit {
+    font-size: 0.875rem;
+}
+</style>
 <div class="container">
     <h1 class="mb-4">Daily Activity History</h1>
     
@@ -107,11 +116,24 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            {% if task.time_spent_minutes %}
-                                                {{ task.time_spent_minutes }} min
-                                            {% else %}
-                                                --
-                                            {% endif %}
+                                            <span class="time-display" 
+                                                  data-task-id="{{ task.task.id }}" 
+                                                  data-current-time="{{ task.time_spent_minutes or 0 }}"
+                                                  style="cursor: pointer; padding: 4px; border-radius: 3px;"
+                                                  title="Click to edit time spent">
+                                                {% if task.time_spent_minutes %}
+                                                    {{ task.time_spent_minutes }} min
+                                                {% else %}
+                                                    0 min
+                                                {% endif %}
+                                            </span>
+                                            <input type="number" 
+                                                   class="form-control form-control-sm time-edit" 
+                                                   data-task-id="{{ task.task.id }}"
+                                                   value="{{ task.time_spent_minutes or 0 }}" 
+                                                   min="0" 
+                                                   style="display: none; width: 80px;"
+                                                   placeholder="Minutes">
                                         </td>
                                         <td>
                                             {% if task.finished_at %}
@@ -175,6 +197,82 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     feather.replace();
+    
+    // Make time fields editable
+    document.querySelectorAll('.time-display').forEach(function(timeDisplay) {
+        timeDisplay.addEventListener('click', function() {
+            const taskId = this.dataset.taskId;
+            const currentTime = this.dataset.currentTime;
+            const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
+            
+            // Hide display, show input
+            this.style.display = 'none';
+            input.style.display = 'inline-block';
+            input.focus();
+            input.select();
+        });
+    });
+    
+    // Handle saving time changes
+    document.querySelectorAll('.time-edit').forEach(function(input) {
+        // Save on Enter key
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                saveTimeChange(this);
+            }
+        });
+        
+        // Save on blur (clicking away)
+        input.addEventListener('blur', function() {
+            saveTimeChange(this);
+        });
+    });
+    
+    function saveTimeChange(input) {
+        const taskId = input.dataset.taskId;
+        const newTime = parseInt(input.value) || 0;
+        const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
+        
+        // Update the server
+        fetch(`/history/task/${taskId}/update_time`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                time_spent_minutes: newTime
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Update the display
+                timeDisplay.textContent = newTime > 0 ? `${newTime} min` : '0 min';
+                timeDisplay.dataset.currentTime = newTime;
+                
+                // Show success feedback
+                timeDisplay.style.backgroundColor = '#d4edda';
+                setTimeout(() => {
+                    timeDisplay.style.backgroundColor = '';
+                }, 1000);
+            } else {
+                alert('Error updating time: ' + data.message);
+                // Reset input to original value
+                input.value = timeDisplay.dataset.currentTime;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating time. Please try again.');
+            // Reset input to original value
+            input.value = timeDisplay.dataset.currentTime;
+        })
+        .finally(() => {
+            // Hide input, show display
+            input.style.display = 'none';
+            timeDisplay.style.display = 'inline-block';
+        });
+    }
 });
 </script>
 {% endblock %}

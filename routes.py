@@ -1313,6 +1313,35 @@ def enroll(id):
 
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
 
+@history_bp.route('/task/<int:task_id>/update_time', methods=['POST'])
+@login_required
+def update_task_time(task_id):
+    """Update the time spent on a specific task"""
+    try:
+        new_time = request.json.get('time_spent_minutes')
+        if new_time is None or new_time < 0:
+            return jsonify({'status': 'error', 'message': 'Invalid time value'}), 400
+        
+        # Get the student task
+        student_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=task_id
+        ).first_or_404()
+        
+        # Update the time spent
+        student_task.time_spent_minutes = int(new_time)
+        db.session.commit()
+        
+        return jsonify({
+            'status': 'success', 
+            'message': 'Time updated successfully',
+            'new_time': student_task.time_spent_minutes
+        })
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Error updating task time: {str(e)}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
 @history_bp.route('/')
 @login_required
 def index():
