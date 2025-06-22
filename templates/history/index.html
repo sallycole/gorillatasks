@@ -195,16 +195,25 @@ function initializeNewInputFields() {
         // Mark as initialized
         input.setAttribute('data-initialized', 'true');
         
-        // Ensure proper styling for interaction
+        // Ensure input is properly hidden by default
+        input.style.display = 'none';
+        input.style.visibility = 'hidden';
+        input.style.opacity = '0';
+        
+        // Ensure proper styling for when it becomes visible
         input.style.fontSize = '0.875rem';
         input.style.padding = '4px 8px';
         input.style.border = '1px solid #ced4da';
         input.style.borderRadius = '4px';
+        input.style.backgroundColor = 'white';
+        input.style.color = '#495057';
         
         // Ensure the input is properly configured
         input.setAttribute('type', 'number');
         input.setAttribute('min', '0');
         input.setAttribute('step', '1');
+        
+        console.log(`Initialized input for task ${input.dataset.taskId} - hidden by default`);
     });
 }
 
@@ -390,10 +399,10 @@ function handleTimeDisplayClick(e) {
             
             // Show and configure input with comprehensive styling
             input.style.display = 'inline-block';
+            input.style.visibility = 'visible';
+            input.style.opacity = '1';
             input.style.width = '80px';
             input.style.height = 'auto';
-            input.style.opacity = '1';
-            input.style.visibility = 'visible';
             input.style.position = 'relative';
             input.style.zIndex = '1000';
             input.style.backgroundColor = 'white';
@@ -493,8 +502,9 @@ function saveTimeChange(input) {
     .finally(() => {
         // Reset input state
         input.disabled = false;
-        input.style.opacity = '1';
         input.style.display = 'none';
+        input.style.visibility = 'hidden';
+        input.style.opacity = '0';
         input.style.boxShadow = '';
         input.style.border = '1px solid #ced4da';
         
