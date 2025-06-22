@@ -182,6 +182,30 @@ function appendDays(days) {
 
     // Re-initialize feather icons for new content
     feather.replace();
+    
+    // Initialize input fields in newly loaded content
+    initializeNewInputFields();
+}
+
+function initializeNewInputFields() {
+    // Find all time-edit inputs that haven't been initialized
+    const newInputs = document.querySelectorAll('.time-edit:not([data-initialized])');
+    
+    newInputs.forEach(input => {
+        // Mark as initialized
+        input.setAttribute('data-initialized', 'true');
+        
+        // Ensure proper styling for interaction
+        input.style.fontSize = '0.875rem';
+        input.style.padding = '4px 8px';
+        input.style.border = '1px solid #ced4da';
+        input.style.borderRadius = '4px';
+        
+        // Ensure the input is properly configured
+        input.setAttribute('type', 'number');
+        input.setAttribute('min', '0');
+        input.setAttribute('step', '1');
+    });
 }
 
 function createDayElement(day, index) {
@@ -353,23 +377,41 @@ function handleTimeDisplayClick(e) {
         if (input && timeDisplay.style.display !== 'none') {
             console.log(`Switching to edit mode for task ${taskId}`);
 
+            // Reset time display styling
             timeDisplay.style.backgroundColor = '';
             timeDisplay.style.color = '';
+            
+            // Set input value and ensure it's properly configured
             input.value = currentTime;
+            input.setAttribute('data-original-value', currentTime);
 
+            // Hide time display
             timeDisplay.style.display = 'none';
+            
+            // Show and configure input with comprehensive styling
             input.style.display = 'inline-block';
             input.style.width = '80px';
+            input.style.height = 'auto';
             input.style.opacity = '1';
             input.style.visibility = 'visible';
             input.style.position = 'relative';
             input.style.zIndex = '1000';
             input.style.backgroundColor = 'white';
-            input.style.border = '1px solid #ced4da';
+            input.style.border = '1px solid #007bff';
+            input.style.borderRadius = '4px';
+            input.style.padding = '4px 8px';
+            input.style.fontSize = '0.875rem';
+            input.style.color = '#495057';
+            input.style.outline = 'none';
+            input.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
+
+            // Force reflow to ensure styles are applied
+            input.offsetHeight;
 
             setTimeout(() => {
                 input.focus();
                 input.select();
+                console.log(`Input focused and selected for task ${taskId}`);
             }, 10);
         }
     }
@@ -407,7 +449,9 @@ function saveTimeChange(input) {
         return;
     }
 
+    // Disable input during save
     input.disabled = true;
+    input.style.opacity = '0.6';
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -447,9 +491,16 @@ function saveTimeChange(input) {
         alert('Error updating time. Please try again.');
     })
     .finally(() => {
+        // Reset input state
         input.disabled = false;
+        input.style.opacity = '1';
         input.style.display = 'none';
+        input.style.boxShadow = '';
+        input.style.border = '1px solid #ced4da';
+        
+        // Show time display
         timeDisplay.style.display = 'inline';
+        
         console.log(`UI reset: input hidden, time display shown for task ${taskId}`);
     });
 }
