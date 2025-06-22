@@ -1379,6 +1379,11 @@ def update_task_time(task_id):
 @history_bp.route('/')
 @login_required
 def index():
+    return render_template('history/index.html')
+
+@history_bp.route('/api/days')
+@login_required
+def api_days():
     # Get page parameter with default of 1
     page = request.args.get('page', 1, type=int)
     days_per_page = 20
@@ -1437,14 +1442,53 @@ def index():
     # Apply pagination
     paginated_days = sorted_days[offset:offset + days_per_page]
     has_more = len(sorted_days) > offset + days_per_page
-    has_previous = page > 1
     
-    return render_template('history/index.html',
-                         daily_activity=paginated_days,
-                         page=page,
-                         has_more=has_more,
-                         has_previous=has_previous,
-                         total_days=len(sorted_days))
+    # Format data for JSON response
+    formatted_days = []
+    for day in paginated_days:
+        # Format total time
+        total_time = day['total_time']
+        if total_time >= 60:
+            hours = total_time // 60
+            minutes = total_time % 60
+            total_time_formatted = f"{hours}h {minutes}m"
+        else:
+            total_time_formatted = f"{total_time}m"
+        
+        # Format tasks
+        formatted_tasks = []
+        for task in day['tasks']:
+            completion_time = task.finished_at or task.skipped_at
+            user_tz = current_user.get_timezone()
+            completion_time_local = completion_time.astimezone(user_tz) if completion_time.tzinfo else user_tz.localize(completion_time)
+            
+            formatted_tasks.append({
+                'id': task.task.id,
+                'title': task.task.title,
+                'description': task.task.description,
+                'action': task.task.action,
+                'link': task.task.link,
+                'status': task.status,
+                'time_spent_minutes': task.time_spent_minutes or 0,
+                'completed_at': completion_time_local.strftime('%I:%M %p') if completion_time else '--'
+            })
+        
+        formatted_days.append({
+            'date_formatted': day['date'].strftime('%B %d, %Y'),
+            'day_name': day['day_name'],
+            'tasks': formatted_tasks,
+            'total_time_formatted': total_time_formatted,
+            'completed_count': day['completed_count'],
+            'skipped_count': day['skipped_count']
+        })
+    
+    return jsonify({
+        'status': 'success',
+        'days': formatted_days,
+        'has_more': has_more,
+        'page': page,
+        'total_days': len(sorted_days)
+    })
 
 def init_routes(app):
     # Initialize additional routes if needed

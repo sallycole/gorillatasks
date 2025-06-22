@@ -1,6 +1,3 @@
-The code has been updated to include debugging logs and ensure proper UI updates after time edits, also addresses an issue in the updateDailyTotal function to correctly handle time differences.
-```
-```replit_final_file
 {% extends "base.html" %}
 
 {% block content %}
@@ -12,196 +9,74 @@ The code has been updated to include debugging logs and ensure proper UI updates
 .time-edit {
     font-size: 0.875rem;
 }
+.loading-indicator {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+}
+.end-of-content {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    border-top: 1px solid #dee2e6;
+    margin-top: 20px;
+}
 </style>
 <div class="container">
     <h1 class="mb-4">Daily Activity History</h1>
 
-    {% if daily_activity %}
+    <div id="activity-container">
         <div class="mb-3">
-            <p class="text-muted">
-                Showing {{ daily_activity|length }} of {{ total_days }} active days
-                {% if page > 1 %} (Page {{ page }}) {% endif %}
+            <p class="text-muted" id="activity-summary">
+                Loading your activity history...
             </p>
         </div>
 
         <div class="accordion" id="historyAccordion">
-            {% for day in daily_activity %}
-            <div class="accordion-item mb-3">
-                <h2 class="accordion-header" id="heading{{ loop.index }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
-                            data-bs-target="#collapse{{ loop.index }}" aria-expanded="false" 
-                            aria-controls="#collapse{{ loop.index }}">
-                        <div class="w-100">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <strong>{{ day.date.strftime('%B %d, %Y') }}</strong>
-                                    <div class="text-muted small">{{ day.day_name }}</div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="text-success">
-                                        <i data-feather="check-circle" class="feather-sm"></i>
-                                        {{ day.completed_count }} completed
-                                    </div>
-                                    {% if day.skipped_count > 0 %}
-                                    <div class="text-warning">
-                                        <i data-feather="skip-forward" class="feather-sm"></i>
-                                        {{ day.skipped_count }} skipped
-                                    </div>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="text-info">
-                                        <i data-feather="clock" class="feather-sm"></i>
-                                        {% if day.total_time >= 60 %}
-                                            {{ (day.total_time // 60)|int }}h {{ (day.total_time % 60)|int }}m
-                                        {% else %}
-                                            {{ day.total_time }}m
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="badge bg-primary">{{ day.tasks|length }} tasks</span>
-                                </div>
-                            </div>
-                        </div>
-                    </button>
-                </h2>
-                <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" 
-                     aria-labelledby="heading{{ loop.index }}" data-bs-parent="#historyAccordion">
-                    <div class="accordion-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Task</th>
-                                        <th>Status</th>
-                                        <th>Time Spent</th>
-                                        <th>Completed At</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for task in day.tasks %}
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="task-icon me-2">
-                                                    {% if task.task.action == 1 %}
-                                                    <i data-feather="book" class="text-primary feather-sm"></i>
-                                                    {% elif task.task.action == 2 %}
-                                                    <i data-feather="video" class="text-success feather-sm"></i>
-                                                    {% elif task.task.action == 3 %}
-                                                    <i data-feather="headphones" class="text-info feather-sm"></i>
-                                                    {% elif task.task.action == 4 %}
-                                                    <i data-feather="edit-3" class="text-warning feather-sm"></i>
-                                                    {% else %}
-                                                    <i data-feather="clipboard" class="text-secondary feather-sm"></i>
-                                                    {% endif %}
-                                                </div>
-                                                <div>
-                                                    <strong>{{ task.task.title }}</strong>
-                                                    {% if task.task.link %}
-                                                    <a href="{{ task.task.link }}" target="_blank" class="ms-2 text-decoration-none">
-                                                        <i data-feather="external-link" class="feather-sm"></i>
-                                                    </a>
-                                                    {% endif %}
-                                                    {% if task.task.description %}
-                                                        <div class="text-muted small">{{ task.task.description }}</div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {% if task.status == 2 %}
-                                                <span class="badge bg-success">Completed</span>
-                                            {% else %}
-                                                <span class="badge bg-warning">Skipped</span>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            <span class="time-display" 
-                                                  data-task-id="{{ task.task.id }}" 
-                                                  data-current-time="{{ task.time_spent_minutes or 0 }}"
-                                                  style="cursor: pointer; padding: 4px; border-radius: 3px;"
-                                                  title="Click to edit time spent">
-                                                {% if task.time_spent_minutes %}
-                                                    {{ task.time_spent_minutes }} min
-                                                {% else %}
-                                                    0 min
-                                                {% endif %}
-                                            </span>
-                                            <input type="number" 
-                                                   class="form-control form-control-sm time-edit" 
-                                                   data-task-id="{{ task.task.id }}"
-                                                   value="{{ task.time_spent_minutes or 0 }}" 
-                                                   min="0" 
-                                                   style="display: none; width: 80px;"
-                                                   placeholder="Minutes">
-                                        </td>
-                                        <td>
-                                            {% if task.finished_at %}
-                                                {{ task.finished_at.strftime('%I:%M %p') }}
-                                            {% elif task.skipped_at %}
-                                                {{ task.skipped_at.strftime('%I:%M %p') }}
-                                            {% else %}
-                                                --
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            <!-- Days will be loaded here dynamically -->
         </div>
 
-        <!-- Pagination -->
-        <nav aria-label="History pagination" class="mt-4">
-            <ul class="pagination justify-content-center">
-                {% if has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for('history.index', page=page-1) }}" onclick="handlePageNavigation()">Previous</a>
-                </li>
-                {% endif %}
-
-                <li class="page-item active">
-                    <span class="page-link">Page {{ page }}</span>
-                </li>
-
-                {% if has_more %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for('history.index', page=page+1) }}" onclick="handlePageNavigation()">Next</a>
-                </li>
-                {% endif %}
-            </ul>
-        </nav>
-
-        {% if has_more %}
-        <div class="text-center mt-3">
-            <a href="{{ url_for('history.index', page=page+1) }}" class="btn btn-outline-primary" onclick="handlePageNavigation()">
-                <i data-feather="chevron-down"></i> Show More Days
-            </a>
+        <div id="loading-indicator" class="loading-indicator" style="display: none;">
+            <i data-feather="loader" class="spinning"></i>
+            Loading more days...
         </div>
-        {% endif %}
 
-    {% else %}
-        <div class="text-center py-5">
+        <div id="end-of-content" class="end-of-content" style="display: none;">
+            <i data-feather="check-circle" class="text-success"></i>
+            <p class="mb-0">You've reached the end of your activity history!</p>
+        </div>
+
+        <div id="no-activity" class="text-center py-5" style="display: none;">
             <i data-feather="calendar" style="width: 64px; height: 64px;" class="text-muted mb-3"></i>
             <h3 class="text-muted">No Activity Yet</h3>
             <p class="text-muted">Complete some tasks to see your daily activity history!</p>
             <a href="{{ url_for('todo.index') }}" class="btn btn-primary">Start Working on Tasks</a>
         </div>
-    {% endif %}
+    </div>
 </div>
 
+<style>
+.spinning {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+</style>
+
 <script>
+let currentPage = 1;
+let isLoading = false;
+let hasMoreData = true;
+let eventListenersAttached = false;
+let totalDaysLoaded = 0;
+
 document.addEventListener('DOMContentLoaded', function() {
     initializePage();
+    loadInitialData();
+    setupInfiniteScroll();
 });
-
-let eventListenersAttached = false;
 
 function initializePage() {
     feather.replace();
@@ -209,7 +84,7 @@ function initializePage() {
     // Only attach event listeners once to prevent duplicates
     if (!eventListenersAttached) {
         console.log('Attaching event listeners for time editing');
-        // Use event delegation for time editing to work on all pages
+        // Use event delegation for time editing to work on all loaded content
         document.addEventListener('click', handleTimeDisplayClick);
         document.addEventListener('keydown', handleTimeInputKeydown);
         document.addEventListener('blur', handleTimeInputBlur, true);
@@ -217,6 +92,255 @@ function initializePage() {
     }
 }
 
+function loadInitialData() {
+    loadMoreDays();
+}
+
+function setupInfiniteScroll() {
+    let throttleTimer;
+
+    window.addEventListener('scroll', () => {
+        if (throttleTimer) return;
+
+        throttleTimer = setTimeout(() => {
+            throttleTimer = null;
+
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = document.documentElement.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+
+            // Load more when user is 500px from bottom
+            if (scrollTop + clientHeight >= scrollHeight - 500) {
+                if (!isLoading && hasMoreData) {
+                    loadMoreDays();
+                }
+            }
+        }, 100);
+    });
+}
+
+function loadMoreDays() {
+    if (isLoading || !hasMoreData) return;
+
+    isLoading = true;
+    showLoadingIndicator();
+
+    fetch(`/history/api/days?page=${currentPage}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            if (data.days.length === 0) {
+                // No more data
+                hasMoreData = false;
+                hideLoadingIndicator();
+
+                if (totalDaysLoaded === 0) {
+                    showNoActivity();
+                } else {
+                    showEndOfContent();
+                }
+                return;
+            }
+
+            appendDays(data.days);
+            totalDaysLoaded += data.days.length;
+            currentPage++;
+            hasMoreData = data.has_more;
+
+            updateActivitySummary();
+
+            if (!hasMoreData) {
+                showEndOfContent();
+            }
+        } else {
+            console.error('Error loading days:', data.message);
+            showError('Failed to load activity history. Please refresh the page.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Network error. Please check your connection and try again.');
+    })
+    .finally(() => {
+        isLoading = false;
+        hideLoadingIndicator();
+    });
+}
+
+function appendDays(days) {
+    const accordion = document.getElementById('historyAccordion');
+
+    days.forEach((day, index) => {
+        const dayElement = createDayElement(day, totalDaysLoaded + index + 1);
+        accordion.appendChild(dayElement);
+    });
+
+    // Re-initialize feather icons for new content
+    feather.replace();
+}
+
+function createDayElement(day, index) {
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'accordion-item mb-3';
+
+    dayDiv.innerHTML = `
+        <h2 class="accordion-header" id="heading${index}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapse${index}" aria-expanded="false" 
+                    aria-controls="collapse${index}">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <strong>${day.date_formatted}</strong>
+                            <div class="text-muted small">${day.day_name}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-success">
+                                <i data-feather="check-circle" class="feather-sm"></i>
+                                ${day.completed_count} completed
+                            </div>
+                            ${day.skipped_count > 0 ? `
+                            <div class="text-warning">
+                                <i data-feather="skip-forward" class="feather-sm"></i>
+                                ${day.skipped_count} skipped
+                            </div>
+                            ` : ''}
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-info">
+                                <i data-feather="clock" class="feather-sm"></i>
+                                ${day.total_time_formatted}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="badge bg-primary">${day.tasks.length} tasks</span>
+                        </div>
+                    </div>
+                </div>
+            </button>
+        </h2>
+        <div id="collapse${index}" class="accordion-collapse collapse" 
+             aria-labelledby="heading${index}" data-bs-parent="#historyAccordion">
+            <div class="accordion-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Status</th>
+                                <th>Time Spent</th>
+                                <th>Completed At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${day.tasks.map(task => createTaskRow(task)).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+
+    return dayDiv;
+}
+
+function createTaskRow(task) {
+    const actionIcons = {
+        1: '<i data-feather="book" class="text-primary feather-sm"></i>',
+        2: '<i data-feather="video" class="text-success feather-sm"></i>',
+        3: '<i data-feather="headphones" class="text-info feather-sm"></i>',
+        4: '<i data-feather="edit-3" class="text-warning feather-sm"></i>'
+    };
+
+    const statusBadge = task.status === 2 
+        ? '<span class="badge bg-success">Completed</span>'
+        : '<span class="badge bg-warning">Skipped</span>';
+
+    const taskLink = task.link 
+        ? `<a href="${task.link}" target="_blank" class="ms-2 text-decoration-none">
+               <i data-feather="external-link" class="feather-sm"></i>
+           </a>`
+        : '';
+
+    const taskDescription = task.description 
+        ? `<div class="text-muted small">${task.description}</div>`
+        : '';
+
+    return `
+        <tr>
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="task-icon me-2">
+                        ${actionIcons[task.action] || '<i data-feather="clipboard" class="text-secondary feather-sm"></i>'}
+                    </div>
+                    <div>
+                        <strong>${task.title}</strong>
+                        ${taskLink}
+                        ${taskDescription}
+                    </div>
+                </div>
+            </td>
+            <td>${statusBadge}</td>
+            <td>
+                <span class="time-display" 
+                      data-task-id="${task.id}" 
+                      data-current-time="${task.time_spent_minutes || 0}"
+                      style="cursor: pointer; padding: 4px; border-radius: 3px;"
+                      title="Click to edit time spent">
+                    ${task.time_spent_minutes || 0} min
+                </span>
+                <input type="number" 
+                       class="form-control form-control-sm time-edit" 
+                       data-task-id="${task.id}"
+                       value="${task.time_spent_minutes || 0}" 
+                       min="0" 
+                       style="display: none; width: 80px;"
+                       placeholder="Minutes">
+            </td>
+            <td>${task.completed_at || '--'}</td>
+        </tr>
+    `;
+}
+
+function updateActivitySummary() {
+    const summaryElement = document.getElementById('activity-summary');
+    summaryElement.textContent = `Showing ${totalDaysLoaded} active days`;
+}
+
+function showLoadingIndicator() {
+    document.getElementById('loading-indicator').style.display = 'block';
+}
+
+function hideLoadingIndicator() {
+    document.getElementById('loading-indicator').style.display = 'none';
+}
+
+function showEndOfContent() {
+    document.getElementById('end-of-content').style.display = 'block';
+}
+
+function showNoActivity() {
+    document.getElementById('no-activity').style.display = 'block';
+    document.getElementById('activity-summary').style.display = 'none';
+}
+
+function showError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'alert alert-danger';
+    errorDiv.textContent = message;
+    document.getElementById('activity-container').insertBefore(errorDiv, document.getElementById('historyAccordion'));
+
+    setTimeout(() => {
+        errorDiv.remove();
+    }, 5000);
+}
+
+// Time editing functions remain the same
 function handleTimeDisplayClick(e) {
     if (e.target.classList.contains('time-display')) {
         const timeDisplay = e.target;
@@ -225,22 +349,14 @@ function handleTimeDisplayClick(e) {
         const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
 
         console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
-        console.log(`Input found:`, input);
-        console.log(`Time display visible:`, timeDisplay.style.display !== 'none');
 
-        // Only proceed if input exists and we're not already in edit mode
         if (input && timeDisplay.style.display !== 'none') {
             console.log(`Switching to edit mode for task ${taskId}`);
-            console.log(`Setting input value from ${input.value} to ${currentTime}`);
-            
-            // Reset any styling issues
+
             timeDisplay.style.backgroundColor = '';
             timeDisplay.style.color = '';
-
-            // Set the correct value first
             input.value = currentTime;
-            
-            // Hide display, show input
+
             timeDisplay.style.display = 'none';
             input.style.display = 'inline-block';
             input.style.width = '80px';
@@ -250,20 +366,11 @@ function handleTimeDisplayClick(e) {
             input.style.zIndex = '1000';
             input.style.backgroundColor = 'white';
             input.style.border = '1px solid #ced4da';
-            
-            console.log(`Input after changes: value=${input.value}, display=${input.style.display}, visibility=${input.style.visibility}`);
-            
-            // Add a small delay before focusing to ensure element is visible
+
             setTimeout(() => {
                 input.focus();
                 input.select();
-                console.log(`Input focused for task ${taskId}`);
             }, 10);
-        } else {
-            console.log(`Cannot edit task ${taskId}: input not found or already in edit mode`);
-            if (!input) {
-                console.log(`No input element found with selector: .time-edit[data-task-id="${taskId}"]`);
-            }
         }
     }
 }
@@ -287,153 +394,123 @@ function handleTimeInputBlur(e) {
 }
 
 function saveTimeChange(input) {
-        const taskId = input.dataset.taskId;
-        const newTime = parseInt(input.value);
-        const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
-        const originalTime = parseInt(timeDisplay.dataset.currentTime) || 0;
+    const taskId = input.dataset.taskId;
+    const newTime = parseInt(input.value);
+    const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
+    const originalTime = parseInt(timeDisplay.dataset.currentTime) || 0;
 
-        console.log(`Saving time change for task ${taskId}: ${originalTime} -> ${newTime}`);
+    console.log(`Saving time change for task ${taskId}: ${originalTime} -> ${newTime}`);
 
-        if (isNaN(newTime) || newTime < 0) {
-            alert('Please enter a valid number of minutes');
-            input.focus();
-            return;
-        }
+    if (isNaN(newTime) || newTime < 0) {
+        alert('Please enter a valid number of minutes');
+        input.focus();
+        return;
+    }
 
-        // Show loading state
-        input.disabled = true;
+    input.disabled = true;
 
-        // Get CSRF token
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        
-        fetch(`/history/task/${taskId}/update_time`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRFToken': csrfToken
-            },
-            body: JSON.stringify({
-                time_spent_minutes: newTime
-            })
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch(`/history/task/${taskId}/update_time`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': csrfToken
+        },
+        body: JSON.stringify({
+            time_spent_minutes: newTime
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Server response:', data);
-            if (data.status === 'success') {
-                // Update the display with the confirmed value from server
-                timeDisplay.textContent = `${data.new_time} min`;
-                timeDisplay.dataset.currentTime = data.new_time;
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Server response:', data);
+        if (data.status === 'success') {
+            timeDisplay.textContent = `${data.new_time} min`;
+            timeDisplay.dataset.currentTime = data.new_time;
 
-                // Update daily total
-                updateDailyTotal(taskId, originalTime, data.new_time);
+            updateDailyTotal(taskId, originalTime, data.new_time);
 
-                // Show success feedback
-                timeDisplay.style.backgroundColor = '#d4edda';
-                setTimeout(() => {
-                    timeDisplay.style.backgroundColor = '';
-                }, 1000);
+            timeDisplay.style.backgroundColor = '#d4edda';
+            setTimeout(() => {
+                timeDisplay.style.backgroundColor = '';
+            }, 1000);
 
-                console.log(`Time successfully updated to ${data.new_time} minutes`);
-            } else {
-                alert('Error updating time. Please try again.');
-                console.error('Server error:', data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
+            console.log(`Time successfully updated to ${data.new_time} minutes`);
+        } else {
             alert('Error updating time. Please try again.');
-        })
-        .finally(() => {
-            // Always reset the UI
-            input.disabled = false;
-            input.style.display = 'none';
-            timeDisplay.style.display = 'inline';
-            console.log(`UI reset: input hidden, time display shown for task ${taskId}`);
-        });
+            console.error('Server error:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating time. Please try again.');
+    })
+    .finally(() => {
+        input.disabled = false;
+        input.style.display = 'none';
+        timeDisplay.style.display = 'inline';
+        console.log(`UI reset: input hidden, time display shown for task ${taskId}`);
+    });
 }
 
 function cancelTimeEdit(input) {
-        const taskId = input.dataset.taskId;
-        const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
+    const taskId = input.dataset.taskId;
+    const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
 
-        // Reset input to original value
-        input.value = timeDisplay.dataset.currentTime;
-
-        // Reset styling and show display
-        timeDisplay.style.backgroundColor = '';
-        timeDisplay.style.color = '';
-        input.style.display = 'none';
-        timeDisplay.style.display = 'inline';
+    input.value = timeDisplay.dataset.currentTime;
+    timeDisplay.style.backgroundColor = '';
+    timeDisplay.style.color = '';
+    input.style.display = 'none';
+    timeDisplay.style.display = 'inline';
 }
 
 function updateDailyTotal(taskId, oldTime, newTime) {
-        // Find the task row
-        const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
-        if (!taskRow) {
-            console.log(`Task row not found for task ${taskId}`);
-            return;
-        }
+    const taskRow = document.querySelector(`tr:has(.time-display[data-task-id="${taskId}"])`);
+    if (!taskRow) {
+        console.log(`Task row not found for task ${taskId}`);
+        return;
+    }
 
-        // Find the accordion item containing this task
-        const accordionItem = taskRow.closest('.accordion-item');
-        if (!accordionItem) {
-            console.log(`Accordion item not found for task ${taskId}`);
-            return;
-        }
+    const accordionItem = taskRow.closest('.accordion-item');
+    if (!accordionItem) {
+        console.log(`Accordion item not found for task ${taskId}`);
+        return;
+    }
 
-        // Find the total time display in the accordion header
-        const totalTimeElement = accordionItem.querySelector('.accordion-button .text-info');
-        if (!totalTimeElement) {
-            console.log(`Total time element not found for task ${taskId}`);
-            return;
-        }
+    const totalTimeElement = accordionItem.querySelector('.accordion-button .text-info');
+    if (!totalTimeElement) {
+        console.log(`Total time element not found for task ${taskId}`);
+        return;
+    }
 
-        // Parse current total from the display text (e.g., "1h 25m" or "45m")
-        const currentTotalText = totalTimeElement.textContent.trim();
-        let currentTotal = 0;
-        
-        // Extract hours and minutes
-        const hourMatch = currentTotalText.match(/(\d+)h/);
-        const minuteMatch = currentTotalText.match(/(\d+)m/);
-        
-        if (hourMatch) {
-            currentTotal += parseInt(hourMatch[1]) * 60;
-        }
-        if (minuteMatch) {
-            currentTotal += parseInt(minuteMatch[1]);
-        }
+    const currentTotalText = totalTimeElement.textContent.trim();
+    let currentTotal = 0;
 
-        const difference = (newTime || 0) - (oldTime || 0);
-        const newTotal = Math.max(0, currentTotal + difference);
+    const hourMatch = currentTotalText.match(/(\d+)h/);
+    const minuteMatch = currentTotalText.match(/(\d+)m/);
 
-        console.log(`Updating daily total: ${currentTotal} + (${newTime} - ${oldTime}) = ${newTotal}`);
+    if (hourMatch) {
+        currentTotal += parseInt(hourMatch[1]) * 60;
+    }
+    if (minuteMatch) {
+        currentTotal += parseInt(minuteMatch[1]);
+    }
 
-        // Update the total display
-        if (newTotal >= 60) {
-            const hours = Math.floor(newTotal / 60);
-            const minutes = newTotal % 60;
-            totalTimeElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${hours}h ${minutes}m`;
-        } else {
-            totalTimeElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${newTotal}m`;
-        }
-        
-        // Re-render the feather icon
-        feather.replace();
+    const difference = (newTime || 0) - (oldTime || 0);
+    const newTotal = Math.max(0, currentTotal + difference);
+
+    console.log(`Updating daily total: ${currentTotal} + (${newTime} - ${oldTime}) = ${newTotal}`);
+
+    if (newTotal >= 60) {
+        const hours = Math.floor(newTotal / 60);
+        const minutes = newTotal % 60;
+        totalTimeElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${hours}h ${minutes}m`;
+    } else {
+        totalTimeElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${newTotal}m`;
+    }
+
+    feather.replace();
 }
-
-function handlePageNavigation() {
-        // Small delay to ensure new page content is loaded
-        setTimeout(() => {
-            initializePage();
-        }, 100);
-}
-
-// Handle browser back/forward navigation
-window.addEventListener('popstate', function() {
-    setTimeout(() => {
-        initializePage();
-    }, 100);
-});
 </script>
 {% endblock %}
