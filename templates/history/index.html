@@ -205,11 +205,12 @@ function initializeNewInputFields() {
         
         // Ensure input is properly hidden by default with minimal styling conflicts
         input.style.display = 'none';
-        input.style.width = '80px';
+        input.style.width = '100px'; // Increased width to accommodate larger numbers
         
         // Ensure the input is properly configured
         input.setAttribute('type', 'number');
         input.setAttribute('min', '0');
+        input.setAttribute('max', '9999'); // Allow up to 4-digit numbers
         input.setAttribute('step', '1');
         input.classList.add('form-control', 'form-control-sm');
         
@@ -227,6 +228,7 @@ function initializeNewInputFields() {
         display.style.cursor = 'pointer';
         display.style.padding = '4px';
         display.style.borderRadius = '3px';
+        display.style.minWidth = '60px'; // Ensure enough space for larger numbers
         display.setAttribute('title', 'Click to edit time spent');
         
         console.log(`Initialized time display for task ${taskId}`);
@@ -353,7 +355,9 @@ function createTaskRow(task) {
                        data-task-id="${task.id}"
                        value="${timeSpent}" 
                        min="0" 
-                       style="display: none; width: 80px;"
+                       max="9999"
+                       step="1"
+                       style="display: none; width: 100px;"
                        placeholder="Minutes">
             </td>
             <td>${task.completed_at || '--'}</td>
@@ -440,9 +444,10 @@ function handleTimeDisplayClick(e) {
             
             // Show and configure input with minimal styling
             input.style.display = 'inline-block';
-            input.style.width = '80px';
+            input.style.width = '100px';
             input.style.border = '1px solid #007bff';
             input.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
+            input.style.fontSize = '0.875rem';
 
             // Force reflow to ensure styles are applied
             input.offsetHeight;
