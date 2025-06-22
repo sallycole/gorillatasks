@@ -400,7 +400,7 @@ function handleTimeDisplayClick(e) {
 
         console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
 
-        if (input && timeDisplay.style.display !== 'none') {
+        if (input) {
             console.log(`Switching to edit mode for task ${taskId}`);
 
             // Reset time display styling
@@ -411,8 +411,10 @@ function handleTimeDisplayClick(e) {
             input.value = currentTime;
             input.setAttribute('data-original-value', currentTime);
 
-            // Hide time display
+            // Hide time display completely
             timeDisplay.style.display = 'none';
+            timeDisplay.style.visibility = 'hidden';
+            timeDisplay.style.opacity = '0';
             
             // Ensure input has all required classes and attributes
             input.classList.add('form-control', 'form-control-sm');
@@ -444,14 +446,16 @@ function handleTimeDisplayClick(e) {
             
             // Force focus after a short delay to ensure visibility
             setTimeout(() => {
-                if (input.style.display !== 'none') {
+                try {
                     input.focus();
                     input.select();
                     console.log(`Input focused and selected for task ${taskId}`);
+                } catch (error) {
+                    console.error(`Error focusing input for task ${taskId}:`, error);
                 }
-            }, 50);
+            }, 100);
         } else {
-            console.log(`Input not found or not available for task ${taskId}`);
+            console.error(`Input not found for task ${taskId}`);
         }
     }
 }
