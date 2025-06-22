@@ -180,18 +180,26 @@ function appendDays(days) {
         accordion.appendChild(dayElement);
     });
 
-    // Re-initialize feather icons for new content
+    // Re-initialize feather icons for new content first
     feather.replace();
     
-    // Initialize input fields in newly loaded content
-    initializeNewInputFields();
+    // Initialize input fields in newly loaded content after a short delay
+    // to ensure DOM is fully ready
+    setTimeout(() => {
+        initializeNewInputFields();
+    }, 100);
 }
 
 function initializeNewInputFields() {
+    console.log('Initializing new input fields...');
+    
     // Find all time-edit inputs that haven't been initialized
     const newInputs = document.querySelectorAll('.time-edit:not([data-initialized])');
+    console.log(`Found ${newInputs.length} new inputs to initialize`);
     
     newInputs.forEach(input => {
+        const taskId = input.dataset.taskId;
+        
         // Mark as initialized
         input.setAttribute('data-initialized', 'true');
         
@@ -205,19 +213,26 @@ function initializeNewInputFields() {
         input.setAttribute('step', '1');
         input.classList.add('form-control', 'form-control-sm');
         
-        console.log(`Initialized input for task ${input.dataset.taskId} - hidden by default`);
+        console.log(`Initialized input for task ${taskId} - hidden by default`);
     });
     
     // Also ensure all time displays are properly configured
     const newTimeDisplays = document.querySelectorAll('.time-display:not([data-initialized])');
+    console.log(`Found ${newTimeDisplays.length} new time displays to initialize`);
+    
     newTimeDisplays.forEach(display => {
+        const taskId = display.dataset.taskId;
+        
         display.setAttribute('data-initialized', 'true');
         display.style.cursor = 'pointer';
         display.style.padding = '4px';
         display.style.borderRadius = '3px';
         display.setAttribute('title', 'Click to edit time spent');
-        console.log(`Initialized time display for task ${display.dataset.taskId}`);
+        
+        console.log(`Initialized time display for task ${taskId}`);
     });
+    
+    console.log('Input field initialization complete');
 }
 
 function createDayElement(day, index) {
@@ -385,12 +400,31 @@ function handleTimeDisplayClick(e) {
         const timeDisplay = e.target;
         const taskId = timeDisplay.dataset.taskId;
         const currentTime = timeDisplay.dataset.currentTime;
-        const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
+        let input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
 
         console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
 
+        // If input doesn't exist, try to find it in the same row
+        if (!input) {
+            const row = timeDisplay.closest('tr');
+            if (row) {
+                input = row.querySelector('.time-edit');
+                console.log(`Found input via row traversal for task ${taskId}`);
+            }
+        }
+
         if (input) {
             console.log(`Switching to edit mode for task ${taskId}`);
+
+            // Ensure input is properly initialized if it wasn't before
+            if (!input.hasAttribute('data-initialized')) {
+                input.setAttribute('data-initialized', 'true');
+                input.setAttribute('type', 'number');
+                input.setAttribute('min', '0');
+                input.setAttribute('step', '1');
+                input.classList.add('form-control', 'form-control-sm');
+                console.log(`Late initialization of input for task ${taskId}`);
+            }
 
             // Reset time display styling
             timeDisplay.style.backgroundColor = '';
@@ -399,6 +433,7 @@ function handleTimeDisplayClick(e) {
             // Set input value and ensure it's properly configured
             input.value = currentTime;
             input.setAttribute('data-original-value', currentTime);
+            input.dataset.taskId = taskId; // Ensure task ID is set
 
             // Hide time display
             timeDisplay.style.display = 'none';
@@ -423,7 +458,8 @@ function handleTimeDisplayClick(e) {
                 }
             }, 100);
         } else {
-            console.error(`Input not found for task ${taskId}`);
+            console.error(`Input not found for task ${taskId} even after row traversal`);
+            console.log('Available inputs:', document.querySelectorAll('.time-edit'));
         }
     }
 }
