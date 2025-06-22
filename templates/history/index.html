@@ -233,11 +233,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const newTime = parseInt(input.value) || 0;
         const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
         
+        // Get CSRF token
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+        
         // Update the server
         fetch(`/history/task/${taskId}/update_time`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
             },
             body: JSON.stringify({
                 time_spent_minutes: newTime
