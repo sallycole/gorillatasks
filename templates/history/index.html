@@ -327,6 +327,8 @@ function createTaskRow(task) {
     // Ensure consistent time value handling
     const timeSpent = task.time_spent_minutes ? parseInt(task.time_spent_minutes) : 0;
     
+    console.log(`Creating task row for task ID: ${task.id}, title: "${task.title}", timeSpent: ${timeSpent}`);
+    
     return `
         <tr>
             <td>
@@ -407,24 +409,35 @@ function handleTimeDisplayClick(e) {
         let input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
 
         console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
+        console.log(`Time display element:`, timeDisplay);
 
         // If input doesn't exist, try to find it in the same row
         if (!input) {
             const row = timeDisplay.closest('tr');
             if (row) {
                 input = row.querySelector('.time-edit');
-                console.log(`Found input via row traversal for task ${taskId}`);
+                if (input) {
+                    console.log(`Found input via row traversal for task ${taskId}`, input);
+                    // Ensure the input has the correct task ID
+                    input.dataset.taskId = taskId;
+                } else {
+                    console.error(`No input found in row for task ${taskId}`);
+                    console.log(`Row HTML:`, row.innerHTML);
+                }
+            } else {
+                console.error(`No row found for task ${taskId}`);
             }
         }
 
         if (input) {
-            console.log(`Switching to edit mode for task ${taskId}`);
+            console.log(`Switching to edit mode for task ${taskId}`, input);
 
             // Ensure input is properly initialized if it wasn't before
             if (!input.hasAttribute('data-initialized')) {
                 input.setAttribute('data-initialized', 'true');
                 input.setAttribute('type', 'number');
                 input.setAttribute('min', '0');
+                input.setAttribute('max', '9999');
                 input.setAttribute('step', '1');
                 input.classList.add('form-control', 'form-control-sm');
                 console.log(`Late initialization of input for task ${taskId}`);
@@ -464,7 +477,15 @@ function handleTimeDisplayClick(e) {
             }, 100);
         } else {
             console.error(`Input not found for task ${taskId} even after row traversal`);
+            console.log('Time display attributes:', timeDisplay.attributes);
             console.log('Available inputs:', document.querySelectorAll('.time-edit'));
+            console.log('All time displays:', document.querySelectorAll('.time-display'));
+            
+            // Try to find the task by checking all time displays and their IDs
+            const allTimeDisplays = document.querySelectorAll('.time-display');
+            allTimeDisplays.forEach((display, index) => {
+                console.log(`Time display ${index}: taskId=${display.dataset.taskId}, text="${display.textContent.trim()}"`);
+            });
         }
     }
 }
