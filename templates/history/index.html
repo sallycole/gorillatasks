@@ -201,18 +201,20 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePage();
 });
 
+let eventListenersAttached = false;
+
 function initializePage() {
     feather.replace();
 
-    // Remove any existing event listeners to prevent duplicates
-    document.removeEventListener('click', handleTimeDisplayClick);
-    document.removeEventListener('keydown', handleTimeInputKeydown);
-    document.removeEventListener('blur', handleTimeInputBlur, true);
-
-    // Use event delegation for time editing to work on all pages
-    document.addEventListener('click', handleTimeDisplayClick);
-    document.addEventListener('keydown', handleTimeInputKeydown);
-    document.addEventListener('blur', handleTimeInputBlur, true);
+    // Only attach event listeners once to prevent duplicates
+    if (!eventListenersAttached) {
+        console.log('Attaching event listeners for time editing');
+        // Use event delegation for time editing to work on all pages
+        document.addEventListener('click', handleTimeDisplayClick);
+        document.addEventListener('keydown', handleTimeInputKeydown);
+        document.addEventListener('blur', handleTimeInputBlur, true);
+        eventListenersAttached = true;
+    }
 }
 
 function handleTimeDisplayClick(e) {
@@ -223,6 +225,8 @@ function handleTimeDisplayClick(e) {
         const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
 
         console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
+        console.log(`Input found:`, input);
+        console.log(`Time display visible:`, timeDisplay.style.display !== 'none');
 
         // Only proceed if input exists and we're not already in edit mode
         if (input && timeDisplay.style.display !== 'none') {
@@ -236,10 +240,18 @@ function handleTimeDisplayClick(e) {
             timeDisplay.style.display = 'none';
             input.style.display = 'inline-block';
             input.value = currentTime; // Ensure input has correct value
-            input.focus();
-            input.select();
+            
+            // Add a small delay before focusing to ensure element is visible
+            setTimeout(() => {
+                input.focus();
+                input.select();
+                console.log(`Input focused for task ${taskId}`);
+            }, 10);
         } else {
             console.log(`Cannot edit task ${taskId}: input not found or already in edit mode`);
+            if (!input) {
+                console.log(`No input element found with selector: .time-edit[data-task-id="${taskId}"]`);
+            }
         }
     }
 }
