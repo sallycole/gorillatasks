@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 auth_bp = Blueprint('auth', __name__)
 curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
 inventory_bp = Blueprint('inventory', __name__, url_prefix='/inventory')
-archive_bp = Blueprint('archive', __name__, url_prefix='/archive')
+archive_bp = Blueprint('archive', __name__, url_prefix='/progress')
 todo_bp = Blueprint('todo', __name__, url_prefix='/todo')
 
 @archive_bp.route('/')
