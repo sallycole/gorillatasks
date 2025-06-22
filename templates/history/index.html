@@ -260,8 +260,9 @@ function handleTimeInputBlur(e) {
     if (e.target.classList.contains('time-edit')) {
         saveTimeChange(e.target);
     }
+}
 
-    function saveTimeChange(input) {
+function saveTimeChange(input) {
         const taskId = input.dataset.taskId;
         const newTime = parseInt(input.value);
         const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
@@ -325,9 +326,9 @@ function handleTimeInputBlur(e) {
             input.style.display = 'none';
             timeDisplay.style.display = 'inline';
         });
-    }
+}
 
-    function cancelTimeEdit(input) {
+function cancelTimeEdit(input) {
         const taskId = input.dataset.taskId;
         const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
 
@@ -339,9 +340,9 @@ function handleTimeInputBlur(e) {
         timeDisplay.style.color = '';
         input.style.display = 'none';
         timeDisplay.style.display = 'inline-block';
-    }
+}
 
-    function updateDailyTotal(taskId, oldTime, newTime) {
+function updateDailyTotal(taskId, oldTime, newTime) {
         // Find the task row
         const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
         if (!taskRow) {
@@ -394,21 +395,21 @@ function handleTimeInputBlur(e) {
         
         // Re-render the feather icon
         feather.replace();
-    }
+}
 
-    function handlePageNavigation() {
+function handlePageNavigation() {
         // Small delay to ensure new page content is loaded
         setTimeout(() => {
             initializePage();
         }, 100);
-    }
+}
 
-    // Handle browser back/forward navigation
+// Handle browser back/forward navigation
     window.addEventListener('popstate', function() {
         setTimeout(() => {
             initializePage();
         }, 100);
     });
-});
+}
 </script>
 {% endblock %}
