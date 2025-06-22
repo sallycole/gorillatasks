@@ -1,0 +1,630 @@
+history/:206 Attaching event listeners for time editing
+history/:342 Initialized input for task 6224 - hidden by default
+history/:342 Initialized input for task 6733 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6721 - hidden by default
+history/:342 Initialized input for task 6733 - hidden by default
+history/:342 Initialized input for task 6225 - hidden by default
+history/:342 Initialized input for task 6224 - hidden by default
+history/:342 Initialized input for task 6712 - hidden by default
+history/:342 Initialized input for task 6624 - hidden by default
+history/:342 Initialized input for task 6441 - hidden by default
+history/:342 Initialized input for task 6225 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6625 - hidden by default
+history/:342 Initialized input for task 6440 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 1619 - hidden by default
+history/:342 Initialized input for task 6496 - hidden by default
+history/:342 Initialized input for task 6439 - hidden by default
+history/:342 Initialized input for task 6624 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6495 - hidden by default
+history/:342 Initialized input for task 6438 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6214 - hidden by default
+history/:342 Initialized input for task 1618 - hidden by default
+history/:342 Initialized input for task 6437 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6225 - hidden by default
+history/:342 Initialized input for task 6493 - hidden by default
+history/:342 Initialized input for task 1617 - hidden by default
+history/:342 Initialized input for task 6494 - hidden by default
+history/:342 Initialized input for task 6225 - hidden by default
+history/:342 Initialized input for task 1616 - hidden by default
+history/:342 Initialized input for task 6436 - hidden by default
+history/:342 Initialized input for task 6493 - hidden by default
+history/:342 Initialized input for task 1331 - hidden by default
+history/:342 Initialized input for task 6214 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 3408 - hidden by default
+history/:342 Initialized input for task 3407 - hidden by default
+history/:342 Initialized input for task 3406 - hidden by default
+history/:342 Initialized input for task 3405 - hidden by default
+history/:342 Initialized input for task 6214 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6225 - hidden by default
+history/:342 Initialized input for task 6169 - hidden by default
+history/:342 Initialized input for task 6214 - hidden by default
+history/:342 Initialized input for task 6225 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 3703 - hidden by default
+history/:342 Initialized input for task 3404 - hidden by default
+history/:342 Initialized input for task 6169 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 6214 - hidden by default
+history/:342 Initialized input for task 6063 - hidden by default
+history/:342 Initialized input for task 3403 - hidden by default
+history/:342 Initialized input for task 6169 - hidden by default
+history/:342 Initialized input for task 6217 - hidden by default
+history/:342 Initialized input for task 1615 - hidden by default
+history/:342 Initialized input for task 6062 - hidden by default
+history/:342 Initialized input for task 1614 - hidden by default
+history/:342 Initialized input for task 6169 - hidden by default
+history/:342 Initialized input for task 6223 - hidden by default
+history/:342 Initialized input for task 6224 - hidden by default
+history/:342 Initialized input for task 6061 - hidden by default
+history/:342 Initialized input for task 3402 - hidden by default
+history/:342 Initialized input for task 6212 - hidden by default
+history/:342 Initialized input for task 1613 - hidden by default
+history/:342 Initialized input for task 6216 - hidden by default
+history/:342 Initialized input for task 6223 - hidden by default
+history/:353 Initialized time display for task 6224
+history/:353 Initialized time display for task 6733
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6721
+history/:353 Initialized time display for task 6733
+history/:353 Initialized time display for task 6225
+history/:353 Initialized time display for task 6224
+history/:353 Initialized time display for task 6712
+history/:353 Initialized time display for task 6624
+history/:353 Initialized time display for task 6441
+history/:353 Initialized time display for task 6225
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6625
+history/:353 Initialized time display for task 6440
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 1619
+history/:353 Initialized time display for task 6496
+history/:353 Initialized time display for task 6439
+history/:353 Initialized time display for task 6624
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6495
+history/:353 Initialized time display for task 6438
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6214
+history/:353 Initialized time display for task 1618
+history/:353 Initialized time display for task 6437
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6225
+history/:353 Initialized time display for task 6493
+history/:353 Initialized time display for task 1617
+history/:353 Initialized time display for task 6494
+history/:353 Initialized time display for task 6225
+history/:353 Initialized time display for task 1616
+history/:353 Initialized time display for task 6436
+history/:353 Initialized time display for task 6493
+history/:353 Initialized time display for task 1331
+history/:353 Initialized time display for task 6214
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 3408
+history/:353 Initialized time display for task 3407
+history/:353 Initialized time display for task 3406
+history/:353 Initialized time display for task 3405
+history/:353 Initialized time display for task 6214
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6225
+history/:353 Initialized time display for task 6169
+history/:353 Initialized time display for task 6214
+history/:353 Initialized time display for task 6225
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 3703
+history/:353 Initialized time display for task 3404
+history/:353 Initialized time display for task 6169
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 6214
+history/:353 Initialized time display for task 6063
+history/:353 Initialized time display for task 3403
+history/:353 Initialized time display for task 6169
+history/:353 Initialized time display for task 6217
+history/:353 Initialized time display for task 1615
+history/:353 Initialized time display for task 6062
+history/:353 Initialized time display for task 1614
+history/:353 Initialized time display for task 6169
+history/:353 Initialized time display for task 6223
+history/:353 Initialized time display for task 6224
+history/:353 Initialized time display for task 6061
+history/:353 Initialized time display for task 3402
+history/:353 Initialized time display for task 6212
+history/:353 Initialized time display for task 1613
+history/:353 Initialized time display for task 6216
+history/:353 Initialized time display for task 6223
+history/:342 Initialized input for task 3401 - hidden by default
+history/:342 Initialized input for task 6210 - hidden by default
+history/:342 Initialized input for task 6214 - hidden by default
+history/:342 Initialized input for task 6060 - hidden by default
+history/:342 Initialized input for task 6215 - hidden by default
+history/:342 Initialized input for task 1612 - hidden by default
+history/:342 Initialized input for task 6164 - hidden by default
+history/:342 Initialized input for task 6163 - hidden by default
+ Initialized input for task 3721 - hidden by default
+ Initialized input for task 6161 - hidden by default
+ Initialized input for task 3400 - hidden by default
+ Initialized input for task 6059 - hidden by default
+ Initialized input for task 1611 - hidden by default
+ Initialized input for task 3399 - hidden by default
+ Initialized input for task 6058 - hidden by default
+ Initialized input for task 1610 - hidden by default
+ Initialized input for task 3398 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 1333 - hidden by default
+ Initialized input for task 6169 - hidden by default
+ Initialized input for task 1609 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 3397 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 1608 - hidden by default
+ Initialized input for task 3702 - hidden by default
+ Initialized input for task 6057 - hidden by default
+ Initialized input for task 6056 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6213 - hidden by default
+ Initialized input for task 1607 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 3396 - hidden by default
+ Initialized input for task 6162 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6213 - hidden by default
+ Initialized input for task 1606 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 3395 - hidden by default
+ Initialized input for task 3394 - hidden by default
+ Initialized input for task 1605 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6210 - hidden by default
+ Initialized input for task 6169 - hidden by default
+ Initialized input for task 3391 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 4237 - hidden by default
+ Initialized input for task 4239 - hidden by default
+ Initialized input for task 1604 - hidden by default
+ Initialized input for task 1334 - hidden by default
+ Initialized input for task 1335 - hidden by default
+ Initialized input for task 6055 - hidden by default
+ Initialized input for task 1603 - hidden by default
+ Initialized input for task 3393 - hidden by default
+ Initialized input for task 3392 - hidden by default
+ Initialized input for task 6054 - hidden by default
+ Initialized input for task 6053 - hidden by default
+ Initialized input for task 6047 - hidden by default
+ Initialized input for task 1602 - hidden by default
+ Initialized input for task 6052 - hidden by default
+ Initialized input for task 6051 - hidden by default
+ Initialized input for task 6050 - hidden by default
+ Initialized input for task 6049 - hidden by default
+ Initialized input for task 6048 - hidden by default
+ Initialized input for task 6046 - hidden by default
+ Initialized input for task 6045 - hidden by default
+ Initialized input for task 6044 - hidden by default
+ Initialized input for task 6043 - hidden by default
+ Initialized input for task 6042 - hidden by default
+ Initialized input for task 6041 - hidden by default
+ Initialized input for task 6040 - hidden by default
+ Initialized input for task 6039 - hidden by default
+ Initialized input for task 6038 - hidden by default
+ Initialized input for task 6037 - hidden by default
+ Initialized input for task 6036 - hidden by default
+ Initialized input for task 6035 - hidden by default
+ Initialized input for task 6034 - hidden by default
+ Initialized input for task 6033 - hidden by default
+ Initialized input for task 6032 - hidden by default
+ Initialized input for task 6031 - hidden by default
+ Initialized input for task 6030 - hidden by default
+ Initialized input for task 6029 - hidden by default
+ Initialized input for task 6028 - hidden by default
+ Initialized input for task 6027 - hidden by default
+ Initialized input for task 6026 - hidden by default
+ Initialized input for task 6025 - hidden by default
+ Initialized input for task 6024 - hidden by default
+ Initialized input for task 6023 - hidden by default
+ Initialized input for task 6022 - hidden by default
+ Initialized input for task 6021 - hidden by default
+ Initialized input for task 6020 - hidden by default
+ Initialized input for task 6019 - hidden by default
+ Initialized input for task 6018 - hidden by default
+ Initialized input for task 6017 - hidden by default
+ Initialized input for task 6016 - hidden by default
+ Initialized input for task 6015 - hidden by default
+ Initialized input for task 6014 - hidden by default
+ Initialized input for task 6013 - hidden by default
+ Initialized input for task 6012 - hidden by default
+ Initialized input for task 6011 - hidden by default
+ Initialized input for task 6010 - hidden by default
+ Initialized input for task 6009 - hidden by default
+ Initialized input for task 6008 - hidden by default
+ Initialized input for task 6007 - hidden by default
+ Initialized input for task 6006 - hidden by default
+ Initialized input for task 6005 - hidden by default
+ Initialized input for task 6004 - hidden by default
+ Initialized input for task 6003 - hidden by default
+ Initialized input for task 6002 - hidden by default
+ Initialized input for task 6001 - hidden by default
+ Initialized input for task 6000 - hidden by default
+ Initialized input for task 5999 - hidden by default
+ Initialized input for task 5998 - hidden by default
+ Initialized input for task 5997 - hidden by default
+ Initialized input for task 5996 - hidden by default
+ Initialized input for task 5995 - hidden by default
+ Initialized input for task 5994 - hidden by default
+ Initialized input for task 5993 - hidden by default
+ Initialized input for task 5992 - hidden by default
+ Initialized input for task 5991 - hidden by default
+ Initialized input for task 5990 - hidden by default
+ Initialized input for task 5989 - hidden by default
+ Initialized input for task 5988 - hidden by default
+ Initialized input for task 5987 - hidden by default
+ Initialized input for task 5986 - hidden by default
+ Initialized input for task 5985 - hidden by default
+ Initialized input for task 5984 - hidden by default
+ Initialized input for task 5983 - hidden by default
+ Initialized input for task 5982 - hidden by default
+ Initialized input for task 5981 - hidden by default
+ Initialized input for task 5980 - hidden by default
+ Initialized input for task 5979 - hidden by default
+ Initialized input for task 5978 - hidden by default
+ Initialized input for task 5977 - hidden by default
+ Initialized input for task 5976 - hidden by default
+ Initialized input for task 5975 - hidden by default
+ Initialized input for task 5974 - hidden by default
+ Initialized input for task 5973 - hidden by default
+ Initialized input for task 5972 - hidden by default
+ Initialized input for task 5971 - hidden by default
+ Initialized input for task 5970 - hidden by default
+ Initialized input for task 5969 - hidden by default
+ Initialized input for task 5968 - hidden by default
+ Initialized input for task 5967 - hidden by default
+ Initialized input for task 5966 - hidden by default
+ Initialized input for task 5965 - hidden by default
+ Initialized input for task 5964 - hidden by default
+ Initialized input for task 5963 - hidden by default
+ Initialized input for task 5962 - hidden by default
+ Initialized input for task 5961 - hidden by default
+ Initialized input for task 5960 - hidden by default
+ Initialized input for task 5959 - hidden by default
+ Initialized input for task 5958 - hidden by default
+ Initialized input for task 5957 - hidden by default
+ Initialized input for task 5956 - hidden by default
+ Initialized input for task 5955 - hidden by default
+ Initialized input for task 5954 - hidden by default
+ Initialized input for task 5953 - hidden by default
+ Initialized input for task 5952 - hidden by default
+ Initialized input for task 5951 - hidden by default
+ Initialized input for task 5950 - hidden by default
+ Initialized input for task 5949 - hidden by default
+ Initialized input for task 5948 - hidden by default
+ Initialized input for task 5947 - hidden by default
+ Initialized input for task 5946 - hidden by default
+ Initialized input for task 5945 - hidden by default
+ Initialized input for task 5944 - hidden by default
+ Initialized input for task 5943 - hidden by default
+ Initialized input for task 5942 - hidden by default
+ Initialized input for task 5941 - hidden by default
+ Initialized input for task 5940 - hidden by default
+ Initialized input for task 5939 - hidden by default
+ Initialized input for task 5938 - hidden by default
+ Initialized input for task 5937 - hidden by default
+ Initialized input for task 5936 - hidden by default
+ Initialized input for task 5935 - hidden by default
+ Initialized input for task 5934 - hidden by default
+ Initialized input for task 5933 - hidden by default
+ Initialized input for task 5932 - hidden by default
+ Initialized input for task 5931 - hidden by default
+ Initialized input for task 5930 - hidden by default
+ Initialized input for task 5929 - hidden by default
+ Initialized input for task 5928 - hidden by default
+ Initialized input for task 5927 - hidden by default
+ Initialized input for task 5926 - hidden by default
+ Initialized input for task 5925 - hidden by default
+ Initialized input for task 5924 - hidden by default
+ Initialized input for task 5923 - hidden by default
+ Initialized input for task 5922 - hidden by default
+ Initialized input for task 5921 - hidden by default
+ Initialized input for task 5920 - hidden by default
+ Initialized input for task 5919 - hidden by default
+ Initialized input for task 5918 - hidden by default
+ Initialized input for task 5917 - hidden by default
+ Initialized input for task 5916 - hidden by default
+ Initialized input for task 5915 - hidden by default
+ Initialized input for task 5914 - hidden by default
+ Initialized input for task 5913 - hidden by default
+ Initialized input for task 5912 - hidden by default
+ Initialized input for task 5911 - hidden by default
+ Initialized input for task 5910 - hidden by default
+ Initialized input for task 5909 - hidden by default
+ Initialized input for task 5908 - hidden by default
+ Initialized input for task 5907 - hidden by default
+ Initialized input for task 5906 - hidden by default
+ Initialized input for task 5905 - hidden by default
+ Initialized input for task 5904 - hidden by default
+ Initialized input for task 5903 - hidden by default
+ Initialized input for task 5902 - hidden by default
+ Initialized input for task 5901 - hidden by default
+ Initialized input for task 5900 - hidden by default
+ Initialized input for task 5899 - hidden by default
+ Initialized input for task 5898 - hidden by default
+ Initialized input for task 5897 - hidden by default
+ Initialized input for task 5896 - hidden by default
+ Initialized input for task 5895 - hidden by default
+ Initialized input for task 5894 - hidden by default
+ Initialized input for task 5893 - hidden by default
+ Initialized input for task 5892 - hidden by default
+ Initialized input for task 1601 - hidden by default
+ Initialized input for task 1330 - hidden by default
+ Initialized time display for task 3401
+ Initialized time display for task 6210
+ Initialized time display for task 6214
+ Initialized time display for task 6060
+ Initialized time display for task 6215
+ Initialized time display for task 1612
+ Initialized time display for task 6164
+ Initialized time display for task 6163
+ Initialized time display for task 3721
+ Initialized time display for task 6161
+ Initialized time display for task 3400
+ Initialized time display for task 6059
+ Initialized time display for task 1611
+ Initialized time display for task 3399
+ Initialized time display for task 6058
+ Initialized time display for task 1610
+ Initialized time display for task 3398
+ Initialized time display for task 6214
+ Initialized time display for task 1333
+ Initialized time display for task 6169
+ Initialized time display for task 1609
+ Initialized time display for task 6214
+ Initialized time display for task 3397
+ Initialized time display for task 6214
+ Initialized time display for task 6214
+ Initialized time display for task 1608
+ Initialized time display for task 3702
+ Initialized time display for task 6057
+ Initialized time display for task 6056
+ Initialized time display for task 6212
+ Initialized time display for task 6212
+ Initialized time display for task 6213
+ Initialized time display for task 1607
+ Initialized time display for task 6168
+ Initialized time display for task 3396
+ Initialized time display for task 6162
+ Initialized time display for task 6212
+ Initialized time display for task 6213
+ Initialized time display for task 1606
+ Initialized time display for task 6212
+ Initialized time display for task 3395
+ Initialized time display for task 3394
+ Initialized time display for task 1605
+ Initialized time display for task 6212
+ Initialized time display for task 6210
+ Initialized time display for task 6169
+ Initialized time display for task 3391
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6166
+ Initialized time display for task 4237
+ Initialized time display for task 4239
+ Initialized time display for task 1604
+ Initialized time display for task 1334
+ Initialized time display for task 1335
+ Initialized time display for task 6055
+ Initialized time display for task 1603
+ Initialized time display for task 3393
+ Initialized time display for task 3392
+ Initialized time display for task 6054
+ Initialized time display for task 6053
+ Initialized time display for task 6047
+ Initialized time display for task 1602
+ Initialized time display for task 6052
+ Initialized time display for task 6051
+ Initialized time display for task 6050
+ Initialized time display for task 6049
+ Initialized time display for task 6048
+ Initialized time display for task 6046
+ Initialized time display for task 6045
+ Initialized time display for task 6044
+ Initialized time display for task 6043
+ Initialized time display for task 6042
+ Initialized time display for task 6041
+ Initialized time display for task 6040
+ Initialized time display for task 6039
+ Initialized time display for task 6038
+ Initialized time display for task 6037
+ Initialized time display for task 6036
+ Initialized time display for task 6035
+ Initialized time display for task 6034
+ Initialized time display for task 6033
+ Initialized time display for task 6032
+ Initialized time display for task 6031
+ Initialized time display for task 6030
+ Initialized time display for task 6029
+ Initialized time display for task 6028
+ Initialized time display for task 6027
+ Initialized time display for task 6026
+ Initialized time display for task 6025
+history/:353 Initialized time display for task 6024
+history/:353 Initialized time display for task 6023
+history/:353 Initialized time display for task 6022
+history/:353 Initialized time display for task 6021
+history/:353 Initialized time display for task 6020
+history/:353 Initialized time display for task 6019
+history/:353 Initialized time display for task 6018
+history/:353 Initialized time display for task 6017
+history/:353 Initialized time display for task 6016
+history/:353 Initialized time display for task 6015
+history/:353 Initialized time display for task 6014
+history/:353 Initialized time display for task 6013
+history/:353 Initialized time display for task 6012
+history/:353 Initialized time display for task 6011
+history/:353 Initialized time display for task 6010
+history/:353 Initialized time display for task 6009
+history/:353 Initialized time display for task 6008
+history/:353 Initialized time display for task 6007
+history/:353 Initialized time display for task 6006
+history/:353 Initialized time display for task 6005
+history/:353 Initialized time display for task 6004
+history/:353 Initialized time display for task 6003
+history/:353 Initialized time display for task 6002
+history/:353 Initialized time display for task 6001
+history/:353 Initialized time display for task 6000
+history/:353 Initialized time display for task 5999
+history/:353 Initialized time display for task 5998
+history/:353 Initialized time display for task 5997
+history/:353 Initialized time display for task 5996
+history/:353 Initialized time display for task 5995
+history/:353 Initialized time display for task 5994
+history/:353 Initialized time display for task 5993
+history/:353 Initialized time display for task 5992
+history/:353 Initialized time display for task 5991
+history/:353 Initialized time display for task 5990
+history/:353 Initialized time display for task 5989
+history/:353 Initialized time display for task 5988
+history/:353 Initialized time display for task 5987
+history/:353 Initialized time display for task 5986
+history/:353 Initialized time display for task 5985
+history/:353 Initialized time display for task 5984
+history/:353 Initialized time display for task 5983
+history/:353 Initialized time display for task 5982
+history/:353 Initialized time display for task 5981
+history/:353 Initialized time display for task 5980
+history/:353 Initialized time display for task 5979
+history/:353 Initialized time display for task 5978
+history/:353 Initialized time display for task 5977
+history/:353 Initialized time display for task 5976
+history/:353 Initialized time display for task 5975
+history/:353 Initialized time display for task 5974
+history/:353 Initialized time display for task 5973
+history/:353 Initialized time display for task 5972
+history/:353 Initialized time display for task 5971
+history/:353 Initialized time display for task 5970
+history/:353 Initialized time display for task 5969
+history/:353 Initialized time display for task 5968
+history/:353 Initialized time display for task 5967
+history/:353 Initialized time display for task 5966
+history/:353 Initialized time display for task 5965
+history/:353 Initialized time display for task 5964
+history/:353 Initialized time display for task 5963
+history/:353 Initialized time display for task 5962
+history/:353 Initialized time display for task 5961
+history/:353 Initialized time display for task 5960
+history/:353 Initialized time display for task 5959
+history/:353 Initialized time display for task 5958
+history/:353 Initialized time display for task 5957
+history/:353 Initialized time display for task 5956
+history/:353 Initialized time display for task 5955
+history/:353 Initialized time display for task 5954
+history/:353 Initialized time display for task 5953
+history/:353 Initialized time display for task 5952
+history/:353 Initialized time display for task 5951
+history/:353 Initialized time display for task 5950
+history/:353 Initialized time display for task 5949
+history/:353 Initialized time display for task 5948
+history/:353 Initialized time display for task 5947
+history/:353 Initialized time display for task 5946
+history/:353 Initialized time display for task 5945
+history/:353 Initialized time display for task 5944
+history/:353 Initialized time display for task 5943
+history/:353 Initialized time display for task 5942
+history/:353 Initialized time display for task 5941
+history/:353 Initialized time display for task 5940
+history/:353 Initialized time display for task 5939
+history/:353 Initialized time display for task 5938
+history/:353 Initialized time display for task 5937
+history/:353 Initialized time display for task 5936
+history/:353 Initialized time display for task 5935
+history/:353 Initialized time display for task 5934
+history/:353 Initialized time display for task 5933
+history/:353 Initialized time display for task 5932
+history/:353 Initialized time display for task 5931
+history/:353 Initialized time display for task 5930
+history/:353 Initialized time display for task 5929
+history/:353 Initialized time display for task 5928
+history/:353 Initialized time display for task 5927
+history/:353 Initialized time display for task 5926
+history/:353 Initialized time display for task 5925
+history/:353 Initialized time display for task 5924
+history/:353 Initialized time display for task 5923
+history/:353 Initialized time display for task 5922
+history/:353 Initialized time display for task 5921
+history/:353 Initialized time display for task 5920
+history/:353 Initialized time display for task 5919
+history/:353 Initialized time display for task 5918
+history/:353 Initialized time display for task 5917
+history/:353 Initialized time display for task 5916
+history/:353 Initialized time display for task 5915
+history/:353 Initialized time display for task 5914
+history/:353 Initialized time display for task 5913
+history/:353 Initialized time display for task 5912
+history/:353 Initialized time display for task 5911
+history/:353 Initialized time display for task 5910
+history/:353 Initialized time display for task 5909
+history/:353 Initialized time display for task 5908
+history/:353 Initialized time display for task 5907
+history/:353 Initialized time display for task 5906
+history/:353 Initialized time display for task 5905
+history/:353 Initialized time display for task 5904
+history/:353 Initialized time display for task 5903
+history/:353 Initialized time display for task 5902
+history/:353 Initialized time display for task 5901
+history/:353 Initialized time display for task 5900
+history/:353 Initialized time display for task 5899
+history/:353 Initialized time display for task 5898
+history/:353 Initialized time display for task 5897
+history/:353 Initialized time display for task 5896
+history/:353 Initialized time display for task 5895
+history/:353 Initialized time display for task 5894
+history/:353 Initialized time display for task 5893
+history/:353 Initialized time display for task 5892
+history/:353 Initialized time display for task 1601
+history/:353 Initialized time display for task 1330
+history/:521 Clicked time display for task 6214, current time: 1201
+history/:524 Switching to edit mode for task 6214
+history/:570 Input focused and selected for task 6214
