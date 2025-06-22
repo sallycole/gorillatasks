@@ -205,20 +205,30 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentTime = this.dataset.currentTime;
             const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
             
-            // Hide display, show input
-            this.style.display = 'none';
-            input.style.display = 'inline-block';
-            input.focus();
-            input.select();
+            // Only proceed if input exists and we're not already in edit mode
+            if (input && this.style.display !== 'none') {
+                // Reset any styling issues
+                this.style.backgroundColor = '';
+                this.style.color = '';
+                
+                // Hide display, show input
+                this.style.display = 'none';
+                input.style.display = 'inline-block';
+                input.value = currentTime; // Ensure input has correct value
+                input.focus();
+                input.select();
+            }
         });
     });
     
     // Handle saving time changes
     document.querySelectorAll('.time-edit').forEach(function(input) {
-        // Save on Enter key
-        input.addEventListener('keypress', function(e) {
+        // Save on Enter key, cancel on Escape
+        input.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 saveTimeChange(this);
+            } else if (e.key === 'Escape') {
+                cancelTimeEdit(this);
             }
         });
         
@@ -275,10 +285,28 @@ document.addEventListener('DOMContentLoaded', function() {
             input.value = timeDisplay.dataset.currentTime;
         })
         .finally(() => {
+            // Reset any styling issues and ensure proper display
+            timeDisplay.style.backgroundColor = '';
+            timeDisplay.style.color = '';
+            
             // Hide input, show display
             input.style.display = 'none';
             timeDisplay.style.display = 'inline-block';
         });
+    }
+    
+    function cancelTimeEdit(input) {
+        const taskId = input.dataset.taskId;
+        const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
+        
+        // Reset input to original value
+        input.value = timeDisplay.dataset.currentTime;
+        
+        // Reset styling and show display
+        timeDisplay.style.backgroundColor = '';
+        timeDisplay.style.color = '';
+        input.style.display = 'none';
+        timeDisplay.style.display = 'inline-block';
     }
     
     function updateDayTotalTime(taskId, newTime) {
