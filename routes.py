@@ -89,6 +89,19 @@ def view_enrollment(id):
     finished_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_COMPLETED)
     skipped_tasks = sum(1 for t in completed_tasks if t.status == StudentTask.STATUS_SKIPPED)
 
+    # Calculate finish date - the latest completion date among all finished tasks
+    finish_date = None
+    if enrollment.is_completed() and completed_tasks:
+        latest_dates = []
+        for task in completed_tasks:
+            if task.finished_at:
+                latest_dates.append(task.finished_at)
+            elif task.skipped_at:
+                latest_dates.append(task.skipped_at)
+        
+        if latest_dates:
+            finish_date = max(latest_dates)
+
     stats = {
         'total_tasks': total_tasks,
         'finished_tasks': finished_tasks,
@@ -96,7 +109,8 @@ def view_enrollment(id):
         'skipped_tasks': skipped_tasks,
         'skipped_percent': (skipped_tasks / total_tasks * 100) if total_tasks > 0 else 0,
         'total_time': sum(t.time_spent_minutes for t in completed_tasks),
-        'avg_time': sum(t.time_spent_minutes for t in completed_tasks) / len(completed_tasks) if completed_tasks else 0
+        'avg_time': sum(t.time_spent_minutes for t in completed_tasks) / len(completed_tasks) if completed_tasks else 0,
+        'finish_date': finish_date
     }
 
     return render_template('archive/view.html',

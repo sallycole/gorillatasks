@@ -14,24 +14,8 @@
                 <div class="col-6">
                     <h5>Finish Date</h5>
                     <p class="mb-0">
-                        {% if enrollment.is_completed() and completed_tasks %}
-                            {% set latest_date = None %}
-                            {% for task in completed_tasks %}
-                                {% if task.finished_at %}
-                                    {% if not latest_date or task.finished_at > latest_date %}
-                                        {% set latest_date = task.finished_at %}
-                                    {% endif %}
-                                {% elif task.skipped_at %}
-                                    {% if not latest_date or task.skipped_at > latest_date %}
-                                        {% set latest_date = task.skipped_at %}
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if latest_date %}
-                                {{ latest_date.strftime('%Y-%m-%d') }}
-                            {% else %}
-                                --
-                            {% endif %}
+                        {% if stats.finish_date %}
+                            {{ stats.finish_date.strftime('%Y-%m-%d') }}
                         {% else %}
                             --
                         {% endif %}
