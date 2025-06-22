@@ -199,6 +199,10 @@ function initializeNewInputFields() {
         input.style.display = 'none';
         input.style.visibility = 'hidden';
         input.style.opacity = '0';
+        input.style.width = '80px';
+        input.style.height = 'auto';
+        input.style.position = 'relative';
+        input.style.zIndex = '1';
         
         // Ensure proper styling for when it becomes visible
         input.style.fontSize = '0.875rem';
@@ -207,13 +211,26 @@ function initializeNewInputFields() {
         input.style.borderRadius = '4px';
         input.style.backgroundColor = 'white';
         input.style.color = '#495057';
+        input.style.boxSizing = 'border-box';
         
         // Ensure the input is properly configured
         input.setAttribute('type', 'number');
         input.setAttribute('min', '0');
         input.setAttribute('step', '1');
+        input.classList.add('form-control', 'form-control-sm');
         
         console.log(`Initialized input for task ${input.dataset.taskId} - hidden by default`);
+    });
+    
+    // Also ensure all time displays are properly configured
+    const newTimeDisplays = document.querySelectorAll('.time-display:not([data-initialized])');
+    newTimeDisplays.forEach(display => {
+        display.setAttribute('data-initialized', 'true');
+        display.style.cursor = 'pointer';
+        display.style.padding = '4px';
+        display.style.borderRadius = '3px';
+        display.setAttribute('title', 'Click to edit time spent');
+        console.log(`Initialized time display for task ${display.dataset.taskId}`);
     });
 }
 
@@ -397,6 +414,12 @@ function handleTimeDisplayClick(e) {
             // Hide time display
             timeDisplay.style.display = 'none';
             
+            // Ensure input has all required classes and attributes
+            input.classList.add('form-control', 'form-control-sm');
+            input.setAttribute('type', 'number');
+            input.setAttribute('min', '0');
+            input.setAttribute('step', '1');
+            
             // Show and configure input with comprehensive styling
             input.style.display = 'inline-block';
             input.style.visibility = 'visible';
@@ -413,15 +436,22 @@ function handleTimeDisplayClick(e) {
             input.style.color = '#495057';
             input.style.outline = 'none';
             input.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
+            input.style.boxSizing = 'border-box';
+            input.style.margin = '0';
 
             // Force reflow to ensure styles are applied
             input.offsetHeight;
-
+            
+            // Force focus after a short delay to ensure visibility
             setTimeout(() => {
-                input.focus();
-                input.select();
-                console.log(`Input focused and selected for task ${taskId}`);
-            }, 10);
+                if (input.style.display !== 'none') {
+                    input.focus();
+                    input.select();
+                    console.log(`Input focused and selected for task ${taskId}`);
+                }
+            }, 50);
+        } else {
+            console.log(`Input not found or not available for task ${taskId}`);
         }
     }
 }
@@ -500,16 +530,19 @@ function saveTimeChange(input) {
         alert('Error updating time. Please try again.');
     })
     .finally(() => {
-        // Reset input state
+        // Reset input state completely
         input.disabled = false;
         input.style.display = 'none';
         input.style.visibility = 'hidden';
         input.style.opacity = '0';
         input.style.boxShadow = '';
         input.style.border = '1px solid #ced4da';
+        input.style.zIndex = '1';
         
         // Show time display
         timeDisplay.style.display = 'inline';
+        timeDisplay.style.visibility = 'visible';
+        timeDisplay.style.opacity = '1';
         
         console.log(`UI reset: input hidden, time display shown for task ${taskId}`);
     });
@@ -522,8 +555,19 @@ function cancelTimeEdit(input) {
     input.value = timeDisplay.dataset.currentTime;
     timeDisplay.style.backgroundColor = '';
     timeDisplay.style.color = '';
+    
+    // Fully reset input
     input.style.display = 'none';
+    input.style.visibility = 'hidden';
+    input.style.opacity = '0';
+    input.style.boxShadow = '';
+    input.style.border = '1px solid #ced4da';
+    input.style.zIndex = '1';
+    
+    // Show time display
     timeDisplay.style.display = 'inline';
+    timeDisplay.style.visibility = 'visible';
+    timeDisplay.style.opacity = '1';
 }
 
 function updateDailyTotal(taskId, oldTime, newTime) {
