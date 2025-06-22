@@ -231,15 +231,23 @@ function handleTimeDisplayClick(e) {
         // Only proceed if input exists and we're not already in edit mode
         if (input && timeDisplay.style.display !== 'none') {
             console.log(`Switching to edit mode for task ${taskId}`);
+            console.log(`Setting input value from ${input.value} to ${currentTime}`);
             
             // Reset any styling issues
             timeDisplay.style.backgroundColor = '';
             timeDisplay.style.color = '';
 
+            // Set the correct value first
+            input.value = currentTime;
+            
             // Hide display, show input
             timeDisplay.style.display = 'none';
             input.style.display = 'inline-block';
-            input.value = currentTime; // Ensure input has correct value
+            input.style.width = '80px';
+            input.style.opacity = '1';
+            input.style.visibility = 'visible';
+            
+            console.log(`Input after changes: value=${input.value}, display=${input.style.display}, visibility=${input.style.visibility}`);
             
             // Add a small delay before focusing to ensure element is visible
             setTimeout(() => {
@@ -337,6 +345,7 @@ function saveTimeChange(input) {
             input.disabled = false;
             input.style.display = 'none';
             timeDisplay.style.display = 'inline';
+            console.log(`UI reset: input hidden, time display shown for task ${taskId}`);
         });
 }
 
@@ -351,7 +360,7 @@ function cancelTimeEdit(input) {
         timeDisplay.style.backgroundColor = '';
         timeDisplay.style.color = '';
         input.style.display = 'none';
-        timeDisplay.style.display = 'inline-block';
+        timeDisplay.style.display = 'inline';
 }
 
 function updateDailyTotal(taskId, oldTime, newTime) {
