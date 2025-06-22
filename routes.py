@@ -18,6 +18,7 @@ curriculum_bp = Blueprint('curriculum', __name__, url_prefix='/curriculum')
 inventory_bp = Blueprint('inventory', __name__, url_prefix='/inventory')
 archive_bp = Blueprint('archive', __name__, url_prefix='/progress')
 todo_bp = Blueprint('todo', __name__, url_prefix='/todo')
+history_bp = Blueprint('history', __name__, url_prefix='/history')
 
 @archive_bp.route('/')
 @login_required
@@ -1311,6 +1312,76 @@ def enroll(id):
         return redirect(url_for('inventory.index'))
 
     return render_template('curriculum/enroll.html', form=form, curriculum=curriculum)
+
+@history_bp.route('/')
+@login_required
+def index():
+    # Get page parameter with default of 1
+    page = request.args.get('page', 1, type=int)
+    days_per_page = 20
+    offset = (page - 1) * days_per_page
+    
+    # Query for days with completed tasks, grouped by date
+    from utils.timezone import to_user_timezone
+    
+    # Get all completed tasks for the user
+    completed_tasks = (StudentTask.query
+        .join(Task)
+        .filter(
+            StudentTask.student_id == current_user.id,
+            StudentTask.status.in_([StudentTask.STATUS_COMPLETED, StudentTask.STATUS_SKIPPED]),
+            db.or_(StudentTask.finished_at.isnot(None), StudentTask.skipped_at.isnot(None))
+        )
+        .order_by(
+            db.case(
+                (StudentTask.finished_at.isnot(None), StudentTask.finished_at),
+                else_=StudentTask.skipped_at
+            ).desc()
+        )
+        .all())
+    
+    # Group tasks by date in user's timezone
+    daily_activity = {}
+    for task in completed_tasks:
+        completion_time = task.finished_at or task.skipped_at
+        if completion_time:
+            # Convert to user's timezone
+            user_tz = current_user.get_timezone()
+            completion_time_local = completion_time.astimezone(user_tz) if completion_time.tzinfo else user_tz.localize(completion_time)
+            date_key = completion_time_local.date()
+            
+            if date_key not in daily_activity:
+                daily_activity[date_key] = {
+                    'date': date_key,
+                    'day_name': completion_time_local.strftime('%A'),
+                    'tasks': [],
+                    'total_time': 0,
+                    'completed_count': 0,
+                    'skipped_count': 0
+                }
+            
+            daily_activity[date_key]['tasks'].append(task)
+            daily_activity[date_key]['total_time'] += task.time_spent_minutes or 0
+            
+            if task.status == StudentTask.STATUS_COMPLETED:
+                daily_activity[date_key]['completed_count'] += 1
+            else:
+                daily_activity[date_key]['skipped_count'] += 1
+    
+    # Sort by date descending and paginate
+    sorted_days = sorted(daily_activity.values(), key=lambda x: x['date'], reverse=True)
+    
+    # Apply pagination
+    paginated_days = sorted_days[offset:offset + days_per_page]
+    has_more = len(sorted_days) > offset + days_per_page
+    has_previous = page > 1
+    
+    return render_template('history/index.html',
+                         daily_activity=paginated_days,
+                         page=page,
+                         has_more=has_more,
+                         has_previous=has_previous,
+                         total_days=len(sorted_days))
 
 def init_routes(app):
     # Initialize additional routes if needed

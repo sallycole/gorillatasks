@@ -1,4 +1,3 @@
-
 import os
 import logging
 from flask import Flask, redirect, url_for, flash, request, render_template
@@ -65,12 +64,15 @@ def create_app():
         return models.User.query.get(int(user_id))
 
     # Register blueprints
-    from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp, todo_bp
+    from routes import auth_bp, curriculum_bp, inventory_bp, archive_bp, todo_bp, history_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(curriculum_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(archive_bp)
     app.register_blueprint(todo_bp)
+    app.register_blueprint(history_bp)
+
+    logger.info("Registered blueprints: auth, curriculum, inventory, archive, todo, history")
 
     # Register test blueprint if available
     try:
@@ -79,7 +81,6 @@ def create_app():
     except ImportError:
         pass
 
-    logger.info(f"Registered blueprints: auth, curriculum, inventory, archive, todo")
 
     @app.route('/')
     def root():

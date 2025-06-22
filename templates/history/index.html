@@ -1,0 +1,180 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Daily Activity History</h1>
+    
+    {% if daily_activity %}
+        <div class="mb-3">
+            <p class="text-muted">
+                Showing {{ daily_activity|length }} of {{ total_days }} active days
+                {% if page > 1 %} (Page {{ page }}) {% endif %}
+            </p>
+        </div>
+
+        <div class="accordion" id="historyAccordion">
+            {% for day in daily_activity %}
+            <div class="accordion-item mb-3">
+                <h2 class="accordion-header" id="heading{{ loop.index }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                            data-bs-target="#collapse{{ loop.index }}" aria-expanded="false" 
+                            aria-controls="collapse{{ loop.index }}">
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <strong>{{ day.date.strftime('%B %d, %Y') }}</strong>
+                                    <div class="text-muted small">{{ day.day_name }}</div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-success">
+                                        <i data-feather="check-circle" class="feather-sm"></i>
+                                        {{ day.completed_count }} completed
+                                    </div>
+                                    {% if day.skipped_count > 0 %}
+                                    <div class="text-warning">
+                                        <i data-feather="skip-forward" class="feather-sm"></i>
+                                        {{ day.skipped_count }} skipped
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-info">
+                                        <i data-feather="clock" class="feather-sm"></i>
+                                        {% if day.total_time >= 60 %}
+                                            {{ (day.total_time // 60)|int }}h {{ (day.total_time % 60)|int }}m
+                                        {% else %}
+                                            {{ day.total_time }}m
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <span class="badge bg-primary">{{ day.tasks|length }} tasks</span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </h2>
+                <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" 
+                     aria-labelledby="heading{{ loop.index }}" data-bs-parent="#historyAccordion">
+                    <div class="accordion-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Status</th>
+                                        <th>Time Spent</th>
+                                        <th>Completed At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for task in day.tasks %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="task-icon me-2">
+                                                    {% if task.task.action == 1 %}
+                                                    <i data-feather="book" class="text-primary feather-sm"></i>
+                                                    {% elif task.task.action == 2 %}
+                                                    <i data-feather="video" class="text-success feather-sm"></i>
+                                                    {% elif task.task.action == 3 %}
+                                                    <i data-feather="headphones" class="text-info feather-sm"></i>
+                                                    {% elif task.task.action == 4 %}
+                                                    <i data-feather="edit-3" class="text-warning feather-sm"></i>
+                                                    {% else %}
+                                                    <i data-feather="clipboard" class="text-secondary feather-sm"></i>
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    <strong>{{ task.task.title }}</strong>
+                                                    {% if task.task.link %}
+                                                    <a href="{{ task.task.link }}" target="_blank" class="ms-2 text-decoration-none">
+                                                        <i data-feather="external-link" class="feather-sm"></i>
+                                                    </a>
+                                                    {% endif %}
+                                                    {% if task.task.description %}
+                                                        <div class="text-muted small">{{ task.task.description }}</div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {% if task.status == 2 %}
+                                                <span class="badge bg-success">Completed</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">Skipped</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if task.time_spent_minutes %}
+                                                {{ task.time_spent_minutes }} min
+                                            {% else %}
+                                                --
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if task.finished_at %}
+                                                {{ task.finished_at.strftime('%I:%M %p') }}
+                                            {% elif task.skipped_at %}
+                                                {{ task.skipped_at.strftime('%I:%M %p') }}
+                                            {% else %}
+                                                --
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="History pagination" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('history.index', page=page-1) }}">Previous</a>
+                </li>
+                {% endif %}
+                
+                <li class="page-item active">
+                    <span class="page-link">Page {{ page }}</span>
+                </li>
+                
+                {% if has_more %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('history.index', page=page+1) }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        {% if has_more %}
+        <div class="text-center mt-3">
+            <a href="{{ url_for('history.index', page=page+1) }}" class="btn btn-outline-primary">
+                <i data-feather="chevron-down"></i> Show More Days
+            </a>
+        </div>
+        {% endif %}
+
+    {% else %}
+        <div class="text-center py-5">
+            <i data-feather="calendar" style="width: 64px; height: 64px;" class="text-muted mb-3"></i>
+            <h3 class="text-muted">No Activity Yet</h3>
+            <p class="text-muted">Complete some tasks to see your daily activity history!</p>
+            <a href="{{ url_for('todo.index') }}" class="btn btn-primary">Start Working on Tasks</a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    feather.replace();
+});
+</script>
+{% endblock %}
