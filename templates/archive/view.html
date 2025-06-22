@@ -15,7 +15,20 @@
                     <h5>Finish Date</h5>
                     <p class="mb-0">
                         {% if enrollment.is_completed() %}
-                            {{ enrollment.updated_at.strftime('%Y-%m-%d') }}
+                            {% set latest_date = None %}
+                            {% for student_task in completed_tasks %}
+                                {% if student_task.finished_at or student_task.skipped_at %}
+                                    {% set task_date = student_task.finished_at or student_task.skipped_at %}
+                                    {% if not latest_date or task_date > latest_date %}
+                                        {% set latest_date = task_date %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if latest_date %}
+                                {{ latest_date.strftime('%Y-%m-%d') }}
+                            {% else %}
+                                --
+                            {% endif %}
                         {% else %}
                             --
                         {% endif %}
