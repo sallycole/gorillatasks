@@ -1317,6 +1317,8 @@ def enroll(id):
 @login_required
 def update_task_time(task_id):
     """Update the time spent on a specific task"""
+    from sqlalchemy import text
+    
     try:
         new_time = request.json.get('time_spent_minutes')
         if new_time is None or new_time < 0:
@@ -1324,37 +1326,51 @@ def update_task_time(task_id):
         
         logger.info(f"Updating task {task_id} time to {new_time} minutes for user {current_user.id}")
         
-        # Get the student task with explicit locking
-        student_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).with_for_update().first_or_404()
+        # Use a raw SQL update to ensure the change persists
+        update_query = text("""
+            UPDATE student_tasks 
+            SET time_spent_minutes = :new_time 
+            WHERE student_id = :student_id AND task_id = :task_id
+            RETURNING time_spent_minutes
+        """)
         
-        old_time = student_task.time_spent_minutes
-        logger.info(f"Current time in database: {old_time}, updating to: {new_time}")
+        result = db.session.execute(update_query, {
+            'new_time': int(new_time),
+            'student_id': current_user.id,
+            'task_id': task_id
+        })
         
-        # Update the time spent
-        student_task.time_spent_minutes = int(new_time)
+        updated_row = result.fetchone()
+        if not updated_row:
+            logger.error(f"No student task found for task {task_id} and user {current_user.id}")
+            return jsonify({'status': 'error', 'message': 'Task not found'}), 404
         
-        # Flush to ensure the change is pending
-        db.session.flush()
-        
-        # Commit the transaction
+        # Force commit the transaction
         db.session.commit()
         
-        # Verify the update by querying again
-        updated_task = StudentTask.query.filter_by(
-            student_id=current_user.id,
-            task_id=task_id
-        ).first()
+        # Verify the update with a fresh query
+        verification_query = text("""
+            SELECT time_spent_minutes 
+            FROM student_tasks 
+            WHERE student_id = :student_id AND task_id = :task_id
+        """)
         
-        logger.info(f"Task {task_id} time updated successfully from {old_time} to {updated_task.time_spent_minutes}")
+        verify_result = db.session.execute(verification_query, {
+            'student_id': current_user.id,
+            'task_id': task_id
+        })
+        
+        verified_row = verify_result.fetchone()
+        final_time = verified_row[0] if verified_row else new_time
+        
+        logger.info(f"Task {task_id} time updated successfully to {final_time} (requested: {new_time})")
         
         return jsonify({
             'status': 'success', 
             'message': 'Time updated successfully',
-            'new_time': updated_task.time_spent_minutes
+            'new_time': final_time
         })
+        
     except Exception as e:
         db.session.rollback()
         logger.error(f"Error updating task time for task {task_id}: {str(e)}", exc_info=True)
