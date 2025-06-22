@@ -321,6 +321,9 @@ function createTaskRow(task) {
         ? `<div class="text-muted small">${task.description}</div>`
         : '';
 
+    // Ensure consistent time value handling
+    const timeSpent = task.time_spent_minutes ? parseInt(task.time_spent_minutes) : 0;
+    
     return `
         <tr>
             <td>
@@ -339,15 +342,15 @@ function createTaskRow(task) {
             <td>
                 <span class="time-display" 
                       data-task-id="${task.id}" 
-                      data-current-time="${task.time_spent_minutes || 0}"
+                      data-current-time="${timeSpent}"
                       style="cursor: pointer; padding: 4px; border-radius: 3px;"
                       title="Click to edit time spent">
-                    ${task.time_spent_minutes || 0} min
+                    ${timeSpent} min
                 </span>
                 <input type="number" 
                        class="form-control form-control-sm time-edit" 
                        data-task-id="${task.id}"
-                       value="${task.time_spent_minutes || 0}" 
+                       value="${timeSpent}" 
                        min="0" 
                        style="display: none; width: 80px;"
                        placeholder="Minutes">
