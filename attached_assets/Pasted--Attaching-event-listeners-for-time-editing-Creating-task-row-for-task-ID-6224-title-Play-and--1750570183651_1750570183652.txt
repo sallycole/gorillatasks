@@ -1,0 +1,952 @@
+ Attaching event listeners for time editing
+ Creating task row for task ID: 6224, title: "Play and Read", timeSpent: 62
+ Creating task row for task ID: 6733, title: "Practice Session", timeSpent: 32
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6721, title: "Study telling time", timeSpent: 28
+ Creating task row for task ID: 6733, title: "Practice Session", timeSpent: 66
+ Creating task row for task ID: 6225, title: "Reading lessons", timeSpent: 27
+ Creating task row for task ID: 6224, title: "Play and Read", timeSpent: 37
+ Creating task row for task ID: 6712, title: "Khan Academy Mastery Check", timeSpent: 62
+ Creating task row for task ID: 6624, title: "Practice handwriting for 15 minutes", timeSpent: 15
+ Creating task row for task ID: 6441, title: "Exercise 6", timeSpent: 0
+ Creating task row for task ID: 6225, title: "Reading lessons", timeSpent: 80
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6625, title: "Read "Cells"", timeSpent: 106
+ Creating task row for task ID: 6440, title: "Exercise 5", timeSpent: 34
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 1619, title: "Study the tundra: Watch video and read the first 1/2 of the book", timeSpent: 14
+ Creating task row for task ID: 6496, title: "Study page 43 of "Homophones"", timeSpent: 36
+ Creating task row for task ID: 6439, title: "Exercise 4", timeSpent: 43
+ Creating task row for task ID: 6624, title: "Practice handwriting for 15 minutes", timeSpent: 15
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6495, title: "Study page 42 of "Homophones"", timeSpent: 26
+ Creating task row for task ID: 6438, title: "Exercise 3", timeSpent: 0
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 80
+ Creating task row for task ID: 1618, title: "Study tropical rain forests: Read the second 1/2 of the book and take the quiz", timeSpent: 49
+ Creating task row for task ID: 6437, title: "Exercise 2", timeSpent: 0
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6225, title: "Reading lessons", timeSpent: 27
+ Creating task row for task ID: 6493, title: "Answer the question of the day", timeSpent: 0
+ Creating task row for task ID: 1617, title: "Study tropical rain forests: Watch video and read the first 1/2 of the book", timeSpent: 25
+ Creating task row for task ID: 6494, title: "Study page 41 of "Homophones"", timeSpent: 42
+ Creating task row for task ID: 6225, title: "Reading lessons", timeSpent: 7
+ Creating task row for task ID: 1616, title: "Study temperate forests: Read the second 1/2 of the book and take the quiz", timeSpent: 42
+ Creating task row for task ID: 6436, title: "Exercise 1", timeSpent: 42
+ Creating task row for task ID: 6493, title: "Answer the question of the day", timeSpent: 10
+ Creating task row for task ID: 1331, title: "Create a Photo Gallery", timeSpent: 47
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 23
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 3408, title: "Lesson 104: Complete all number writing, addition, and subtraction activities.", timeSpent: 4
+ Creating task row for task ID: 3407, title: "Lesson 103: Complete all number writing, addition, and subtraction activities.", timeSpent: 14
+ Creating task row for task ID: 3406, title: "Lesson 102: Complete all number writing, addition, and subtraction activities.", timeSpent: 8
+ Creating task row for task ID: 3405, title: "Lesson 101: Complete all number writing, addition, and subtraction activities.", timeSpent: 15
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 82
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6225, title: "Reading lessons", timeSpent: 22
+ Creating task row for task ID: 6169, title: "Practice Math Facts", timeSpent: 14
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 23
+ Creating task row for task ID: 6225, title: "Reading lessons", timeSpent: 21
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 3703, title: "Practice fact families with Mathletics", timeSpent: 0
+ Creating task row for task ID: 3404, title: "Lesson 100: Complete all number writing, addition, and subtraction activities.", timeSpent: 0
+ Creating task row for task ID: 6169, title: "Practice Math Facts", timeSpent: 44
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 36
+ Creating task row for task ID: 6063, title: "Assignment: Find vowel team syllables in a beginning reader", timeSpent: 0
+ Creating task row for task ID: 3403, title: "Lesson 99: Complete all number writing, addition, and subtraction activities.", timeSpent: 7
+ Creating task row for task ID: 6169, title: "Practice Math Facts", timeSpent: 11
+ Creating task row for task ID: 6217, title: "Mastery Test of Single-Sound Consonants and Consonant Digraphs", timeSpent: 5
+ Creating task row for task ID: 1615, title: "Study temperate forests: Watch video and read the first 1/2 of the book", timeSpent: 25
+ Creating task row for task ID: 6062, title: "Practice reading phonograms and words", timeSpent: 15
+ Creating task row for task ID: 1614, title: "Study oceans: Read the second 1/2 of the book and take the quiz", timeSpent: 53
+ Creating task row for task ID: 6169, title: "Practice Math Facts", timeSpent: 21
+ Creating task row for task ID: 6223, title: "Practice Session", timeSpent: 25
+ Creating task row for task ID: 6224, title: "Play and Read", timeSpent: 62
+ Creating task row for task ID: 6061, title: "Vowel Team Syllables Video - Story Hour Academy - #67", timeSpent: 0
+ Creating task row for task ID: 3402, title: "Lesson 98: Complete all number writing, addition, and subtraction activities.", timeSpent: 30
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 1613, title: "Study oceans: Watch video and read the first 1/2 of the book", timeSpent: 28
+ Creating task row for task ID: 6216, title: "Mastery Test of Single-Sound Consonants (capital letters)", timeSpent: 13
+ Creating task row for task ID: 6223, title: "Practice Session", timeSpent: 25
+ Initializing new input fields...
+ Found 70 new inputs to initialize
+ Initialized input for task 6224 - hidden by default
+ Initialized input for task 6733 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6721 - hidden by default
+ Initialized input for task 6733 - hidden by default
+ Initialized input for task 6225 - hidden by default
+ Initialized input for task 6224 - hidden by default
+history/:337 Initialized input for task 6712 - hidden by default
+history/:337 Initialized input for task 6624 - hidden by default
+history/:337 Initialized input for task 6441 - hidden by default
+history/:337 Initialized input for task 6225 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 6625 - hidden by default
+history/:337 Initialized input for task 6440 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 1619 - hidden by default
+history/:337 Initialized input for task 6496 - hidden by default
+history/:337 Initialized input for task 6439 - hidden by default
+history/:337 Initialized input for task 6624 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 6495 - hidden by default
+history/:337 Initialized input for task 6438 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 6214 - hidden by default
+history/:337 Initialized input for task 1618 - hidden by default
+history/:337 Initialized input for task 6437 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 6225 - hidden by default
+history/:337 Initialized input for task 6493 - hidden by default
+history/:337 Initialized input for task 1617 - hidden by default
+history/:337 Initialized input for task 6494 - hidden by default
+history/:337 Initialized input for task 6225 - hidden by default
+history/:337 Initialized input for task 1616 - hidden by default
+history/:337 Initialized input for task 6436 - hidden by default
+history/:337 Initialized input for task 6493 - hidden by default
+history/:337 Initialized input for task 1331 - hidden by default
+history/:337 Initialized input for task 6214 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 3408 - hidden by default
+history/:337 Initialized input for task 3407 - hidden by default
+history/:337 Initialized input for task 3406 - hidden by default
+history/:337 Initialized input for task 3405 - hidden by default
+history/:337 Initialized input for task 6214 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 6225 - hidden by default
+history/:337 Initialized input for task 6169 - hidden by default
+history/:337 Initialized input for task 6214 - hidden by default
+history/:337 Initialized input for task 6225 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 3703 - hidden by default
+history/:337 Initialized input for task 3404 - hidden by default
+history/:337 Initialized input for task 6169 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 6214 - hidden by default
+history/:337 Initialized input for task 6063 - hidden by default
+history/:337 Initialized input for task 3403 - hidden by default
+history/:337 Initialized input for task 6169 - hidden by default
+history/:337 Initialized input for task 6217 - hidden by default
+history/:337 Initialized input for task 1615 - hidden by default
+history/:337 Initialized input for task 6062 - hidden by default
+history/:337 Initialized input for task 1614 - hidden by default
+history/:337 Initialized input for task 6169 - hidden by default
+history/:337 Initialized input for task 6223 - hidden by default
+history/:337 Initialized input for task 6224 - hidden by default
+history/:337 Initialized input for task 6061 - hidden by default
+history/:337 Initialized input for task 3402 - hidden by default
+history/:337 Initialized input for task 6212 - hidden by default
+history/:337 Initialized input for task 1613 - hidden by default
+history/:337 Initialized input for task 6216 - hidden by default
+history/:337 Initialized input for task 6223 - hidden by default
+history/:342 Found 70 new time displays to initialize
+history/:354 Initialized time display for task 6224
+history/:354 Initialized time display for task 6733
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6721
+history/:354 Initialized time display for task 6733
+history/:354 Initialized time display for task 6225
+history/:354 Initialized time display for task 6224
+history/:354 Initialized time display for task 6712
+history/:354 Initialized time display for task 6624
+history/:354 Initialized time display for task 6441
+history/:354 Initialized time display for task 6225
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6625
+history/:354 Initialized time display for task 6440
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 1619
+history/:354 Initialized time display for task 6496
+history/:354 Initialized time display for task 6439
+history/:354 Initialized time display for task 6624
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6495
+history/:354 Initialized time display for task 6438
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6214
+history/:354 Initialized time display for task 1618
+history/:354 Initialized time display for task 6437
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6225
+history/:354 Initialized time display for task 6493
+history/:354 Initialized time display for task 1617
+history/:354 Initialized time display for task 6494
+history/:354 Initialized time display for task 6225
+history/:354 Initialized time display for task 1616
+history/:354 Initialized time display for task 6436
+history/:354 Initialized time display for task 6493
+history/:354 Initialized time display for task 1331
+history/:354 Initialized time display for task 6214
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 3408
+history/:354 Initialized time display for task 3407
+history/:354 Initialized time display for task 3406
+history/:354 Initialized time display for task 3405
+history/:354 Initialized time display for task 6214
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6225
+history/:354 Initialized time display for task 6169
+history/:354 Initialized time display for task 6214
+history/:354 Initialized time display for task 6225
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 3703
+history/:354 Initialized time display for task 3404
+history/:354 Initialized time display for task 6169
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 6214
+history/:354 Initialized time display for task 6063
+history/:354 Initialized time display for task 3403
+history/:354 Initialized time display for task 6169
+history/:354 Initialized time display for task 6217
+history/:354 Initialized time display for task 1615
+history/:354 Initialized time display for task 6062
+history/:354 Initialized time display for task 1614
+history/:354 Initialized time display for task 6169
+history/:354 Initialized time display for task 6223
+history/:354 Initialized time display for task 6224
+history/:354 Initialized time display for task 6061
+history/:354 Initialized time display for task 3402
+history/:354 Initialized time display for task 6212
+history/:354 Initialized time display for task 1613
+history/:354 Initialized time display for task 6216
+history/:354 Initialized time display for task 6223
+history/:357 Input field initialization complete
+history/:450 Creating task row for task ID: 3401, title: "Lesson 97: Complete all number writing, addition, and subtraction activities.", timeSpent: 0
+history/:450 Creating task row for task ID: 6210, title: "Untimed math facts practice", timeSpent: 26
+history/:450 Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 11
+history/:450 Creating task row for task ID: 6060, title: "Assignment: Find vowel-consonant-e syllables in nature stories", timeSpent: 19
+history/:450 Creating task row for task ID: 6215, title: "Mastery Test of Single-Sound Consonants (lowercase letters)", timeSpent: 4
+history/:450 Creating task row for task ID: 1612, title: "Study deserts: Read the second 1/2 of the book and take the quiz", timeSpent: 18
+history/:450 Creating task row for task ID: 6164, title: "Play the prefix and suffix sorting game", timeSpent: 0
+history/:450 Creating task row for task ID: 6163, title: "Spin the wheel and create words with suffixes that form adjectives", timeSpent: 0
+history/:450 Creating task row for task ID: 3721, title: "Play the game "Short or Long"", timeSpent: 0
+ Creating task row for task ID: 6161, title: "Spin the wheel and create words with prefixes", timeSpent: 0
+ Creating task row for task ID: 3400, title: "Lesson 96: Complete all number writing, addition, and subtraction activities.", timeSpent: 0
+ Creating task row for task ID: 6059, title: "Practice reading phonograms and words", timeSpent: 47
+ Creating task row for task ID: 1611, title: "Study deserts: Watch video and read the first 1/2 of the book", timeSpent: 22
+ Creating task row for task ID: 3399, title: "Lesson 95: Complete all number writing, addition, and subtraction activities.", timeSpent: 8
+ Creating task row for task ID: 6058, title: "Vowel-Consonant-E Syllables Video - Story Hour Academy - #66", timeSpent: 0
+ Creating task row for task ID: 1610, title: "Study paleontology: Read the second 1/2 of the book and take the quiz", timeSpent: 37
+ Creating task row for task ID: 3398, title: "Lesson 94: Complete all number writing, addition, and subtraction activities.", timeSpent: 62
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 8
+ Creating task row for task ID: 1333, title: "Create a Party Invitation", timeSpent: 38
+ Creating task row for task ID: 6169, title: "Practice Math Facts", timeSpent: 16
+ Creating task row for task ID: 1609, title: "Study paleontology: Watch video and read the first 1/2 of the book", timeSpent: 48
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 1201
+ Creating task row for task ID: 3397, title: "Lesson 93: Complete all number writing, addition, and subtraction activities.", timeSpent: 44
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 111
+ Creating task row for task ID: 6214, title: "Write a sentence about the image", timeSpent: 19
+ Creating task row for task ID: 1608, title: "Study oceanography: Read the second 1/2 of the book and take the quiz", timeSpent: 0
+ Creating task row for task ID: 3702, title: "Study fact families with mom", timeSpent: 0
+ Creating task row for task ID: 6057, title: "Assignment: Find r-controlled syllables in poetry", timeSpent: 0
+ Creating task row for task ID: 6056, title: "Practice reading phonograms and words", timeSpent: 0
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6213, title: "Practice Session", timeSpent: 13
+ Creating task row for task ID: 1607, title: "Study oceanography: Watch video and read the first 1/2 of the book", timeSpent: 30
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 136
+ Creating task row for task ID: 3396, title: "Lesson 92: Complete all number writing, addition, and subtraction activities.", timeSpent: 16
+ Creating task row for task ID: 6162, title: "Spin the wheel and create words with suffixes that form nouns", timeSpent: 34
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6213, title: "Practice Session", timeSpent: 27
+ Creating task row for task ID: 1606, title: "Study meteorology: Read the second 1/2 of the book and take the quiz", timeSpent: 38
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 3395, title: "Lesson 91: Complete all number writing, addition, and subtraction activities.", timeSpent: 33
+ Creating task row for task ID: 3394, title: "Lesson 90: Complete all number writing, addition, and subtraction activities.", timeSpent: 15
+ Creating task row for task ID: 1605, title: "Study meteorology: Watch video and read the first 1/2 of the book", timeSpent: 33
+ Creating task row for task ID: 6212, title: "Read", timeSpent: 25
+ Creating task row for task ID: 6210, title: "Untimed math facts practice", timeSpent: 11
+ Creating task row for task ID: 6169, title: "Practice Math Facts", timeSpent: 1419
+ Creating task row for task ID: 3391, title: "Lesson 87: Complete all number writing, addition, and subtraction activities.", timeSpent: 1
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 3
+ Creating task row for task ID: 6167, title: "Study English Language Arts using Freckle", timeSpent: 6
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 5
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 3
+ Creating task row for task ID: 6167, title: "Study English Language Arts using Freckle", timeSpent: 3
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 0
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 18
+ Creating task row for task ID: 6167, title: "Study English Language Arts using Freckle", timeSpent: 5
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 34
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 12
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 0
+ Creating task row for task ID: 6167, title: "Study English Language Arts using Freckle", timeSpent: 0
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 0
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 4
+ Creating task row for task ID: 6167, title: "Study English Language Arts using Freckle", timeSpent: 0
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 0
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 0
+ Creating task row for task ID: 6167, title: "Study English Language Arts using Freckle", timeSpent: 0
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 0
+ Creating task row for task ID: 6168, title: "Study Math using Freckle", timeSpent: 0
+ Creating task row for task ID: 6166, title: "Read aloud to the Microsoft Reading Coach app", timeSpent: 0
+ Creating task row for task ID: 4237, title: "Take Read Theory Assessment", timeSpent: 8
+ Creating task row for task ID: 4239, title: "Try ilearnat math", timeSpent: 7
+ Creating task row for task ID: 1604, title: "Study hydrology: Read the second 1/2 of the book and take the quiz", timeSpent: 24
+ Creating task row for task ID: 1334, title: "Create a Character Profile", timeSpent: 25
+ Creating task row for task ID: 1335, title: "Create a Digital Postcard", timeSpent: 0
+history/:450 Creating task row for task ID: 6055, title: "R-Controlled Syllables Video - Story Hour Academy - #65", timeSpent: 34
+history/:450 Creating task row for task ID: 1603, title: "Study hydrology: Watch video and read the first 1/2 of the book", timeSpent: 22
+history/:450 Creating task row for task ID: 3393, title: "Lesson 89: Complete all number writing, addition, and subtraction activities.", timeSpent: 8
+history/:450 Creating task row for task ID: 3392, title: "Lesson 88: Complete all number writing, addition, and subtraction activities.", timeSpent: 0
+history/:450 Creating task row for task ID: 6054, title: "Assignment: Find consonant le syllables in poetry", timeSpent: 0
+history/:450 Creating task row for task ID: 6053, title: "Practice reading phonograms and words", timeSpent: 16
+history/:450 Creating task row for task ID: 6047, title: "Assignment: Find closed syllable words in Aesop's Fables", timeSpent: 0
+history/:450 Creating task row for task ID: 1602, title: "Study geology: Read the second 1/2 of the book and take the quiz", timeSpent: 47
+history/:450 Creating task row for task ID: 6052, title: "Consonant le Syllables Video - Story Hour Academy - #64", timeSpent: 0
+history/:450 Creating task row for task ID: 6051, title: "Assignment: Find open syllables in poetry", timeSpent: 0
+history/:450 Creating task row for task ID: 6050, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6049, title: "Open Syllables Video - Story Hour Academy - #63", timeSpent: 0
+history/:450 Creating task row for task ID: 6048, title: "Optional Reading Practice: "Swiss Family Robinson in Words of One Syllable"", timeSpent: 0
+history/:450 Creating task row for task ID: 6046, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6045, title: "Closed Syllables Video - Story Hour Academy - #62", timeSpent: 0
+history/:450 Creating task row for task ID: 6044, title: "Introduction to Syllables - Story Hour Academy - #61", timeSpent: 0
+history/:450 Creating task row for task ID: 6043, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 6042, title: "Memorize the Letter Sounds Song", timeSpent: 0
+history/:450 Creating task row for task ID: 6041, title: "Review of Alphabet Letters and the Sounds They Make - Story Hour Academy - #60", timeSpent: 0
+history/:450 Creating task row for task ID: 6040, title: "Optional Read Aloud: "Stories from Greek History"", timeSpent: 0
+history/:450 Creating task row for task ID: 6039, title: "Optional Reading Practice: "The Fox and the Grapes"", timeSpent: 0
+history/:450 Creating task row for task ID: 6038, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6037, title: "Letter X Video - Story Hour Academy - #59", timeSpent: 0
+history/:450 Creating task row for task ID: 6036, title: "Optional Reading Practice: "At the Sea-Side"", timeSpent: 0
+history/:450 Creating task row for task ID: 6035, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6034, title: "Letter S Video - Story Hour Academy - #58", timeSpent: 0
+history/:450 Creating task row for task ID: 6033, title: "Optional Reading Practice: "The Giraffe and the Palms"", timeSpent: 0
+history/:450 Creating task row for task ID: 6032, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6031, title: "Letter G Video - Story Hour Academy - #57", timeSpent: 0
+history/:450 Creating task row for task ID: 6030, title: "Optional Reading Practice: "Belling the Cat"", timeSpent: 0
+history/:450 Creating task row for task ID: 6029, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6028, title: "Letter C Video - Story Hour Academy - #56", timeSpent: 0
+history/:450 Creating task row for task ID: 6027, title: "Optional Reading Practice: A Book of Your Choice", timeSpent: 0
+history/:450 Creating task row for task ID: 6026, title: "Introduction to Multi-Sound Consonant Letters - Story Hour Academy - #55", timeSpent: 0
+history/:450 Creating task row for task ID: 6025, title: "Start a Word Collection", timeSpent: 0
+history/:450 Creating task row for task ID: 6024, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 6023, title: "Review of Vowel Letters and the Sounds They Make - Story Hour Academy - #54", timeSpent: 0
+history/:450 Creating task row for task ID: 6022, title: "Optional Reading Practice: "Dumpy, The Pony"", timeSpent: 0
+history/:450 Creating task row for task ID: 6021, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6020, title: "Letter Y Video - Story Hour Academy - #53", timeSpent: 0
+history/:450 Creating task row for task ID: 6019, title: "Optional Reading Practice: "Summer"", timeSpent: 0
+history/:450 Creating task row for task ID: 6018, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6017, title: "Letter U Video - Story Hour Academy - #52", timeSpent: 0
+history/:450 Creating task row for task ID: 6016, title: "Optional Reading Practice: "The Song of the Corn Popper"", timeSpent: 0
+history/:450 Creating task row for task ID: 6015, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6014, title: "Letter O Video - Story Hour Academy - #51", timeSpent: 0
+history/:450 Creating task row for task ID: 6013, title: "Optional Reading Practice: "Precocious Piggy"", timeSpent: 0
+history/:450 Creating task row for task ID: 6012, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6011, title: "Letter I Video - Story Hour Academy - #50", timeSpent: 0
+history/:450 Creating task row for task ID: 6010, title: "Optional Read Aloud: "The Tempest"", timeSpent: 0
+history/:450 Creating task row for task ID: 6009, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6008, title: "Letter E Video - Story Hour Academy - #49", timeSpent: 0
+history/:450 Creating task row for task ID: 6007, title: "Optional Read Aloud: "Raggylug, the Story of a Cottontail Rabbit"", timeSpent: 0
+history/:450 Creating task row for task ID: 6006, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 6005, title: "Letter A Video - Story Hour Academy - #48", timeSpent: 0
+history/:450 Creating task row for task ID: 6004, title: "Optional Read Aloud: "Atlantis, The Lost Island"", timeSpent: 0
+history/:450 Creating task row for task ID: 6003, title: "Introduction to Vowel Letters and the Sounds They Make - Story Hour Academy - #47", timeSpent: 0
+history/:450 Creating task row for task ID: 6002, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 6001, title: "Review of Multi-Letter Vowel Phonograms - Story Hour Academy - #46", timeSpent: 0
+history/:450 Creating task row for task ID: 6000, title: "Optional Read Aloud: "The Fox Without a Tail"", timeSpent: 0
+history/:450 Creating task row for task ID: 5999, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5998, title: "Vowel Phonogram OUR Video - Story Hour Academy - #45", timeSpent: 0
+history/:450 Creating task row for task ID: 5997, title: "Optional Read Aloud: "The Wonder Clock"", timeSpent: 0
+history/:450 Creating task row for task ID: 5996, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5995, title: "Vowel Phonogram EAR Video - Story Hour Academy - #44", timeSpent: 0
+history/:450 Creating task row for task ID: 5994, title: "Optional Read Aloud: "Lullaby Land"", timeSpent: 0
+history/:450 Creating task row for task ID: 5993, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5992, title: "Vowel Phonograms OR and WOR Video - Story Hour Academy - #43", timeSpent: 0
+history/:450 Creating task row for task ID: 5991, title: "Optional Read Aloud: "Arthur Made King"", timeSpent: 0
+history/:450 Creating task row for task ID: 5990, title: "Optional Activity - Find the Phonograms", timeSpent: 0
+history/:450 Creating task row for task ID: 5989, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5988, title: "Vowel Phonogram AR Video - Story Hour Academy - #42", timeSpent: 0
+history/:450 Creating task row for task ID: 5987, title: "Optional Read Aloud: "The Folk-Lore Readers - Book Two"", timeSpent: 0
+history/:450 Creating task row for task ID: 5986, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5985, title: "Vowel Phonogram UR Video - Story Hour Academy - #41", timeSpent: 0
+history/:450 Creating task row for task ID: 5984, title: "Optional Read Aloud: "The Fir Tree"", timeSpent: 0
+history/:450 Creating task row for task ID: 5983, title: "Optional Read Aloud: "The Sparrow"", timeSpent: 0
+history/:450 Creating task row for task ID: 5982, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5981, title: "Vowel Phonogram IR Video - Story Hour Academy - #40", timeSpent: 0
+history/:450 Creating task row for task ID: 5980, title: "Optional Read Aloud: "The Gingerbread Man"", timeSpent: 0
+history/:450 Creating task row for task ID: 5979, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5978, title: "Vowel Phonogram ER Video - Story Hour Academy - #39", timeSpent: 0
+history/:450 Creating task row for task ID: 5977, title: "Optional Read Aloud: "Aesop's Fables"", timeSpent: 0
+history/:450 Creating task row for task ID: 5976, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5975, title: "Vowel Phonogram UI Video - Story Hour Academy - #38", timeSpent: 0
+history/:450 Creating task row for task ID: 5974, title: "Optional Read Aloud: "The Story of the Golden Apple"", timeSpent: 0
+history/:450 Creating task row for task ID: 5973, title: "Optional Read Aloud: "Development"", timeSpent: 0
+history/:450 Creating task row for task ID: 5972, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5971, title: "Vowel Phonogram OY Video - Story Hour Academy - #37", timeSpent: 0
+history/:450 Creating task row for task ID: 5970, title: "Optional Read Aloud: "Little Folks Book of Verse"", timeSpent: 0
+history/:450 Creating task row for task ID: 5969, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5968, title: "Vowel Phonogram OI Video - Story Hour Academy - #36", timeSpent: 0
+history/:450 Creating task row for task ID: 5967, title: "Optional Read Aloud: "The Little Mother Goose"", timeSpent: 0
+history/:450 Creating task row for task ID: 5966, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5965, title: "Vowel Phonogram AW Video - Story Hour Academy - #35", timeSpent: 0
+history/:450 Creating task row for task ID: 5964, title: "Optional Read Aloud: "The Crescent Moon"", timeSpent: 0
+history/:450 Creating task row for task ID: 5963, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5962, title: "Vowel Phonogram AU Video - Story Hour Academy - #34", timeSpent: 0
+history/:450 Creating task row for task ID: 5961, title: "Optional Read Aloud: "The Crescent Moon"", timeSpent: 0
+history/:450 Creating task row for task ID: 5960, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5959, title: "Vowel Phonogram OA Video - Story Hour Academy - #33", timeSpent: 0
+history/:450 Creating task row for task ID: 5958, title: "Optional Read Aloud: "Mother Goose's Nursery Rhymes"", timeSpent: 0
+history/:450 Creating task row for task ID: 5957, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5956, title: "Vowel Phonogram IGH Video - Story Hour Academy - #32", timeSpent: 0
+history/:450 Creating task row for task ID: 5955, title: "Optional Read Aloud: "Stories for Little Children"", timeSpent: 0
+history/:450 Creating task row for task ID: 5954, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5953, title: "Vowel Phonogram EE Video - Story Hour Academy - #31", timeSpent: 0
+history/:450 Creating task row for task ID: 5952, title: "Optional Read Aloud: "The Peter Patter Book"", timeSpent: 0
+history/:450 Creating task row for task ID: 5951, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5950, title: "Vowel Phonogram EIGH Video - Story Hour Academy - #30", timeSpent: 0
+history/:450 Creating task row for task ID: 5949, title: "Optional Read Aloud: "Under the Window"", timeSpent: 0
+history/:450 Creating task row for task ID: 5948, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5947, title: "Vowel Phonogram AY Video - Story Hour Academy - #29", timeSpent: 0
+history/:450 Creating task row for task ID: 5946, title: "Optional Read Aloud: "A Child's Garden of Verses"", timeSpent: 0
+history/:450 Creating task row for task ID: 5945, title: "Practice reading phonograms and words", timeSpent: 0
+history/:450 Creating task row for task ID: 5944, title: "Vowel Phonogram AI Video - Story Hour Academy - #28", timeSpent: 0
+history/:450 Creating task row for task ID: 5943, title: "Introduction to Multi-Letter Vowel Phonograms - Story Hour Academy - #27", timeSpent: 0
+history/:450 Creating task row for task ID: 5942, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5941, title: "Review of Consonant Digraphs - Story Hour Academy - #26", timeSpent: 0
+history/:450 Creating task row for task ID: 5940, title: "Consonant Digraph WH Video - Story Hour Academy - #25", timeSpent: 0
+history/:450 Creating task row for task ID: 5939, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5938, title: "Consonant Digraph TH Video - Story Hour Academy - #24", timeSpent: 0
+history/:450 Creating task row for task ID: 5937, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5936, title: "Consonant Digraph SH Video - Story Hour Academy - #23", timeSpent: 0
+history/:450 Creating task row for task ID: 5935, title: "Optional Read Aloud: "Robert Louis Stevenson Reader"", timeSpent: 0
+history/:450 Creating task row for task ID: 5934, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5933, title: "Consonant Digraph NG Video - Story Hour Academy - #22", timeSpent: 0
+history/:450 Creating task row for task ID: 5932, title: "Optional Read Aloud: "The Life of Robert Louis Stevenson for Boys and Girls"", timeSpent: 0
+history/:450 Creating task row for task ID: 5931, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5930, title: "Consonant Digraph CH Video - Story Hour Academy - #21", timeSpent: 0
+history/:450 Creating task row for task ID: 5929, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5928, title: "Consonant Digraph CK Video - Story Hour Academy - #20", timeSpent: 0
+history/:450 Creating task row for task ID: 5927, title: "Consonant Digraphs - Story Hour Academy - #19", timeSpent: 0
+history/:450 Creating task row for task ID: 5926, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5925, title: "Review of Single-Sound Consonants - Story Hour Academy - #18", timeSpent: 0
+history/:450 Creating task row for task ID: 5924, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5923, title: "Letter Z Video - Story Hour Academy - #17", timeSpent: 0
+history/:450 Creating task row for task ID: 5922, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5921, title: "Letter W Video - Story Hour Academy - #16", timeSpent: 0
+history/:450 Creating task row for task ID: 5920, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5919, title: "Letter V Video - Story Hour Academy - #15", timeSpent: 0
+history/:450 Creating task row for task ID: 5918, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5917, title: "Letter T Video - Story Hour Academy - #14", timeSpent: 0
+history/:450 Creating task row for task ID: 5916, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5915, title: "Letter R Video - Story Hour Academy - #13", timeSpent: 0
+history/:450 Creating task row for task ID: 5914, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5913, title: "Letter Q Video - Story Hour Academy - #12", timeSpent: 0
+history/:450 Creating task row for task ID: 5912, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5911, title: "Letter P Video - Story Hour Academy - #11", timeSpent: 0
+history/:450 Creating task row for task ID: 5910, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5909, title: "Letter N Video - Story Hour Academy - #10", timeSpent: 0
+history/:450 Creating task row for task ID: 5908, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5907, title: "Letter M Video - Story Hour Academy - #9", timeSpent: 0
+history/:450 Creating task row for task ID: 5906, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5905, title: "Letter L Video - Story Hour Academy - #8", timeSpent: 0
+history/:450 Creating task row for task ID: 5904, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5903, title: "Letter K Video - Story Hour Academy - #7", timeSpent: 0
+history/:450 Creating task row for task ID: 5902, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5901, title: "Letter J Video - Story Hour Academy - #6", timeSpent: 0
+history/:450 Creating task row for task ID: 5900, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5899, title: "Letter H Video - Story Hour Academy - #5", timeSpent: 0
+history/:450 Creating task row for task ID: 5898, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5897, title: "Letter F Video - Story Hour Academy - #4", timeSpent: 0
+history/:450 Creating task row for task ID: 5896, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5895, title: "Letter D Video - Story Hour Academy - #3", timeSpent: 0
+history/:450 Creating task row for task ID: 5894, title: "Phonogram Practice", timeSpent: 0
+history/:450 Creating task row for task ID: 5893, title: "Letter B Video - Story Hour Academy - #2", timeSpent: 0
+history/:450 Creating task row for task ID: 5892, title: "Single-Sound Consonants - Story Hour Academy - #1", timeSpent: 0
+history/:450 Creating task row for task ID: 1601, title: "Study geology: Watch video and read the first 1/2 of the book", timeSpent: 33
+history/:450 Creating task row for task ID: 1330, title: "Create a Portfolio Page", timeSpent: 49
+ Initializing new input fields...
+ Found 243 new inputs to initialize
+ Initialized input for task 3401 - hidden by default
+ Initialized input for task 6210 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 6060 - hidden by default
+ Initialized input for task 6215 - hidden by default
+ Initialized input for task 1612 - hidden by default
+ Initialized input for task 6164 - hidden by default
+ Initialized input for task 6163 - hidden by default
+ Initialized input for task 3721 - hidden by default
+ Initialized input for task 6161 - hidden by default
+ Initialized input for task 3400 - hidden by default
+ Initialized input for task 6059 - hidden by default
+ Initialized input for task 1611 - hidden by default
+ Initialized input for task 3399 - hidden by default
+ Initialized input for task 6058 - hidden by default
+ Initialized input for task 1610 - hidden by default
+ Initialized input for task 3398 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 1333 - hidden by default
+ Initialized input for task 6169 - hidden by default
+ Initialized input for task 1609 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 3397 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 6214 - hidden by default
+ Initialized input for task 1608 - hidden by default
+ Initialized input for task 3702 - hidden by default
+ Initialized input for task 6057 - hidden by default
+ Initialized input for task 6056 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6213 - hidden by default
+ Initialized input for task 1607 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 3396 - hidden by default
+ Initialized input for task 6162 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6213 - hidden by default
+ Initialized input for task 1606 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 3395 - hidden by default
+ Initialized input for task 3394 - hidden by default
+ Initialized input for task 1605 - hidden by default
+ Initialized input for task 6212 - hidden by default
+ Initialized input for task 6210 - hidden by default
+ Initialized input for task 6169 - hidden by default
+ Initialized input for task 3391 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6167 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 6168 - hidden by default
+ Initialized input for task 6166 - hidden by default
+ Initialized input for task 4237 - hidden by default
+ Initialized input for task 4239 - hidden by default
+ Initialized input for task 1604 - hidden by default
+ Initialized input for task 1334 - hidden by default
+ Initialized input for task 1335 - hidden by default
+ Initialized input for task 6055 - hidden by default
+ Initialized input for task 1603 - hidden by default
+ Initialized input for task 3393 - hidden by default
+ Initialized input for task 3392 - hidden by default
+ Initialized input for task 6054 - hidden by default
+ Initialized input for task 6053 - hidden by default
+ Initialized input for task 6047 - hidden by default
+ Initialized input for task 1602 - hidden by default
+ Initialized input for task 6052 - hidden by default
+ Initialized input for task 6051 - hidden by default
+ Initialized input for task 6050 - hidden by default
+ Initialized input for task 6049 - hidden by default
+ Initialized input for task 6048 - hidden by default
+ Initialized input for task 6046 - hidden by default
+ Initialized input for task 6045 - hidden by default
+ Initialized input for task 6044 - hidden by default
+ Initialized input for task 6043 - hidden by default
+ Initialized input for task 6042 - hidden by default
+ Initialized input for task 6041 - hidden by default
+ Initialized input for task 6040 - hidden by default
+ Initialized input for task 6039 - hidden by default
+ Initialized input for task 6038 - hidden by default
+ Initialized input for task 6037 - hidden by default
+ Initialized input for task 6036 - hidden by default
+ Initialized input for task 6035 - hidden by default
+ Initialized input for task 6034 - hidden by default
+ Initialized input for task 6033 - hidden by default
+ Initialized input for task 6032 - hidden by default
+ Initialized input for task 6031 - hidden by default
+ Initialized input for task 6030 - hidden by default
+ Initialized input for task 6029 - hidden by default
+ Initialized input for task 6028 - hidden by default
+ Initialized input for task 6027 - hidden by default
+ Initialized input for task 6026 - hidden by default
+ Initialized input for task 6025 - hidden by default
+ Initialized input for task 6024 - hidden by default
+ Initialized input for task 6023 - hidden by default
+ Initialized input for task 6022 - hidden by default
+ Initialized input for task 6021 - hidden by default
+ Initialized input for task 6020 - hidden by default
+ Initialized input for task 6019 - hidden by default
+ Initialized input for task 6018 - hidden by default
+ Initialized input for task 6017 - hidden by default
+ Initialized input for task 6016 - hidden by default
+ Initialized input for task 6015 - hidden by default
+ Initialized input for task 6014 - hidden by default
+ Initialized input for task 6013 - hidden by default
+ Initialized input for task 6012 - hidden by default
+ Initialized input for task 6011 - hidden by default
+ Initialized input for task 6010 - hidden by default
+ Initialized input for task 6009 - hidden by default
+ Initialized input for task 6008 - hidden by default
+ Initialized input for task 6007 - hidden by default
+ Initialized input for task 6006 - hidden by default
+ Initialized input for task 6005 - hidden by default
+ Initialized input for task 6004 - hidden by default
+ Initialized input for task 6003 - hidden by default
+ Initialized input for task 6002 - hidden by default
+ Initialized input for task 6001 - hidden by default
+ Initialized input for task 6000 - hidden by default
+ Initialized input for task 5999 - hidden by default
+ Initialized input for task 5998 - hidden by default
+ Initialized input for task 5997 - hidden by default
+ Initialized input for task 5996 - hidden by default
+ Initialized input for task 5995 - hidden by default
+ Initialized input for task 5994 - hidden by default
+ Initialized input for task 5993 - hidden by default
+ Initialized input for task 5992 - hidden by default
+ Initialized input for task 5991 - hidden by default
+ Initialized input for task 5990 - hidden by default
+ Initialized input for task 5989 - hidden by default
+ Initialized input for task 5988 - hidden by default
+ Initialized input for task 5987 - hidden by default
+ Initialized input for task 5986 - hidden by default
+ Initialized input for task 5985 - hidden by default
+ Initialized input for task 5984 - hidden by default
+ Initialized input for task 5983 - hidden by default
+ Initialized input for task 5982 - hidden by default
+ Initialized input for task 5981 - hidden by default
+ Initialized input for task 5980 - hidden by default
+ Initialized input for task 5979 - hidden by default
+ Initialized input for task 5978 - hidden by default
+ Initialized input for task 5977 - hidden by default
+ Initialized input for task 5976 - hidden by default
+ Initialized input for task 5975 - hidden by default
+ Initialized input for task 5974 - hidden by default
+ Initialized input for task 5973 - hidden by default
+ Initialized input for task 5972 - hidden by default
+ Initialized input for task 5971 - hidden by default
+ Initialized input for task 5970 - hidden by default
+ Initialized input for task 5969 - hidden by default
+ Initialized input for task 5968 - hidden by default
+ Initialized input for task 5967 - hidden by default
+ Initialized input for task 5966 - hidden by default
+ Initialized input for task 5965 - hidden by default
+ Initialized input for task 5964 - hidden by default
+ Initialized input for task 5963 - hidden by default
+ Initialized input for task 5962 - hidden by default
+ Initialized input for task 5961 - hidden by default
+ Initialized input for task 5960 - hidden by default
+ Initialized input for task 5959 - hidden by default
+ Initialized input for task 5958 - hidden by default
+ Initialized input for task 5957 - hidden by default
+ Initialized input for task 5956 - hidden by default
+ Initialized input for task 5955 - hidden by default
+ Initialized input for task 5954 - hidden by default
+ Initialized input for task 5953 - hidden by default
+ Initialized input for task 5952 - hidden by default
+ Initialized input for task 5951 - hidden by default
+ Initialized input for task 5950 - hidden by default
+ Initialized input for task 5949 - hidden by default
+ Initialized input for task 5948 - hidden by default
+ Initialized input for task 5947 - hidden by default
+ Initialized input for task 5946 - hidden by default
+ Initialized input for task 5945 - hidden by default
+ Initialized input for task 5944 - hidden by default
+ Initialized input for task 5943 - hidden by default
+ Initialized input for task 5942 - hidden by default
+ Initialized input for task 5941 - hidden by default
+ Initialized input for task 5940 - hidden by default
+ Initialized input for task 5939 - hidden by default
+ Initialized input for task 5938 - hidden by default
+ Initialized input for task 5937 - hidden by default
+ Initialized input for task 5936 - hidden by default
+ Initialized input for task 5935 - hidden by default
+ Initialized input for task 5934 - hidden by default
+ Initialized input for task 5933 - hidden by default
+ Initialized input for task 5932 - hidden by default
+ Initialized input for task 5931 - hidden by default
+ Initialized input for task 5930 - hidden by default
+ Initialized input for task 5929 - hidden by default
+ Initialized input for task 5928 - hidden by default
+ Initialized input for task 5927 - hidden by default
+ Initialized input for task 5926 - hidden by default
+ Initialized input for task 5925 - hidden by default
+ Initialized input for task 5924 - hidden by default
+ Initialized input for task 5923 - hidden by default
+ Initialized input for task 5922 - hidden by default
+ Initialized input for task 5921 - hidden by default
+ Initialized input for task 5920 - hidden by default
+ Initialized input for task 5919 - hidden by default
+ Initialized input for task 5918 - hidden by default
+ Initialized input for task 5917 - hidden by default
+ Initialized input for task 5916 - hidden by default
+ Initialized input for task 5915 - hidden by default
+ Initialized input for task 5914 - hidden by default
+ Initialized input for task 5913 - hidden by default
+ Initialized input for task 5912 - hidden by default
+ Initialized input for task 5911 - hidden by default
+ Initialized input for task 5910 - hidden by default
+ Initialized input for task 5909 - hidden by default
+ Initialized input for task 5908 - hidden by default
+ Initialized input for task 5907 - hidden by default
+ Initialized input for task 5906 - hidden by default
+ Initialized input for task 5905 - hidden by default
+ Initialized input for task 5904 - hidden by default
+ Initialized input for task 5903 - hidden by default
+ Initialized input for task 5902 - hidden by default
+ Initialized input for task 5901 - hidden by default
+ Initialized input for task 5900 - hidden by default
+ Initialized input for task 5899 - hidden by default
+ Initialized input for task 5898 - hidden by default
+ Initialized input for task 5897 - hidden by default
+ Initialized input for task 5896 - hidden by default
+ Initialized input for task 5895 - hidden by default
+ Initialized input for task 5894 - hidden by default
+ Initialized input for task 5893 - hidden by default
+ Initialized input for task 5892 - hidden by default
+ Initialized input for task 1601 - hidden by default
+ Initialized input for task 1330 - hidden by default
+ Found 243 new time displays to initialize
+ Initialized time display for task 3401
+ Initialized time display for task 6210
+ Initialized time display for task 6214
+ Initialized time display for task 6060
+ Initialized time display for task 6215
+ Initialized time display for task 1612
+ Initialized time display for task 6164
+ Initialized time display for task 6163
+ Initialized time display for task 3721
+ Initialized time display for task 6161
+ Initialized time display for task 3400
+ Initialized time display for task 6059
+ Initialized time display for task 1611
+ Initialized time display for task 3399
+ Initialized time display for task 6058
+ Initialized time display for task 1610
+ Initialized time display for task 3398
+ Initialized time display for task 6214
+ Initialized time display for task 1333
+ Initialized time display for task 6169
+ Initialized time display for task 1609
+ Initialized time display for task 6214
+ Initialized time display for task 3397
+ Initialized time display for task 6214
+ Initialized time display for task 6214
+ Initialized time display for task 1608
+ Initialized time display for task 3702
+ Initialized time display for task 6057
+ Initialized time display for task 6056
+ Initialized time display for task 6212
+ Initialized time display for task 6212
+ Initialized time display for task 6213
+ Initialized time display for task 1607
+ Initialized time display for task 6168
+ Initialized time display for task 3396
+ Initialized time display for task 6162
+ Initialized time display for task 6212
+ Initialized time display for task 6213
+ Initialized time display for task 1606
+ Initialized time display for task 6212
+ Initialized time display for task 3395
+ Initialized time display for task 3394
+ Initialized time display for task 1605
+ Initialized time display for task 6212
+ Initialized time display for task 6210
+ Initialized time display for task 6169
+ Initialized time display for task 3391
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6167
+ Initialized time display for task 6166
+ Initialized time display for task 6168
+ Initialized time display for task 6166
+ Initialized time display for task 4237
+ Initialized time display for task 4239
+ Initialized time display for task 1604
+ Initialized time display for task 1334
+ Initialized time display for task 1335
+ Initialized time display for task 6055
+ Initialized time display for task 1603
+ Initialized time display for task 3393
+ Initialized time display for task 3392
+ Initialized time display for task 6054
+ Initialized time display for task 6053
+ Initialized time display for task 6047
+ Initialized time display for task 1602
+ Initialized time display for task 6052
+ Initialized time display for task 6051
+ Initialized time display for task 6050
+ Initialized time display for task 6049
+ Initialized time display for task 6048
+ Initialized time display for task 6046
+ Initialized time display for task 6045
+ Initialized time display for task 6044
+ Initialized time display for task 6043
+ Initialized time display for task 6042
+ Initialized time display for task 6041
+ Initialized time display for task 6040
+ Initialized time display for task 6039
+ Initialized time display for task 6038
+ Initialized time display for task 6037
+ Initialized time display for task 6036
+ Initialized time display for task 6035
+ Initialized time display for task 6034
+ Initialized time display for task 6033
+ Initialized time display for task 6032
+ Initialized time display for task 6031
+ Initialized time display for task 6030
+ Initialized time display for task 6029
+ Initialized time display for task 6028
+ Initialized time display for task 6027
+ Initialized time display for task 6026
+ Initialized time display for task 6025
+ Initialized time display for task 6024
+history/:354 Initialized time display for task 6023
+history/:354 Initialized time display for task 6022
+history/:354 Initialized time display for task 6021
+history/:354 Initialized time display for task 6020
+history/:354 Initialized time display for task 6019
+history/:354 Initialized time display for task 6018
+history/:354 Initialized time display for task 6017
+history/:354 Initialized time display for task 6016
+history/:354 Initialized time display for task 6015
+history/:354 Initialized time display for task 6014
+history/:354 Initialized time display for task 6013
+history/:354 Initialized time display for task 6012
+history/:354 Initialized time display for task 6011
+history/:354 Initialized time display for task 6010
+history/:354 Initialized time display for task 6009
+history/:354 Initialized time display for task 6008
+history/:354 Initialized time display for task 6007
+history/:354 Initialized time display for task 6006
+history/:354 Initialized time display for task 6005
+history/:354 Initialized time display for task 6004
+history/:354 Initialized time display for task 6003
+history/:354 Initialized time display for task 6002
+history/:354 Initialized time display for task 6001
+history/:354 Initialized time display for task 6000
+history/:354 Initialized time display for task 5999
+history/:354 Initialized time display for task 5998
+history/:354 Initialized time display for task 5997
+history/:354 Initialized time display for task 5996
+history/:354 Initialized time display for task 5995
+history/:354 Initialized time display for task 5994
+history/:354 Initialized time display for task 5993
+history/:354 Initialized time display for task 5992
+history/:354 Initialized time display for task 5991
+history/:354 Initialized time display for task 5990
+history/:354 Initialized time display for task 5989
+history/:354 Initialized time display for task 5988
+history/:354 Initialized time display for task 5987
+history/:354 Initialized time display for task 5986
+history/:354 Initialized time display for task 5985
+history/:354 Initialized time display for task 5984
+history/:354 Initialized time display for task 5983
+history/:354 Initialized time display for task 5982
+history/:354 Initialized time display for task 5981
+history/:354 Initialized time display for task 5980
+history/:354 Initialized time display for task 5979
+history/:354 Initialized time display for task 5978
+history/:354 Initialized time display for task 5977
+history/:354 Initialized time display for task 5976
+history/:354 Initialized time display for task 5975
+history/:354 Initialized time display for task 5974
+history/:354 Initialized time display for task 5973
+history/:354 Initialized time display for task 5972
+history/:354 Initialized time display for task 5971
+history/:354 Initialized time display for task 5970
+history/:354 Initialized time display for task 5969
+history/:354 Initialized time display for task 5968
+history/:354 Initialized time display for task 5967
+history/:354 Initialized time display for task 5966
+history/:354 Initialized time display for task 5965
+history/:354 Initialized time display for task 5964
+history/:354 Initialized time display for task 5963
+history/:354 Initialized time display for task 5962
+history/:354 Initialized time display for task 5961
+history/:354 Initialized time display for task 5960
+history/:354 Initialized time display for task 5959
+history/:354 Initialized time display for task 5958
+history/:354 Initialized time display for task 5957
+history/:354 Initialized time display for task 5956
+history/:354 Initialized time display for task 5955
+history/:354 Initialized time display for task 5954
+history/:354 Initialized time display for task 5953
+history/:354 Initialized time display for task 5952
+history/:354 Initialized time display for task 5951
+history/:354 Initialized time display for task 5950
+history/:354 Initialized time display for task 5949
+history/:354 Initialized time display for task 5948
+history/:354 Initialized time display for task 5947
+history/:354 Initialized time display for task 5946
+history/:354 Initialized time display for task 5945
+history/:354 Initialized time display for task 5944
+history/:354 Initialized time display for task 5943
+history/:354 Initialized time display for task 5942
+history/:354 Initialized time display for task 5941
+history/:354 Initialized time display for task 5940
+history/:354 Initialized time display for task 5939
+history/:354 Initialized time display for task 5938
+history/:354 Initialized time display for task 5937
+history/:354 Initialized time display for task 5936
+history/:354 Initialized time display for task 5935
+history/:354 Initialized time display for task 5934
+history/:354 Initialized time display for task 5933
+history/:354 Initialized time display for task 5932
+history/:354 Initialized time display for task 5931
+history/:354 Initialized time display for task 5930
+history/:354 Initialized time display for task 5929
+history/:354 Initialized time display for task 5928
+history/:354 Initialized time display for task 5927
+history/:354 Initialized time display for task 5926
+history/:354 Initialized time display for task 5925
+history/:354 Initialized time display for task 5924
+history/:354 Initialized time display for task 5923
+history/:354 Initialized time display for task 5922
+history/:354 Initialized time display for task 5921
+history/:354 Initialized time display for task 5920
+history/:354 Initialized time display for task 5919
+history/:354 Initialized time display for task 5918
+history/:354 Initialized time display for task 5917
+history/:354 Initialized time display for task 5916
+history/:354 Initialized time display for task 5915
+history/:354 Initialized time display for task 5914
+history/:354 Initialized time display for task 5913
+history/:354 Initialized time display for task 5912
+history/:354 Initialized time display for task 5911
+history/:354 Initialized time display for task 5910
+history/:354 Initialized time display for task 5909
+history/:354 Initialized time display for task 5908
+history/:354 Initialized time display for task 5907
+history/:354 Initialized time display for task 5906
+history/:354 Initialized time display for task 5905
+history/:354 Initialized time display for task 5904
+history/:354 Initialized time display for task 5903
+history/:354 Initialized time display for task 5902
+history/:354 Initialized time display for task 5901
+history/:354 Initialized time display for task 5900
+history/:354 Initialized time display for task 5899
+history/:354 Initialized time display for task 5898
+history/:354 Initialized time display for task 5897
+history/:354 Initialized time display for task 5896
+history/:354 Initialized time display for task 5895
+history/:354 Initialized time display for task 5894
+history/:354 Initialized time display for task 5893
+history/:354 Initialized time display for task 5892
+history/:354 Initialized time display for task 1601
+history/:354 Initialized time display for task 1330
+history/:357 Input field initialization complete
+history/:531 Clicked time display for task 6214, current time: 1201
+history/:532 Time display element: <span class=​"time-display" data-task-id=​"6214" data-current-time=​"1201" style=​"cursor:​ pointer;​ padding:​ 4px;​ border-radius:​ 3px;​ min-width:​ 60px;​ display:​ none;​" title=​"Click to edit time spent" data-initialized=​"true">​ 1201 min ​</span>​
+history/:553 Switching to edit mode for task 6214 <input type=​"number" class=​"form-control form-control-sm time-edit" data-task-id=​"6214" value=​"80" min=​"0" max=​"9999" step=​"1" style=​"display:​ inline-block;​ width:​ 100px;​ border:​ 1px solid rgb(0, 123, 255)​;​ box-shadow:​ rgba(0, 123, 255, 0.25)​ 0px 0px 0px 0.2rem;​ font-size:​ 0.875rem;​" placeholder=​"Minutes" data-initialized=​"true" data-original-value=​"1201">​
+history/:593 Input focused and selected for task 6214
