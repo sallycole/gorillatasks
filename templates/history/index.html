@@ -246,6 +246,10 @@ function handleTimeDisplayClick(e) {
             input.style.width = '80px';
             input.style.opacity = '1';
             input.style.visibility = 'visible';
+            input.style.position = 'relative';
+            input.style.zIndex = '1000';
+            input.style.backgroundColor = 'white';
+            input.style.border = '1px solid #ced4da';
             
             console.log(`Input after changes: value=${input.value}, display=${input.style.display}, visibility=${input.style.visibility}`);
             
