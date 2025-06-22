@@ -198,45 +198,46 @@
 document.addEventListener('DOMContentLoaded', function() {
     feather.replace();
     
-    // Make time fields editable
-    document.querySelectorAll('.time-display').forEach(function(timeDisplay) {
-        timeDisplay.addEventListener('click', function() {
-            const taskId = this.dataset.taskId;
-            const currentTime = this.dataset.currentTime;
+    // Use event delegation for time editing to work on all pages
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('time-display')) {
+            const timeDisplay = e.target;
+            const taskId = timeDisplay.dataset.taskId;
+            const currentTime = timeDisplay.dataset.currentTime;
             const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
             
             // Only proceed if input exists and we're not already in edit mode
-            if (input && this.style.display !== 'none') {
+            if (input && timeDisplay.style.display !== 'none') {
                 // Reset any styling issues
-                this.style.backgroundColor = '';
-                this.style.color = '';
+                timeDisplay.style.backgroundColor = '';
+                timeDisplay.style.color = '';
                 
                 // Hide display, show input
-                this.style.display = 'none';
+                timeDisplay.style.display = 'none';
                 input.style.display = 'inline-block';
                 input.value = currentTime; // Ensure input has correct value
                 input.focus();
                 input.select();
             }
-        });
+        }
     });
     
-    // Handle saving time changes
-    document.querySelectorAll('.time-edit').forEach(function(input) {
-        // Save on Enter key, cancel on Escape
-        input.addEventListener('keydown', function(e) {
+    // Use event delegation for time input handling
+    document.addEventListener('keydown', function(e) {
+        if (e.target.classList.contains('time-edit')) {
             if (e.key === 'Enter') {
-                saveTimeChange(this);
+                saveTimeChange(e.target);
             } else if (e.key === 'Escape') {
-                cancelTimeEdit(this);
+                cancelTimeEdit(e.target);
             }
-        });
-        
-        // Save on blur (clicking away)
-        input.addEventListener('blur', function() {
-            saveTimeChange(this);
-        });
+        }
     });
+    
+    document.addEventListener('blur', function(e) {
+        if (e.target.classList.contains('time-edit')) {
+            saveTimeChange(e.target);
+        }
+    }, true);
     
     function saveTimeChange(input) {
         const taskId = input.dataset.taskId;
