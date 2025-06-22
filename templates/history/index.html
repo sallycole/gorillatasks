@@ -405,11 +405,10 @@ function handlePageNavigation() {
 }
 
 // Handle browser back/forward navigation
-    window.addEventListener('popstate', function() {
-        setTimeout(() => {
-            initializePage();
-        }, 100);
-    });
-}
+window.addEventListener('popstate', function() {
+    setTimeout(() => {
+        initializePage();
+    }, 100);
+});
 </script>
 {% endblock %}
