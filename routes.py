@@ -1322,24 +1322,42 @@ def update_task_time(task_id):
         if new_time is None or new_time < 0:
             return jsonify({'status': 'error', 'message': 'Invalid time value'}), 400
         
-        # Get the student task
+        logger.info(f"Updating task {task_id} time to {new_time} minutes for user {current_user.id}")
+        
+        # Get the student task with explicit locking
         student_task = StudentTask.query.filter_by(
             student_id=current_user.id,
             task_id=task_id
-        ).first_or_404()
+        ).with_for_update().first_or_404()
+        
+        old_time = student_task.time_spent_minutes
+        logger.info(f"Current time in database: {old_time}, updating to: {new_time}")
         
         # Update the time spent
         student_task.time_spent_minutes = int(new_time)
+        
+        # Flush to ensure the change is pending
+        db.session.flush()
+        
+        # Commit the transaction
         db.session.commit()
+        
+        # Verify the update by querying again
+        updated_task = StudentTask.query.filter_by(
+            student_id=current_user.id,
+            task_id=task_id
+        ).first()
+        
+        logger.info(f"Task {task_id} time updated successfully from {old_time} to {updated_task.time_spent_minutes}")
         
         return jsonify({
             'status': 'success', 
             'message': 'Time updated successfully',
-            'new_time': student_task.time_spent_minutes
+            'new_time': updated_task.time_spent_minutes
         })
     except Exception as e:
         db.session.rollback()
-        logger.error(f"Error updating task time: {str(e)}")
+        logger.error(f"Error updating task time for task {task_id}: {str(e)}", exc_info=True)
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @history_bp.route('/')
