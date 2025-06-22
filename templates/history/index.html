@@ -162,7 +162,7 @@ The code has been updated to include debugging logs and ensure proper UI updates
             <ul class="pagination justify-content-center">
                 {% if has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('history.index', page=page-1) }}">Previous</a>
+                    <a class="page-link" href="{{ url_for('history.index', page=page-1) }}" onclick="handlePageNavigation()">Previous</a>
                 </li>
                 {% endif %}
 
@@ -172,7 +172,7 @@ The code has been updated to include debugging logs and ensure proper UI updates
 
                 {% if has_more %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for('history.index', page=page+1) }}">Next</a>
+                    <a class="page-link" href="{{ url_for('history.index', page=page+1) }}" onclick="handlePageNavigation()">Next</a>
                 </li>
                 {% endif %}
             </ul>
@@ -180,7 +180,7 @@ The code has been updated to include debugging logs and ensure proper UI updates
 
         {% if has_more %}
         <div class="text-center mt-3">
-            <a href="{{ url_for('history.index', page=page+1) }}" class="btn btn-outline-primary">
+            <a href="{{ url_for('history.index', page=page+1) }}" class="btn btn-outline-primary" onclick="handlePageNavigation()">
                 <i data-feather="chevron-down"></i> Show More Days
             </a>
         </div>
@@ -198,48 +198,68 @@ The code has been updated to include debugging logs and ensure proper UI updates
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    initializePage();
+});
+
+function initializePage() {
     feather.replace();
 
+    // Remove any existing event listeners to prevent duplicates
+    document.removeEventListener('click', handleTimeDisplayClick);
+    document.removeEventListener('keydown', handleTimeInputKeydown);
+    document.removeEventListener('blur', handleTimeInputBlur, true);
+
     // Use event delegation for time editing to work on all pages
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('time-display')) {
-            const timeDisplay = e.target;
-            const taskId = timeDisplay.dataset.taskId;
-            const currentTime = timeDisplay.dataset.currentTime;
-            const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
+    document.addEventListener('click', handleTimeDisplayClick);
+    document.addEventListener('keydown', handleTimeInputKeydown);
+    document.addEventListener('blur', handleTimeInputBlur, true);
+}
 
-            // Only proceed if input exists and we're not already in edit mode
-            if (input && timeDisplay.style.display !== 'none') {
-                // Reset any styling issues
-                timeDisplay.style.backgroundColor = '';
-                timeDisplay.style.color = '';
+function handleTimeDisplayClick(e) {
+    if (e.target.classList.contains('time-display')) {
+        const timeDisplay = e.target;
+        const taskId = timeDisplay.dataset.taskId;
+        const currentTime = timeDisplay.dataset.currentTime;
+        const input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
 
-                // Hide display, show input
-                timeDisplay.style.display = 'none';
-                input.style.display = 'inline-block';
-                input.value = currentTime; // Ensure input has correct value
-                input.focus();
-                input.select();
-            }
+        console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
+
+        // Only proceed if input exists and we're not already in edit mode
+        if (input && timeDisplay.style.display !== 'none') {
+            console.log(`Switching to edit mode for task ${taskId}`);
+            
+            // Reset any styling issues
+            timeDisplay.style.backgroundColor = '';
+            timeDisplay.style.color = '';
+
+            // Hide display, show input
+            timeDisplay.style.display = 'none';
+            input.style.display = 'inline-block';
+            input.value = currentTime; // Ensure input has correct value
+            input.focus();
+            input.select();
+        } else {
+            console.log(`Cannot edit task ${taskId}: input not found or already in edit mode`);
         }
-    });
+    }
+}
 
-    // Use event delegation for time input handling
-    document.addEventListener('keydown', function(e) {
-        if (e.target.classList.contains('time-edit')) {
-            if (e.key === 'Enter') {
-                saveTimeChange(e.target);
-            } else if (e.key === 'Escape') {
-                cancelTimeEdit(e.target);
-            }
-        }
-    });
-
-    document.addEventListener('blur', function(e) {
-        if (e.target.classList.contains('time-edit')) {
+function handleTimeInputKeydown(e) {
+    if (e.target.classList.contains('time-edit')) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
             saveTimeChange(e.target);
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            cancelTimeEdit(e.target);
         }
-    }, true);
+    }
+}
+
+function handleTimeInputBlur(e) {
+    if (e.target.classList.contains('time-edit')) {
+        saveTimeChange(e.target);
+    }
 
     function saveTimeChange(input) {
         const taskId = input.dataset.taskId;
@@ -322,27 +342,73 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateDailyTotal(taskId, oldTime, newTime) {
-        // Find the day container for this task
-        const taskRow = document.querySelector(`[data-task-id="${taskId}"]`);
-        if (!taskRow) return;
+        // Find the task row
+        const taskRow = document.querySelector(`tr[data-task-id="${taskId}"]`);
+        if (!taskRow) {
+            console.log(`Task row not found for task ${taskId}`);
+            return;
+        }
 
-        const dayContainer = taskRow.closest('.day-container');
-        if (!dayContainer) return;
+        // Find the accordion item containing this task
+        const accordionItem = taskRow.closest('.accordion-item');
+        if (!accordionItem) {
+            console.log(`Accordion item not found for task ${taskId}`);
+            return;
+        }
 
-        const totalTimeElement = dayContainer.querySelector('.total-time');
-        if (!totalTimeElement) return;
+        // Find the total time display in the accordion header
+        const totalTimeElement = accordionItem.querySelector('.accordion-button .text-info');
+        if (!totalTimeElement) {
+            console.log(`Total time element not found for task ${taskId}`);
+            return;
+        }
 
-        // Get current total and calculate difference
-        const currentTotalText = totalTimeElement.textContent;
-        const currentTotal = parseInt(currentTotalText.match(/(\d+)/)[1]) || 0;
-        const difference = newTime - oldTime;
+        // Parse current total from the display text (e.g., "1h 25m" or "45m")
+        const currentTotalText = totalTimeElement.textContent.trim();
+        let currentTotal = 0;
+        
+        // Extract hours and minutes
+        const hourMatch = currentTotalText.match(/(\d+)h/);
+        const minuteMatch = currentTotalText.match(/(\d+)m/);
+        
+        if (hourMatch) {
+            currentTotal += parseInt(hourMatch[1]) * 60;
+        }
+        if (minuteMatch) {
+            currentTotal += parseInt(minuteMatch[1]);
+        }
+
+        const difference = (newTime || 0) - (oldTime || 0);
         const newTotal = Math.max(0, currentTotal + difference);
 
         console.log(`Updating daily total: ${currentTotal} + (${newTime} - ${oldTime}) = ${newTotal}`);
 
         // Update the total display
-        totalTimeElement.textContent = `${newTotal} minutes total`;
+        if (newTotal >= 60) {
+            const hours = Math.floor(newTotal / 60);
+            const minutes = newTotal % 60;
+            totalTimeElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${hours}h ${minutes}m`;
+        } else {
+            totalTimeElement.innerHTML = `<i data-feather="clock" class="feather-sm"></i> ${newTotal}m`;
+        }
+        
+        // Re-render the feather icon
+        feather.replace();
     }
+
+    function handlePageNavigation() {
+        // Small delay to ensure new page content is loaded
+        setTimeout(() => {
+            initializePage();
+        }, 100);
+    }
+
+    // Handle browser back/forward navigation
+    window.addEventListener('popstate', function() {
+        setTimeout(() => {
+            initializePage();
+        }, 100);
+    });
 });
 </script>
 {% endblock %}
