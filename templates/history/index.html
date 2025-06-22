@@ -403,96 +403,82 @@ function showError(message) {
 // Time editing functions remain the same
 function handleTimeDisplayClick(e) {
     if (e.target.classList.contains('time-display')) {
-        const timeDisplay = e.target;
-        const taskId = timeDisplay.dataset.taskId;
-        const currentTime = timeDisplay.dataset.currentTime;
-        let input = document.querySelector(`.time-edit[data-task-id="${taskId}"]`);
-
+        const clickedTimeDisplay = e.target;
+        const taskId = clickedTimeDisplay.dataset.taskId;
+        const currentTime = clickedTimeDisplay.dataset.currentTime;
+        
         console.log(`Clicked time display for task ${taskId}, current time: ${currentTime}`);
-        console.log(`Time display element:`, timeDisplay);
+        console.log(`Clicked time display element:`, clickedTimeDisplay);
 
-        // If input doesn't exist, try to find it in the same row
+        // Find the input in the same row as the clicked time display
+        const row = clickedTimeDisplay.closest('tr');
+        if (!row) {
+            console.error(`No row found for clicked time display of task ${taskId}`);
+            return;
+        }
+        
+        const input = row.querySelector('.time-edit');
         if (!input) {
-            const row = timeDisplay.closest('tr');
-            if (row) {
-                input = row.querySelector('.time-edit');
-                if (input) {
-                    console.log(`Found input via row traversal for task ${taskId}`, input);
-                    // Ensure the input has the correct task ID
-                    input.dataset.taskId = taskId;
-                } else {
-                    console.error(`No input found in row for task ${taskId}`);
-                    console.log(`Row HTML:`, row.innerHTML);
-                }
-            } else {
-                console.error(`No row found for task ${taskId}`);
-            }
+            console.error(`No input found in row for task ${taskId}`);
+            console.log(`Row HTML:`, row.innerHTML);
+            return;
         }
 
-        if (input) {
-            console.log(`Switching to edit mode for task ${taskId}`, input);
+        console.log(`Switching to edit mode for task ${taskId}`, input);
 
-            // Ensure input is properly initialized if it wasn't before
-            if (!input.hasAttribute('data-initialized')) {
-                input.setAttribute('data-initialized', 'true');
-                input.setAttribute('type', 'number');
-                input.setAttribute('min', '0');
-                input.setAttribute('max', '9999');
-                input.setAttribute('step', '1');
-                input.classList.add('form-control', 'form-control-sm');
-                console.log(`Late initialization of input for task ${taskId}`);
-            }
-
-            // Reset time display styling but keep it visible initially
-            timeDisplay.style.backgroundColor = '';
-            timeDisplay.style.color = '';
-            
-            // Set input value and ensure it's properly configured
-            input.value = currentTime;
-            input.setAttribute('data-original-value', currentTime);
-            input.dataset.taskId = taskId; // Ensure task ID is set
-
-            // Show and configure input with minimal styling first
-            input.style.display = 'inline-block';
-            input.style.width = '100px';
-            input.style.border = '1px solid #007bff';
-            input.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
-            input.style.fontSize = '0.875rem';
-
-            // Force reflow to ensure styles are applied
-            input.offsetHeight;
-            
-            // Now hide time display after input is shown
-            timeDisplay.style.display = 'none';
-            
-            // Force focus after a short delay to ensure visibility
-            setTimeout(() => {
-                try {
-                    input.focus();
-                    input.select();
-                    console.log(`Input focused and selected for task ${taskId}`);
-                } catch (error) {
-                    console.error(`Error focusing input for task ${taskId}:`, error);
-                    
-                    // If focusing failed, restore the time display
-                    timeDisplay.style.display = 'inline';
-                    input.style.display = 'none';
-                    input.style.boxShadow = '';
-                    input.style.border = '1px solid #ced4da';
-                }
-            }, 100);
-        } else {
-            console.error(`Input not found for task ${taskId} even after row traversal`);
-            console.log('Time display attributes:', timeDisplay.attributes);
-            console.log('Available inputs:', document.querySelectorAll('.time-edit'));
-            console.log('All time displays:', document.querySelectorAll('.time-display'));
-            
-            // Try to find the task by checking all time displays and their IDs
-            const allTimeDisplays = document.querySelectorAll('.time-display');
-            allTimeDisplays.forEach((display, index) => {
-                console.log(`Time display ${index}: taskId=${display.dataset.taskId}, text="${display.textContent.trim()}"`);
-            });
+        // Ensure input is properly initialized if it wasn't before
+        if (!input.hasAttribute('data-initialized')) {
+            input.setAttribute('data-initialized', 'true');
+            input.setAttribute('type', 'number');
+            input.setAttribute('min', '0');
+            input.setAttribute('max', '9999');
+            input.setAttribute('step', '1');
+            input.classList.add('form-control', 'form-control-sm');
+            console.log(`Late initialization of input for task ${taskId}`);
         }
+
+        // Reset time display styling but keep it visible initially
+        clickedTimeDisplay.style.backgroundColor = '';
+        clickedTimeDisplay.style.color = '';
+        
+        // Set input value and ensure it's properly configured
+        input.value = currentTime;
+        input.setAttribute('data-original-value', currentTime);
+        input.dataset.taskId = taskId; // Ensure task ID is set
+        
+        // Store reference to the specific time display we're editing
+        input.setAttribute('data-editing-display-id', `${taskId}_${Date.now()}`);
+        clickedTimeDisplay.setAttribute('data-display-id', input.getAttribute('data-editing-display-id'));
+
+        // Show and configure input with minimal styling first
+        input.style.display = 'inline-block';
+        input.style.width = '100px';
+        input.style.border = '1px solid #007bff';
+        input.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
+        input.style.fontSize = '0.875rem';
+
+        // Force reflow to ensure styles are applied
+        input.offsetHeight;
+        
+        // Now hide the specific time display that was clicked
+        clickedTimeDisplay.style.display = 'none';
+        
+        // Force focus after a short delay to ensure visibility
+        setTimeout(() => {
+            try {
+                input.focus();
+                input.select();
+                console.log(`Input focused and selected for task ${taskId}`);
+            } catch (error) {
+                console.error(`Error focusing input for task ${taskId}:`, error);
+                
+                // If focusing failed, restore the specific time display
+                clickedTimeDisplay.style.display = 'inline';
+                input.style.display = 'none';
+                input.style.boxShadow = '';
+                input.style.border = '1px solid #ced4da';
+            }
+        }, 100);
     }
 }
 
@@ -517,7 +503,18 @@ function handleTimeInputBlur(e) {
 function saveTimeChange(input) {
     const taskId = input.dataset.taskId;
     const newTime = parseInt(input.value);
-    const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
+    
+    // Find the specific time display being edited
+    const displayId = input.getAttribute('data-editing-display-id');
+    const timeDisplay = displayId ? 
+        document.querySelector(`.time-display[data-display-id="${displayId}"]`) :
+        input.closest('tr').querySelector('.time-display');
+    
+    if (!timeDisplay) {
+        console.error(`Could not find time display for task ${taskId}`);
+        return;
+    }
+    
     const originalTime = parseInt(timeDisplay.dataset.currentTime) || 0;
 
     console.log(`Saving time change for task ${taskId}: ${originalTime} -> ${newTime}`);
@@ -570,6 +567,10 @@ function saveTimeChange(input) {
         alert('Error updating time. Please try again.');
     })
     .finally(() => {
+        // Clean up the editing references
+        input.removeAttribute('data-editing-display-id');
+        timeDisplay.removeAttribute('data-display-id');
+        
         // Reset input state
         input.disabled = false;
         input.style.opacity = '1';
@@ -577,7 +578,7 @@ function saveTimeChange(input) {
         input.style.boxShadow = '';
         input.style.border = '1px solid #ced4da';
         
-        // Ensure time display is properly shown
+        // Ensure the specific time display is properly shown
         timeDisplay.style.display = 'inline';
         timeDisplay.style.opacity = '1';
         
@@ -587,19 +588,28 @@ function saveTimeChange(input) {
 
 function cancelTimeEdit(input) {
     const taskId = input.dataset.taskId;
-    const timeDisplay = document.querySelector(`.time-display[data-task-id="${taskId}"]`);
+    
+    // Find the specific time display being edited
+    const displayId = input.getAttribute('data-editing-display-id');
+    const timeDisplay = displayId ? 
+        document.querySelector(`.time-display[data-display-id="${displayId}"]`) :
+        input.closest('tr').querySelector('.time-display');
 
     if (timeDisplay) {
         input.value = timeDisplay.dataset.currentTime;
         timeDisplay.style.backgroundColor = '';
         timeDisplay.style.color = '';
         
+        // Clean up the editing references
+        input.removeAttribute('data-editing-display-id');
+        timeDisplay.removeAttribute('data-display-id');
+        
         // Reset input
         input.style.display = 'none';
         input.style.boxShadow = '';
         input.style.border = '1px solid #ced4da';
         
-        // Ensure time display is properly shown
+        // Ensure the specific time display is properly shown
         timeDisplay.style.display = 'inline';
         timeDisplay.style.opacity = '1';
         
